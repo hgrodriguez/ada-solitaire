@@ -1,0 +1,15 @@
+with "aunit.gpr";
+
+project Solitaire is
+
+   for Source_Dirs use ("src");
+   for Object_Dir use "obj";
+   for Main use ("solitaire.adb");
+
+   package Ide is
+      for Vcs_Kind use "git";
+      for Vcs_Repository_Root use "https://github.com/hgrodriguez/ada-solitaire";
+   end Ide;
+
+end Solitaire;
+

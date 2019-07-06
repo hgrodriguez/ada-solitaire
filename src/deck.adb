@@ -1,13 +1,16 @@
 package body Deck is
 
 
-   function Ctor return Deck_Type is
-      DT : Deck_Type;
+   function Is_Red (a_suit : Suit_Type) return Boolean is
    begin
-      return DT;
-   end Ctor;
-   
-begin
-   null;
+      return a_suit = Diamond or else a_suit = Heart;
+   end Is_Red;
 
+   function Is_Black (a_suit : Suit_Type) return Boolean is
+   begin
+      return not Is_Red(a_suit);
+   end Is_Black;
+
+
+   
 end Deck;

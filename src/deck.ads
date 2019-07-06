@@ -1,12 +1,25 @@
 package Deck is
 
-   type Deck_Type is private;
+   type Suit_Type is (Diamond,
+                      Club,
+                      Heart,
+                      Spade);
+
+   type Rank_Type is (Ace,
+                      Two,
+                      Three,
+                      Four,
+                      Five,
+                      Six,
+                      Seven,
+                      Eight,
+                      Nine,
+                      Ten,
+                      Jack,
+                      Queen,
+                      King);
    
-   function Ctor return Deck_Type;
-   
-private
-   type Deck_Type is record
-      null;
-   end record;
+   function Is_Red (a_suit : Suit_Type) return Boolean;
+   function Is_Black (a_suit : Suit_Type) return Boolean;
 
 end Deck;

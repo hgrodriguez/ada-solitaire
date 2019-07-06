@@ -21,7 +21,7 @@ package body Deck.Test is
       -- AUNit.Assertions.Assert ( DT /= null, "Wrong image for 0");
    end Test_Ctor;
 
-      package Caller is new AUnit.Test_Caller (Deck.Test.Test);
+   package Caller is new AUnit.Test_Caller (Deck.Test.Test);
 
    function Suite return AUnit.Test_Suites.Access_Test_Suite is
       Ret : constant AUnit.Test_Suites.Access_Test_Suite := new AUnit.Test_Suites.Test_Suite;

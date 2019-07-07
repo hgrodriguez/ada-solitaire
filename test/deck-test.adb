@@ -11,38 +11,29 @@ package body Deck.Test is
 
    procedure Test_Is_Red_Diamond(T : in out Test) is
       pragma Unreferenced (T);
-      is_red : Boolean;
-      
    begin
-      is_red := Deck.Is_Red(Diamond);
-      AUNit.Assertions.Assert (is_red, "Diamond should be red!");
+      AUNit.Assertions.Assert (Deck.Is_Red(Diamond), "Diamond should be red!");
    end Test_Is_Red_Diamond;
 
    procedure Test_Is_Red_Heart(T : in out Test) is
       pragma Unreferenced (T);
-      is_red : Boolean;
       
    begin
-      is_red := Deck.Is_Red(Heart);
-      AUNit.Assertions.Assert (is_red, "Heart should be red!");
+      AUNit.Assertions.Assert (Deck.Is_Red(Heart), "Heart should be red!");
    end Test_Is_Red_Heart;
 
    procedure Test_Is_Black_Clubs(T : in out Test) is
       pragma Unreferenced (T);
-      is_black : Boolean;
       
    begin
-      is_black := Deck.Is_Black(Club);
-      AUNit.Assertions.Assert (is_black, "Club should be black!");
+      AUNit.Assertions.Assert (Deck.Is_Black(Club), "Club should be black!");
    end Test_Is_Black_Clubs;
 
    procedure Test_Is_Black_Spade(T : in out Test) is
       pragma Unreferenced (T);
-      is_black : Boolean;
       
    begin
-      is_black := Deck.Is_Black(Spade);
-      AUNit.Assertions.Assert (is_black, "Spade should be red!");
+      AUNit.Assertions.Assert (Deck.Is_Black(Spade), "Spade should be red!");
    end Test_Is_Black_Spade;
 
    package Caller is new AUnit.Test_Caller (Deck.Test.Test);

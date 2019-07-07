@@ -13,6 +13,16 @@ package Card is
    function Get_Rank (A_Card : Card_Type) return Deck.Rank_Type;
    function Get_Suit (A_Card : Card_Type) return Deck.Suit_Type;
    
+   -- rank comparison functions
+   function Rank_Is_Equal_To (c1 : Card_Type; c2 : Card_Type) return Boolean;
+   -- semantics: c1.Rank > c2.Rank
+   function Rank_Is_Higher_Than (c1 : Card_Type; c2 : Card_Type) return Boolean;
+   -- semantics: c1.Rank < c2.Rank
+   function Rank_Is_Lower_Than (c1 : Card_Type; c2 : Card_Type) return Boolean;
+   
+   -- suit comparison functions
+   function Suit_Is_Equal_To (c1 : Card_Type; c2 : Card_Type) return Boolean;
+   
 private
    type Card_Type is tagged
       record

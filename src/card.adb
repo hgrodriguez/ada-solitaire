@@ -1,9 +1,10 @@
 package body Card is
 
-   function Ctor(A_Rank : in Deck.Rank_Type; A_Suit : in Deck.Suit_Type) return Card_Type is
-      
+   function Ctor (Rank : in Deck.Rank_Type;
+                  Suit : in Deck.Suit_Type)
+                  return Card_Type is
    begin
-      return (A_Rank, A_Suit);
+      return (Rank, Suit);
    end Ctor;
    
    function Get_Rank (A_Card : Card_Type) return Deck.Rank_Type is

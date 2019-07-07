@@ -21,9 +21,9 @@ package Deck is
                       Jack,
                       Queen,
                       King);
-   
+
+   -- some functions to check attributes
    function Is_Red (a_suit : Suit_Type) return Boolean;
-   
    function Is_Black (a_suit : Suit_Type) return Boolean;
 
 end Deck;

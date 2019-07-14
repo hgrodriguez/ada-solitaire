@@ -3,8 +3,8 @@ with Deck; use Deck;
 package body Card is
 
    function Construct (Rank : in Deck.Rank_Type;
-                  Suit : in Deck.Suit_Type)
-                  return Card_Type is
+                       Suit : in Deck.Suit_Type)
+                       return Card_Type is
    begin
       return (Rank, Suit);
    end Construct;
@@ -24,18 +24,24 @@ package body Card is
       return c1.Get_Rank = c2.Get_Rank;
    end Rank_Is_Equal_To;
 
-   function Rank_Is_Higher_Than (c1 : Card_Type; c2 : Card_Type) return Boolean is
+   function Rank_Is_Higher_Than (c1 : Card_Type;
+                                 c2 : Card_Type)
+                                 return Boolean is
    begin
       return c1.Get_Rank > c2.Get_Rank;
    end Rank_Is_Higher_Than;
    
-   function Rank_Is_Lower_Than (c1 : Card_Type; c2 : Card_Type) return Boolean is
+   function Rank_Is_Lower_Than (c1 : Card_Type;
+                                c2 : Card_Type)
+                                return Boolean is
    begin
       return c1.Rank < c2.Rank;
    end Rank_Is_Lower_Than;
 
 
-   function Suit_Is_Equal_To (c1 : Card_Type; c2 : Card_Type) return Boolean is
+   function Suit_Is_Equal_To (c1 : Card_Type;
+                              c2 : Card_Type)
+                              return Boolean is
    begin
       return c1.Get_Suit = c2.Get_Suit;
    end Suit_Is_Equal_To;

@@ -20,7 +20,7 @@ package body Card.Test is
       c    : Card.Card_Type;
       
    begin
-      c := Card.Ctor (rank, suit);
+      c := Card.Construct (rank, suit);
       AUNit.Assertions.Assert (c.Get_Rank = rank,
                                "Rank should be: " & rank'Image &
                                ", but is:" & c.Get_Rank'Image);
@@ -33,7 +33,7 @@ package body Card.Test is
       c    : Card.Card_Type;
       
    begin
-      c := Card.Ctor (rank, suit);
+      c := Card.Construct (rank, suit);
       AUNit.Assertions.Assert (c.Get_Suit = suit,
                                "Suit should be: " & suit'Image &
                                ", but is:" & c.Get_Suit'Image);
@@ -50,8 +50,8 @@ package body Card.Test is
       pragma Unreferenced (T);
       rank : constant Deck.Rank_Type := Deck.Ace;
       suit : constant Deck.Suit_Type := Deck.Diamond;
-      c1   : Card.Card_Type := Card.Ctor (rank, suit);
-      c2   : Card.Card_Type := Card.Ctor (rank, suit);
+      c1   : Card.Card_Type := Card.Construct (rank, suit);
+      c2   : Card.Card_Type := Card.Construct (rank, suit);
       
    begin
       AUNit.Assertions.Assert (c1.Rank_Is_Equal_To (c2),
@@ -65,8 +65,8 @@ package body Card.Test is
       rank1 : constant Deck.Rank_Type := Deck.Ace;
       rank2 : constant Deck.Rank_Type := Deck.Ace;
       suit  : constant Deck.Suit_Type := Deck.Diamond;
-      c1    : Card.Card_Type := Card.Ctor (rank1, suit);
-      c2    : Card.Card_Type := Card.Ctor (rank2, suit);
+      c1    : Card.Card_Type := Card.Construct (rank1, suit);
+      c2    : Card.Card_Type := Card.Construct (rank2, suit);
       
    begin
       AUNit.Assertions.Assert (c1.Rank_Is_Equal_To (c2),
@@ -80,8 +80,8 @@ package body Card.Test is
       rank_low  : constant Deck.Rank_Type := Deck.Ace;
       rank_high : constant Deck.Rank_Type := Deck.King;
       suit      : constant Deck.Suit_Type := Deck.Diamond;
-      c1        : Card.Card_Type := Card.Ctor (rank_high, suit);
-      c2        : Card.Card_Type := Card.Ctor (rank_low, suit);
+      c1        : Card.Card_Type := Card.Construct (rank_high, suit);
+      c2        : Card.Card_Type := Card.Construct (rank_low, suit);
       
    begin
       AUNit.Assertions.Assert (c1.Rank_Is_Higher_Than (c2),
@@ -95,8 +95,8 @@ package body Card.Test is
       rank_low  : constant Deck.Rank_Type := Deck.Ace;
       rank_high : constant Deck.Rank_Type := Deck.King;
       suit      : constant Deck.Suit_Type := Deck.Diamond;
-      c1        : Card.Card_Type := Card.Ctor (rank_low, suit);
-      c2        : Card.Card_Type := Card.Ctor (rank_high, suit);
+      c1        : Card.Card_Type := Card.Construct (rank_low, suit);
+      c2        : Card.Card_Type := Card.Construct (rank_high, suit);
       
    begin
       AUNit.Assertions.Assert (not c1.Rank_Is_Higher_Than (c2),
@@ -110,8 +110,8 @@ package body Card.Test is
       rank_low  : constant Deck.Rank_Type := Deck.Ace;
       rank_high : constant Deck.Rank_Type := Deck.King;
       suit      : constant Deck.Suit_Type := Deck.Diamond;
-      c1        : Card.Card_Type := Card.Ctor (rank_low, suit);
-      c2        : Card.Card_Type := Card.Ctor (rank_high, suit);
+      c1        : Card.Card_Type := Card.Construct (rank_low, suit);
+      c2        : Card.Card_Type := Card.Construct (rank_high, suit);
       
    begin
       AUNit.Assertions.Assert (c1.Rank_Is_Lower_Than (c2),
@@ -125,8 +125,8 @@ package body Card.Test is
       rank_low  : constant Deck.Rank_Type := Deck.Ace;
       rank_high : constant Deck.Rank_Type := Deck.King;
       suit      : constant Deck.Suit_Type := Deck.Diamond;
-      c1        : Card.Card_Type := Card.Ctor (rank_high, suit);
-      c2        : Card.Card_Type := Card.Ctor (rank_low, suit);
+      c1        : Card.Card_Type := Card.Construct (rank_high, suit);
+      c2        : Card.Card_Type := Card.Construct (rank_low, suit);
       
    begin
       AUNit.Assertions.Assert (not c1.Rank_Is_Lower_Than (c2),
@@ -147,8 +147,8 @@ package body Card.Test is
       pragma Unreferenced (T);
       rank : constant Deck.Rank_Type := Deck.Ace;
       suit : constant Deck.Suit_Type := Deck.Diamond;
-      c1   : Card.Card_Type := Card.Ctor (rank, suit);
-      c2   : Card.Card_Type := Card.Ctor (rank, suit);
+      c1   : Card.Card_Type := Card.Construct (rank, suit);
+      c2   : Card.Card_Type := Card.Construct (rank, suit);
       
    begin
       AUNit.Assertions.Assert (c1.Suit_Is_Equal_To (c2),
@@ -162,8 +162,8 @@ package body Card.Test is
       rank  : constant Deck.Rank_Type := Deck.Ace;
       suit1 : constant Deck.Suit_Type := Deck.Diamond;
       suit2 : constant Deck.Suit_Type := Deck.Diamond;
-      c1    : Card.Card_Type := Card.Ctor (rank, suit1);
-      c2    : Card.Card_Type := Card.Ctor (rank, suit2);
+      c1    : Card.Card_Type := Card.Construct (rank, suit1);
+      c2    : Card.Card_Type := Card.Construct (rank, suit2);
       
    begin
       AUNit.Assertions.Assert (c1.Suit_Is_Equal_To (c2),
@@ -171,6 +171,30 @@ package body Card.Test is
                                  " should be equal to " &
                                  "c2.Suit:" & c2.Get_Suit'Image);
    end Suit_Is_Equal_To_Using_Equal_Suit;
+   
+   procedure Suit_Is_Red_Diamond (T : in out Test) is
+      pragma Unreferenced (T);
+      rank : constant Deck.Rank_Type := Deck.Ace;
+      suit : constant Deck.Suit_Type := Deck.Diamond;
+      c    : Card.Card_Type := Card.Construct (rank, suit);
+      
+   begin
+      AUNit.Assertions.Assert (c.Suit_Is_Red,
+                                 "c.Suit:" & c.Get_Suit'Image &
+                                 " should be red");
+   end Suit_Is_Red_Diamond;
+   
+   procedure Suit_Is_Red_Heart (T : in out Test) is
+      pragma Unreferenced (T);
+      rank : constant Deck.Rank_Type := Deck.Ace;
+      suit : constant Deck.Suit_Type := Deck.Heart;
+      c    : Card.Card_Type := Card.Construct (rank, suit);
+      
+   begin
+      AUNit.Assertions.Assert (c.Suit_Is_Red,
+                                 "c.Suit:" & c.Get_Suit'Image &
+                                 " should be red");
+   end Suit_Is_Red_Heart;
    
    
    
@@ -221,7 +245,13 @@ package body Card.Test is
       Ret.Add_Test (Caller.
                       Create("Card.Suit_Is_Equal_To_Using_Equal_Suit",
                         Suit_Is_Equal_To_Using_Equal_Suit'Access));
-
+      Ret.Add_Test (Caller.
+                      Create("Card.Suit_Is_Red_Diamond",
+                        Suit_Is_Red_Diamond'Access));
+      Ret.Add_Test (Caller.
+                      Create("Card.Suit_Is_Red_Heart",
+                        Suit_Is_Red_Heart'Access));
+      
       return Ret;
    end Suite;
 

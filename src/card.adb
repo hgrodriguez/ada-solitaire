@@ -2,12 +2,12 @@ with Deck; use Deck;
 
 package body Card is
 
-   function Ctor (Rank : in Deck.Rank_Type;
+   function Construct (Rank : in Deck.Rank_Type;
                   Suit : in Deck.Suit_Type)
                   return Card_Type is
    begin
       return (Rank, Suit);
-   end Ctor;
+   end Construct;
    
    function Get_Rank (A_Card : Card_Type) return Deck.Rank_Type is
    begin
@@ -39,6 +39,11 @@ package body Card is
    begin
       return c1.Get_Suit = c2.Get_Suit;
    end Suit_Is_Equal_To;
+   
+   function Suit_Is_Red (c: Card_Type) return Boolean is
+   begin
+      return Deck.Is_Red (c.Get_Suit);
+   end Suit_Is_Red;
    
 
 end Card;

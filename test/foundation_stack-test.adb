@@ -70,13 +70,13 @@ package body Foundation_Stack.Test is
    
    procedure Newly_Constucted_Accepts_Ace(T : in out Test) is
       pragma Unreferenced (T);
-      suit  : Deck.Suit_Type := Deck.Spade;
-      stack : Foundation_Stack.Stack_Type := Foundation_Stack.Construct (suit);
-      card  : Card.Card_Type;
+      suit   : Deck.Suit_Type := Deck.Spade;
+      stack  : Foundation_Stack.Stack_Type := Foundation_Stack.Construct (suit);
+      a_card  : Card.Card_Type;
    begin
-      card := Card.Construct(Deck.Ace, suit);
-      AUNit.Assertions.Assert (stack.Accepts = card,
-                               "should accept: " & card'Image &
+      a_card := Card.Construct(Deck.Ace, suit);
+      AUNit.Assertions.Assert (stack.Accepts = a_card,
+                               "should accept: " & a_card'Image &
                                  "but accepts: " & stack.Accepts'Image);
    end Newly_Constucted_Accepts_Ace;
    

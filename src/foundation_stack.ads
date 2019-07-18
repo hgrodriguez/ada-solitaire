@@ -13,13 +13,16 @@ package Foundation_Stack is
    
    function Is_Empty (cs : in Foundation_Stack.Stack_Type) return Boolean;
    
+   function Accepts (cs :  in Foundation_Stack.Stack_Type)
+                     return Card.Card_Type;
+   
 private
    type Card_Array is array (Deck.Rank_Type) of Card.Card_Type;
    
    type Stack_Type is tagged record
-      Suit  : Deck.Suit_Type;
-      Cards : Card_Array;
-      Top   : Integer := 0;
+      Suit     : Deck.Suit_Type;
+      Cards    : Card_Array;
+      Top_Rank : Deck.Rank_Type;
    end record;
 
 end Foundation_Stack;

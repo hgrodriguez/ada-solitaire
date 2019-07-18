@@ -1,3 +1,5 @@
+with Deck; use Deck;
+
 package body Foundation_Stack is
 
    function Construct (Suit : in Deck.Suit_Type)
@@ -10,7 +12,7 @@ package body Foundation_Stack is
       end loop;
       ret.Suit := Suit;
       ret.Cards := ca;
-      ret.Top := 0;
+      ret.Top_Rank := Deck.Bottom;
       return ret;
    end Construct;
    
@@ -22,7 +24,13 @@ package body Foundation_Stack is
    
    function Is_Empty (cs : in Foundation_Stack.Stack_Type) return Boolean is
    begin
-      return cs.Top = 0;
+      return cs.Top_Rank = Deck.Bottom;
    end Is_Empty;
    
+   function Accepts (cs : in Foundation_Stack.Stack_Type)
+                     return Card.Card_Type is
+   begin
+      return Card.Construct (Deck.Rank_Type'Succ(cs.Top_Rank), cs.Suit);
+   end Accepts;
+
 end Foundation_Stack;

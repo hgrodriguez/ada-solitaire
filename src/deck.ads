@@ -8,7 +8,8 @@ package Deck is
                       Heart,
                       Spade);
 
-   type Rank_Type is (Ace,
+   type Rank_Type is (Bottom,
+                      Ace,
                       Two,
                       Three,
                       Four,

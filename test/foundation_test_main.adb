@@ -3,15 +3,15 @@ with AUnit.Reporter;
 with AUnit.Reporter.Text;
 with AUnit.Run;
 
-with Card.Test;
+with Foundation.Test;
 
-procedure Card_Test_Main is
+procedure Foundation_Test_Main is
    
    function Suite return AUnit.Test_Suites.Access_Test_Suite is
       Ret : constant AUnit.Test_Suites.Access_Test_Suite
             := new AUnit.Test_Suites.Test_Suite;
    begin
-      Ret.Add_Test (Card.Test.Suite);
+      Ret.Add_Test (Foundation.Test.Suite);
       return Ret;
    end Suite;
    
@@ -20,4 +20,4 @@ procedure Card_Test_Main is
 
 begin
    Runner (Reporter);
-end Card_Test_Main;
+end Foundation_Test_Main;

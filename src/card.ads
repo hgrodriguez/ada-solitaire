@@ -30,6 +30,8 @@ package Card is
    
    function Is_Equal_To (c1 : in Card_Type; c2 : in Card_Type) return Boolean;
 
+   function Image (c : in Card_Type) return String;
+   
 private
    type Card_Type is tagged
       record

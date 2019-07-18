@@ -254,6 +254,24 @@ package body Card.Test is
    
    
    --------------------------------------------------------------------
+   -- image tests
+   procedure Image_1 (T : in out Test) is
+      pragma Unreferenced (T);
+      rank      : constant Deck.Rank_Type := Deck.Ace;
+      suit      : constant Deck.Suit_Type := Deck.Diamond;
+      c          : constant Card.Card_Type := Card.Construct (rank, suit);
+      s_expected : constant String := "(" & rank'Image & "," & suit'Image & ")";
+      s_result   : String (1..s_expected'Length);
+      
+   begin
+      s_result := c.Image;
+      AUNit.Assertions.Assert (s_expected = s_result,
+                                 "expected: " & s_expected &
+                                 " /= " & s_result);
+   end Image_1;
+   
+   
+   --------------------------------------------------------------------
    -- the test suit construction
    package Caller is new AUnit.Test_Caller (Card.Test.Test);
 
@@ -316,6 +334,11 @@ package body Card.Test is
       Ret.Add_Test (Caller.
                       Create("Card.Suit_Is_Red_Heart",
                         Suit_Is_Red_Heart'Access));
+      
+      -- image tests
+      Ret.Add_Test (Caller.
+                      Create("Card.Image_1",
+                        Image_1'Access));
       
       return Ret;
    end Suite;

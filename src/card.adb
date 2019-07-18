@@ -57,4 +57,10 @@ package body Card is
    end Is_Equal_To;
 
 
+   function Image (c : in Card_Type) return String is
+   begin
+      return "(" & c.Rank'Image & "," & c.Suit'Image & ")";
+   end Image;
+   
+
 end Card;

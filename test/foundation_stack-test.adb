@@ -75,9 +75,9 @@ package body Foundation_Stack.Test is
       a_card  : Card.Card_Type;
    begin
       a_card := Card.Construct(Deck.Ace, suit);
-      AUNit.Assertions.Assert (stack.Accepts = a_card,
-                               "should accept: " & a_card'Image &
-                                 "but accepts: " & stack.Accepts'Image);
+      AUNit.Assertions.Assert (stack.Accepts.Is_Equal_To (a_card),
+                               "should accept: " & a_card.Image &
+                                 "but accepts: " & stack.Accepts.Image);
    end Newly_Constucted_Accepts_Ace;
    
    

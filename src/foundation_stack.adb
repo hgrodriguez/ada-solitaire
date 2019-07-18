@@ -13,6 +13,7 @@ package body Foundation_Stack is
       ret.Suit := Suit;
       ret.Cards := ca;
       ret.Top_Rank := Deck.Bottom;
+      ret.Size := 0;
       return ret;
    end Construct;
    
@@ -27,10 +28,25 @@ package body Foundation_Stack is
       return cs.Top_Rank = Deck.Bottom;
    end Is_Empty;
    
+   function Size (cs :  in Foundation_Stack.Stack_Type) return Integer is
+   begin
+      return cs.Size;
+   end Size;
+   
    function Accepts (cs : in Foundation_Stack.Stack_Type)
                      return Card.Card_Type is
    begin
       return Card.Construct (Deck.Rank_Type'Succ(cs.Top_Rank), cs.Suit);
    end Accepts;
+
+   procedure Push (cs : in out Foundation_Stack.Stack_Type;
+                   c  : in Card.Card_Type) is
+   begin
+      cs.Size := cs.Size + 1;
+      cs.Top_Rank := Deck.Rank_Type'Succ (cs.Top_Rank);
+      cs.Cards (Deck.Rank_Type'Val (cs.Size)) := c;
+   end Push;
+   
+
 
 end Foundation_Stack;

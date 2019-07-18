@@ -51,5 +51,10 @@ package body Card is
       return Deck.Is_Red (c.Get_Suit);
    end Suit_Is_Red;
    
+   function Is_Equal_To (c1 : in Card_Type; c2 : in Card_Type) return Boolean is
+   begin
+      return c1.Rank_Is_Equal_To (c2) and c1.Suit_Is_Equal_To (c2);
+   end Is_Equal_To;
+
 
 end Card;

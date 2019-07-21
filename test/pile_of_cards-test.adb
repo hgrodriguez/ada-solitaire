@@ -13,16 +13,16 @@ package body Pile_Of_Cards.Test is
    -- all test procedures
    
    -- test constructing a card
---     procedure Construct(T : in out Test) is
---        pragma Unreferenced (T);
---        f : Foundation.Foundation_Type;
---        
---     begin
---        f := Foundation.Construct;
---  --        AUNit.Assertions.Assert (c.Get_Rank = rank,
---  --                                 "Rank should be: " & rank'Image &
---  --                                 ", but is:" & c.Get_Rank'Image);
---     end Ctor_Rank;
+     procedure Construct(T : in out Test) is
+        pragma Unreferenced (T);
+        pile : Pile_Of_Cards.Pile_Type;
+        
+     begin
+        pile := Pile_Of_Cards.Construct;
+  --        AUNit.Assertions.Assert (c.Get_Rank = rank,
+  --                                 "Rank should be: " & rank'Image &
+  --                                 ", but is:" & c.Get_Rank'Image);
+     end Construct;
    
    
    
@@ -35,10 +35,10 @@ package body Pile_Of_Cards.Test is
              := new AUnit.Test_Suites.Test_Suite;
    begin
       -- ctor tests
---        Ret.Add_Test (Caller.
---                        Create("Card.Ctor_Rank",
---                          Ctor_Rank'Access));
---        
+      Ret.Add_Test (Caller.
+                      Create("Pile_Of_Cards.Construct",
+                        Construct'Access));
+      
       return Ret;
    end Suite;
 

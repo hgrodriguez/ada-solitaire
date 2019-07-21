@@ -1,9 +1,10 @@
 package body Pile_Of_Cards is
 
-   procedure toremovelater is
+   function Construct return Pile_Type is
+      pile : Pile_Type;
    begin
-      null;
-   end toremovelater;
+      return pile;
+   end Construct;
 
 
 end Pile_Of_Cards;

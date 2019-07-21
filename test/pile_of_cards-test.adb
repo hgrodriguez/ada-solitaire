@@ -12,17 +12,15 @@ package body Pile_Of_Cards.Test is
    --------------------------------------------------------------------
    -- all test procedures
    
-   -- test constructing a card
-     procedure Construct(T : in out Test) is
-        pragma Unreferenced (T);
-        pile : Pile_Of_Cards.Pile_Type;
-        
-     begin
-        pile := Pile_Of_Cards.Construct;
-  --        AUNit.Assertions.Assert (c.Get_Rank = rank,
-  --                                 "Rank should be: " & rank'Image &
-  --                                 ", but is:" & c.Get_Rank'Image);
-     end Construct;
+   -- test constructing a pile
+  procedure Construct(T : in out Test) is
+     pragma Unreferenced (T);
+     pile : Pile_Of_Cards.Pile_Type;
+     
+  begin
+     pile := Pile_Of_Cards.Construct;
+     AUNit.Assertions.Assert (pile.Is_Empty, "should be empty!");
+  end Construct;
    
    
    

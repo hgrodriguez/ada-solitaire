@@ -8,9 +8,11 @@ package Pile_Of_Cards is
 
    function Construct return Pile_Type;
 
+   function Is_Empty (pile : in Pile_Type) return Boolean;
+
 private
    type Pile_Type is tagged record
-      null;
+      Count : Natural := 0;
    end record;
 
 

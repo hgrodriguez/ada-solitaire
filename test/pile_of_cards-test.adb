@@ -1,4 +1,6 @@
 with Pile_Of_Cards;
+with Card;
+with Deck;
 
 with AUnit.Assertions;
 with AUnit.Test_Caller;
@@ -13,14 +15,32 @@ package body Pile_Of_Cards.Test is
    -- all test procedures
    
    -- test constructing a pile
-  procedure Construct(T : in out Test) is
-     pragma Unreferenced (T);
-     pile : Pile_Of_Cards.Pile_Type;
-     
-  begin
-     pile := Pile_Of_Cards.Construct;
-     AUNit.Assertions.Assert (pile.Is_Empty, "should be empty!");
-  end Construct;
+   procedure Construct(T : in out Test) is
+      pragma Unreferenced (T);
+      pile : Pile_Of_Cards.Pile_Type;
+      
+   begin
+      pile := Pile_Of_Cards.Construct;
+      AUNit.Assertions.Assert (pile.Is_Empty, "should be empty!");
+      AUNit.Assertions.Assert (pile.Size = 0,
+                               "size should=0, " &
+                                 "but is=" & pile.Size'Image);
+   end Construct;
+  
+   -- FIFO: putting elements into the pile
+   procedure Put_One_Card(T : in out Test) is
+      pragma Unreferenced (T);
+      c    : Card.Card_Type := Card.Construct (Rank => Deck.Ace,
+                                               Suit => Deck.Diamond);
+      pile : Pile_Of_Cards.Pile_Type := Pile_Of_Cards.Construct;
+      
+   begin
+      pile.Put (c);
+      AUNit.Assertions.Assert (not pile.Is_Empty, "should not be empty!");
+      AUNit.Assertions.Assert (pile.Size = 1,
+                               "size should=1, " &
+                                 "but is=" & pile.Size'Image);
+   end Put_One_Card;
    
    
    
@@ -36,7 +56,11 @@ package body Pile_Of_Cards.Test is
       Ret.Add_Test (Caller.
                       Create("Pile_Of_Cards.Construct",
                         Construct'Access));
-      
+
+      -- FIFO tests
+      Ret.Add_Test (Caller.
+                      Create("Pile_Of_Cards.Put_One_Card",
+                        Put_One_Card'Access));
       return Ret;
    end Suite;
 

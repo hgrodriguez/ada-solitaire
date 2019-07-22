@@ -12,6 +12,7 @@ package body Pile_Of_Cards is
       return pile;
    end Construct;
 
+   -- just a line for branching
    function Is_Empty (pile : in Pile_Type) return Boolean is
    begin
       return pile.Count = 0;

@@ -12,8 +12,12 @@ project Solitaire is
    end Ide;
 
    package Compiler is
-      for Switches ("ada") use ("-gnat12");
+      for Switches ("ada") use ("-gnat12", "-gnatg", "-gnatVa", "-gnatwae", "-gnaty3M80");
    end Compiler;
+
+   package Builder is
+      for Switches ("ada") use ("-s");
+   end Builder;
 
 end Solitaire;
 

@@ -19,7 +19,7 @@ package Pile_Of_Cards is
 
    -- Put:Semantics
    -- put c in front of any other card in the pile
-   procedure Put (pile : in out Pile_Type; c : Card.Card_Type);
+   procedure Put (pile : in out Pile_Type; c : in Card.Card_Type);
 
 
 private
@@ -31,8 +31,8 @@ private
 
    type Pile_Type is tagged record
       Count : Natural := 0;
-      Head  : List_Element_Access;
-      Tail  : List_Element_Access;
+      Head  : List_Element_Access := null;
+      Tail  : List_Element_Access := null;
    end record;
 
 

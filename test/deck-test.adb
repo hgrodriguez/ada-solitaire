@@ -2,11 +2,8 @@ with Deck;
 
 with AUnit.Assertions;
 with AUnit.Test_Caller;
-with AUnit.Test_Fixtures;
 
 package body Deck.Test is
-
-   type Test is new AUnit.Test_Fixtures.Test_Fixture with null record;
 
    procedure Test_Is_Red_Diamond (T : in out Test) is
       pragma Unreferenced (T);

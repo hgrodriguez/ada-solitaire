@@ -6,7 +6,9 @@ with AUnit.Run;
 with Foundation_Stack.Test;
 
 procedure Foundation_Stack_Test_Main is
-   
+
+   function Suite return AUnit.Test_Suites.Access_Test_Suite;
+
    function Suite return AUnit.Test_Suites.Access_Test_Suite is
       Ret : constant AUnit.Test_Suites.Access_Test_Suite
             := new AUnit.Test_Suites.Test_Suite;
@@ -14,7 +16,7 @@ procedure Foundation_Stack_Test_Main is
       Ret.Add_Test (Foundation_Stack.Test.Suite);
       return Ret;
    end Suite;
-   
+
    procedure Runner is new AUnit.Run.Test_Runner (Suite);
    Reporter : AUnit.Reporter.Text.Text_Reporter;
 

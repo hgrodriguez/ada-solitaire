@@ -11,6 +11,8 @@ with Pile_Of_Cards.Test;
 
 procedure All_Tests is
 
+   function Suite return AUnit.Test_Suites.Access_Test_Suite;
+
    function Suite return AUnit.Test_Suites.Access_Test_Suite is
       Ret : constant AUnit.Test_Suites.Access_Test_Suite
               := new AUnit.Test_Suites.Test_Suite;

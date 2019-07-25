@@ -12,35 +12,32 @@ package body Pile_Of_Cards is
       return pile;
    end Construct;
 
-   function Is_Empty (pile : in Pile_Type) return Boolean is
+   function Is_Empty (pile : Pile_Type) return Boolean is
    begin
       return pile.Count = 0;
    end Is_Empty;
 
-   function Size (pile : in Pile_Type) return Natural is
+   function Size (pile : Pile_Type) return Natural is
    begin
       return pile.Count;
    end Size;
 
    --------------------------------------------------------------------
-   -- FIFO operations
-   procedure Put (pile : in out Pile_Type; c : in Card.Card_Type) is
-      new_head : List_Element_Access := new List_Element;
+   --  FIFO operations
+   procedure Put (pile : in out Pile_Type; c : Card.Card_Type) is
+      new_head : constant List_Element_Access := new List_Element;
    begin
-      new_head.C := c;
+      new_head.all.C := c;
 
       if pile.Is_Empty then
          pile.Tail := new_head;
       else
-         pile.Head.Previous := new_head;
-         new_head.Next := pile.Head;
+         pile.Head.all.Previous := new_head;
+         new_head.all.Next := pile.Head;
       end if;
       pile.Head := new_head;
       pile.Count := pile.Count + 1;
    end Put;
-
-
-
 
 --  with Ada.Unchecked_Deallocation;
 --
@@ -66,9 +63,9 @@ package body Pile_Of_Cards is
 --
 --     Free_Vector (VA); -- The memory is deallocated and VA is now null
 --
---     V := VB.all;  -- VB is not null, access to a dangling pointer is erroneous
+--     V := VB.all;  -- VB is not null,
+--   access to a dangling pointer is erroneous
 --
 --  end Deallocation_Sample;
-
 
 end Pile_Of_Cards;

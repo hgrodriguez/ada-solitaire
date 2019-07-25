@@ -1,5 +1,5 @@
--- represents a deck of standard poker cards with the standard
--- suits and ranks
+--  represents a deck of standard poker cards with the standard
+--  suits and ranks
 
 package Deck is
 
@@ -23,7 +23,7 @@ package Deck is
                       Queen,
                       King);
 
-   -- some functions to check attributes
+   --  some functions to check attributes
    function Is_Red (a_suit : Suit_Type) return Boolean;
    function Is_Black (a_suit : Suit_Type) return Boolean;
 

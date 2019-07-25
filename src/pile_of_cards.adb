@@ -2,8 +2,8 @@ package body Pile_Of_Cards is
 
    type List_Element is record
       C        : Card.Card_Type;
-      Next     : List_Element_Access;
-      Previous : List_Element_Access;
+      Next     : List_Element_Access := null;
+      Previous : List_Element_Access := null;
    end record;
 
    function Construct return Pile_Type is
@@ -12,25 +12,60 @@ package body Pile_Of_Cards is
       return pile;
    end Construct;
 
-   -- just a line for branching
-   function Is_Empty (pile : in Pile_Type) return Boolean is
+   function Is_Empty (pile : Pile_Type) return Boolean is
    begin
       return pile.Count = 0;
    end Is_Empty;
 
-   function Size (pile : in Pile_Type) return Natural is
+   function Size (pile : Pile_Type) return Natural is
    begin
       return pile.Count;
    end Size;
 
    --------------------------------------------------------------------
-   -- FIFO operations
+   --  FIFO operations
    procedure Put (pile : in out Pile_Type; c : Card.Card_Type) is
-      -- Put
+      new_head : constant List_Element_Access := new List_Element;
    begin
-      null;
+      new_head.all.C := c;
+
+      if pile.Is_Empty then
+         pile.Tail := new_head;
+      else
+         pile.Head.all.Previous := new_head;
+         new_head.all.Next := pile.Head;
+      end if;
+      pile.Head := new_head;
+      pile.Count := pile.Count + 1;
    end Put;
 
-
+--  with Ada.Unchecked_Deallocation;
+--
+--  procedure Deallocation_Sample is
+--
+--     type Vector     is array (Integer range <>) of Float;
+--     type Vector_Ref is access Vector;
+--
+--     procedure Free_Vector is new Ada.Unchecked_Deallocation
+--        (Object => Vector, Name => Vector_Ref);
+--
+--     VA, VB: Vector_Ref;
+--     V     : Vector;
+--
+--  begin
+--
+--     VA     := new Vector (1 .. 10);
+--     VB     := VA;  -- points to the same location as VA
+--
+--     VA.all := (others => 0.0);
+--
+--     --  ... Do whatever you need to do with the vector
+--
+--     Free_Vector (VA); -- The memory is deallocated and VA is now null
+--
+--     V := VB.all;  -- VB is not null,
+--   access to a dangling pointer is erroneous
+--
+--  end Deallocation_Sample;
 
 end Pile_Of_Cards;

@@ -8,6 +8,7 @@ with Deck.Test;
 with Foundation_Stack.Test;
 with Foundation.Test;
 with Pile_Of_Cards.Test;
+with Stock_Test;
 
 procedure All_Tests is
 
@@ -22,6 +23,7 @@ procedure All_Tests is
       Ret.Add_Test (Foundation.Test.Suite);
       Ret.Add_Test (Foundation_Stack.Test.Suite);
       Ret.Add_Test (Pile_Of_Cards.Test.Suite);
+      Ret.Add_Test (Stock.Test.Suite);
       return Ret;
    end Suite;
 

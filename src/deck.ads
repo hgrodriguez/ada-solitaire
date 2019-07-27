@@ -3,11 +3,6 @@
 
 package Deck is
 
-   type Suit_Type is (Diamond,
-                      Club,
-                      Heart,
-                      Spade);
-
    type Rank_Type is (Bottom,
                       Ace,
                       Two,
@@ -22,6 +17,17 @@ package Deck is
                       Jack,
                       Queen,
                       King);
+
+   type Rank_Type_Range is
+     new Rank_Type range Rank_Type'First .. Rank_Type'Last;
+
+   type Suit_Type is (Diamond,
+                      Club,
+                      Heart,
+                      Spade);
+
+   type Suit_Type_Range is
+     new Suit_Type range Suit_Type'First .. Suit_Type'Last;
 
    --  some functions to check attributes
    function Is_Red (a_suit : Suit_Type) return Boolean;

@@ -1,5 +1,3 @@
-with Card;
-
 package Pile_Of_Cards is
    --------------------------------------------------------------------
    --  It does exactly what is says on the tin.
@@ -8,30 +6,13 @@ package Pile_Of_Cards is
 
    type Pile_Type is tagged private;
 
-   function Construct return Pile_Type;
-
-   function Is_Empty (pile : Pile_Type) return Boolean;
-   function Size (pile : Pile_Type) return Natural;
-
-   --------------------------------------------------------------------
-   --  FIFO operations, simulating a queue
-   --------------------------------------------------------------------
-
-   --  Put:Semantics
-   --  put c in front of any other card in the pile
-   procedure Put (pile : in out Pile_Type; c : Card.Card_Type);
+   function Is_Empty (pile : Pile_Type'Class) return Boolean;
+   function Size (pile : Pile_Type'Class) return Natural;
 
 private
-   --------------------------------------------------------------------
-   --  the dynamic list of cards
-   --  I know, that there are Containers in Ada, just exercise for me
-   type List_Element;
-   type List_Element_Access is access List_Element;
 
    type Pile_Type is tagged record
       Count : Natural := 0;
-      Head  : List_Element_Access := null;
-      Tail  : List_Element_Access := null;
    end record;
 
 end Pile_Of_Cards;

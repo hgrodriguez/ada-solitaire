@@ -8,7 +8,7 @@ with Deck.Test;
 with Foundation_Stack.Test;
 with Foundation.Test;
 with Pile_Of_Cards.Test;
-with Stock_Test;
+with Stock.Test;
 
 procedure All_Tests is
 

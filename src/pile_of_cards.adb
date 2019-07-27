@@ -1,43 +1,14 @@
 package body Pile_Of_Cards is
 
-   type List_Element is record
-      C        : Card.Card_Type;
-      Next     : List_Element_Access := null;
-      Previous : List_Element_Access := null;
-   end record;
-
-   function Construct return Pile_Type is
-      pile : Pile_Type;
-   begin
-      return pile;
-   end Construct;
-
-   function Is_Empty (pile : Pile_Type) return Boolean is
+   function Is_Empty (pile : Pile_Type'Class) return Boolean is
    begin
       return pile.Count = 0;
    end Is_Empty;
 
-   function Size (pile : Pile_Type) return Natural is
+   function Size (pile : Pile_Type'Class) return Natural is
    begin
       return pile.Count;
    end Size;
-
-   --------------------------------------------------------------------
-   --  FIFO operations
-   procedure Put (pile : in out Pile_Type; c : Card.Card_Type) is
-      new_head : constant List_Element_Access := new List_Element;
-   begin
-      new_head.all.C := c;
-
-      if pile.Is_Empty then
-         pile.Tail := new_head;
-      else
-         pile.Head.all.Previous := new_head;
-         new_head.all.Next := pile.Head;
-      end if;
-      pile.Head := new_head;
-      pile.Count := pile.Count + 1;
-   end Put;
 
 --  with Ada.Unchecked_Deallocation;
 --

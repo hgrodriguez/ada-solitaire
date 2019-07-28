@@ -9,6 +9,12 @@ package body Card is
       return (Rank, Suit);
    end Construct;
 
+   function Construct_Top_Rank (Suit : Deck.Suit_Type)
+                                return Card_Type is
+   begin
+      return (Deck.Top, Suit);
+   end Construct_Top_Rank;
+
    function Get_Rank (A_Card : Card_Type) return Deck.Rank_Type is
    begin
       return A_Card.Rank;

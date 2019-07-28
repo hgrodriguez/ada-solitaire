@@ -9,6 +9,7 @@ private
    type Test is new AUnit.Test_Fixtures.Test_Fixture with null record;
 
    procedure Ctor_Rank (T : in out Test);
+   procedure Ctor_Top_Rank (T : in out Test);
    procedure Ctor_Suit (T : in out Test);
    procedure Rank_Is_Equal_To_Using_Identical_Rank (T : in out Test);
    procedure Rank_Is_Equal_To_Using_Equal_Rank (T : in out Test);

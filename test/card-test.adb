@@ -23,6 +23,19 @@ package body Card.Test is
                                ", but is:" & c.Get_Rank'Image);
    end Ctor_Rank;
 
+   procedure Ctor_Top_Rank (T : in out Test) is
+      pragma Unreferenced (T);
+      rank : constant Deck.Rank_Type := Deck.Top;
+      suit : constant Deck.Suit_Type := Deck.Diamond;
+      c    : Card.Card_Type;
+
+   begin
+      c := Card.Construct_Top_Rank (suit);
+      AUnit.Assertions.Assert (c.Get_Rank = rank,
+                               "Rank should be: " & rank'Image &
+                                 ", but is:" & c.Get_Rank'Image);
+   end Ctor_Top_Rank;
+
    procedure Ctor_Suit (T : in out Test) is
       pragma Unreferenced (T);
       rank : constant Deck.Rank_Type := Deck.Ace;
@@ -277,6 +290,9 @@ package body Card.Test is
       Ret.Add_Test (Caller.
                       Create ("Card.Ctor_Rank",
                         Ctor_Rank'Access));
+      Ret.Add_Test (Caller.
+                      Create ("Card.Ctor_Top_Rank",
+                        Ctor_Top_Rank'Access));
       Ret.Add_Test (Caller.
                       Create ("Card.Ctor_Suit",
                         Ctor_Suit'Access));

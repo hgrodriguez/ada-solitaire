@@ -17,4 +17,11 @@ private
    procedure Accepts_Suit_Heart_All_Cards (T : in out Test);
    procedure Accepts_Suit_Spade_All_Cards (T : in out Test);
 
+   procedure Accepts_Only_Other_Suits_Ace_Diamond  (T : in out Test);
+   procedure Accepts_Only_Other_Suits_Ace_Club (T : in out Test);
+   procedure Accepts_Only_Other_Suits_Ace_Heart (T : in out Test);
+   procedure Accepts_Only_Other_Suits_Ace_Spade (T : in out Test);
+
+   procedure Full_Foundation_Accepts_Is_Empty (T : in out Test);
+
 end Foundation.Test;

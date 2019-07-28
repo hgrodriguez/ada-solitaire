@@ -26,7 +26,7 @@ package body Foundation is
          ST_Spade.all   := Foundation_Stack.Construct (Deck.Spade);
          The_Foundation.Stacks (Deck.Spade)   := ST_Spade;
 
-         Foundation_Has_Been_Created := True;
+         Foundation_Has_Been_Created := False;
       end if;
       return The_Foundation;
    end Construct;

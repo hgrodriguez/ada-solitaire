@@ -7,10 +7,9 @@ package Pile_Of_Cards.FIFO is
    --------------------------------------------------------------------
 
    type Pile_Type_FIFO is new Pile_Of_Cards.Pile_Type with private;
+   type Pile_Type_FIFO_Access is access Pile_Type_FIFO;
 
    function Construct return Pile_Type_FIFO;
-
-   Pile_Empty_Exception : exception;
 
    --  Put:Semantics
    --  put c in front of any other card in the pile

@@ -6,6 +6,8 @@ package Pile_Of_Cards is
 
    type Pile_Type is tagged private;
 
+   Pile_Empty_Exception : exception;
+
    function Is_Empty (pile : Pile_Type) return Boolean;
    function Size (pile : Pile_Type) return Natural;
 private

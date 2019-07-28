@@ -1,8 +1,10 @@
 with Deck;
 with Card;
+with Pile_Of_Cards.LIFO;
 
 package Foundation_Stack is
    type Stack_Type is tagged private;
+   type Stack_Type_Access is access Stack_Type;
 
    --  constructs a Foundation_Stack with a suit
    function Construct (Suit : Deck.Suit_Type)
@@ -12,6 +14,7 @@ package Foundation_Stack is
                       return Deck.Suit_Type;
 
    function Is_Empty (cs : Foundation_Stack.Stack_Type) return Boolean;
+   function Is_Full (cs : Foundation_Stack.Stack_Type) return Boolean;
 
    function Size (cs :  Foundation_Stack.Stack_Type) return Integer;
 
@@ -22,13 +25,9 @@ package Foundation_Stack is
                    c  : Card.Card_Type);
 
 private
-   type Card_Array is array (Deck.Rank_Type) of Card.Card_Type;
-
    type Stack_Type is tagged record
-      Suit     : Deck.Suit_Type;
-      Cards    : Card_Array;
-      Top_Rank : Deck.Rank_Type;
-      Size     : Integer;
+      Suit  : Deck.Suit_Type;
+      Cards : Pile_Of_Cards.LIFO.Pile_Type_LIFO;
    end record;
 
 end Foundation_Stack;

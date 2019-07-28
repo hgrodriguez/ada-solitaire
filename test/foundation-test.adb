@@ -2,6 +2,7 @@ with AUnit.Assertions;
 with AUnit.Test_Caller;
 
 with Card;
+with Deck; use Deck;
 
 package body Foundation.Test is
 
@@ -61,27 +62,62 @@ package body Foundation.Test is
                                  " /= " & Acc_Diamond.Image);
    end Check_Accepted_Empty_Foundation;
 
-   procedure Accepts_Suit_Diamond_All_Cards (T : in out Test) is
-      pragma Unreferenced (T);
+   procedure Accepts_Suit_All_Cards (Suit : Deck.Suit_Type);
+   procedure Accepts_Suit_All_Cards (Suit : Deck.Suit_Type) is
       F            : constant Foundation.Foundation_Type
-                       := Foundation.Construct;
+        := Foundation.Construct;
       Acceptable   : Foundation.Acceptable_Type;
-      Suit         : constant Deck.Suit_Type := Deck.Diamond;
       Card_To_Put  : Card.Card_Type;
       Card_Accepts : Card.Card_Type;
    begin
       for rank in Deck.Rank_Type_Valid_Range loop
          Card_To_Put := Card.Construct (rank, Suit);
          Acceptable := F.Accepts;
-         Card_Accepts := Acceptable.Get;
-         if False then
-            AUnit.Assertions.Assert (Card_Accepts.Is_Equal_To (Card_To_Put),
-                                     "accepts:" & Card_Accepts.Image &
-                                       " /= to_put:" & Card_To_Put.Image);
+         if Suit = Deck.Diamond then
+            Card_Accepts := Acceptable.Get;
+         elsif Suit = Deck.Club then
+            Card_Accepts := Acceptable.Get;
+            Card_Accepts := Acceptable.Get;
+         elsif Suit = Deck.Heart then
+            Card_Accepts := Acceptable.Get;
+            Card_Accepts := Acceptable.Get;
+            Card_Accepts := Acceptable.Get;
+         elsif Suit = Deck.Spade then
+            Card_Accepts := Acceptable.Get;
+            Card_Accepts := Acceptable.Get;
+            Card_Accepts := Acceptable.Get;
+            Card_Accepts := Acceptable.Get;
          end if;
+         AUnit.Assertions.Assert (Card_Accepts.Is_Equal_To (Card_To_Put),
+                                  "accepts:" & Card_Accepts.Image &
+                                    " /= to_put:" & Card_To_Put.Image);
          F.Put (Card_To_Put);
       end loop;
+   end Accepts_Suit_All_Cards;
+
+   procedure Accepts_Suit_Diamond_All_Cards (T : in out Test) is
+      pragma Unreferenced (T);
+   begin
+      Accepts_Suit_All_Cards (Deck.Diamond);
    end Accepts_Suit_Diamond_All_Cards;
+
+   procedure Accepts_Suit_Club_All_Cards (T : in out Test) is
+      pragma Unreferenced (T);
+   begin
+      Accepts_Suit_All_Cards (Deck.Club);
+   end Accepts_Suit_Club_All_Cards;
+
+   procedure Accepts_Suit_Heart_All_Cards (T : in out Test) is
+      pragma Unreferenced (T);
+   begin
+      Accepts_Suit_All_Cards (Deck.Heart);
+   end Accepts_Suit_Heart_All_Cards;
+
+   procedure Accepts_Suit_Spade_All_Cards (T : in out Test) is
+      pragma Unreferenced (T);
+   begin
+      Accepts_Suit_All_Cards (Deck.Spade);
+   end Accepts_Suit_Spade_All_Cards;
 
    --------------------------------------------------------------------
    --  the test suit construction
@@ -106,6 +142,15 @@ package body Foundation.Test is
       Ret.Add_Test (Caller.
                       Create ("Foundation.Accepts_Suit_Diamond_All_Cards",
                         Accepts_Suit_Diamond_All_Cards'Access));
+      Ret.Add_Test (Caller.
+                      Create ("Foundation.Accepts_Suit_Club_All_Cards",
+                        Accepts_Suit_Club_All_Cards'Access));
+      Ret.Add_Test (Caller.
+                      Create ("Foundation.Accepts_Suit_Heart_All_Cards",
+                        Accepts_Suit_Heart_All_Cards'Access));
+      Ret.Add_Test (Caller.
+                      Create ("Foundation.Accepts_Suit_Spade_All_Cards",
+                        Accepts_Suit_Spade_All_Cards'Access));
       return Ret;
    end Suite;
 

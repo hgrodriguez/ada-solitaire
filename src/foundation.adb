@@ -4,20 +4,26 @@ package body Foundation is
    The_Foundation : Foundation_Type;
 
    function Construct return Foundation_Type is
-      ST_Diamond : Foundation_Stack.Stack_Type;
-      ST_Club    : Foundation_Stack.Stack_Type;
-      ST_Heart   : Foundation_Stack.Stack_Type;
-      ST_Spade   : Foundation_Stack.Stack_Type;
+      ST_Diamond : Foundation_Stack.Stack_Type_Access;
+      ST_Club    : Foundation_Stack.Stack_Type_Access;
+      ST_Heart   : Foundation_Stack.Stack_Type_Access;
+      ST_Spade   : Foundation_Stack.Stack_Type_Access;
    begin
       if not Foundation_Has_Been_Created then
-         ST_Diamond := Foundation_Stack.Construct (Deck.Diamond);
-         ST_Club    := Foundation_Stack.Construct (Deck.Club);
-         ST_Heart   := Foundation_Stack.Construct (Deck.Heart);
-         ST_Spade   := Foundation_Stack.Construct (Deck.Spade);
-
+         ST_Diamond := new Foundation_Stack.Stack_Type;
+         ST_Diamond.all := Foundation_Stack.Construct (Deck.Diamond);
          The_Foundation.Stacks (Deck.Diamond) := ST_Diamond;
+
+         ST_Club    := new Foundation_Stack.Stack_Type;
+         ST_Club.all    := Foundation_Stack.Construct (Deck.Club);
          The_Foundation.Stacks (Deck.Club)    := ST_Club;
+
+         ST_Heart   := new Foundation_Stack.Stack_Type;
+         ST_Heart.all   := Foundation_Stack.Construct (Deck.Heart);
          The_Foundation.Stacks (Deck.Heart)   := ST_Heart;
+
+         ST_Spade   := new Foundation_Stack.Stack_Type;
+         ST_Spade.all   := Foundation_Stack.Construct (Deck.Spade);
          The_Foundation.Stacks (Deck.Spade)   := ST_Spade;
 
          Foundation_Has_Been_Created := True;
@@ -34,7 +40,7 @@ package body Foundation is
       return ret;
    end Accepts;
 
-   function Size  (F : Foundation_Type) return Natural is
+   function Size (F : Foundation_Type) return Natural is
       S : Natural := 0;
    begin
       for suit in Deck.Suit_Type_Valid_Range loop
@@ -44,9 +50,8 @@ package body Foundation is
    end Size;
 
    procedure Put (F : Foundation_Type; c : Card.Card_Type) is
-      FS : Foundation_Stack.Stack_Type := F.Stacks (c.Get_Suit);
    begin
-      FS.Push (c);
+      F.Stacks (c.Get_Suit).Push (c);
    end Put;
 
 end Foundation;

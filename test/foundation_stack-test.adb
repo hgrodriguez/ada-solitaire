@@ -53,7 +53,7 @@ package body Foundation_Stack.Test is
    end Test_Construct_Spade;
 
    --  check newly constructed attributes
-   procedure Newly_Constucted_Is_Empty (T : in out Test) is
+   procedure Newly_Constructed_Is_Empty (T : in out Test) is
       pragma Unreferenced (T);
       suit  : constant Deck.Suit_Type := Deck.Spade;
       stack : Foundation_Stack.Stack_Type;
@@ -62,9 +62,9 @@ package body Foundation_Stack.Test is
       AUnit.Assertions.Assert (stack.Is_Empty,
                                "newly created stack should be empty," &
                                  " but is not");
-   end Newly_Constucted_Is_Empty;
+   end Newly_Constructed_Is_Empty;
 
-   procedure Newly_Constucted_Accepts_Ace (T : in out Test) is
+   procedure Newly_Constructed_Accepts_Ace (T : in out Test) is
       pragma Unreferenced (T);
       suit   : constant Deck.Suit_Type := Deck.Spade;
       stack  : constant Foundation_Stack.Stack_Type :=
@@ -75,9 +75,9 @@ package body Foundation_Stack.Test is
       AUnit.Assertions.Assert (stack.Accepts.Is_Equal_To (a_card),
                                "should accept: " & a_card.Image &
                                  "but accepts: " & stack.Accepts.Image);
-   end Newly_Constucted_Accepts_Ace;
+   end Newly_Constructed_Accepts_Ace;
 
-   procedure Newly_Constucted_Is_Size_0 (T : in out Test) is
+   procedure Newly_Constructed_Is_Size_0 (T : in out Test) is
       pragma Unreferenced (T);
       suit    : constant Deck.Suit_Type := Deck.Spade;
       stack   : constant Foundation_Stack.Stack_Type :=
@@ -85,7 +85,7 @@ package body Foundation_Stack.Test is
    begin
       AUnit.Assertions.Assert (stack.Size = 0,
                                "size should = 0, but is: " & stack.Size'Image);
-   end Newly_Constucted_Is_Size_0;
+   end Newly_Constructed_Is_Size_0;
 
    --  check for push operations
    procedure Push_Newly_Constructed_OK_Size (T : in out Test) is
@@ -107,8 +107,8 @@ package body Foundation_Stack.Test is
                           Foundation_Stack.Construct (suit);
       a_card          : constant Card.Card_Type :=
                           Card.Construct (Deck.Ace, suit);
-      acceptable_card : constant Card.Card_Type :=
-        Card.Construct (Deck.Rank_Type'Succ (a_card.Get_Rank), suit);
+      acceptable_card : constant Card.Card_Type
+                          := Card.Construct (Deck.Two, suit);
    begin
       stack.Push (a_card);
       AUnit.Assertions.Assert (stack.Accepts.Is_Equal_To (acceptable_card),
@@ -153,6 +153,38 @@ package body Foundation_Stack.Test is
       end loop;
    end Push_All_OK_Accept;
 
+   procedure Stack_Is_Full  (T : in out Test) is
+      pragma Unreferenced (T);
+      suit            : constant Deck.Suit_Type := Deck.Spade;
+      stack           : Foundation_Stack.Stack_Type
+                          := Foundation_Stack.Construct (suit);
+      a_card          : Card.Card_Type;
+   begin
+      for rank in Deck.Rank_Type_Valid_Range loop
+         a_card := Card.Construct (rank, suit);
+         stack.Push (a_card);
+      end loop;
+      AUnit.Assertions.Assert (stack.Is_Full, "should be full");
+   end Stack_Is_Full;
+
+   procedure Full_Stack_Does_Not_Accept_Anything (T : in out Test) is
+      pragma Unreferenced (T);
+      suit            : constant Deck.Suit_Type := Deck.Spade;
+      stack           : Foundation_Stack.Stack_Type
+                          := Foundation_Stack.Construct (suit);
+      a_card          : Card.Card_Type;
+      acceptable_card : constant Card.Card_Type
+                          := Card.Construct_Top_Rank (suit);
+   begin
+      for rank in Rank_Type_Valid_Range loop
+         a_card := Card.Construct (rank, suit);
+         stack.Push (a_card);
+      end loop;
+      AUnit.Assertions.Assert (stack.Accepts.Is_Equal_To (acceptable_card),
+                               "should accept: " & acceptable_card.Image &
+                                 "but accepts: " & stack.Accepts.Image);
+   end Full_Stack_Does_Not_Accept_Anything;
+
    --------------------------------------------------------------------
    --  the test suit construction
    package Caller is new AUnit.Test_Caller (Foundation_Stack.Test.Test);
@@ -178,13 +210,13 @@ package body Foundation_Stack.Test is
       --  check states of stack
       Ret.Add_Test (Caller.
                     Create ("Foundation_Stack.Newly_Constucted_Is_Empty",
-                           Newly_Constucted_Is_Empty'Access));
+                           Newly_Constructed_Is_Empty'Access));
       Ret.Add_Test (Caller.
                     Create ("Foundation_Stack.Newly_Constucted_Accepts_Ace",
-                           Newly_Constucted_Accepts_Ace'Access));
+                           Newly_Constructed_Accepts_Ace'Access));
       Ret.Add_Test (Caller.
                     Create ("Foundation_Stack.Newly_Constucted_Is_Size_0",
-                        Newly_Constucted_Is_Size_0'Access));
+                        Newly_Constructed_Is_Size_0'Access));
       --  various operations for the stack
       Ret.Add_Test (Caller.
                     Create ("Foundation_Stack.Push_Newly_Constructed_OK_Size",
@@ -198,6 +230,14 @@ package body Foundation_Stack.Test is
       Ret.Add_Test (Caller.
                     Create ("Foundation_Stack.Push_All_OK_Accept",
                            Push_All_OK_Accept'Access));
+
+      Ret.Add_Test (Caller.
+                      Create ("Foundation_Stack.Stack_Is_Full",
+                        Stack_Is_Full'Access));
+      Ret.Add_Test (Caller.
+                      Create ("Foundation_Stack." &
+                                "Full_Stack_Does_Not_Accept_Anything",
+                        Full_Stack_Does_Not_Accept_Anything'Access));
       return Ret;
    end Suite;
 

@@ -18,7 +18,8 @@ package Foundation is
 
 private
 
-   type Stack_Array is array (Deck.Suit_Type) of Foundation_Stack.Stack_Type;
+   type Stack_Array is array (Deck.Suit_Type)
+     of Foundation_Stack.Stack_Type_Access;
    type Foundation_Type is tagged record
       Stacks : Stack_Array;
    end record;

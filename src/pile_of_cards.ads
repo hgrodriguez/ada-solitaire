@@ -6,11 +6,9 @@ package Pile_Of_Cards is
 
    type Pile_Type is tagged private;
 
-   function Is_Empty (pile : Pile_Type'Class) return Boolean;
-   function Size (pile : Pile_Type'Class) return Natural;
-
+   function Is_Empty (pile : Pile_Type) return Boolean;
+   function Size (pile : Pile_Type) return Natural;
 private
-
    type Pile_Type is tagged record
       Count : Natural := 0;
    end record;

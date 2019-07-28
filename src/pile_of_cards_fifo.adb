@@ -1,4 +1,4 @@
-package body Pile_Of_Cards.FIFO is
+package body Pile_Of_Cards_FIFO is
 
    type List_Element is record
       C        : Card.Card_Type;
@@ -54,4 +54,4 @@ package body Pile_Of_Cards.FIFO is
       pile.Count := pile.Count + 1;
    end Put;
 
-end Pile_Of_Cards.FIFO;
+end Pile_Of_Cards_FIFO;

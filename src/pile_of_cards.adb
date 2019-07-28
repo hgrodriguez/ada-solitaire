@@ -1,11 +1,11 @@
 package body Pile_Of_Cards is
 
-   function Is_Empty (pile : Pile_Type'Class) return Boolean is
+   function Is_Empty (pile : Pile_Type) return Boolean is
    begin
       return pile.Count = 0;
    end Is_Empty;
 
-   function Size (pile : Pile_Type'Class) return Natural is
+   function Size (pile : Pile_Type) return Natural is
    begin
       return pile.Count;
    end Size;

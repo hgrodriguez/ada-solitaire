@@ -1,7 +1,7 @@
 with AUnit.Test_Suites;
 with AUnit.Test_Fixtures;
 
-package Pile_Of_Cards.FIFO.Test is
+package Pile_Of_Cards_FIFO.Test is
 
    function Suite return AUnit.Test_Suites.Access_Test_Suite;
 private
@@ -15,4 +15,4 @@ private
    procedure Get_Two_Cards_Put_Two (T : in out Test);
    procedure Get_One_Card_No_Put (T : in out Test);
 
-end Pile_Of_Cards.FIFO.Test;
+end Pile_Of_Cards_FIFO.Test;

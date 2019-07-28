@@ -1,4 +1,4 @@
-with Pile_Of_Cards;
+with Pile_Of_Cards_FIFO;
 
 package Stock is
 
@@ -6,11 +6,11 @@ package Stock is
 
    function Construct return Stock_Type;
 
-   function Size (S : Stock_Type) return Integer;
+   function Size (S : Stock_Type) return Natural;
 
 private
    type Stock_Type is tagged record
-      Pile : Pile_Of_Cards.Pile_Type;
+      Pile : Pile_Of_Cards_FIFO.Pile_Type_FIFO;
    end record;
 
    procedure Shuffle (S : in out Stock_Type);

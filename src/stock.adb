@@ -45,7 +45,7 @@ package body Stock is
       end Cards_Left;
 
    begin
-      S.Pile := Pile_Of_Cards.Construct;
+      S.Pile := Pile_Of_Cards_FIFO.Construct;
 
       Cards_Initialize;
 
@@ -69,7 +69,7 @@ package body Stock is
       return S;
    end Construct;
 
-   function Size (S : Stock_Type) return Integer is
+   function Size (S : Stock_Type) return Natural is
    begin
       return S.Pile.Size;
    end Size;

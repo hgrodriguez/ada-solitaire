@@ -15,4 +15,8 @@ private
    procedure Get_Two_Cards_Put_Two (T : in out Test);
    procedure Get_One_Card_No_Put (T : in out Test);
 
+   procedure Peek_No_Cards (T : in out Test);
+   procedure Peek_One_Card (T : in out Test);
+   procedure Peek_Two_Cards (T : in out Test);
+
 end Pile_Of_Cards.FIFO.Test;

@@ -158,6 +158,62 @@ package body Pile_Of_Cards.LIFO.Test is
                                            "no exception raised");
    end Pop_Two_Pushed_One;
 
+   procedure Peek_No_Cards_Exception;
+   procedure Peek_No_Cards_Exception is
+      pile : constant Pile_Of_Cards.LIFO.Pile_Type_LIFO
+        := Pile_Of_Cards.LIFO.Construct;
+      r    : Card.Card_Type;
+      pragma Warnings (Off, r);
+   begin
+      r := pile.Peek;
+   exception
+      when Pile_Empty_Exception => raise;
+      when Exc : others =>
+         AUnit.Assertions.Assert (False,
+                                  "Peek_No_Cards_Exception: " &
+                                    "wrong exception raised:" &
+                                    Ada.Exceptions.Exception_Name (Exc));
+   end Peek_No_Cards_Exception;
+
+   procedure Peek_No_Cards (T : in out Test) is
+      pragma Unreferenced (T);
+   begin
+      AUnit.Assertions.Assert_Exception (Peek_No_Cards_Exception'Access,
+                                         "Peek_No_Cards: " &
+                                           "no exception raised");
+   end Peek_No_Cards;
+
+   procedure Peek_One_Card (T : in out Test) is
+      pragma Unreferenced (T);
+      pile : Pile_Of_Cards.LIFO.Pile_Type_LIFO := Pile_Of_Cards.LIFO.Construct;
+      c    : constant Card.Card_Type := Card.Construct (Rank => Deck.Ace,
+                                                        Suit => Deck.Diamond);
+      r    : Card.Card_Type;
+   begin
+      pile.Push (c);
+      r := pile.Peek;
+      AUnit.Assertions.Assert (r.Is_Equal_To (c),
+                               "r:" & r.Image &
+                                 " /= c:" & c.Image);
+   end Peek_One_Card;
+
+   procedure Peek_Two_Cards (T : in out Test) is
+      pragma Unreferenced (T);
+      pile : Pile_Of_Cards.LIFO.Pile_Type_LIFO := Pile_Of_Cards.LIFO.Construct;
+      c1   : constant Card.Card_Type := Card.Construct (Rank => Deck.Ace,
+                                                        Suit => Deck.Diamond);
+      c2   : constant Card.Card_Type := Card.Construct (Rank => Deck.Two,
+                                                        Suit => Deck.Diamond);
+      r    : Card.Card_Type;
+   begin
+      pile.Push (c1);
+      pile.Push (c2);
+      r := pile.Peek;
+      AUnit.Assertions.Assert (r.Is_Equal_To (c2),
+                               "r:" & r.Image &
+                                 " /= c2:" & c2.Image);
+   end Peek_Two_Cards;
+
    --------------------------------------------------------------------
    --  the test suit construction
    package Caller is new AUnit.Test_Caller (Pile_Of_Cards.LIFO.Test.Test);
@@ -193,6 +249,16 @@ package body Pile_Of_Cards.LIFO.Test is
       Ret.Add_Test (Caller.
                       Create ("Pile_Of_Cards.Pop_Two_Pushed_One",
                         Pop_Two_Pushed_One'Access));
+
+      Ret.Add_Test (Caller.
+                      Create ("Pile_Of_Cards.Peek_No_Cards",
+                        Peek_No_Cards'Access));
+      Ret.Add_Test (Caller.
+                      Create ("Pile_Of_Cards.Peek_One_Card",
+                        Peek_One_Card'Access));
+      Ret.Add_Test (Caller.
+                      Create ("Pile_Of_Cards.Peek_Two_Cards",
+                        Peek_Two_Cards'Access));
       return Ret;
    end Suite;
 

@@ -16,4 +16,9 @@ private
    procedure Pop_Two_Pushed_Two (T : in out Test);
    procedure Pop_One_Pushed_None (T : in out Test);
    procedure Pop_Two_Pushed_One (T : in out Test);
+
+   procedure Peek_No_Cards (T : in out Test);
+   procedure Peek_One_Card (T : in out Test);
+   procedure Peek_Two_Cards (T : in out Test);
+
 end Pile_Of_Cards.LIFO.Test;

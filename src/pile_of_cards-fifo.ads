@@ -16,6 +16,9 @@ package Pile_Of_Cards.FIFO is
    function Get (pile : in out Pile_Type_FIFO) return Card.Card_Type;
    procedure Put (pile : in out Pile_Type_FIFO; c : Card.Card_Type);
 
+   overriding
+   function Peek (pile : Pile_Type_FIFO) return Card.Card_Type;
+
 private
    --------------------------------------------------------------------
    --  the dynamic list of cards

@@ -45,4 +45,15 @@ package body Pile_Of_Cards.LIFO is
       pile.Count := pile.Count + 1;
    end Push;
 
+   function Peek (pile : Pile_Type_LIFO) return Card.Card_Type is
+      r       : Card.Card_Type;
+   begin
+      if pile.Is_Empty then
+         raise Pile_Empty_Exception with "Pile is empty, no Peek possible";
+      end if;
+
+      r := pile.TOS.all.C;
+      return r;
+   end Peek;
+
 end Pile_Of_Cards.LIFO;

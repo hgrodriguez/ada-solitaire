@@ -14,6 +14,9 @@ package Pile_Of_Cards.LIFO is
    function Pop (pile : in out Pile_Type_LIFO) return Card.Card_Type;
    procedure Push (pile : in out Pile_Type_LIFO; c : Card.Card_Type);
 
+   overriding
+   function Peek  (pile : Pile_Type_LIFO) return Card.Card_Type;
+
 private
    --------------------------------------------------------------------
    --  the dynamic list of cards

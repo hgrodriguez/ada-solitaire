@@ -54,4 +54,14 @@ package body Pile_Of_Cards.FIFO is
       pile.Count := pile.Count + 1;
    end Put;
 
+   function Peek (pile : Pile_Type_FIFO) return Card.Card_Type is
+      ret : Card.Card_Type;
+   begin
+      if pile.Is_Empty then
+         raise Pile_Empty_Exception with "Pile is empty, no Peek possible";
+      end if;
+      ret := pile.Tail.all.C;
+      return ret;
+   end Peek;
+
 end Pile_Of_Cards.FIFO;

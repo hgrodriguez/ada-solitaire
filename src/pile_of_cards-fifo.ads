@@ -1,7 +1,7 @@
 with Card;
 with Pile_Of_Cards;
 
-package Pile_Of_Cards_FIFO is
+package Pile_Of_Cards.FIFO is
    --------------------------------------------------------------------
    --  FIFO operations, simulating a queue
    --------------------------------------------------------------------
@@ -29,4 +29,4 @@ private
       Tail  : List_Element_Access := null;
    end record;
 
-end Pile_Of_Cards_FIFO;
+end Pile_Of_Cards.FIFO;

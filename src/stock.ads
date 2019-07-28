@@ -1,4 +1,4 @@
-with Pile_Of_Cards_FIFO;
+with Pile_Of_Cards.FIFO;
 
 package Stock is
 
@@ -10,7 +10,7 @@ package Stock is
 
 private
    type Stock_Type is tagged record
-      Pile : Pile_Of_Cards_FIFO.Pile_Type_FIFO;
+      Pile : Pile_Of_Cards.FIFO.Pile_Type_FIFO;
    end record;
 
    procedure Shuffle (S : in out Stock_Type);

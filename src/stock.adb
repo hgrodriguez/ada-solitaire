@@ -45,7 +45,7 @@ package body Stock is
       end Cards_Left;
 
    begin
-      S.Pile := Pile_Of_Cards_FIFO.Construct;
+      S.Pile := Pile_Of_Cards.FIFO.Construct;
 
       Cards_Initialize;
 

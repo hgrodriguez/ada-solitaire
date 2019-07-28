@@ -1,12 +1,12 @@
 with Ada.Exceptions;
-with Pile_Of_Cards_FIFO;
+with Pile_Of_Cards.FIFO;
 with Card;
 with Deck;
 
 with AUnit.Assertions;
 with AUnit.Test_Caller;
 
-package body Pile_Of_Cards_FIFO.Test is
+package body Pile_Of_Cards.FIFO.Test is
 
    --  test constructing a pile
    procedure Construct (T : in out Test) is
@@ -176,4 +176,4 @@ package body Pile_Of_Cards_FIFO.Test is
       return Ret;
    end Suite;
 
-end Pile_Of_Cards_FIFO.Test;
+end Pile_Of_Cards.FIFO.Test;

@@ -50,8 +50,18 @@ package body Foundation_Stack is
 
    procedure Push (cs : in out Foundation_Stack.Stack_Type;
                    c  : Card.Card_Type) is
+      acceptable_card : constant Card.Card_Type := cs.Accepts;
    begin
-      cs.Cards.Push (c);
+      if acceptable_card.Is_Equal_To (c) then
+         cs.Cards.Push (c);
+      else
+         --  separate between wrong suit and wrong rank
+         if cs.Suit /= c.Get_Suit then
+            raise Wrong_Suit_Exception;
+         else
+            raise Wrong_Rank_Exception;
+         end if;
+      end if;
    end Push;
 
 end Foundation_Stack;

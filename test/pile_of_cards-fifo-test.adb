@@ -8,7 +8,8 @@ with AUnit.Test_Caller;
 
 package body Pile_Of_Cards.FIFO.Test is
 
-   --  test constructing a pile
+   --------------------------------------------------------------------
+   --  Constructs
    procedure Construct (T : in out Test) is
       pragma Unreferenced (T);
       pile : Pile_Of_Cards.FIFO.Pile_Type_FIFO;
@@ -21,6 +22,8 @@ package body Pile_Of_Cards.FIFO.Test is
                                  "but is=" & pile.Size'Image);
    end Construct;
 
+   --------------------------------------------------------------------
+   --  Puts
    procedure Put_One_Card (T : in out Test) is
       pragma Unreferenced (T);
       c    : constant Card.Card_Type := Card.Construct (Rank => Deck.Ace,
@@ -52,6 +55,8 @@ package body Pile_Of_Cards.FIFO.Test is
                                  "but is=" & pile.Size'Image);
    end Put_Two_Cards;
 
+   --------------------------------------------------------------------
+   --  Gets
    procedure Get_One_Card (T : in out Test) is
       pragma Unreferenced (T);
       c    : constant Card.Card_Type := Card.Construct (Rank => Deck.Ace,
@@ -141,6 +146,8 @@ package body Pile_Of_Cards.FIFO.Test is
                                            "no exception raised");
    end Get_One_Card_No_Put;
 
+   --------------------------------------------------------------------
+   --  Peeks
    procedure Peek_No_Cards_Exception;
    procedure Peek_No_Cards_Exception is
       pile : constant Pile_Of_Cards.FIFO.Pile_Type_FIFO
@@ -198,47 +205,148 @@ package body Pile_Of_Cards.FIFO.Test is
    end Peek_Two_Cards;
 
    --------------------------------------------------------------------
+   --  Has's
+   procedure Has_Not_No_Cards (T : in out Test) is
+      pragma Unreferenced (T);
+      pile : constant Pile_Of_Cards.FIFO.Pile_Type_FIFO
+        := Pile_Of_Cards.FIFO.Construct;
+      c    : constant Card.Card_Type := Card.Construct (Rank => Deck.Ace,
+                                                        Suit => Deck.Diamond);
+   begin
+      AUnit.Assertions.Assert (not pile.Has (c), "Has=True");
+   end Has_Not_No_Cards;
+
+   procedure Has_Not_1_Card (T : in out Test) is
+      pragma Unreferenced (T);
+      pile  : Pile_Of_Cards.FIFO.Pile_Type_FIFO := Pile_Of_Cards.FIFO.Construct;
+      c_put : constant Card.Card_Type := Card.Construct (Deck.Ace,
+                                                         Deck.Diamond);
+      c_has : constant Card.Card_Type := Card.Construct (Deck.Two,
+                                                         Deck.Diamond);
+   begin
+      pile.Put (c_put);
+      AUnit.Assertions.Assert (not pile.Has (c_has), "Has=True");
+   end Has_Not_1_Card;
+
+   procedure Has_Not_2_Cards (T : in out Test) is
+      pragma Unreferenced (T);
+      pile   : Pile_Of_Cards.FIFO.Pile_Type_FIFO
+        := Pile_Of_Cards.FIFO.Construct;
+      c_put1 : constant Card.Card_Type := Card.Construct (Deck.Ace,
+                                                         Deck.Diamond);
+      c_put2 : constant Card.Card_Type := Card.Construct (Deck.King,
+                                                          Deck.Diamond);
+      c_has  : constant Card.Card_Type := Card.Construct (Deck.Two,
+                                                         Deck.Diamond);
+   begin
+      pile.Put (c_put1);
+      pile.Put (c_put2);
+      AUnit.Assertions.Assert (not pile.Has (c_has), "Has=True");
+   end Has_Not_2_Cards;
+
+   procedure Has_1_Card (T : in out Test) is
+      pragma Unreferenced (T);
+      pile  : Pile_Of_Cards.FIFO.Pile_Type_FIFO := Pile_Of_Cards.FIFO.Construct;
+      c_put : constant Card.Card_Type := Card.Construct (Deck.Ace,
+                                                         Deck.Diamond);
+      c_has : constant Card.Card_Type := c_put;
+   begin
+      pile.Put (c_put);
+      AUnit.Assertions.Assert (pile.Has (c_has), "Has=False");
+   end Has_1_Card;
+
+   procedure Has_2_Cards_1st_Put (T : in out Test) is
+      pragma Unreferenced (T);
+      pile   : Pile_Of_Cards.FIFO.Pile_Type_FIFO
+        := Pile_Of_Cards.FIFO.Construct;
+      c_put1 : constant Card.Card_Type := Card.Construct (Deck.Ace,
+                                                          Deck.Diamond);
+      c_put2 : constant Card.Card_Type := Card.Construct (Deck.King,
+                                                          Deck.Diamond);
+      c_has  : constant Card.Card_Type := c_put1;
+   begin
+      pile.Put (c_put1);
+      pile.Put (c_put2);
+      AUnit.Assertions.Assert (pile.Has (c_has), "Has=False");
+   end Has_2_Cards_1st_Put;
+
+   procedure Has_2_Cards_2nd_Put (T : in out Test) is
+      pragma Unreferenced (T);
+      pile   : Pile_Of_Cards.FIFO.Pile_Type_FIFO
+        := Pile_Of_Cards.FIFO.Construct;
+      c_put1 : constant Card.Card_Type := Card.Construct (Deck.Ace,
+                                                          Deck.Diamond);
+      c_put2 : constant Card.Card_Type := Card.Construct (Deck.King,
+                                                          Deck.Diamond);
+      c_has  : constant Card.Card_Type := c_put2;
+   begin
+      pile.Put (c_put1);
+      pile.Put (c_put2);
+      AUnit.Assertions.Assert (pile.Has (c_has), "Has=False");
+   end Has_2_Cards_2nd_Put;
+
+   --------------------------------------------------------------------
    --  the test suit construction
    package Caller is new AUnit.Test_Caller (Pile_Of_Cards.FIFO.Test.Test);
 
    function Suite return AUnit.Test_Suites.Access_Test_Suite is
       Ret : constant AUnit.Test_Suites.Access_Test_Suite
         := new AUnit.Test_Suites.Test_Suite;
+      N   : constant String := "Pile_Of_Cards.FIFO.";
    begin
       --  ctor tests
       Ret.Add_Test (Caller.
-                      Create ("Pile_Of_Cards.Construct",
+                      Create (N & "Construct",
                         Construct'Access));
 
       --  FIFO tests
       Ret.Add_Test (Caller.
-                      Create ("Pile_Of_Cards.Put_One_Card",
+                      Create (N & "Put_One_Card",
                         Put_One_Card'Access));
       Ret.Add_Test (Caller.
-                      Create ("Pile_Of_Cards.Put_Two_Cards",
+                      Create (N & "Put_Two_Cards",
                         Put_Two_Cards'Access));
       Ret.Add_Test (Caller.
-                      Create ("Pile_Of_Cards.Get_One_Card",
+                      Create (N & "Get_One_Card",
                         Get_One_Card'Access));
       Ret.Add_Test (Caller.
-                      Create ("Pile_Of_Cards.Get_One_Card_Put_Two",
+                      Create (N & "Get_One_Card_Put_Two",
                         Get_One_Card_Put_Two'Access));
       Ret.Add_Test (Caller.
-                      Create ("Pile_Of_Cards.Get_Two_Cards_Put_Two",
+                      Create (N & "Get_Two_Cards_Put_Two",
                         Get_Two_Cards_Put_Two'Access));
       Ret.Add_Test (Caller.
-                      Create ("Pile_Of_Cards.Get_One_Card_No_Put",
+                      Create (N & "Get_One_Card_No_Put",
                         Get_One_Card_No_Put'Access));
 
       Ret.Add_Test (Caller.
-                      Create ("Pile_Of_Cards.Peek_No_Cards",
+                      Create (N & "Peek_No_Cards",
                         Peek_No_Cards'Access));
       Ret.Add_Test (Caller.
-                      Create ("Pile_Of_Cards.Peek_One_Card",
+                      Create (N & "Peek_One_Card",
                         Peek_One_Card'Access));
       Ret.Add_Test (Caller.
-                      Create ("Pile_Of_Cards.Peek_Two_Cards",
+                      Create (N & "Peek_Two_Cards",
                         Peek_Two_Cards'Access));
+
+      Ret.Add_Test (Caller.
+                      Create (N & "Has_Not_No_Cards",
+                        Has_Not_No_Cards'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "Has_Not_1_Card",
+                        Has_Not_1_Card'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "Has_Not_2_Cards",
+                        Has_Not_2_Cards'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "Has_1_Card",
+                        Has_1_Card'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "Has_2_Cards_1st_Put",
+                        Has_2_Cards_1st_Put'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "Has_2_Cards_2nd_Put",
+                        Has_2_Cards_2nd_Put'Access));
 
       return Ret;
    end Suite;

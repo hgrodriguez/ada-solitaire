@@ -13,11 +13,15 @@ package Pile_Of_Cards.FIFO is
 
    --  Put:Semantics
    --  put c in front of any other card in the pile
-   function Get (pile : in out Pile_Type_FIFO) return Card.Card_Type;
-   procedure Put (pile : in out Pile_Type_FIFO; c : Card.Card_Type);
+   function Get (Pile : in out Pile_Type_FIFO) return Card.Card_Type;
+   procedure Put (Pile : in out Pile_Type_FIFO; C : Card.Card_Type);
 
    overriding
-   function Peek (pile : Pile_Type_FIFO) return Card.Card_Type;
+   function Peek (Pile : Pile_Type_FIFO) return Card.Card_Type;
+
+   overriding
+   function Has (Pile : Pile_Type_FIFO;
+                 C    : Card.Card_Type) return Boolean;
 
 private
    --------------------------------------------------------------------

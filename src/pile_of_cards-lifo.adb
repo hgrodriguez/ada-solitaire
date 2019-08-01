@@ -56,4 +56,22 @@ package body Pile_Of_Cards.LIFO is
       return r;
    end Peek;
 
+   function Has (Pile : Pile_Type_LIFO;
+                 C    : Card.Card_Type) return Boolean is
+      Pointer : List_Element_Access := Pile.TOS;
+      c_test  : Card.Card_Type;
+   begin
+      if Pile.Is_Empty then
+         return False;
+      end if;
+      while Pointer /= null loop
+         c_test := Pointer.all.C;
+         if c_test.Is_Equal_To (C) then
+            return True;
+         end if;
+         Pointer := Pointer.all.Next;
+      end loop;
+      return False;
+   end Has;
+
 end Pile_Of_Cards.LIFO;

@@ -13,6 +13,8 @@ package Pile_Of_Cards is
    function Is_Empty (pile : Pile_Type) return Boolean;
    function Size (pile : Pile_Type) return Natural;
    function Peek (pile : Pile_Type) return Card.Card_Type is abstract;
+   function Has (pile : Pile_Type;
+                 C    : Card.Card_Type) return Boolean is abstract;
 private
    type Pile_Type is abstract tagged record
       Count : Natural := 0;

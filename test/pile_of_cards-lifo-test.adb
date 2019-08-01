@@ -9,6 +9,7 @@ with AUnit.Test_Caller;
 
 package body Pile_Of_Cards.LIFO.Test is
 
+   --------------------------------------------------------------------
    --  test constructing a pile
    procedure Construct (T : in out Test) is
       pragma Unreferenced (T);
@@ -55,6 +56,8 @@ package body Pile_Of_Cards.LIFO.Test is
                                  "but is=" & pile.Size'Image);
    end Push_Two_Cards;
 
+   --------------------------------------------------------------------
+   --  Pop operations
    procedure Pop_One_Pushed_One (T : in out Test) is
       pragma Unreferenced (T);
       c    : constant Card.Card_Type := Card.Construct (Rank => Deck.Ace,
@@ -158,6 +161,8 @@ package body Pile_Of_Cards.LIFO.Test is
                                            "no exception raised");
    end Pop_Two_Pushed_One;
 
+   --------------------------------------------------------------------
+   --  Peek operations
    procedure Peek_No_Cards_Exception;
    procedure Peek_No_Cards_Exception is
       pile : constant Pile_Of_Cards.LIFO.Pile_Type_LIFO
@@ -215,50 +220,155 @@ package body Pile_Of_Cards.LIFO.Test is
    end Peek_Two_Cards;
 
    --------------------------------------------------------------------
+   --  Has operations
+
+   procedure Has_Not_No_Cards (T : in out Test) is
+      pragma Unreferenced (T);
+      pile  : constant Pile_Of_Cards.LIFO.Pile_Type_LIFO
+        := Pile_Of_Cards.LIFO.Construct;
+      c_has : constant Card.Card_Type := Card.Construct (Rank => Deck.King,
+                                                         Suit => Deck.Diamond);
+   begin
+      AUnit.Assertions.Assert (not pile.Has (c_has), "Has=True");
+   end Has_Not_No_Cards;
+
+   procedure Has_Not_1_Card (T : in out Test) is
+      pragma Unreferenced (T);
+      pile  : Pile_Of_Cards.LIFO.Pile_Type_LIFO
+        := Pile_Of_Cards.LIFO.Construct;
+      c1    : constant Card.Card_Type := Card.Construct (Rank => Deck.Ace,
+                                                         Suit => Deck.Diamond);
+      c_has : constant Card.Card_Type := Card.Construct (Rank => Deck.King,
+                                                         Suit => Deck.Diamond);
+   begin
+      pile.Push (c1);
+      AUnit.Assertions.Assert (not pile.Has (c_has), "Has=True");
+   end Has_Not_1_Card;
+
+   procedure Has_Not_2_Cards (T : in out Test) is
+      pragma Unreferenced (T);
+      pile  : Pile_Of_Cards.LIFO.Pile_Type_LIFO
+        := Pile_Of_Cards.LIFO.Construct;
+      c1    : constant Card.Card_Type := Card.Construct (Rank => Deck.Ace,
+                                                         Suit => Deck.Diamond);
+      c2    : constant Card.Card_Type := Card.Construct (Rank => Deck.Two,
+                                                         Suit => Deck.Diamond);
+      c_has : constant Card.Card_Type := Card.Construct (Rank => Deck.King,
+                                                         Suit => Deck.Diamond);
+   begin
+      pile.Push (c1);
+      pile.Push (c2);
+      AUnit.Assertions.Assert (not pile.Has (c_has), "Has=True");
+   end Has_Not_2_Cards;
+
+   procedure Has_1_Card (T : in out Test) is
+      pragma Unreferenced (T);
+      pile  : Pile_Of_Cards.LIFO.Pile_Type_LIFO
+        := Pile_Of_Cards.LIFO.Construct;
+      c1    : constant Card.Card_Type := Card.Construct (Rank => Deck.Ace,
+                                                         Suit => Deck.Diamond);
+      c_has : constant Card.Card_Type := c1;
+   begin
+      pile.Push (c1);
+      AUnit.Assertions.Assert (pile.Has (c_has), "Has=False");
+   end Has_1_Card;
+
+   procedure Has_2_Cards_1st_Push (T : in out Test) is
+      pragma Unreferenced (T);
+      pile  : Pile_Of_Cards.LIFO.Pile_Type_LIFO
+        := Pile_Of_Cards.LIFO.Construct;
+      c1    : constant Card.Card_Type := Card.Construct (Rank => Deck.Ace,
+                                                         Suit => Deck.Diamond);
+      c2    : constant Card.Card_Type := Card.Construct (Rank => Deck.Two,
+                                                         Suit => Deck.Diamond);
+      c_has : constant Card.Card_Type := c1;
+   begin
+      pile.Push (c1);
+      pile.Push (c2);
+      AUnit.Assertions.Assert (pile.Has (c_has), "Has=False");
+   end Has_2_Cards_1st_Push;
+
+   procedure Has_2_Cards_2nd_Push (T : in out Test) is
+      pragma Unreferenced (T);
+      pile  : Pile_Of_Cards.LIFO.Pile_Type_LIFO
+        := Pile_Of_Cards.LIFO.Construct;
+      c1    : constant Card.Card_Type := Card.Construct (Rank => Deck.Ace,
+                                                         Suit => Deck.Diamond);
+      c2    : constant Card.Card_Type := Card.Construct (Rank => Deck.Two,
+                                                         Suit => Deck.Diamond);
+      c_has : constant Card.Card_Type := c2;
+   begin
+      pile.Push (c1);
+      pile.Push (c2);
+      AUnit.Assertions.Assert (pile.Has (c_has), "Has=False");
+   end Has_2_Cards_2nd_Push;
+
+   --------------------------------------------------------------------
    --  the test suit construction
    package Caller is new AUnit.Test_Caller (Pile_Of_Cards.LIFO.Test.Test);
 
    function Suite return AUnit.Test_Suites.Access_Test_Suite is
       Ret : constant AUnit.Test_Suites.Access_Test_Suite
         := new AUnit.Test_Suites.Test_Suite;
+      N   : constant String := "Pile_Of_Cards.LIFO.";
    begin
       --  ctor tests
       Ret.Add_Test (Caller.
-                      Create ("Pile_Of_Cards.Construct",
+                      Create (N & "Construct",
                         Construct'Access));
 
       --  Push/Pop
       Ret.Add_Test (Caller.
-                      Create ("Pile_Of_Cards.Push_One_Card",
+                      Create (N & "Push_One_Card",
                         Push_One_Card'Access));
       Ret.Add_Test (Caller.
-                      Create ("Pile_Of_Cards.Push_Two_Cards",
+                      Create (N & "Push_Two_Cards",
                         Push_Two_Cards'Access));
       Ret.Add_Test (Caller.
-                      Create ("Pile_Of_Cards.Pop_One_Pushed_One",
+                      Create (N & "Pop_One_Pushed_One",
                         Pop_One_Pushed_One'Access));
       Ret.Add_Test (Caller.
-                      Create ("Pile_Of_Cards.Pop_One_Pushed_Two",
+                      Create (N & "Pop_One_Pushed_Two",
                         Pop_One_Pushed_Two'Access));
       Ret.Add_Test (Caller.
-                      Create ("Pile_Of_Cards.Pop_Two_Pushed_Two",
+                      Create (N & "Pop_Two_Pushed_Two",
                         Pop_Two_Pushed_Two'Access));
       Ret.Add_Test (Caller.
-                      Create ("Pile_Of_Cards.Pop_One_Pushed_None",
+                      Create (N & "Pop_One_Pushed_None",
                         Pop_One_Pushed_None'Access));
       Ret.Add_Test (Caller.
-                      Create ("Pile_Of_Cards.Pop_Two_Pushed_One",
+                      Create (N & "Pop_Two_Pushed_One",
                         Pop_Two_Pushed_One'Access));
 
       Ret.Add_Test (Caller.
-                      Create ("Pile_Of_Cards.Peek_No_Cards",
+                      Create (N & "Peek_No_Cards",
                         Peek_No_Cards'Access));
       Ret.Add_Test (Caller.
-                      Create ("Pile_Of_Cards.Peek_One_Card",
+                      Create (N & "Peek_One_Card",
                         Peek_One_Card'Access));
       Ret.Add_Test (Caller.
-                      Create ("Pile_Of_Cards.Peek_Two_Cards",
+                      Create (N & "Peek_Two_Cards",
                         Peek_Two_Cards'Access));
+
+      Ret.Add_Test (Caller.
+                      Create (N & "Has_Not_No_Cards",
+                        Has_Not_No_Cards'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "Has_Not_1_Card",
+                        Has_Not_1_Card'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "Has_Not_2_Cards",
+                        Has_Not_2_Cards'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "Has_1_Card",
+                        Has_1_Card'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "Has_2_Cards_1st_Push",
+                        Has_2_Cards_1st_Push'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "Has_2_Cards_2nd_Push",
+                        Has_2_Cards_2nd_Push'Access));
+
       return Ret;
    end Suite;
 

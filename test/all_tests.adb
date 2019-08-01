@@ -3,6 +3,7 @@ with AUnit.Reporter;
 with AUnit.Reporter.Text;
 with AUnit.Run;
 
+with Acceptable.Test;
 with Card.Test;
 with Deck.Test;
 with Foundation_Stack.Test;
@@ -11,6 +12,7 @@ with Pile_Of_Cards.Test;
 with Pile_Of_Cards.FIFO.Test;
 with Pile_Of_Cards.LIFO.Test;
 with Stock.Test;
+with Tableau_Stack.Test;
 with Tableau.Test;
 
 procedure All_Tests is
@@ -21,6 +23,7 @@ procedure All_Tests is
       Ret : constant AUnit.Test_Suites.Access_Test_Suite
               := new AUnit.Test_Suites.Test_Suite;
    begin
+      Ret.Add_Test (Acceptable.Test.Suite);
       Ret.Add_Test (Card.Test.Suite);
       Ret.Add_Test (Deck.Test.Suite);
       Ret.Add_Test (Foundation.Test.Suite);
@@ -29,6 +32,7 @@ procedure All_Tests is
       Ret.Add_Test (Pile_Of_Cards.FIFO.Test.Suite);
       Ret.Add_Test (Pile_Of_Cards.LIFO.Test.Suite);
       Ret.Add_Test (Stock.Test.Suite);
+      Ret.Add_Test (Tableau_Stack.Test.Suite);
       Ret.Add_Test (Tableau.Test.Suite);
       return Ret;
    end Suite;

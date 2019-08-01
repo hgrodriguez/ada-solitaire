@@ -23,4 +23,7 @@ private
 
    procedure Full_Stack_Does_Not_Accept_Anything (T : in out Test);
 
+   procedure Push_Wrong_Card_Wrong_Suit (T : in out Test);
+   procedure Push_Wrong_Card_Wrong_Rank (T : in out Test);
+
 end Foundation_Stack.Test;

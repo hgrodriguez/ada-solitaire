@@ -19,4 +19,11 @@ private
    procedure Peek_One_Card (T : in out Test);
    procedure Peek_Two_Cards (T : in out Test);
 
+   procedure Has_Not_No_Cards (T : in out Test);
+   procedure Has_Not_1_Card (T : in out Test);
+   procedure Has_Not_2_Cards (T : in out Test);
+   procedure Has_1_Card (T : in out Test);
+   procedure Has_2_Cards_1st_Put (T : in out Test);
+   procedure Has_2_Cards_2nd_Put (T : in out Test);
+
 end Pile_Of_Cards.FIFO.Test;

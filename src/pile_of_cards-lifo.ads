@@ -17,6 +17,10 @@ package Pile_Of_Cards.LIFO is
    overriding
    function Peek  (pile : Pile_Type_LIFO) return Card.Card_Type;
 
+   overriding
+   function Has (Pile : Pile_Type_LIFO;
+                 C    : Card.Card_Type) return Boolean;
+
 private
    --------------------------------------------------------------------
    --  the dynamic list of cards

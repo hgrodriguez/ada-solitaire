@@ -7,8 +7,7 @@ project Solitaire is
    for Main use (
 "tableau_stack_test_main", "tableau_test_main", "solitaire.adb", "stock_test_main", "pile_of_cards_lifo_test_main", "pile_of_cards_fifo_test_main", "pile_of_cards_test_main", 
       "foundation_stack_test_main", "foundation_test_main", "deck_test_main.adb", "card_test_main",
-"all_tests",
-"acceptable_test_main"
+"all_tests"
 );
 
    package Ide is

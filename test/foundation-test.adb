@@ -49,17 +49,17 @@ package body Foundation.Test is
                                "card=" & Acc_Card.Image &
                                  " /= " & Acc_Diamond.Image);
       Acc_Card := Acceptable.Get;
-      AUnit.Assertions.Assert (Acc_Card.Is_Equal_To (Acc_Club),
-                               "card=" & Acc_Card.Image &
-                                 " /= " & Acc_Diamond.Image);
-      Acc_Card := Acceptable.Get;
       AUnit.Assertions.Assert (Acc_Card.Is_Equal_To (Acc_Heart),
                                "card=" & Acc_Card.Image &
-                                 " /= " & Acc_Diamond.Image);
+                                 " /= " & Acc_Heart.Image);
+      Acc_Card := Acceptable.Get;
+      AUnit.Assertions.Assert (Acc_Card.Is_Equal_To (Acc_Club),
+                               "card=" & Acc_Card.Image &
+                                 " /= " & Acc_Club.Image);
       Acc_Card := Acceptable.Get;
       AUnit.Assertions.Assert (Acc_Card.Is_Equal_To (Acc_Spade),
                                "card=" & Acc_Card.Image &
-                                 " /= " & Acc_Diamond.Image);
+                                 " /= " & Acc_Spade.Image);
    end Check_Accepted_Empty_Foundation;
 
    procedure Accepts_Suit_All_Cards (Suit : Deck.Suit_Type);
@@ -75,10 +75,10 @@ package body Foundation.Test is
          Acceptable := F.Accepts;
          if Suit = Deck.Diamond then
             Card_Accepts := Acceptable.Get;
-         elsif Suit = Deck.Club then
-            Card_Accepts := Acceptable.Get;
-            Card_Accepts := Acceptable.Get;
          elsif Suit = Deck.Heart then
+            Card_Accepts := Acceptable.Get;
+            Card_Accepts := Acceptable.Get;
+         elsif Suit = Deck.Club then
             Card_Accepts := Acceptable.Get;
             Card_Accepts := Acceptable.Get;
             Card_Accepts := Acceptable.Get;

@@ -12,4 +12,7 @@ private
    procedure Test_Is_Black_Clubs (T : in out Test);
    procedure Test_Is_Black_Spade (T : in out Test);
 
+   procedure Test_Short_Image_Ranks (T : in out Test);
+   procedure Test_Short_Image_Suits (T : in out Test);
+
 end Deck.Test;

@@ -63,6 +63,37 @@ package body Tableau_Stack.Test is
    end Construct_Check_Pop_Fails;
 
    --------------------------------------------------------------------
+   --  Has
+   procedure Does_Not_Have_Empty_Stack (T : in out Test)  is
+      pragma Unreferenced (T);
+      stack : constant Tableau_Stack.Stack_Type := Tableau_Stack.Construct;
+      C_N   : constant Card.Card_Type := Card.Construct (Deck.Two,
+                                                         Deck.Diamond);
+   begin
+      AUnit.Assertions.Assert (not stack.Has (C_N), "Has=False /= True");
+   end Does_Not_Have_Empty_Stack;
+
+   procedure Does_Not_Have_Not_Empty_Stack (T : in out Test) is
+      pragma Unreferenced (T);
+      stack : constant Tableau_Stack.Stack_Type := Tableau_Stack.Construct;
+      C_N   : constant Card.Card_Type := Card.Construct (Deck.Two,
+                                                         Deck.Diamond);
+   begin
+      stack.Push_Unchecked (Card.Construct (Deck.Ten, Deck.Heart));
+      AUnit.Assertions.Assert (not stack.Has (C_N), "Has=False /= True");
+   end Does_Not_Have_Not_Empty_Stack;
+
+   procedure Does_Have_Not_Empty_Stack (T : in out Test) is
+      pragma Unreferenced (T);
+      stack : constant Tableau_Stack.Stack_Type := Tableau_Stack.Construct;
+      C_N   : constant Card.Card_Type := Card.Construct (Deck.Two,
+                                                         Deck.Diamond);
+   begin
+      stack.Push_Unchecked (C_N);
+      AUnit.Assertions.Assert (stack.Has (C_N), "Has=True /= False");
+   end Does_Have_Not_Empty_Stack;
+
+   --------------------------------------------------------------------
    --  Push
    procedure Empty_Stack_Push_King_Check_Size (T : in out Test) is
       pragma Unreferenced (T);
@@ -238,6 +269,17 @@ package body Tableau_Stack.Test is
       Ret.Add_Test (Caller.
                       Create (N & "Construct_Check_Pop_Fails",
                         Construct_Check_Pop_Fails'Access));
+
+      --  Has tests
+      Ret.Add_Test (Caller.
+                      Create (N & "Does_Not_Have_Empty_Stack",
+                        Does_Not_Have_Empty_Stack'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "Does_Not_Have_Not_Empty_Stack",
+                        Does_Not_Have_Not_Empty_Stack'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "Does_Have_Not_Empty_Stack",
+                        Does_Have_Not_Empty_Stack'Access));
 
       --  Push tests
       Ret.Add_Test (Caller.

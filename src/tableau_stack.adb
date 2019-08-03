@@ -16,6 +16,11 @@ package body Tableau_Stack is
       return T.Cards.Size;
    end Size;
 
+   function Has (T : Stack_Type; C : Card.Card_Type) return Boolean is
+   begin
+      return T.Cards.Has (C);
+   end Has;
+
    function Is_Empty (T : Stack_Type) return Boolean is
    begin
       return T.Cards.Is_Empty;

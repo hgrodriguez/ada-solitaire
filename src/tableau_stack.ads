@@ -15,6 +15,7 @@ package Tableau_Stack is
    function Construct return Stack_Type;
 
    function Size (T : Stack_Type) return Natural;
+   function Has (T : Stack_Type; C : Card.Card_Type) return Boolean;
 
    function Is_Empty (T : Stack_Type) return Boolean;
 

@@ -8,6 +8,8 @@ package Foundation is
    type Foundation_Type is tagged private;
    subtype Acceptable_Type is Pile_Of_Cards.FIFO.Pile_Type_FIFO;
 
+   Foundation_Wrong_Card_Exception : exception;
+
    function Construct return Foundation_Type;
 
    function Size  (F : Foundation_Type) return Natural;

@@ -1,3 +1,5 @@
+with Ada.Exceptions;
+
 with AUnit.Assertions;
 with AUnit.Test_Caller;
 
@@ -208,54 +210,87 @@ package body Foundation.Test is
                                  " /= Rank act: " & Actual_Rank'Image);
    end Full_Foundation_Accepts_Is_Empty;
 
+   procedure Does_Not_Accept_Card_Out_Of_Order_Exception;
+   procedure Does_Not_Accept_Card_Out_Of_Order_Exception is
+      F : constant Foundation.Foundation_Type := Foundation.Construct;
+      C : constant Card.Card_Type := Card.Construct (Deck.Three, Deck.Diamond);
+   begin
+      F.Put (C);
+   exception
+      when Foundation_Wrong_Card_Exception => raise;
+      when Exc : others =>
+         AUnit.
+           Assertions.
+             Assert (False,
+                     "Does_Not_Accept_Card_Out_Of_Order_Exception: " &
+                       "wrong exception raised:" &
+                       Ada.Exceptions.Exception_Name (Exc));
+   end Does_Not_Accept_Card_Out_Of_Order_Exception;
+
+   procedure Does_Not_Accept_Card_Out_Of_Order (T : in out Test) is
+      pragma Unreferenced (T);
+
+   begin
+      AUnit.
+        Assertions.
+          Assert_Exception (Does_Not_Accept_Card_Out_Of_Order_Exception'Access,
+                            "Does_Not_Accept_Card_Out_Of_Order: " &
+                              "no exception raised");
+   end Does_Not_Accept_Card_Out_Of_Order;
+
    --------------------------------------------------------------------
    --  the test suit construction
    package Caller is new AUnit.Test_Caller (Foundation.Test.Test);
 
    function Suite return AUnit.Test_Suites.Access_Test_Suite is
       Ret : constant AUnit.Test_Suites.Access_Test_Suite
-             := new AUnit.Test_Suites.Test_Suite;
+        := new AUnit.Test_Suites.Test_Suite;
+      N   : constant String := "Foundation.Test.";
    begin
       --  ctor tests
       Ret.Add_Test (Caller.
-                      Create ("Foundation.Construct",
+                      Create (N & "Construct",
                         Construct'Access));
       Ret.Add_Test (Caller.
-                      Create ("Foundation.Construct_Check_Size",
+                      Create (N & "Construct_Check_Size",
                         Construct_Check_Size'Access));
 
       Ret.Add_Test (Caller.
-                      Create ("Foundation.Check_Accepted_Empty_Foundation",
+                      Create (N & "Check_Accepted_Empty_Foundation",
                         Check_Accepted_Empty_Foundation'Access));
 
       Ret.Add_Test (Caller.
-                      Create ("Foundation.Accepts_Suit_Diamond_All_Cards",
+                      Create (N & "Accepts_Suit_Diamond_All_Cards",
                         Accepts_Suit_Diamond_All_Cards'Access));
       Ret.Add_Test (Caller.
-                      Create ("Foundation.Accepts_Suit_Club_All_Cards",
+                      Create (N & "Accepts_Suit_Club_All_Cards",
                         Accepts_Suit_Club_All_Cards'Access));
       Ret.Add_Test (Caller.
-                      Create ("Foundation.Accepts_Suit_Heart_All_Cards",
+                      Create (N & "Accepts_Suit_Heart_All_Cards",
                         Accepts_Suit_Heart_All_Cards'Access));
       Ret.Add_Test (Caller.
-                      Create ("Foundation.Accepts_Suit_Spade_All_Cards",
+                      Create (N & "Accepts_Suit_Spade_All_Cards",
                         Accepts_Suit_Spade_All_Cards'Access));
 
       Ret.Add_Test (Caller.
-                      Create ("Foundation.Accepts_Only_Other_Suits_Ace_Diamond",
+                      Create (N & "Accepts_Only_Other_Suits_Ace_Diamond",
                         Accepts_Only_Other_Suits_Ace_Diamond'Access));
       Ret.Add_Test (Caller.
-                      Create ("Foundation.Accepts_Only_Other_Suits_Ace_Club",
+                      Create (N & "Accepts_Only_Other_Suits_Ace_Club",
                         Accepts_Only_Other_Suits_Ace_Club'Access));
       Ret.Add_Test (Caller.
-                      Create ("Foundation.Accepts_Only_Other_Suits_Ace_Heart",
+                      Create (N & "Accepts_Only_Other_Suits_Ace_Heart",
                         Accepts_Only_Other_Suits_Ace_Heart'Access));
       Ret.Add_Test (Caller.
-                      Create ("Foundation.Accepts_Only_Other_Suits_Ace_Spade",
+                      Create (N & "Accepts_Only_Other_Suits_Ace_Spade",
                         Accepts_Only_Other_Suits_Ace_Spade'Access));
       Ret.Add_Test (Caller.
-                      Create ("Foundation.Full_Foundation_Accepts_Is_Empty",
+                      Create (N & "Full_Foundation_Accepts_Is_Empty",
                         Full_Foundation_Accepts_Is_Empty'Access));
+
+      Ret.Add_Test (Caller.
+                      Create (N & "Does_Not_Accept_Card_Out_Of_Order",
+                        Does_Not_Accept_Card_Out_Of_Order'Access));
       return Ret;
    end Suite;
 

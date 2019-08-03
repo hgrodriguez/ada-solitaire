@@ -52,6 +52,9 @@ package body Foundation is
    procedure Put (F : Foundation_Type; c : Card.Card_Type) is
    begin
       F.Stacks (c.Get_Suit).Push (c);
+   exception
+      when Foundation_Stack.Wrong_Rank_Exception
+         => raise Foundation_Wrong_Card_Exception;
    end Put;
 
 end Foundation;

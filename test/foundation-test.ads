@@ -24,4 +24,6 @@ private
 
    procedure Full_Foundation_Accepts_Is_Empty (T : in out Test);
 
+   procedure Does_Not_Accept_Card_Out_Of_Order (T : in out Test);
+
 end Foundation.Test;

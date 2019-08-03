@@ -1,3 +1,5 @@
+with Pile_Of_Cards.LIFO;
+
 package body Tableau is
 
    function Construct return Tableau_Type is
@@ -37,6 +39,40 @@ package body Tableau is
       end loop;
    end Push;
 
+   procedure Move_To
+     (T               : Tableau_Type;
+      Src_Index       : Valid_Stacks_Range;
+      Dst_Index       : Valid_Stacks_Range;
+      Card_To_Include : Card.Card_Type) is
+      Src_Stack  : constant Tableau_Stack.Stack_Type_Access
+        := T.Stacks (Src_Index);
+      Dst_Stack  : constant Tableau_Stack.Stack_Type_Access
+        := T.Stacks (Dst_Index);
+      Acceptable : constant Tableau_Stack.Acceptable_Type
+        := Dst_Stack.all.Accepts;
+      Transfer   : Pile_Of_Cards.LIFO.Pile_Type_LIFO
+        := Pile_Of_Cards.LIFO.Construct;
+      Card_To_Xfer : Card.Card_Type;
+   begin
+      if not Src_Stack.all.Has (Card_To_Include) then
+         raise Tableau_Source_Card_Does_Not_Exist_Exception;
+      end if;
+      if not Acceptable.Has (Card_To_Include) then
+         raise Tableau_Destination_Stack_Does_Not_Accept_Exception;
+      end if;
+      loop
+         Card_To_Xfer := Src_Stack.all.Pop;
+         Transfer.Push (Card_To_Xfer);
+         exit when Card_To_Xfer.Is_Equal_To (Card_To_Include);
+      end loop;
+      while not Transfer.Is_Empty loop
+         Card_To_Xfer := Transfer.Pop;
+         Dst_Stack.Push_Unchecked (Card_To_Xfer);
+      end loop;
+   end Move_To;
+
+   --------------------------------------------------------------------
+   --
    function Pop_From_Stack
      (T : Tableau_Type;
       J : Valid_Stacks_Range)
@@ -48,8 +84,6 @@ package body Tableau is
          raise Tableau_Stack_Empty_Exception;
    end Pop_From_Stack;
 
-   --------------------------------------------------------------------
-   --
    function Get_Stack (T : Tableau_Type; J : Valid_Stacks_Range)
                        return Tableau_Stack.Stack_Type_Access is
    begin

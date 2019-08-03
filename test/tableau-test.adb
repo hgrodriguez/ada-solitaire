@@ -237,6 +237,507 @@ package body Tableau.Test is
    end Add_7_Cards_Check_Pop;
 
    --------------------------------------------------------------------
+   --  Move_To tests
+   procedure Move_To_Source_Selection_Does_Not_Exist_Exc;
+   procedure Move_To_Source_Selection_Does_Not_Exist_Exc is
+      Tab       : constant Tableau.Tableau_Type := Tableau.Construct;
+      Src_Stack : constant Tableau_Stack.Stack_Type_Access := Tab.Get_Stack (1);
+      Cards     : constant Some_Cards
+        := (Card.Construct (Deck.Three, Deck.Diamond),
+            Card.Construct (Deck.Seven, Deck.Heart),
+            Card.Construct (Deck.Ace,   Deck.Spade),
+            Card.Construct (Deck.King,  Deck.Club),
+            Card.Construct (Deck.Eight, Deck.Diamond),
+            Card.Construct (Deck.Three, Deck.Spade),
+            Card.Construct (Deck.Jack,  Deck.Heart));
+      Not_Exist : constant Card.Card_Type
+        := Card.Construct (Deck.Queen, Deck.Club);
+   begin
+      for J in Natural range Cards'First .. Cards'Last loop
+         Src_Stack.all.Push_Unchecked (Cards (J));
+      end loop;
+      Tab.Move_To (1, 2, Not_Exist);
+   exception
+      when Tableau_Source_Card_Does_Not_Exist_Exception => raise;
+      when Exc : others =>
+         AUnit.
+           Assertions.
+             Assert (False,
+                     "Move_To_Source_Selection_Does_Not_Exist_Exception: " &
+                       "wrong exception raised:" &
+                       Ada.Exceptions.Exception_Name (Exc));
+   end Move_To_Source_Selection_Does_Not_Exist_Exc;
+
+   procedure Move_To_Source_Selection_Does_Not_Exist (T : in out Test) is
+      pragma Unreferenced (T);
+   begin
+      AUnit.
+        Assertions.
+          Assert_Exception (Move_To_Source_Selection_Does_Not_Exist_Exc'Access,
+                            "Construct_Check_Pop_Fails: " &
+                              "no exception raised");
+   end Move_To_Source_Selection_Does_Not_Exist;
+
+   procedure Move_To_1_Trgt_Does_Not_Accept_Exc;
+   procedure Move_To_1_Trgt_Does_Not_Accept_Exc is
+      Tab       : constant Tableau.Tableau_Type := Tableau.Construct;
+      --
+      Src_Stack : constant Tableau_Stack.Stack_Type_Access := Tab.Get_Stack (1);
+      Src_Cards : constant Some_Cards
+        := (1 => Card.Construct (Deck.Three, Deck.Diamond));
+      Src_Exist : constant Card.Card_Type := Src_Cards (1);
+      --
+      Dst_Stack : constant Tableau_Stack.Stack_Type_Access := Tab.Get_Stack (2);
+      Dst_Cards : constant Some_Cards
+        := (1 => Card.Construct (Deck.Ten, Deck.Diamond));
+   begin
+      for J in Natural range Src_Cards'First .. Src_Cards'Last loop
+         Src_Stack.all.Push_Unchecked (Src_Cards (J));
+      end loop;
+      for J in Natural range Dst_Cards'First .. Dst_Cards'Last loop
+         Dst_Stack.all.Push_Unchecked (Dst_Cards (J));
+      end loop;
+      Tab.Move_To (1, 2, Src_Exist);
+   exception
+      when Tableau_Destination_Stack_Does_Not_Accept_Exception => raise;
+      when Exc : others =>
+         AUnit.
+           Assertions.
+             Assert (False,
+                     "Move_To_1_Trgt_Does_Not_Accept_Exc: " &
+                       "wrong exception raised:" &
+                       Ada.Exceptions.Exception_Name (Exc));
+   end Move_To_1_Trgt_Does_Not_Accept_Exc;
+
+   procedure Move_To_1_Trgt_Does_Not_Accept (T : in out Test) is
+      pragma Unreferenced (T);
+   begin
+      AUnit.
+        Assertions.
+          Assert_Exception (Move_To_1_Trgt_Does_Not_Accept_Exc'Access,
+                            "Construct_Check_Pop_Fails: " &
+                              "no exception raised");
+   end Move_To_1_Trgt_Does_Not_Accept;
+
+   procedure Move_To_1_Src_Not_E_Trgt_E (T : in out Test) is
+      pragma Unreferenced (T);
+      Tab        : constant Tableau.Tableau_Type := Tableau.Construct;
+      --
+      Diff       : constant Integer := 1;
+      --
+      Src_Stack  : constant Tableau_Stack.Stack_Type_Access
+        := Tab.Get_Stack (1);
+      Src_Cards  : constant Some_Cards
+        := (Card.Construct (Deck.Three, Deck.Diamond),
+            Card.Construct (Deck.Seven, Deck.Heart),
+            Card.Construct (Deck.King,  Deck.Heart));
+      Src_Exist  : constant Card.Card_Type := Src_Cards (Src_Cards'Last);
+      Src_O_Size : Natural;
+      Src_N_Size : Natural;
+      --
+      Dst_Stack  : constant Tableau_Stack.Stack_Type_Access
+        := Tab.Get_Stack (2);
+      Dst_O_Size : Natural;
+      Dst_N_Size : Natural;
+      --
+      Aux_Diff   : Integer;
+   begin
+      for J in Natural range Src_Cards'First .. Src_Cards'Last loop
+         Src_Stack.all.Push_Unchecked (Src_Cards (J));
+      end loop;
+      Src_O_Size := Src_Stack.all.Size;
+      Dst_O_Size := Dst_Stack.all.Size;
+      --
+      Tab.Move_To (1, 2, Src_Exist);
+      --
+      Src_N_Size := Src_Stack.all.Size;
+      Dst_N_Size := Dst_Stack.all.Size;
+      --
+      Aux_Diff := Src_O_Size - Diff;
+      --
+      AUnit.Assertions.Assert (Src_N_Size = Src_O_Size - Diff,
+                               "Src_N_Size=" & Aux_Diff'Image &
+                                 " /= " & Src_N_Size'Image);
+      AUnit.Assertions.Assert (not Src_Stack.all.Has (Src_Exist),
+                               "Src_Stack still has " & Src_Exist.Image);
+      --
+      Aux_Diff := Src_O_Size + Diff;
+      AUnit.Assertions.Assert (Dst_N_Size = Dst_O_Size + Diff,
+                               "Dst_N_Size=" & Aux_Diff'Image &
+                                 " /= " & Dst_N_Size'Image);
+      AUnit.Assertions.Assert (Dst_Stack.all.Has (Src_Exist),
+                               "Dst_Stack has NOT " & Src_Exist.Image);
+   end Move_To_1_Src_Not_E_Trgt_E;
+
+   procedure Move_To_1_Src_Not_E_Trgt_Not_E (T : in out Test) is
+      pragma Unreferenced (T);
+      Tab        : constant Tableau.Tableau_Type := Tableau.Construct;
+      --
+      Diff       : constant Integer := 1;
+      --
+      Src_Stack  : constant Tableau_Stack.Stack_Type_Access
+        := Tab.Get_Stack (1);
+      Src_Cards  : constant Some_Cards
+        := (Card.Construct (Deck.Three, Deck.Diamond),
+            Card.Construct (Deck.Seven, Deck.Heart),
+            Card.Construct (Deck.Ten,   Deck.Heart));
+      Src_Exist  : constant Card.Card_Type := Src_Cards (Src_Cards'Last);
+      Src_O_Size : Natural;
+      Src_N_Size : Natural;
+      --
+      Dst_Stack  : constant Tableau_Stack.Stack_Type_Access
+        := Tab.Get_Stack (2);
+      Dst_Cards  : constant Some_Cards
+        := (Card.Construct (Deck.Four, Deck.Heart),
+            Card.Construct (Deck.Jack, Deck.Club));
+      Dst_O_Size : Natural;
+      Dst_N_Size : Natural;
+      --
+      Aux_Diff   : Integer;
+   begin
+      for J in Natural range Src_Cards'First .. Src_Cards'Last loop
+         Src_Stack.all.Push_Unchecked (Src_Cards (J));
+      end loop;
+      Src_O_Size := Src_Stack.all.Size;
+      --
+      for J in Natural range Dst_Cards'First .. Dst_Cards'Last loop
+         Dst_Stack.all.Push_Unchecked (Dst_Cards (J));
+      end loop;
+      Dst_O_Size := Dst_Stack.all.Size;
+      --
+      Tab.Move_To (1, 2, Src_Exist);
+      --
+      Src_N_Size := Src_Stack.all.Size;
+      Dst_N_Size := Dst_Stack.all.Size;
+      --
+      Aux_Diff := Src_O_Size - Diff;
+      --
+      AUnit.Assertions.Assert (Src_N_Size = Src_O_Size - Diff,
+                               "Src_N_Size=" & Aux_Diff'Image &
+                                 " /= " & Src_N_Size'Image);
+      AUnit.Assertions.Assert (not Src_Stack.all.Has (Src_Exist),
+                               "Src_Stack still has " & Src_Exist.Image);
+      --
+      Aux_Diff := Src_O_Size + Diff;
+      AUnit.Assertions.Assert (Dst_N_Size = Dst_O_Size + Diff,
+                               "Dst_N_Size=" & Aux_Diff'Image &
+                                 " /= " & Dst_N_Size'Image);
+      AUnit.Assertions.Assert (Dst_Stack.all.Has (Src_Exist),
+                               "Dst_Stack has NOT " & Src_Exist.Image);
+   end Move_To_1_Src_Not_E_Trgt_Not_E;
+
+   procedure Move_To_1_Src_E_Trgt_E (T : in out Test) is
+      pragma Unreferenced (T);
+      Tab        : constant Tableau.Tableau_Type := Tableau.Construct;
+      --
+      Diff       : constant Integer := 1;
+      --
+      Src_Stack  : constant Tableau_Stack.Stack_Type_Access
+        := Tab.Get_Stack (1);
+      Src_Cards  : constant Some_Cards
+        := (1 => Card.Construct (Deck.King,  Deck.Heart));
+      Src_Exist  : constant Card.Card_Type := Src_Cards (Src_Cards'Last);
+      Src_O_Size : Natural;
+      Src_N_Size : Natural;
+      --
+      Dst_Stack  : constant Tableau_Stack.Stack_Type_Access
+        := Tab.Get_Stack (2);
+      Dst_O_Size : Natural;
+      Dst_N_Size : Natural;
+      --
+      Aux_Diff   : Integer;
+   begin
+      for J in Natural range Src_Cards'First .. Src_Cards'Last loop
+         Src_Stack.all.Push_Unchecked (Src_Cards (J));
+      end loop;
+      Src_O_Size := Src_Stack.all.Size;
+      --
+      Dst_O_Size := Dst_Stack.all.Size;
+      --
+      Tab.Move_To (1, 2, Src_Exist);
+      --
+      Src_N_Size := Src_Stack.all.Size;
+      Dst_N_Size := Dst_Stack.all.Size;
+      --
+      Aux_Diff := Src_O_Size - Diff;
+      --
+      AUnit.Assertions.Assert (Src_N_Size = Src_O_Size - Diff,
+                               "Src_N_Size=" & Aux_Diff'Image &
+                                 " /= " & Src_N_Size'Image);
+      AUnit.Assertions.Assert (not Src_Stack.all.Has (Src_Exist),
+                               "Src_Stack still has " & Src_Exist.Image);
+      --
+      Aux_Diff := Src_O_Size + Diff;
+      AUnit.Assertions.Assert (Dst_N_Size = Dst_O_Size + Diff,
+                               "Dst_N_Size=" & Aux_Diff'Image &
+                                 " /= " & Dst_N_Size'Image);
+      AUnit.Assertions.Assert (Dst_Stack.all.Has (Src_Exist),
+                               "Dst_Stack has NOT " & Src_Exist.Image);
+   end Move_To_1_Src_E_Trgt_E;
+
+   procedure Move_To_1_Src_E_Trgt_Not_E (T : in out Test) is
+      pragma Unreferenced (T);
+      Tab        : constant Tableau.Tableau_Type := Tableau.Construct;
+      --
+      Diff       : constant Integer := 1;
+      --
+      Src_Stack  : constant Tableau_Stack.Stack_Type_Access
+        := Tab.Get_Stack (1);
+      Src_Cards  : constant Some_Cards
+        := (1 => Card.Construct (Deck.Ten,  Deck.Heart));
+      Src_Exist  : constant Card.Card_Type := Src_Cards (Src_Cards'Last);
+      Src_O_Size : Natural;
+      Src_N_Size : Natural;
+      --
+      Dst_Stack  : constant Tableau_Stack.Stack_Type_Access
+        := Tab.Get_Stack (2);
+      Dst_Cards  : constant Some_Cards
+        := (Card.Construct (Deck.Four, Deck.Heart),
+            Card.Construct (Deck.Jack, Deck.Club));
+      Dst_O_Size : Natural;
+      Dst_N_Size : Natural;
+      --
+      Aux_Diff   : Integer;
+   begin
+      for J in Natural range Src_Cards'First .. Src_Cards'Last loop
+         Src_Stack.all.Push_Unchecked (Src_Cards (J));
+      end loop;
+      Src_O_Size := Src_Stack.all.Size;
+      --
+      for J in Natural range Dst_Cards'First .. Dst_Cards'Last loop
+         Dst_Stack.all.Push_Unchecked (Dst_Cards (J));
+      end loop;
+      Dst_O_Size := Dst_Stack.all.Size;
+      --
+      Tab.Move_To (1, 2, Src_Exist);
+      --
+      Src_N_Size := Src_Stack.all.Size;
+      Dst_N_Size := Dst_Stack.all.Size;
+      --
+      Aux_Diff := Src_O_Size - Diff;
+      --
+      AUnit.Assertions.Assert (Src_N_Size = Src_O_Size - Diff,
+                               "Src_N_Size=" & Aux_Diff'Image &
+                                 " /= " & Src_N_Size'Image);
+      AUnit.Assertions.Assert (not Src_Stack.all.Has (Src_Exist),
+                               "Src_Stack still has " & Src_Exist.Image);
+      --
+      Aux_Diff := Src_O_Size + Diff;
+      AUnit.Assertions.Assert (Dst_N_Size = Dst_O_Size + Diff,
+                               "Dst_N_Size=" & Aux_Diff'Image &
+                                 " /= " & Dst_N_Size'Image);
+      AUnit.Assertions.Assert (Dst_Stack.all.Has (Src_Exist),
+                               "Dst_Stack has NOT " & Src_Exist.Image);
+   end Move_To_1_Src_E_Trgt_Not_E;
+
+   procedure Move_To_X_Trgt_Does_Not_Accept_Exc;
+   procedure Move_To_X_Trgt_Does_Not_Accept_Exc is
+      Tab       : constant Tableau.Tableau_Type := Tableau.Construct;
+      --
+      Src_Stack : constant Tableau_Stack.Stack_Type_Access := Tab.Get_Stack (1);
+      Src_Cards : constant Some_Cards
+        := (Card.Construct (Deck.Three, Deck.Diamond),
+            Card.Construct (Deck.Seven, Deck.Heart),
+            Card.Construct (Deck.Jack,  Deck.Heart));
+      Src_Exist : constant Card.Card_Type := Src_Cards (1);
+      --
+      Dst_Stack : constant Tableau_Stack.Stack_Type_Access := Tab.Get_Stack (2);
+      Dst_Cards : constant Some_Cards
+        := (1 => Card.Construct (Deck.Ten, Deck.Diamond));
+   begin
+      for J in Natural range Src_Cards'First .. Src_Cards'Last loop
+         Src_Stack.all.Push_Unchecked (Src_Cards (J));
+      end loop;
+      for J in Natural range Dst_Cards'First .. Dst_Cards'Last loop
+         Dst_Stack.all.Push_Unchecked (Dst_Cards (J));
+      end loop;
+      Tab.Move_To (1, 2, Src_Exist);
+   exception
+      when Tableau_Destination_Stack_Does_Not_Accept_Exception => raise;
+      when Exc : others =>
+         AUnit.
+           Assertions.
+             Assert (False,
+                     "Move_To_X_Trgt_Does_Not_Accept_Exc: " &
+                       "wrong exception raised:" &
+                       Ada.Exceptions.Exception_Name (Exc));
+   end Move_To_X_Trgt_Does_Not_Accept_Exc;
+
+   procedure Move_To_X_Trgt_Does_Not_Accept (T : in out Test) is
+      pragma Unreferenced (T);
+   begin
+      AUnit.
+        Assertions.
+          Assert_Exception (Move_To_X_Trgt_Does_Not_Accept_Exc'Access,
+                            "Move_To_X_Trgt_Does_Not_Accept: " &
+                              "no exception raised");
+   end Move_To_X_Trgt_Does_Not_Accept;
+
+   procedure Move_To_X_Src_Not_E_Trgt_E (T : in out Test) is
+      pragma Unreferenced (T);
+      Tab        : constant Tableau.Tableau_Type := Tableau.Construct;
+      --
+      Diff       : constant Integer := 2;
+      --
+      Src_Stack  : constant Tableau_Stack.Stack_Type_Access
+        := Tab.Get_Stack (1);
+      Src_Cards  : constant Some_Cards
+        := (Card.Construct (Deck.Three, Deck.Diamond),
+            Card.Construct (Deck.King,  Deck.Heart),
+            Card.Construct (Deck.Seven, Deck.Heart));
+      Src_Exist  : constant Card.Card_Type := Src_Cards (2);
+      Src_O_Size : Natural;
+      Src_N_Size : Natural;
+      --
+      Dst_Stack  : constant Tableau_Stack.Stack_Type_Access
+        := Tab.Get_Stack (2);
+      Dst_O_Size : Natural;
+      Dst_N_Size : Natural;
+      --
+      Aux_Diff   : Integer;
+   begin
+      for J in Natural range Src_Cards'First .. Src_Cards'Last loop
+         Src_Stack.all.Push_Unchecked (Src_Cards (J));
+      end loop;
+      Src_O_Size := Src_Stack.all.Size;
+      Dst_O_Size := Dst_Stack.all.Size;
+      --
+      Tab.Move_To (1, 2, Src_Exist);
+      --
+      Src_N_Size := Src_Stack.all.Size;
+      Dst_N_Size := Dst_Stack.all.Size;
+      --
+      Aux_Diff := Src_O_Size - Diff;
+      --
+      AUnit.Assertions.Assert (Src_N_Size = Src_O_Size - Diff,
+                               "Src_N_Size=" & Aux_Diff'Image &
+                                 " /= " & Src_N_Size'Image);
+      AUnit.Assertions.Assert (not Src_Stack.all.Has (Src_Exist),
+                               "Src_Stack still has " & Src_Exist.Image);
+      --
+      Aux_Diff := Src_O_Size + Diff;
+      AUnit.Assertions.Assert (Dst_N_Size = Dst_O_Size + Diff,
+                               "Dst_N_Size=" & Aux_Diff'Image &
+                                 " /= " & Dst_N_Size'Image);
+      AUnit.Assertions.Assert (Dst_Stack.all.Has (Src_Exist),
+                               "Dst_Stack has NOT " & Src_Exist.Image);
+   end Move_To_X_Src_Not_E_Trgt_E;
+
+   procedure Move_To_X_Src_Not_E_Trgt_Not_E (T : in out Test) is
+      pragma Unreferenced (T);
+      Tab        : constant Tableau.Tableau_Type := Tableau.Construct;
+      --
+      Diff       : constant Integer := 2;
+      --
+      Src_Stack  : constant Tableau_Stack.Stack_Type_Access
+        := Tab.Get_Stack (1);
+      Src_Cards  : constant Some_Cards
+        := (Card.Construct (Deck.Three, Deck.Diamond),
+            Card.Construct (Deck.Ten,   Deck.Heart),
+            Card.Construct (Deck.Seven, Deck.Heart));
+      Src_Exist  : constant Card.Card_Type := Src_Cards (2);
+      Src_O_Size : Natural;
+      Src_N_Size : Natural;
+      --
+      Dst_Stack  : constant Tableau_Stack.Stack_Type_Access
+        := Tab.Get_Stack (2);
+      Dst_Cards  : constant Some_Cards
+        := (Card.Construct (Deck.Four, Deck.Heart),
+            Card.Construct (Deck.Jack, Deck.Club));
+      Dst_O_Size : Natural;
+      Dst_N_Size : Natural;
+      --
+      Aux_Diff   : Integer;
+   begin
+      for J in Natural range Src_Cards'First .. Src_Cards'Last loop
+         Src_Stack.all.Push_Unchecked (Src_Cards (J));
+      end loop;
+      Src_O_Size := Src_Stack.all.Size;
+      --
+      for J in Natural range Dst_Cards'First .. Dst_Cards'Last loop
+         Dst_Stack.all.Push_Unchecked (Dst_Cards (J));
+      end loop;
+      Dst_O_Size := Dst_Stack.all.Size;
+      --
+      Tab.Move_To (1, 2, Src_Exist);
+      --
+      Src_N_Size := Src_Stack.all.Size;
+      Dst_N_Size := Dst_Stack.all.Size;
+      --
+      Aux_Diff := Src_O_Size - Diff;
+      --
+      AUnit.Assertions.Assert (Src_N_Size = Src_O_Size - Diff,
+                               "Src_N_Size=" & Aux_Diff'Image &
+                                 " /= " & Src_N_Size'Image);
+      AUnit.Assertions.Assert (not Src_Stack.all.Has (Src_Exist),
+                               "Src_Stack still has " & Src_Exist.Image);
+      --
+      Aux_Diff := Src_O_Size + Diff;
+      AUnit.Assertions.Assert (Dst_N_Size = Dst_O_Size + Diff,
+                               "Dst_N_Size=" & Aux_Diff'Image &
+                                 " /= " & Dst_N_Size'Image);
+      AUnit.Assertions.Assert (Dst_Stack.all.Has (Src_Exist),
+                               "Dst_Stack has NOT " & Src_Exist.Image);
+   end Move_To_X_Src_Not_E_Trgt_Not_E;
+
+   procedure Move_To_X_Src_E_Trgt_Not_E (T : in out Test) is
+      pragma Unreferenced (T);
+      Tab        : constant Tableau.Tableau_Type := Tableau.Construct;
+      --
+      Diff       : constant Integer := 3;
+      --
+      Src_Stack  : constant Tableau_Stack.Stack_Type_Access
+        := Tab.Get_Stack (1);
+      Src_Cards  : constant Some_Cards
+        := (Card.Construct (Deck.Ten,   Deck.Heart),
+            Card.Construct (Deck.Three, Deck.Diamond),
+            Card.Construct (Deck.Seven, Deck.Heart));
+      Src_Exist  : constant Card.Card_Type := Src_Cards (1);
+      Src_O_Size : Natural;
+      Src_N_Size : Natural;
+      --
+      Dst_Stack  : constant Tableau_Stack.Stack_Type_Access
+        := Tab.Get_Stack (2);
+      Dst_Cards  : constant Some_Cards
+        := (Card.Construct (Deck.Four, Deck.Heart),
+            Card.Construct (Deck.Jack, Deck.Club));
+      Dst_O_Size : Natural;
+      Dst_N_Size : Natural;
+      --
+      Aux_Diff   : Integer;
+   begin
+      for J in Natural range Src_Cards'First .. Src_Cards'Last loop
+         Src_Stack.all.Push_Unchecked (Src_Cards (J));
+      end loop;
+      Src_O_Size := Src_Stack.all.Size;
+      --
+      for J in Natural range Dst_Cards'First .. Dst_Cards'Last loop
+         Dst_Stack.all.Push_Unchecked (Dst_Cards (J));
+      end loop;
+      Dst_O_Size := Dst_Stack.all.Size;
+      --
+      Tab.Move_To (1, 2, Src_Exist);
+      --
+      Src_N_Size := Src_Stack.all.Size;
+      Dst_N_Size := Dst_Stack.all.Size;
+      --
+      Aux_Diff := Src_O_Size - Diff;
+      --
+      AUnit.Assertions.Assert (Src_N_Size = Src_O_Size - Diff,
+                               "Src_N_Size=" & Aux_Diff'Image &
+                                 " /= " & Src_N_Size'Image);
+      AUnit.Assertions.Assert (not Src_Stack.all.Has (Src_Exist),
+                               "Src_Stack still has " & Src_Exist.Image);
+      --
+      Aux_Diff := Src_O_Size + Diff;
+      AUnit.Assertions.Assert (Dst_N_Size = Dst_O_Size + Diff,
+                               "Dst_N_Size=" & Aux_Diff'Image &
+                                 " /= " & Dst_N_Size'Image);
+      AUnit.Assertions.Assert (Dst_Stack.all.Has (Src_Exist),
+                               "Dst_Stack has NOT " & Src_Exist.Image);
+   end Move_To_X_Src_E_Trgt_Not_E;
+
+   --------------------------------------------------------------------
    --  the test suit construction
    package Caller is new AUnit.Test_Caller (Tableau.Test.Test);
 
@@ -285,6 +786,38 @@ package body Tableau.Test is
       Ret.Add_Test (Caller.
                       Create (N & "Add_7_Cards_Check_Pop",
                         Add_7_Cards_Check_Pop'Access));
+
+      Ret.Add_Test (Caller.
+                      Create (N & "Move_To_Source_Selection_Does_Not_Exist",
+                        Move_To_Source_Selection_Does_Not_Exist'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "Move_To_1_Trgt_Does_Not_Accept",
+                        Move_To_1_Trgt_Does_Not_Accept'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "Move_To_1_Src_Not_E_Trgt_E",
+                        Move_To_1_Src_Not_E_Trgt_E'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "Move_To_1_Src_Not_E_Trgt_Not_E",
+                        Move_To_1_Src_Not_E_Trgt_Not_E'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "Move_To_1_Src_E_Trgt_E",
+                        Move_To_1_Src_E_Trgt_E'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "Move_To_1_Src_E_Trgt_Not_E",
+                        Move_To_1_Src_E_Trgt_Not_E'Access));
+
+      Ret.Add_Test (Caller.
+                      Create (N & "Move_To_X_Trgt_Does_Not_Accept",
+                        Move_To_X_Trgt_Does_Not_Accept'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "Move_To_X_Src_Not_E_Trgt_E",
+                        Move_To_X_Src_Not_E_Trgt_E'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "Move_To_X_Src_Not_E_Trgt_Not_E",
+                        Move_To_X_Src_Not_E_Trgt_Not_E'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "Move_To_X_Src_E_Trgt_Not_E",
+                        Move_To_X_Src_E_Trgt_Not_E'Access));
 
       return Ret;
    end Suite;

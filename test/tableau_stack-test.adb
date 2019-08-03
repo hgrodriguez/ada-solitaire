@@ -34,6 +34,34 @@ package body Tableau_Stack.Test is
       AUnit.Assertions.Assert (stack.Is_Empty, "not stack.Is_Empty");
    end Construct_Check_Is_Empty;
 
+   procedure Construct_Check_Pop_Fails_Exception;
+   procedure Construct_Check_Pop_Fails_Exception is
+      Stack : constant Tableau_Stack.Stack_Type := Tableau_Stack.Construct;
+      C     : Card.Card_Type;
+      pragma Warnings (Off, C);
+   begin
+      C := Stack.Pop;
+   exception
+      when Tableau_Stack_Empty_Exception => raise;
+      when Exc : others =>
+         AUnit.
+           Assertions.
+             Assert (False,
+                     "Construct_Check_Pop_Fails_Exception: " &
+                       "wrong exception raised:" &
+                       Ada.Exceptions.Exception_Name (Exc));
+   end Construct_Check_Pop_Fails_Exception;
+
+   procedure Construct_Check_Pop_Fails (T : in out Test) is
+      pragma Unreferenced (T);
+   begin
+      AUnit.
+        Assertions.
+          Assert_Exception (Construct_Check_Pop_Fails_Exception'Access,
+                            "Construct_Check_Pop_Fails: " &
+                              "no exception raised");
+   end Construct_Check_Pop_Fails;
+
    --------------------------------------------------------------------
    --  Push
    procedure Empty_Stack_Push_King_Check_Size (T : in out Test) is
@@ -45,6 +73,20 @@ package body Tableau_Stack.Test is
                                "size=1" &
                                  " /= " & stack.Size'Image);
    end Empty_Stack_Push_King_Check_Size;
+
+   procedure Empty_Stack_Push_King_Check_Pop (T : in out Test) is
+      pragma Unreferenced (T);
+      stack : constant Tableau_Stack.Stack_Type := Tableau_Stack.Construct;
+      C_E   : constant Card.Card_Type := Card.Construct (Rank => Deck.King,
+                                                         Suit => Deck.Diamond);
+      C     : Card.Card_Type;
+   begin
+      stack.Push_Checked (C_E);
+      C := stack.Pop;
+      AUnit.Assertions.Assert (C.Is_Equal_To (C_E),
+                               "C_E=" & C_E.Image &
+                                 " /= " & C.Image);
+   end Empty_Stack_Push_King_Check_Pop;
 
    procedure Empty_Stack_Push_Other_Than_King_Exception;
    procedure Empty_Stack_Push_Other_Than_King_Exception is
@@ -193,10 +235,18 @@ package body Tableau_Stack.Test is
       Ret.Add_Test (Caller.
                       Create (N & "Construct_Check_Is_Empty",
                         Construct_Check_Is_Empty'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "Construct_Check_Pop_Fails",
+                        Construct_Check_Pop_Fails'Access));
+
       --  Push tests
       Ret.Add_Test (Caller.
                       Create (N & "Empty_Stack_Push_King_Check_Size",
                         Empty_Stack_Push_King_Check_Size'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "Empty_Stack_Push_King_Check_Pop",
+                        Empty_Stack_Push_King_Check_Pop'Access));
+
       Ret.Add_Test (Caller.
                       Create (N & "Empty_Stack_Push_Other_Than_King",
                         Empty_Stack_Push_Other_Than_King'Access));

@@ -1,5 +1,3 @@
-with Card;
-
 package body Tableau is
 
    function Construct return Tableau_Type is
@@ -38,6 +36,17 @@ package body Tableau is
          end if;
       end loop;
    end Push;
+
+   function Pop_From_Stack
+     (T : Tableau_Type;
+      J : Valid_Stacks_Range)
+      return Card.Card_Type is
+   begin
+      return T.Stacks (J).all.Pop;
+   exception
+      when Tableau_Stack.Tableau_Stack_Empty_Exception =>
+         raise Tableau_Stack_Empty_Exception;
+   end Pop_From_Stack;
 
    --------------------------------------------------------------------
    --

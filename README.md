@@ -7,9 +7,16 @@ An Ada implementation for one solitaire game
 I am an OO programmer knowing Java,  Python and C++.
 Ada I was always interested in, but never had the chance to get on with it.
 
+## For the Ada code/implementation
 This project here is my first Ada implementation using my OO background.
 
 It may not be perfect Ada-ese, but I tried to combine my knowledge with the Ada language.
+
+I am a big fan of:  
+1. naming procedures/functions/methods in a way, that they are self explanatory to minimize the documentation effort and risk of deviation of comments and code.
+2. having unit tests as many as possible to make sure, that the code is doing what it is supposed to
+
+I used the switches for code style guidelines to enforce the same layout of code everywhere.
 
 ## Game description
 Goal of the game:  

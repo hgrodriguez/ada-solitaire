@@ -36,6 +36,14 @@ package body Tableau_Stack is
       T.Cards.Push (C);
    end Push_Unchecked;
 
+   function Pop (T : Stack_Type) return Card.Card_Type is
+   begin
+      return T.Cards.all.Pop;
+   exception
+      when Pile_Of_Cards.Pile_Empty_Exception
+           => raise Tableau_Stack_Empty_Exception;
+   end Pop;
+
    function Accepts (T : Stack_Type) return Acceptable_Type is
       Result   : Acceptable_Type;
       C        : Card.Card_Type;

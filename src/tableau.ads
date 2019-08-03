@@ -1,3 +1,4 @@
+with Card;
 with Pile_Of_Cards.FIFO;
 with Tableau_Stack;
 
@@ -7,6 +8,8 @@ package Tableau is
 
    type Valid_Stacks_Range is new Integer range 1 .. 7;
 
+   Tableau_Stack_Empty_Exception : exception;
+
    function Construct return Tableau_Type;
 
    function Size (T : Tableau_Type) return Natural;
@@ -14,6 +17,11 @@ package Tableau is
    procedure Push
      (T    : Tableau_Type;
       Pile : in out Pile_Of_Cards.FIFO.Pile_Type_FIFO);
+
+   function Pop_From_Stack
+     (T : Tableau_Type;
+      J : Valid_Stacks_Range)
+      return Card.Card_Type;
 
    function Get_Stack
      (T : Tableau_Type;

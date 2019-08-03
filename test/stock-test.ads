@@ -10,9 +10,14 @@ private
 
    procedure Construct (T : in out Test);
 
-   procedure Fetch_One_Card (T : in out Test);
-   procedure Fetch_Two_Cards (T : in out Test);
-   procedure Fetch_52_Cards (T : in out Test);
-   procedure Fetch_53_Cards (T : in out Test);
+   procedure Fetch_Once (T : in out Test);
+   procedure Fetch_Twice (T : in out Test);
+   procedure Fetch_Thrice (T : in out Test);
+   procedure Fetch_4_Times (T : in out Test);
+   procedure Fetch_5_Times (T : in out Test);
+   procedure Fetch_6_Times (T : in out Test);
+   procedure Fetch_7_Times (T : in out Test);
+   procedure Fetch_8_Times (T : in out Test);
+   procedure Fetch_9_Times (T : in out Test);
 
 end Stock.Test;

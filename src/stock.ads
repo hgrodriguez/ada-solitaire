@@ -1,4 +1,3 @@
-with Card;
 with Pile_Of_Cards.FIFO;
 
 package Stock is
@@ -10,7 +9,7 @@ package Stock is
 
    function Size (S : Stock_Type) return Natural;
 
-   function Fetch (S : Stock_Type) return Card.Card_Type;
+   function Fetch (S : Stock_Type) return Pile_Of_Cards.FIFO.Pile_Type_FIFO;
 
 private
    type Stock_Type is tagged record

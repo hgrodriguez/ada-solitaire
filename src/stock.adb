@@ -1,5 +1,6 @@
 with Ada.Numerics.Discrete_Random;
 
+with Card;
 with Deck;
 
 package body Stock is
@@ -11,7 +12,7 @@ package body Stock is
 
    function Construct return Stock_Type is
       Card_Is_Available : array (Deck.Rank_Type, Deck.Suit_Type)
-                            of Boolean;
+        of Boolean;
       S                 : Stock.Stock_Type;
       G_Suit            : Random_Suit.Generator;
       G_Rank            : Random_Rank.Generator;
@@ -80,12 +81,20 @@ package body Stock is
       return S.Pile.Size;
    end Size;
 
-   function Fetch (S : Stock_Type) return Card.Card_Type is
+   function Fetch (S : Stock_Type) return Pile_Of_Cards.FIFO.Pile_Type_FIFO is
+      Size : Natural := S.Size;
+      Pile : Pile_Of_Cards.FIFO.Pile_Type_FIFO := Pile_Of_Cards.FIFO.Construct;
+      C    : Card.Card_Type;
    begin
-      return S.Pile.Get;
-   exception
-      when Pile_Of_Cards.Pile_Empty_Exception
-         => raise Stock_Empty_Exception with "Stock is empty";
+      if Size > 7 then
+         Size := 7;
+      end if;
+      while Size > 0 loop
+         C := S.Pile.all.Get;
+         Pile.Put (C);
+         Size := Size - 1;
+      end loop;
+      return Pile;
    end Fetch;
 
 end Stock;

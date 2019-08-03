@@ -1,9 +1,5 @@
-with Ada.Exceptions;
-
 with AUnit.Assertions;
 with AUnit.Test_Caller;
-
-with Card;
 
 package body Stock.Test is
 
@@ -16,74 +12,184 @@ package body Stock.Test is
                                "Stock.Construct failed");
    end Construct;
 
-   procedure Fetch_One_Card (T : in out Test) is
-      pragma Unreferenced (T);
-      S : constant Stock.Stock_Type := Stock.Construct;
-      C : constant Card.Card_Type := S.Fetch;
-      pragma Warnings (Off, C);
-      Expected_Size : constant Natural := 51;
-   begin
-      AUnit.Assertions.Assert (S.Size = Expected_Size,
-                               "size=" & Expected_Size'Image & "! /= "
-                               & S.Size'Image);
-   end Fetch_One_Card;
-
-   procedure Fetch_Two_Cards (T : in out Test) is
-      pragma Unreferenced (T);
-      S  : constant Stock.Stock_Type := Stock.Construct;
-      C1 : constant Card.Card_Type := S.Fetch;
-      pragma Warnings (Off, C1);
-      C2 : constant Card.Card_Type := S.Fetch;
-      pragma Warnings (Off, C2);
-      Expected_Size : constant Natural := 50;
-   begin
-      AUnit.Assertions.Assert (S.Size = Expected_Size,
-                               "size=" & Expected_Size'Image & "! /= "
-                               & S.Size'Image);
-   end Fetch_Two_Cards;
-
-   procedure Fetch_52_Cards (T : in out Test) is
+   procedure Fetch_Once (T : in out Test) is
       pragma Unreferenced (T);
       S             : constant Stock.Stock_Type := Stock.Construct;
-      C             : Card.Card_Type;
-      pragma Warnings (Off, C);
+      Pile          : Pile_Of_Cards.FIFO.Pile_Type_FIFO;
+      Expected_Size : constant Natural := 52 - 1 * 7;
+   begin
+      Pile := S.Fetch;
+      AUnit.Assertions.Assert (Pile.Size = 7,
+                               "Pile.Size=7" & "! /= "
+                               & Pile.Size'Image);
+      AUnit.Assertions.Assert (S.Size = Expected_Size,
+                               "S.Size=" & Expected_Size'Image & "! /= "
+                               & S.Size'Image);
+   end Fetch_Once;
+
+   procedure Fetch_Twice (T : in out Test) is
+      pragma Unreferenced (T);
+      S             : constant Stock.Stock_Type := Stock.Construct;
+      Pile          : Pile_Of_Cards.FIFO.Pile_Type_FIFO;
+      pragma Warnings (Off, Pile);
+      Expected_Size : constant Natural := 52 - 2 * 7;
+   begin
+      Pile := S.Fetch;
+      Pile := S.Fetch;
+      AUnit.Assertions.Assert (Pile.Size = 7,
+                               "Pile.Size=7" & "! /= "
+                               & Pile.Size'Image);
+      AUnit.Assertions.Assert (S.Size = Expected_Size,
+                               "size=" & Expected_Size'Image & "! /= "
+                               & S.Size'Image);
+   end Fetch_Twice;
+
+   procedure Fetch_Thrice (T : in out Test) is
+      pragma Unreferenced (T);
+      S             : constant Stock.Stock_Type := Stock.Construct;
+      Pile          : Pile_Of_Cards.FIFO.Pile_Type_FIFO;
+      pragma Warnings (Off, Pile);
+      Expected_Size : constant Natural := 52 - 3 * 7;
+   begin
+      Pile := S.Fetch;
+      Pile := S.Fetch;
+      Pile := S.Fetch;
+      AUnit.Assertions.Assert (Pile.Size = 7,
+                               "Pile.Size=7" & "! /= "
+                               & Pile.Size'Image);
+      AUnit.Assertions.Assert (S.Size = Expected_Size,
+                               "size=" & Expected_Size'Image & "! /= "
+                               & S.Size'Image);
+   end Fetch_Thrice;
+
+   procedure Fetch_4_Times (T : in out Test) is
+      pragma Unreferenced (T);
+      S             : constant Stock.Stock_Type := Stock.Construct;
+      Pile          : Pile_Of_Cards.FIFO.Pile_Type_FIFO;
+      pragma Warnings (Off, Pile);
+      Expected_Size : constant Natural := 52 - 4 * 7;
+   begin
+      Pile := S.Fetch;
+      Pile := S.Fetch;
+      Pile := S.Fetch;
+      Pile := S.Fetch;
+      AUnit.Assertions.Assert (Pile.Size = 7,
+                               "Pile.Size=7" & "! /= "
+                               & Pile.Size'Image);
+      AUnit.Assertions.Assert (S.Size = Expected_Size,
+                               "size=" & Expected_Size'Image & "! /= "
+                               & S.Size'Image);
+   end Fetch_4_Times;
+
+   procedure Fetch_5_Times (T : in out Test) is
+      pragma Unreferenced (T);
+      S             : constant Stock.Stock_Type := Stock.Construct;
+      Pile          : Pile_Of_Cards.FIFO.Pile_Type_FIFO;
+      pragma Warnings (Off, Pile);
+      Expected_Size : constant Natural := 52 - 5 * 7;
+   begin
+      Pile := S.Fetch;
+      Pile := S.Fetch;
+      Pile := S.Fetch;
+      Pile := S.Fetch;
+      Pile := S.Fetch;
+      AUnit.Assertions.Assert (Pile.Size = 7,
+                               "Pile.Size=7" & "! /= "
+                               & Pile.Size'Image);
+      AUnit.Assertions.Assert (S.Size = Expected_Size,
+                               "size=" & Expected_Size'Image & "! /= "
+                               & S.Size'Image);
+   end Fetch_5_Times;
+
+   procedure Fetch_6_Times (T : in out Test) is
+      pragma Unreferenced (T);
+      S             : constant Stock.Stock_Type := Stock.Construct;
+      Pile          : Pile_Of_Cards.FIFO.Pile_Type_FIFO;
+      pragma Warnings (Off, Pile);
+      Expected_Size : constant Natural := 52 - 6 * 7;
+   begin
+      Pile := S.Fetch;
+      Pile := S.Fetch;
+      Pile := S.Fetch;
+      Pile := S.Fetch;
+      Pile := S.Fetch;
+      Pile := S.Fetch;
+      AUnit.Assertions.Assert (Pile.Size = 7,
+                               "Pile.Size=7" & "! /= "
+                               & Pile.Size'Image);
+      AUnit.Assertions.Assert (S.Size = Expected_Size,
+                               "size=" & Expected_Size'Image & "! /= "
+                               & S.Size'Image);
+   end Fetch_6_Times;
+
+   procedure Fetch_7_Times (T : in out Test) is
+      pragma Unreferenced (T);
+      S             : constant Stock.Stock_Type := Stock.Construct;
+      Pile          : Pile_Of_Cards.FIFO.Pile_Type_FIFO;
+      pragma Warnings (Off, Pile);
+      Expected_Size : constant Natural := 52 - 7 * 7;
+   begin
+      Pile := S.Fetch;
+      Pile := S.Fetch;
+      Pile := S.Fetch;
+      Pile := S.Fetch;
+      Pile := S.Fetch;
+      Pile := S.Fetch;
+      Pile := S.Fetch;
+      AUnit.Assertions.Assert (Pile.Size = 7,
+                               "Pile.Size=7" & "! /= "
+                               & Pile.Size'Image);
+      AUnit.Assertions.Assert (S.Size = Expected_Size,
+                               "size=" & Expected_Size'Image & "! /= "
+                               & S.Size'Image);
+   end Fetch_7_Times;
+
+   procedure Fetch_8_Times (T : in out Test) is
+      pragma Unreferenced (T);
+      S             : constant Stock.Stock_Type := Stock.Construct;
+      Pile          : Pile_Of_Cards.FIFO.Pile_Type_FIFO;
+      pragma Warnings (Off, Pile);
       Expected_Size : constant Natural := 0;
    begin
-      for J in Integer range 1 .. 52 loop
-         C := S.Fetch;
-      end loop;
-
+      Pile := S.Fetch;
+      Pile := S.Fetch;
+      Pile := S.Fetch;
+      Pile := S.Fetch;
+      Pile := S.Fetch;
+      Pile := S.Fetch;
+      Pile := S.Fetch;
+      Pile := S.Fetch;
+      AUnit.Assertions.Assert (Pile.Size = 3,
+                               "Pile.Size=7" & "! /= "
+                               & Pile.Size'Image);
       AUnit.Assertions.Assert (S.Size = Expected_Size,
                                "size=" & Expected_Size'Image & "! /= "
                                & S.Size'Image);
-   end Fetch_52_Cards;
+   end Fetch_8_Times;
 
-   procedure Fetch_53_Cards_Exception;
-   procedure Fetch_53_Cards_Exception is
-      S             : constant Stock.Stock_Type := Stock.Construct;
-      C             : Card.Card_Type;
-      pragma Warnings (Off, C);
-   begin
-      for J in Integer range 1 .. 53 loop
-         C := S.Fetch;
-      end loop;
-   exception
-      when Stock_Empty_Exception => raise;
-      when Exc : others =>
-         AUnit.Assertions.Assert (False,
-                                  "Fetch_53_Cards_Exception: " &
-                                    "wrong exception raised:" &
-                                    Ada.Exceptions.Exception_Name (Exc));
-   end Fetch_53_Cards_Exception;
-
-   procedure Fetch_53_Cards (T : in out Test) is
+   procedure Fetch_9_Times (T : in out Test) is
       pragma Unreferenced (T);
-
+      S             : constant Stock.Stock_Type := Stock.Construct;
+      Pile          : Pile_Of_Cards.FIFO.Pile_Type_FIFO;
+      pragma Warnings (Off, Pile);
+      Expected_Size : constant Natural := 0;
    begin
-      AUnit.Assertions.Assert_Exception (Fetch_53_Cards_Exception'Access,
-                                         "Fetch_53_Cards: " &
-                                           "no exception raised");
-   end Fetch_53_Cards;
+      Pile := S.Fetch;
+      Pile := S.Fetch;
+      Pile := S.Fetch;
+      Pile := S.Fetch;
+      Pile := S.Fetch;
+      Pile := S.Fetch;
+      Pile := S.Fetch;
+      Pile := S.Fetch;
+      Pile := S.Fetch;
+      AUnit.Assertions.Assert (Pile.Size = 0,
+                               "Pile.Size=7" & "! /= "
+                               & Pile.Size'Image);
+      AUnit.Assertions.Assert (S.Size = Expected_Size,
+                               "size=" & Expected_Size'Image & "! /= "
+                               & S.Size'Image);
+   end Fetch_9_Times;
 
    --------------------------------------------------------------------
    package Caller is new AUnit.Test_Caller (Stock.Test.Test);
@@ -91,16 +197,38 @@ package body Stock.Test is
    function Suite return AUnit.Test_Suites.Access_Test_Suite is
       Ret : constant AUnit.Test_Suites.Access_Test_Suite
         := new AUnit.Test_Suites.Test_Suite;
+      N   : constant String := "Stock.Test.";
    begin
-      Ret.Add_Test (Caller.Create ("Stock.Construct", Construct'Access));
-      Ret.Add_Test (Caller.Create ("Stock.Fetch_One_Card",
-                    Fetch_One_Card'Access));
-      Ret.Add_Test (Caller.Create ("Stock.Fetch_Two_Cards",
-                    Fetch_Two_Cards'Access));
-      Ret.Add_Test (Caller.Create ("Stock.Fetch_52_Cards",
-                    Fetch_52_Cards'Access));
-      Ret.Add_Test (Caller.Create ("Stock.Fetch_53_Cards",
-                    Fetch_53_Cards'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "Construct", Construct'Access));
+
+      Ret.Add_Test (Caller.
+                      Create (N & "Fetch_Once",
+                        Fetch_Once'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "Fetch_Twice",
+                        Fetch_Twice'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "Fetch_Thrice",
+                        Fetch_Thrice'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "Fetch_4_Times",
+                        Fetch_4_Times'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "Fetch_5_Times",
+                        Fetch_5_Times'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "Fetch_6_Times",
+                        Fetch_6_Times'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "Fetch_7_Times",
+                        Fetch_7_Times'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "Fetch_8_Times",
+                        Fetch_8_Times'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "Fetch_9_Times",
+                        Fetch_9_Times'Access));
       return Ret;
    end Suite;
 

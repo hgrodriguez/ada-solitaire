@@ -11,10 +11,11 @@ private
    procedure Construct_Check_Size (T : in out Test);
 
    procedure Add_1_Card_Check_Size (T : in out Test);
-   procedure Add_1_Card_Check_Stack (T : in out Test);
    procedure Add_3_Cards_Check_Size (T : in out Test);
-   procedure Add_3_Cards_Check_Stack (T : in out Test);
    procedure Add_7_Cards_Check_Size (T : in out Test);
+
+   procedure Add_1_Card_Check_Stack (T : in out Test);
+   procedure Add_3_Cards_Check_Stack (T : in out Test);
    procedure Add_7_Cards_Check_Stack (T : in out Test);
 
 end Tableau.Test;

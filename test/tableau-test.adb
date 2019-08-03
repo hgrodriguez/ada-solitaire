@@ -24,20 +24,56 @@ package body Tableau.Test is
                                  " /= 0");
    end Construct_Check_Size;
 
+   type Some_Cards is array (Natural range <>) of Card.Card_Type;
+   procedure Add_Cards_And_Check_Size (Cards : Some_Cards);
+
+   procedure Add_Cards_And_Check_Size (Cards : Some_Cards) is
+      Expected_Size : constant Natural := Cards'Last;
+      Tab           : constant Tableau.Tableau_Type := Tableau.Construct;
+      Pile          : Pile_Of_Cards.FIFO.Pile_Type_FIFO
+        := Pile_Of_Cards.FIFO.Construct;
+   begin
+      for J in Natural range 1 .. Expected_Size loop
+         Pile.Put (Cards (J));
+      end loop;
+      --
+      Tab.Push (Pile);
+      AUnit.Assertions.Assert (Tab.Size = Expected_Size,
+                               "t.Size=" & Tab.Size'Image &
+                                 " /= " & Expected_Size'Image);
+   end Add_Cards_And_Check_Size;
+
    procedure Add_1_Card_Check_Size (T : in out Test) is
       pragma Unreferenced (T);
-      Tab    : constant Tableau.Tableau_Type := Tableau.Construct;
-      Pile   : Pile_Of_Cards.FIFO.Pile_Type_FIFO
-        := Pile_Of_Cards.FIFO.Construct;
-      C_Push : constant Card.Card_Type := Card.Construct (Deck.Six,
-                                                          Deck.Diamond);
+      Cards         : constant Some_Cards
+        := (1 => Card.Construct (Deck.Three, Deck.Diamond));
    begin
-      Pile.Put (C_Push);
-      Tab.Push (Pile);
-      AUnit.Assertions.Assert (Tab.Size = 1,
-                               "t.Size=" & Tab.Size'Image &
-                                 " /= 1");
+      Add_Cards_And_Check_Size (Cards);
    end Add_1_Card_Check_Size;
+
+   procedure Add_3_Cards_Check_Size (T : in out Test) is
+      pragma Unreferenced (T);
+      Cards         : constant Some_Cards
+        := (Card.Construct (Deck.Three, Deck.Diamond),
+            Card.Construct (Deck.Three, Deck.Spade),
+            Card.Construct (Deck.Jack,  Deck.Heart));
+   begin
+      Add_Cards_And_Check_Size (Cards);
+   end Add_3_Cards_Check_Size;
+
+   procedure Add_7_Cards_Check_Size (T : in out Test) is
+      pragma Unreferenced (T);
+      Cards : constant Some_Cards
+        := (Card.Construct (Deck.Three, Deck.Diamond),
+            Card.Construct (Deck.Seven, Deck.Heart),
+            Card.Construct (Deck.Ace,   Deck.Spade),
+            Card.Construct (Deck.King,  Deck.Club),
+            Card.Construct (Deck.Eight, Deck.Diamond),
+            Card.Construct (Deck.Three, Deck.Spade),
+            Card.Construct (Deck.Jack,  Deck.Heart));
+   begin
+      Add_Cards_And_Check_Size (Cards);
+   end Add_7_Cards_Check_Size;
 
    procedure Add_1_Card_Check_Stack (T : in out Test) is
       pragma Unreferenced (T);
@@ -45,7 +81,7 @@ package body Tableau.Test is
       Pile           : Pile_Of_Cards.FIFO.Pile_Type_FIFO
         := Pile_Of_Cards.FIFO.Construct;
       C_Push         : constant Card.Card_Type := Card.Construct (Deck.Six,
-                                                          Deck.Diamond);
+                                                                  Deck.Diamond);
       Stack          : Tableau_Stack.Stack_Type_Access;
       Expected_Sizes : constant array (Valid_Stacks_Range) of Natural
         := (1, 0, 0, 0, 0, 0, 0);
@@ -62,27 +98,6 @@ package body Tableau.Test is
                                     " /= " & Stack_Size'Image);
       end loop;
    end Add_1_Card_Check_Stack;
-
-   procedure Add_3_Cards_Check_Size (T : in out Test) is
-      pragma Unreferenced (T);
-      Tab     : constant Tableau.Tableau_Type := Tableau.Construct;
-      Pile    : Pile_Of_Cards.FIFO.Pile_Type_FIFO
-        := Pile_Of_Cards.FIFO.Construct;
-      C_Push1 : constant Card.Card_Type := Card.Construct (Deck.Six,
-                                                           Deck.Diamond);
-      C_Push2 : constant Card.Card_Type := Card.Construct (Deck.Seven,
-                                                           Deck.Club);
-      C_Push3 : constant Card.Card_Type := Card.Construct (Deck.King,
-                                                           Deck.Heart);
-   begin
-      Pile.Put (C_Push1);
-      Pile.Put (C_Push2);
-      Pile.Put (C_Push3);
-      Tab.Push (Pile);
-      AUnit.Assertions.Assert (Tab.Size = 3,
-                               "t.Size=" & Tab.Size'Image &
-                                 " /= 3");
-   end Add_3_Cards_Check_Size;
 
    procedure Add_3_Cards_Check_Stack (T : in out Test) is
       pragma Unreferenced (T);
@@ -113,29 +128,6 @@ package body Tableau.Test is
                                     " /= " & Stack_Size'Image);
       end loop;
    end Add_3_Cards_Check_Stack;
-
-   procedure Add_7_Cards_Check_Size (T : in out Test) is
-      pragma Unreferenced (T);
-      Tab   : constant Tableau.Tableau_Type := Tableau.Construct;
-      Pile  : Pile_Of_Cards.FIFO.Pile_Type_FIFO
-        := Pile_Of_Cards.FIFO.Construct;
-      Cards : constant array (1 .. 7) of Card.Card_Type
-        := (Card.Construct (Deck.Three, Deck.Diamond),
-            Card.Construct (Deck.Seven, Deck.Heart),
-            Card.Construct (Deck.Ace,   Deck.Spade),
-            Card.Construct (Deck.King,  Deck.Club),
-            Card.Construct (Deck.Eight, Deck.Diamond),
-            Card.Construct (Deck.Three, Deck.Spade),
-            Card.Construct (Deck.Jack,  Deck.Heart));
-   begin
-      for J in Integer range 1 .. 7 loop
-         Pile.Put (Cards (J));
-      end loop;
-      Tab.Push (Pile);
-      AUnit.Assertions.Assert (Tab.Size = 7,
-                               "t.Size=" & Tab.Size'Image &
-                                 " /= 7");
-   end Add_7_Cards_Check_Size;
 
    procedure Add_7_Cards_Check_Stack (T : in out Test) is
       pragma Unreferenced (T);
@@ -190,17 +182,18 @@ package body Tableau.Test is
                       Create (N & "Add_1_Card_Check_Size",
                         Add_1_Card_Check_Size'Access));
       Ret.Add_Test (Caller.
-                      Create (N & "Add_1_Card_Check_Stack",
-                        Add_1_Card_Check_Stack'Access));
-      Ret.Add_Test (Caller.
                       Create (N & "Add_3_Cards_Check_Size",
                         Add_3_Cards_Check_Size'Access));
       Ret.Add_Test (Caller.
-                      Create (N & "Add_3_Cards_Check_Stack",
-                        Add_3_Cards_Check_Stack'Access));
-      Ret.Add_Test (Caller.
                       Create (N & "Add_7_Cards_Check_Size",
                         Add_7_Cards_Check_Size'Access));
+
+      Ret.Add_Test (Caller.
+                      Create (N & "Add_1_Card_Check_Stack",
+                        Add_1_Card_Check_Stack'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "Add_3_Cards_Check_Stack",
+                        Add_3_Cards_Check_Stack'Access));
       Ret.Add_Test (Caller.
                       Create (N & "Add_7_Cards_Check_Stack",
                         Add_7_Cards_Check_Stack'Access));

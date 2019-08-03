@@ -42,6 +42,8 @@ Rules:
 1. Stock:  
    The stock provides cards into the tableau, until empty.  
    You can pull cards from the stock any time.  
+   As long as there are more than seven cards in the stock, seven cards will be put into the tableau.
+   If there are less than seven cards left, then all those cards will be put into the tableau.
    Pulled cards land as the bottom card at every stack, beginning from the left, on the tableau.  
    As long as there are enough cards in the stock, the stock will fill seven (= amount of stacks in the tableau) into the tableau.  
    If less than seven cards are left on the stock, then the remaining cards will fill the tableau stacks from the left.
@@ -63,5 +65,7 @@ V1.0: have an ASCII command line interface available for interactive playing
 V2.0: move the _obvious_ cards from the tableau onto the foundation automatically. Provide hints for next cards to be available for playing.
 
 V3.0: have a GUI interface available for interactive playing
+
+V4.0: implement strategies, that the computer plays the game.
 
 V-FUTURE: port it to an embedded system for playing with a small touch display

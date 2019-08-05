@@ -22,6 +22,7 @@ package Tableau_Stack is
    procedure Push_Checked (T : Stack_Type; C : Card.Card_Type);
    procedure Push_Unchecked (T : Stack_Type; C : Card.Card_Type);
 
+   function Peek (T : Stack_Type) return Card.Card_Type;
    function Pop (T : Stack_Type) return Card.Card_Type;
 
    function Accepts (T : Stack_Type) return Acceptable_Type;

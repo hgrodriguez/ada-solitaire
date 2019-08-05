@@ -41,6 +41,14 @@ package body Tableau_Stack is
       T.Cards.Push (C);
    end Push_Unchecked;
 
+   function Peek (T : Stack_Type) return Card.Card_Type is
+   begin
+      return T.Cards.all.Peek;
+   exception
+      when Pile_Of_Cards.Pile_Empty_Exception
+         => raise Tableau_Stack_Empty_Exception;
+   end Peek;
+
    function Pop (T : Stack_Type) return Card.Card_Type is
    begin
       return T.Cards.all.Pop;

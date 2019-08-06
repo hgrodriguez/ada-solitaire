@@ -12,6 +12,7 @@ with Pile_Of_Cards.LIFO.Test;
 with Pile_Of_Cards.Test;
 with Stock.Test;
 with Tableau.Test;
+with Tableau.Tests4_Remove_Mandatory_Cards;
 with Tableau_Stack.Test;
 
 procedure All_Tests is
@@ -31,6 +32,7 @@ procedure All_Tests is
       Ret.Add_Test (Pile_Of_Cards.Test.Suite);
       Ret.Add_Test (Stock.Test.Suite);
       Ret.Add_Test (Tableau.Test.Suite);
+      Ret.Add_Test (Tableau.Tests4_Remove_Mandatory_Cards.Suite);
       Ret.Add_Test (Tableau_Stack.Test.Suite);
       return Ret;
    end Suite;

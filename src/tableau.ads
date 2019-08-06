@@ -26,6 +26,11 @@ package Tableau is
       Dst_Index       : Valid_Stacks_Range;
       Card_To_Include : Card.Card_Type);
 
+   function Remove_Mandatory_Cards
+     (T          : Tableau_Type;
+      Candidates : Pile_Of_Cards.FIFO.Pile_Type_FIFO)
+      return Pile_Of_Cards.FIFO.Pile_Type_FIFO;
+
 private
    type Stack_Array is array (Valid_Stacks_Range)
      of Tableau_Stack.Stack_Type_Access;

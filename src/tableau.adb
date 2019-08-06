@@ -71,6 +71,29 @@ package body Tableau is
       end loop;
    end Move_To;
 
+   function Remove_Mandatory_Cards
+     (T          : Tableau_Type;
+      Candidates : Pile_Of_Cards.FIFO.Pile_Type_FIFO)
+      return Pile_Of_Cards.FIFO.Pile_Type_FIFO is
+      Stack           : Tableau_Stack.Stack_Type_Access;
+      Peek_Card       : Card.Card_Type;
+      Move_Card       : Card.Card_Type;
+      Mandatory_Cards : Pile_Of_Cards.FIFO.Pile_Type_FIFO
+        := Pile_Of_Cards.FIFO.Construct;
+   begin
+      for J in Valid_Stacks_Range loop
+         Stack := T.Get_Stack (J);
+         if not Stack.all.Is_Empty then
+            Peek_Card := Stack.all.Peek;
+            if Candidates.Has (Peek_Card) then
+               Move_Card := Stack.all.Pop;
+               Mandatory_Cards.Put (Move_Card);
+            end if;
+         end if;
+      end loop;
+      return Mandatory_Cards;
+   end Remove_Mandatory_Cards;
+
    --------------------------------------------------------------------
    --
    function Pop_From_Stack

@@ -245,6 +245,37 @@ package body Foundation_Stack.Test is
                               "no exception raised");
    end Push_Wrong_Card_Wrong_Rank;
 
+   procedure To_String_Empty (T : in out Test) is
+      pragma Unreferenced (T);
+      suit     : constant Deck.Suit_Type := Deck.Spade;
+      stack    : constant Foundation_Stack.Stack_Type
+        := Foundation_Stack.Construct (suit);
+      Expected : constant Card.Short_Image_Type := Card.Empty_Short_Image;
+      Actual   : Card.Short_Image_Type;
+   begin
+      Actual := stack.To_String;
+      AUnit.Assertions.Assert (Expected = Actual,
+                               "Expected=" & Expected &
+                                 " /= " & Actual);
+   end To_String_Empty;
+
+   procedure To_String_Not_Empty  (T : in out Test) is
+      pragma Unreferenced (T);
+      suit     : constant Deck.Suit_Type := Deck.Spade;
+      stack    : Foundation_Stack.Stack_Type
+        := Foundation_Stack.Construct (suit);
+      a_card   : Card.Card_Type := Card.Construct (Deck.Ace, suit);
+      Expected : constant Card.Short_Image_Type := a_card.Short_Image;
+      Actual   : Card.Short_Image_Type;
+   begin
+      a_card := Card.Construct (Deck.Ace, suit);
+      stack.Push (a_card);
+      Actual := stack.To_String;
+      AUnit.Assertions.Assert (Expected = Actual,
+                               "Expected=" & Expected &
+                                 " /= " & Actual);
+   end To_String_Not_Empty;
+
    --------------------------------------------------------------------
    --  the test suit construction
    package Caller is new AUnit.Test_Caller (Foundation_Stack.Test.Test);
@@ -306,6 +337,14 @@ package body Foundation_Stack.Test is
       Ret.Add_Test (Caller.
                       Create (N & "Push_Wrong_Card_Wrong_Rank",
                         Push_Wrong_Card_Wrong_Rank'Access));
+
+      Ret.Add_Test (Caller.
+                      Create (N & "To_String_Empty",
+                        To_String_Empty'Access));
+
+      Ret.Add_Test (Caller.
+                      Create (N & "To_String_Not_Empty",
+                        To_String_Not_Empty'Access));
 
       return Ret;
    end Suite;

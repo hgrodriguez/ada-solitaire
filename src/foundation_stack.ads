@@ -27,6 +27,9 @@ package Foundation_Stack is
    procedure Push (cs : in out Foundation_Stack.Stack_Type;
                    c  : Card.Card_Type);
 
+   function To_String (cs : Foundation_Stack.Stack_Type)
+                       return Card.Short_Image_Type;
+
 private
    type Stack_Type is tagged record
       Suit  : Deck.Suit_Type;

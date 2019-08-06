@@ -26,4 +26,6 @@ private
    procedure Push_Wrong_Card_Wrong_Suit (T : in out Test);
    procedure Push_Wrong_Card_Wrong_Rank (T : in out Test);
 
+   procedure To_String_Empty (T : in out Test);
+   procedure To_String_Not_Empty  (T : in out Test);
 end Foundation_Stack.Test;

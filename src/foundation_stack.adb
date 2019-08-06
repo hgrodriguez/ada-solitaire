@@ -64,4 +64,16 @@ package body Foundation_Stack is
       end if;
    end Push;
 
+   function To_String (cs : Foundation_Stack.Stack_Type)
+                       return Card.Short_Image_Type is
+      C : Card.Card_Type;
+   begin
+      if cs.Cards.Is_Empty then
+         return Card.Empty_Short_Image;
+      else
+         C := cs.Cards.Peek;
+         return C.Short_Image;
+      end if;
+   end To_String;
+
 end Foundation_Stack;

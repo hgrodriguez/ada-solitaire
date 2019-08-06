@@ -32,7 +32,7 @@ package body Deck.Test is
 
    procedure Test_Short_Image_Ranks (T : in out Test) is
       pragma Unreferenced (T);
-      R : String (1 .. 1);
+      R : Deck.Short_Image_Rank_Type;
 
    begin
       R := Deck.Short_Image (Ace);
@@ -65,7 +65,7 @@ package body Deck.Test is
 
    procedure Test_Short_Image_Suits (T : in out Test) is
       pragma Unreferenced (T);
-      S : String (1 .. 1);
+      S : Deck.Short_Image_Suit_Type;
    begin
       S := Deck.Short_Image (Diamond);
       AUnit.Assertions.Assert (S = "D", "D /= " & S);

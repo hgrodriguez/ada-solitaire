@@ -20,4 +20,5 @@ private
    procedure Fetch_8_Times (T : in out Test);
    procedure Fetch_9_Times (T : in out Test);
 
+   procedure To_String (T : in out Test);
 end Stock.Test;

@@ -191,6 +191,18 @@ package body Stock.Test is
                                & S.Size'Image);
    end Fetch_9_Times;
 
+   procedure To_String (T : in out Test) is
+      pragma Unreferenced (T);
+      Expected : constant Card.Short_Image_Type := Card.Obscure_Short_Image;
+      Actual   : Card.Short_Image_Type;
+      S        : constant Stock.Stock_Type := Stock.Construct;
+   begin
+      Actual := S.To_String;
+      AUnit.Assertions.Assert (Expected = Actual,
+                               "Expected=" & Expected &
+                                 " /= " & Actual);
+   end To_String;
+
    --------------------------------------------------------------------
    package Caller is new AUnit.Test_Caller (Stock.Test.Test);
 
@@ -229,6 +241,11 @@ package body Stock.Test is
       Ret.Add_Test (Caller.
                       Create (N & "Fetch_9_Times",
                         Fetch_9_Times'Access));
+
+      Ret.Add_Test (Caller.
+                      Create (N & "To_String",
+                        To_String'Access));
+
       return Ret;
    end Suite;
 

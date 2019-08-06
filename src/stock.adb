@@ -1,6 +1,5 @@
 with Ada.Numerics.Discrete_Random;
 
-with Card;
 with Deck;
 
 package body Stock is
@@ -96,5 +95,11 @@ package body Stock is
       end loop;
       return Pile;
    end Fetch;
+
+   function To_String (S : Stock_Type) return Card.Short_Image_Type is
+      pragma Unreferenced (S);
+   begin
+      return Card.Obscure_Short_Image;
+   end To_String;
 
 end Stock;

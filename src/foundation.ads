@@ -10,13 +10,20 @@ package Foundation is
 
    Foundation_Wrong_Card_Exception : exception;
 
+   To_String_Separator : String (1 .. 1) := " ";
+   subtype To_String_Type is String (1 .. 4 * 3 - 1);
+
    function Construct return Foundation_Type;
 
-   function Size  (F : Foundation_Type) return Natural;
+   function Is_Empty (F : Foundation_Type) return Boolean;
+
+   function Size (F : Foundation_Type) return Natural;
 
    function Accepts (F : Foundation_Type) return Acceptable_Type;
 
    procedure Put (F : Foundation_Type; c : Card.Card_Type);
+
+   function To_String (F : Foundation_Type) return To_String_Type;
 
 private
 

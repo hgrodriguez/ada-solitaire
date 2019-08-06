@@ -10,6 +10,7 @@ private
 
    procedure Construct (T : in out Test);
    procedure Construct_Check_Size (T : in out Test);
+   procedure Construct_Check_Is_Empty (T : in out Test);
 
    procedure Check_Accepted_Empty_Foundation (T : in out Test);
    procedure Accepts_Suit_Diamond_All_Cards (T : in out Test);
@@ -25,5 +26,11 @@ private
    procedure Full_Foundation_Accepts_Is_Empty (T : in out Test);
 
    procedure Does_Not_Accept_Card_Out_Of_Order (T : in out Test);
+
+   procedure To_String_Empty_Foundation (T : in out Test);
+   procedure To_String_1_Non_Empty_Stack (T : in out Test);
+   procedure To_String_2_Non_Empty_Stack (T : in out Test);
+   procedure To_String_3_Non_Empty_Stack (T : in out Test);
+   procedure To_String_4_Non_Empty_Stack (T : in out Test);
 
 end Foundation.Test;

@@ -1,3 +1,5 @@
+with Deck; use Deck;
+
 package body Foundation is
 
    Foundation_Has_Been_Created : Boolean := False;
@@ -40,6 +42,11 @@ package body Foundation is
       return ret;
    end Accepts;
 
+   function Is_Empty (F : Foundation_Type) return Boolean is
+   begin
+      return F.Size = 0;
+   end Is_Empty;
+
    function Size (F : Foundation_Type) return Natural is
       S : Natural := 0;
    begin
@@ -56,5 +63,23 @@ package body Foundation is
       when Foundation_Stack.Wrong_Rank_Exception
          => raise Foundation_Wrong_Card_Exception;
    end Put;
+
+   function To_String (F : Foundation_Type) return To_String_Type is
+      R     : To_String_Type := "           ";
+      J     : Integer := 1;
+      T     : Card.Short_Image_Type;
+      Stack : Foundation_Stack.Stack_Type_Access;
+   begin
+      for s in Deck.Suit_Type_Valid_Range loop
+         Stack := F.Stacks (s);
+         T := Stack.all.To_String;
+         R (J .. J + 1) := T;
+         if s < Deck.Suit_Type_Valid_Range'Last then
+            R (J + 2) := Foundation.To_String_Separator (1);
+         end if;
+         J := J + 3;
+      end loop;
+      return R;
+   end To_String;
 
 end Foundation;

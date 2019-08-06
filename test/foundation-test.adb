@@ -28,6 +28,15 @@ package body Foundation.Test is
                                  " /= 0");
    end Construct_Check_Size;
 
+   procedure Construct_Check_Is_Empty (T : in out Test) is
+      pragma Unreferenced (T);
+      F : constant Foundation.Foundation_Type := Foundation.Construct;
+   begin
+      AUnit.Assertions.Assert (F.Is_Empty,
+                               "True" &
+                                 " /= False");
+   end Construct_Check_Is_Empty;
+
    procedure Check_Accepted_Empty_Foundation (T : in out Test) is
       pragma Unreferenced (T);
       F           : constant Foundation.Foundation_Type := Foundation.Construct;
@@ -179,7 +188,7 @@ package body Foundation.Test is
    procedure Full_Foundation_Accepts_Is_Empty (T : in out Test) is
       pragma Unreferenced (T);
       F             : constant Foundation.Foundation_Type
-                        := Foundation.Construct;
+        := Foundation.Construct;
       C             : Card.Card_Type;
       Acceptable    : Foundation.Acceptable_Type;
       Expected_Rank : constant Deck.Rank_Type := Deck.Top;
@@ -195,7 +204,7 @@ package body Foundation.Test is
       Actual_Rank := Acceptable.Get.Get_Rank;
       AUnit.Assertions.Assert (Expected_Rank = Actual_Rank,
                                "Rank exp: " & Expected_Rank'Image &
-                              " /= Rank act: " & Actual_Rank'Image);
+                                 " /= Rank act: " & Actual_Rank'Image);
       Actual_Rank := Acceptable.Get.Get_Rank;
       AUnit.Assertions.Assert (Expected_Rank = Actual_Rank,
                                "Rank exp: " & Expected_Rank'Image &
@@ -229,7 +238,6 @@ package body Foundation.Test is
 
    procedure Does_Not_Accept_Card_Out_Of_Order (T : in out Test) is
       pragma Unreferenced (T);
-
    begin
       AUnit.
         Assertions.
@@ -237,6 +245,107 @@ package body Foundation.Test is
                             "Does_Not_Accept_Card_Out_Of_Order: " &
                               "no exception raised");
    end Does_Not_Accept_Card_Out_Of_Order;
+
+   procedure To_String_Empty_Foundation (T : in out Test) is
+      pragma Unreferenced (T);
+      F        : constant Foundation.Foundation_Type := Foundation.Construct;
+      Expected : constant Foundation.To_String_Type := "           ";
+      Actual   : Foundation.To_String_Type;
+   begin
+      Actual := F.To_String;
+      AUnit.
+        Assertions.Assert (Expected = Actual,
+                           "Expected= " & Expected &
+                             " /= " & Actual);
+   end To_String_Empty_Foundation;
+
+   procedure To_String_1_Non_Empty_Stack (T : in out Test) is
+      pragma Unreferenced (T);
+      F        : constant Foundation.Foundation_Type := Foundation.Construct;
+      Card_1   : constant Card.Card_Type := Card.Construct (Deck.Ace,
+                                                               Deck.Diamond);
+      Expected : Foundation.To_String_Type := "           ";
+      Actual   : Foundation.To_String_Type;
+   begin
+      Expected (1 .. 2) := Card_1.Short_Image;
+      F.Put (Card_1);
+      Actual := F.To_String;
+      AUnit.Assertions.Assert (Expected = Actual,
+                               "Expected= " & Expected &
+                                 " /= " & Actual);
+   end To_String_1_Non_Empty_Stack;
+
+   procedure To_String_2_Non_Empty_Stack (T : in out Test) is
+      pragma Unreferenced (T);
+      F        : constant Foundation.Foundation_Type := Foundation.Construct;
+      Card_1   : constant Card.Card_Type := Card.Construct (Deck.Ace,
+                                                            Deck.Diamond);
+      Card_2   : constant Card.Card_Type := Card.Construct (Deck.Ace,
+                                                            Deck.Heart);
+      Expected : Foundation.To_String_Type := "           ";
+      Actual   : Foundation.To_String_Type;
+   begin
+      Expected (1 .. 2) := Card_1.Short_Image;
+      Expected (4 .. 5) := Card_2.Short_Image;
+      F.Put (Card_1);
+      F.Put (Card_2);
+      Actual := F.To_String;
+      AUnit.Assertions.Assert (Expected = Actual,
+                               "Expected= " & Expected &
+                                 " /= " & Actual);
+   end To_String_2_Non_Empty_Stack;
+
+   procedure To_String_3_Non_Empty_Stack (T : in out Test) is
+      pragma Unreferenced (T);
+      F        : constant Foundation.Foundation_Type := Foundation.Construct;
+      Card_1   : constant Card.Card_Type := Card.Construct (Deck.Ace,
+                                                            Deck.Diamond);
+      Card_2   : constant Card.Card_Type := Card.Construct (Deck.Ace,
+                                                            Deck.Heart);
+      Card_3   : constant Card.Card_Type := Card.Construct (Deck.Ace,
+                                                            Deck.Club);
+      Expected : Foundation.To_String_Type := "           ";
+      Actual   : Foundation.To_String_Type;
+   begin
+      Expected (1 .. 2) := Card_1.Short_Image;
+      Expected (4 .. 5) := Card_2.Short_Image;
+      Expected (7 .. 8) := Card_3.Short_Image;
+      F.Put (Card_1);
+      F.Put (Card_2);
+      F.Put (Card_3);
+      Actual := F.To_String;
+      AUnit.Assertions.Assert (Expected = Actual,
+                               "Expected= " & Expected &
+                                 " /= " & Actual);
+   end To_String_3_Non_Empty_Stack;
+
+   procedure To_String_4_Non_Empty_Stack (T : in out Test) is
+      pragma Unreferenced (T);
+      F        : constant Foundation.Foundation_Type := Foundation.Construct;
+      Card_1   : constant Card.Card_Type := Card.Construct (Deck.Ace,
+                                                            Deck.Diamond);
+      Card_2   : constant Card.Card_Type := Card.Construct (Deck.Ace,
+                                                            Deck.Heart);
+      Card_3   : constant Card.Card_Type := Card.Construct (Deck.Ace,
+                                                            Deck.Club);
+      Card_4   : constant Card.Card_Type := Card.Construct (Deck.Ace,
+                                                            Deck.Spade);
+      Expected : Foundation.To_String_Type := "           ";
+      Actual   : Foundation.To_String_Type;
+   begin
+      Expected (1 .. 2) := Card_1.Short_Image;
+      Expected (4 .. 5) := Card_2.Short_Image;
+      Expected (7 .. 8) := Card_3.Short_Image;
+      Expected (10 .. 11) := Card_4.Short_Image;
+      F.Put (Card_1);
+      F.Put (Card_2);
+      F.Put (Card_3);
+      F.Put (Card_4);
+      Actual := F.To_String;
+      AUnit.Assertions.Assert (Expected = Actual,
+                               "Expected= " & Expected &
+                                 " /= " & Actual);
+   end To_String_4_Non_Empty_Stack;
 
    --------------------------------------------------------------------
    --  the test suit construction
@@ -254,6 +363,9 @@ package body Foundation.Test is
       Ret.Add_Test (Caller.
                       Create (N & "Construct_Check_Size",
                         Construct_Check_Size'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "Construct_Check_Is_Empty",
+                        Construct_Check_Is_Empty'Access));
 
       Ret.Add_Test (Caller.
                       Create (N & "Check_Accepted_Empty_Foundation",
@@ -291,6 +403,23 @@ package body Foundation.Test is
       Ret.Add_Test (Caller.
                       Create (N & "Does_Not_Accept_Card_Out_Of_Order",
                         Does_Not_Accept_Card_Out_Of_Order'Access));
+
+      Ret.Add_Test (Caller.
+                      Create (N & "To_String_Empty_Foundation",
+                        To_String_Empty_Foundation'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "To_String_1_Non_Empty_Stack",
+                        To_String_1_Non_Empty_Stack'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "To_String_2_Non_Empty_Stack",
+                        To_String_2_Non_Empty_Stack'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "To_String_3_Non_Empty_Stack",
+                        To_String_3_Non_Empty_Stack'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "To_String_4_Non_Empty_Stack",
+                        To_String_4_Non_Empty_Stack'Access));
+
       return Ret;
    end Suite;
 

@@ -6,6 +6,10 @@ package Card is
 
    subtype Short_Image_Type is String (1 .. 2);
 
+   Empty_Short_Image   : Short_Image_Type := "  ";
+   Obscure_Short_Image : Short_Image_Type := "XX";
+
+
    --  Create one card
    function Construct (Rank : Deck.Rank_Type;
                        Suit : Deck.Suit_Type)

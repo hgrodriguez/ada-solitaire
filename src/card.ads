@@ -4,6 +4,8 @@ with Deck;
 package Card is
    type Card_Type is tagged private;
 
+   subtype Short_Image_Type is String (1 .. 2);
+
    --  Create one card
    function Construct (Rank : Deck.Rank_Type;
                        Suit : Deck.Suit_Type)
@@ -34,6 +36,8 @@ package Card is
    function Is_Equal_To (c1 : Card_Type; c2 : Card_Type) return Boolean;
 
    function Image (c : Card_Type) return String;
+
+   function Short_Image (c : Card_Type) return Short_Image_Type;
 
 private
    type Card_Type is tagged

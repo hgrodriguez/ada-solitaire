@@ -66,4 +66,9 @@ package body Card is
       return "(" & c.Rank'Image & "," & c.Suit'Image & ")";
    end Image;
 
+   function Short_Image (c : Card_Type) return Short_Image_Type is
+   begin
+      return Deck.Short_Ranks (c.Get_Rank) & Deck.Short_Suits (c.Get_Suit);
+   end Short_Image;
+
 end Card;

@@ -278,78 +278,100 @@ package body Card.Test is
                                  " /= " & s_result);
    end Image_1;
 
+   procedure Short_Image (T : in out Test) is
+      pragma Unreferenced (T);
+      C        : Card.Card_Type;
+      Expected : Card.Short_Image_Type;
+      Actual   : Card.Short_Image_Type;
+   begin
+      for Rank in Deck.Rank_Type_Valid_Range loop
+         for Suit in Deck.Suit_Type_Valid_Range loop
+            Expected := Deck.Short_Ranks (Rank) & Deck.Short_Suits (Suit);
+            C := Card.Construct (Rank, Suit);
+            Actual := C.Short_Image;
+            AUnit.Assertions.Assert (Expected = Actual,
+                                     "expected: " & Expected &
+                                       " /= " & Actual);
+         end loop;
+      end loop;
+   end Short_Image;
+
    --------------------------------------------------------------------
    --  the test suit construction
    package Caller is new AUnit.Test_Caller (Card.Test.Test);
 
    function Suite return AUnit.Test_Suites.Access_Test_Suite is
       Ret : constant AUnit.Test_Suites.Access_Test_Suite
-             := new AUnit.Test_Suites.Test_Suite;
+        := new AUnit.Test_Suites.Test_Suite;
+      N   : constant String := "Card.Test.";
    begin
       --  c tor tests
       Ret.Add_Test (Caller.
-                      Create ("Card.Ctor_Rank",
+                      Create (N & "Ctor_Rank",
                         Ctor_Rank'Access));
       Ret.Add_Test (Caller.
-                      Create ("Card.Ctor_Top_Rank",
+                      Create (N & "Ctor_Top_Rank",
                         Ctor_Top_Rank'Access));
       Ret.Add_Test (Caller.
-                      Create ("Card.Ctor_Suit",
+                      Create (N & "Ctor_Suit",
                         Ctor_Suit'Access));
 
       --  rank tests
       Ret.Add_Test (Caller.
-                      Create ("Card.Rank_Is_Equal_To_Using_Identical_Rank",
+                      Create (N & "Rank_Is_Equal_To_Using_Identical_Rank",
                         Rank_Is_Equal_To_Using_Identical_Rank'Access));
       Ret.Add_Test (Caller.
-                      Create ("Card.Rank_Is_Equal_To_Using_Equal_Rank",
+                      Create (N & "Rank_Is_Equal_To_Using_Equal_Rank",
                         Rank_Is_Equal_To_Using_Equal_Rank'Access));
       Ret.Add_Test (Caller.
-                      Create ("Card.Rank_Is_Higher_Than_True",
+                      Create (N & "Rank_Is_Higher_Than_True",
                         Rank_Is_Higher_Than_True'Access));
       Ret.Add_Test (Caller.
-                      Create ("Card.Rank_Is_Higher_Than_False",
+                      Create (N & "Rank_Is_Higher_Than_False",
                         Rank_Is_Higher_Than_False'Access));
 
       Ret.Add_Test (Caller.
-                      Create ("Card.Rank_Is_Lower_Than_True",
+                      Create (N & "Rank_Is_Lower_Than_True",
                         Rank_Is_Lower_Than_True'Access));
       Ret.Add_Test (Caller.
-                      Create ("Card.Rank_Is_Lower_Than_False",
+                      Create (N & "Rank_Is_Lower_Than_False",
                         Rank_Is_Lower_Than_False'Access));
       --  equal tests
       Ret.Add_Test (Caller.
                       Create (
-                        "Card.Is_Equal_To_Identical_Rank_And_Identical_Suit",
+                        N & "Is_Equal_To_Identical_Rank_And_Identical_Suit",
                         Is_Equal_To_Identical_Rank_Identical_Suit'Access));
       Ret.Add_Test (Caller.
-                      Create ("Card.Is_Equal_To_Equal_Rank_And_Identical_Suit",
+                      Create (N & "Is_Equal_To_Equal_Rank_And_Identical_Suit",
                         Is_Equal_To_Equal_Rank_Identical_Suit'Access));
       Ret.Add_Test (Caller.
-                      Create ("Card.Is_Equal_To_Identical_Rank_And_Equal_Suit",
+                      Create (N & "Is_Equal_To_Identical_Rank_And_Equal_Suit",
                         Is_Equal_To_Identical_Rank_Equal_Suit'Access));
       Ret.Add_Test (Caller.
-                      Create ("Card.Is_Equal_To_Equal_Rank_And_Equal_Suit",
+                      Create (N & "Is_Equal_To_Equal_Rank_And_Equal_Suit",
                         Is_Equal_To_Equal_Rank_Equal_Suit'Access));
 
       --  suit tests
       Ret.Add_Test (Caller.
-                      Create ("Card.Suit_Is_Equal_To_Using_Identical_Suit",
+                      Create (N & "Suit_Is_Equal_To_Using_Identical_Suit",
                         Suit_Is_Equal_To_Using_Identical_Suit'Access));
       Ret.Add_Test (Caller.
-                      Create ("Card.Suit_Is_Equal_To_Using_Equal_Suit",
+                      Create (N & "Suit_Is_Equal_To_Using_Equal_Suit",
                         Suit_Is_Equal_To_Using_Equal_Suit'Access));
       Ret.Add_Test (Caller.
-                      Create ("Card.Suit_Is_Red_Diamond",
+                      Create (N & "Suit_Is_Red_Diamond",
                         Suit_Is_Red_Diamond'Access));
       Ret.Add_Test (Caller.
-                      Create ("Card.Suit_Is_Red_Heart",
+                      Create (N & "Suit_Is_Red_Heart",
                         Suit_Is_Red_Heart'Access));
 
       --  image tests
       Ret.Add_Test (Caller.
-                      Create ("Card.Image_1",
+                      Create (N & "Image_1",
                         Image_1'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "Short_Image",
+                        Short_Image'Access));
 
       return Ret;
    end Suite;

@@ -27,4 +27,6 @@ private
    procedure Is_Equal_To_Equal_Rank_Equal_Suit (T : in out Test);
    procedure Image_1 (T : in out Test);
 
+   procedure Short_Image (T : in out Test);
+
 end Card.Test;

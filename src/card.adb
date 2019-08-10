@@ -61,6 +61,11 @@ package body Card is
       return c1.Rank_Is_Equal_To (c2) and c1.Suit_Is_Equal_To (c2);
    end Is_Equal_To;
 
+   function "=" (Left, Right : Card_Type) return Boolean is
+   begin
+      return Left.Rank_Is_Equal_To (Right) and Left.Suit_Is_Equal_To (Right);
+   end "=";
+
    function Image (c : Card_Type) return String is
    begin
       return "(" & c.Rank'Image & "," & c.Suit'Image & ")";

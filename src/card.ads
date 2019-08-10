@@ -37,6 +37,7 @@ package Card is
    function Suit_Is_Red (c : Card_Type) return Boolean;
 
    function Is_Equal_To (c1 : Card_Type; c2 : Card_Type) return Boolean;
+   function "=" (Left, Right : Card_Type) return Boolean;
 
    function Image (c : Card_Type) return String;
 

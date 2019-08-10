@@ -84,6 +84,35 @@ package body Card.Test is
                                  "c2.Rank:" & c2.Get_Rank'Image);
    end Rank_Is_Equal_To_Using_Equal_Rank;
 
+   procedure Rank_IsEqualTo_Using_Identical_Rank (T : in out Test) is
+      pragma Unreferenced (T);
+      rank : constant Deck.Rank_Type := Deck.Ace;
+      suit : constant Deck.Suit_Type := Deck.Diamond;
+      c1   : constant Card.Card_Type := Card.Construct (rank, suit);
+      c2   : constant Card.Card_Type := Card.Construct (rank, suit);
+
+   begin
+      AUnit.Assertions.Assert (c1 = c2,
+                               "c1.Rank:" & c1.Get_Rank'Image &
+                                 " should be equal to " &
+                                 "c2.Rank:" & c2.Get_Rank'Image);
+   end Rank_IsEqualTo_Using_Identical_Rank;
+
+   procedure Rank_IsEqualTo_Using_Equal_Rank (T : in out Test) is
+      pragma Unreferenced (T);
+      rank1 : constant Deck.Rank_Type := Deck.Ace;
+      rank2 : constant Deck.Rank_Type := Deck.Ace;
+      suit  : constant Deck.Suit_Type := Deck.Diamond;
+      c1    : constant Card.Card_Type := Card.Construct (rank1, suit);
+      c2    : constant Card.Card_Type := Card.Construct (rank2, suit);
+
+   begin
+      AUnit.Assertions.Assert (c1.Rank_Is_Equal_To (c2),
+                               "c1.Rank:" & c1.Get_Rank'Image &
+                                 " should be equal to " &
+                                 "c2.Rank:" & c2.Get_Rank'Image);
+   end Rank_IsEqualTo_Using_Equal_Rank;
+
    procedure Rank_Is_Higher_Than_True (T : in out Test) is
       pragma Unreferenced (T);
       rank_low  : constant Deck.Rank_Type := Deck.Ace;
@@ -175,6 +204,35 @@ package body Card.Test is
                                  "c2.Suit:" & c2.Get_Suit'Image);
    end Suit_Is_Equal_To_Using_Equal_Suit;
 
+   procedure Suit_IsEqualTo_Using_Identical_Suit (T : in out Test) is
+      pragma Unreferenced (T);
+      rank : constant Deck.Rank_Type := Deck.Ace;
+      suit : constant Deck.Suit_Type := Deck.Diamond;
+      c1   : constant Card.Card_Type := Card.Construct (rank, suit);
+      c2   : constant Card.Card_Type := Card.Construct (rank, suit);
+
+   begin
+      AUnit.Assertions.Assert (c1 = c2,
+                               "c1.Suit:" & c1.Get_Suit'Image &
+                                 " should be equal to " &
+                                 "c2.Suit:" & c2.Get_Suit'Image);
+   end Suit_IsEqualTo_Using_Identical_Suit;
+
+   procedure Suit_IsEqualTo_Using_Equal_Suit (T : in out Test) is
+      pragma Unreferenced (T);
+      rank  : constant Deck.Rank_Type := Deck.Ace;
+      suit1 : constant Deck.Suit_Type := Deck.Diamond;
+      suit2 : constant Deck.Suit_Type := Deck.Diamond;
+      c1    : constant Card.Card_Type := Card.Construct (rank, suit1);
+      c2    : constant Card.Card_Type := Card.Construct (rank, suit2);
+
+   begin
+      AUnit.Assertions.Assert (c1.Suit_Is_Equal_To (c2),
+                               "c1.Suit:" & c1.Get_Suit'Image &
+                                 " should be equal to " &
+                                 "c2.Suit:" & c2.Get_Suit'Image);
+   end Suit_IsEqualTo_Using_Equal_Suit;
+
    procedure Suit_Is_Red_Diamond (T : in out Test) is
       pragma Unreferenced (T);
       rank : constant Deck.Rank_Type := Deck.Ace;
@@ -261,6 +319,66 @@ package body Card.Test is
                                  "c2.Rank:" & c2.Get_Rank'Image);
    end Is_Equal_To_Equal_Rank_Equal_Suit;
 
+   procedure IsEqualTo_Identical_Rank_Identical_Suit (T : in out Test) is
+      pragma Unreferenced (T);
+      rank : constant Deck.Rank_Type := Deck.Ace;
+      suit : constant Deck.Suit_Type := Deck.Diamond;
+      c1   : constant Card.Card_Type := Card.Construct (rank, suit);
+      c2   : constant Card.Card_Type := Card.Construct (rank, suit);
+
+   begin
+      AUnit.Assertions.Assert (c1 = c2,
+                               "c1.Rank:" & c1.Get_Rank'Image &
+                                 " should be equal to " &
+                                 "c2.Rank:" & c2.Get_Rank'Image);
+   end IsEqualTo_Identical_Rank_Identical_Suit;
+
+   procedure IsEqualTo_Equal_Rank_Identical_Suit (T : in out Test) is
+      pragma Unreferenced (T);
+      rank1 : constant Deck.Rank_Type := Deck.Ace;
+      rank2 : constant Deck.Rank_Type := Deck.Ace;
+      suit  : constant Deck.Suit_Type := Deck.Diamond;
+      c1    : constant Card.Card_Type := Card.Construct (rank1, suit);
+      c2    : constant Card.Card_Type := Card.Construct (rank2, suit);
+
+   begin
+      AUnit.Assertions.Assert (c1 = c2,
+                               "c1.Rank:" & c1.Get_Rank'Image &
+                                 " should be equal to " &
+                                 "c2.Rank:" & c2.Get_Rank'Image);
+   end IsEqualTo_Equal_Rank_Identical_Suit;
+
+   procedure IsEqualTo_Identical_Rank_Equal_Suit (T : in out Test) is
+      pragma Unreferenced (T);
+      rank  : constant Deck.Rank_Type := Deck.Ace;
+      suit1 : constant Deck.Suit_Type := Deck.Diamond;
+      suit2 : constant Deck.Suit_Type := Deck.Diamond;
+      c1    : constant Card.Card_Type := Card.Construct (rank, suit1);
+      c2    : constant Card.Card_Type := Card.Construct (rank, suit2);
+
+   begin
+      AUnit.Assertions.Assert (c1.Is_Equal_To (c2),
+                               "c1.Rank:" & c1.Get_Rank'Image &
+                                 " should be equal to " &
+                                 "c2.Rank:" & c2.Get_Rank'Image);
+   end IsEqualTo_Identical_Rank_Equal_Suit;
+
+   procedure IsEqualTo_Equal_Rank_Equal_Suit (T : in out Test) is
+      pragma Unreferenced (T);
+      rank1 : constant Deck.Rank_Type := Deck.Ace;
+      rank2 : constant Deck.Rank_Type := Deck.Ace;
+      suit1 : constant Deck.Suit_Type := Deck.Diamond;
+      suit2 : constant Deck.Suit_Type := Deck.Diamond;
+      c1    : constant Card.Card_Type := Card.Construct (rank1, suit1);
+      c2    : constant Card.Card_Type := Card.Construct (rank2, suit2);
+
+   begin
+      AUnit.Assertions.Assert (c1.Is_Equal_To (c2),
+                               "c1.Rank:" & c1.Get_Rank'Image &
+                                 " should be equal to " &
+                                 "c2.Rank:" & c2.Get_Rank'Image);
+   end IsEqualTo_Equal_Rank_Equal_Suit;
+
    --------------------------------------------------------------------
    --  image tests
    procedure Image_1 (T : in out Test) is
@@ -323,6 +441,14 @@ package body Card.Test is
       Ret.Add_Test (Caller.
                       Create (N & "Rank_Is_Equal_To_Using_Equal_Rank",
                         Rank_Is_Equal_To_Using_Equal_Rank'Access));
+
+      Ret.Add_Test (Caller.
+                      Create (N & "Rank_IsEqualTo_Using_Identical_Rank",
+                        Rank_IsEqualTo_Using_Identical_Rank'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "Rank_IsEqualTo_Using_Equal_Rank",
+                        Rank_IsEqualTo_Using_Equal_Rank'Access));
+
       Ret.Add_Test (Caller.
                       Create (N & "Rank_Is_Higher_Than_True",
                         Rank_Is_Higher_Than_True'Access));
@@ -351,6 +477,27 @@ package body Card.Test is
                       Create (N & "Is_Equal_To_Equal_Rank_And_Equal_Suit",
                         Is_Equal_To_Equal_Rank_Equal_Suit'Access));
 
+      Ret.Add_Test (Caller.
+                      Create (
+                        N & "IsEqualTo_Identical_Rank_Identical_Suit",
+                        IsEqualTo_Identical_Rank_Identical_Suit'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "IsEqualTo_Equal_Rank_Identical_Suit",
+                        IsEqualTo_Equal_Rank_Identical_Suit'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "IsEqualTo_Identical_Rank_Equal_Suit",
+                        IsEqualTo_Identical_Rank_Equal_Suit'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "IsEqualTo_Equal_Rank_Equal_Suit",
+                        IsEqualTo_Equal_Rank_Equal_Suit'Access));
+
+      Ret.Add_Test (Caller.
+                      Create (N & "Suit_IsEqualTo_Using_Identical_Suit",
+                        Suit_IsEqualTo_Using_Identical_Suit'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "Suit_IsEqualTo_Using_Equal_Suit",
+                        Suit_IsEqualTo_Using_Equal_Suit'Access));
+
       --  suit tests
       Ret.Add_Test (Caller.
                       Create (N & "Suit_Is_Equal_To_Using_Identical_Suit",
@@ -358,6 +505,14 @@ package body Card.Test is
       Ret.Add_Test (Caller.
                       Create (N & "Suit_Is_Equal_To_Using_Equal_Suit",
                         Suit_Is_Equal_To_Using_Equal_Suit'Access));
+
+      Ret.Add_Test (Caller.
+                      Create (N & "Suit_IsEqualTo_Using_Identical_Suit",
+                        Suit_IsEqualTo_Using_Identical_Suit'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "SuitIsEqual_To_Using_Equal_Suit",
+                        Suit_IsEqualTo_Using_Equal_Suit'Access));
+
       Ret.Add_Test (Caller.
                       Create (N & "Suit_Is_Red_Diamond",
                         Suit_Is_Red_Diamond'Access));

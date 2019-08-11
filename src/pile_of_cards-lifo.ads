@@ -22,14 +22,6 @@ package Pile_Of_Cards.LIFO is
                  C    : Card.Card_Type) return Boolean;
 
 private
-   --------------------------------------------------------------------
-   --  the dynamic list of cards
-   --  I know, that there are Containers in Ada, just exercise for me
-   type List_Element;
-   type List_Element_Access is access List_Element;
-
-   type Pile_Type_LIFO is new Pile_Of_Cards.Pile_Type with record
-      TOS : List_Element_Access := null;
-   end record;
+   type Pile_Type_LIFO is new Pile_Of_Cards.Pile_Type with null record;
 
 end Pile_Of_Cards.LIFO;

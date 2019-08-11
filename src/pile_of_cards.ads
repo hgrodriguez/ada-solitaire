@@ -1,3 +1,5 @@
+with Ada.Containers.Doubly_Linked_Lists;
+
 with Card;
 
 package Pile_Of_Cards is
@@ -11,13 +13,16 @@ package Pile_Of_Cards is
    Pile_Empty_Exception : exception;
 
    function Is_Empty (pile : Pile_Type) return Boolean;
-   function Size (pile : Pile_Type) return Natural;
+   function Size (pile : Pile_Type) return Ada.Containers.Count_Type;
    function Peek (pile : Pile_Type) return Card.Card_Type is abstract;
    function Has (pile : Pile_Type;
                  C    : Card.Card_Type) return Boolean is abstract;
 private
+   package Card_Type_DLL is new Ada.Containers.
+     Doubly_Linked_Lists (Element_Type => Card.Card_Type, "=" => Card."=");
+
    type Pile_Type is abstract tagged record
-      Count : Natural := 0;
+      Cards : Card_Type_DLL.List;
    end record;
 
 end Pile_Of_Cards;

@@ -1,4 +1,6 @@
+with Ada.Containers; use Ada.Containers;
 with Ada.Exceptions;
+
 with Pile_Of_Cards.FIFO;
 with Card;
 with Deck;

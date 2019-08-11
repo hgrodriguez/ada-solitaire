@@ -2,12 +2,12 @@ package body Pile_Of_Cards is
 
    function Is_Empty (pile : Pile_Type) return Boolean is
    begin
-      return pile.Count = 0;
+      return pile.Cards.Is_Empty;
    end Is_Empty;
 
-   function Size (pile : Pile_Type) return Natural is
+   function Size (pile : Pile_Type) return Ada.Containers.Count_Type is
    begin
-      return pile.Count;
+      return pile.Cards.Length;
    end Size;
 
 --  with Ada.Unchecked_Deallocation;

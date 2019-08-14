@@ -86,4 +86,17 @@ package body Tableau_Stack is
       return Result;
    end Accepts;
 
+   function Short_Images (T : Stack_Type)
+                          return Short_Image_FIFO.Short_Image_FIFO_Type is
+      SIF : Short_Image_FIFO.Short_Image_FIFO_Type
+        := Short_Image_FIFO.Construct;
+      Cards : constant Pile_Of_Cards.LIFO.Pile_Type_LIFO_Access := T.Cards;
+   begin
+      if T.Is_Empty then
+         SIF.Put (Card.Empty_Short_Image);
+      end if;
+      Cards.Collect (SIF);
+      return SIF;
+   end Short_Images;
+
 end Tableau_Stack;

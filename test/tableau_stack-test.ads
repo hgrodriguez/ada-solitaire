@@ -26,4 +26,9 @@ private
    procedure Empty_Stack_Accepts_All_Kings (T : in out Test);
    procedure Bottom_Ace_Does_Not_Accept_AnyCard (T : in out Test);
    procedure Bottom_Ten_Accepts_Two_Nines (T : in out Test);
+
+   procedure Collect_Empty_Stack (T : in out Test);
+   procedure Collect_1_Card (T : in out Test);
+   procedure Collect_2_Cards (T : in out Test);
+
 end Tableau_Stack.Test;

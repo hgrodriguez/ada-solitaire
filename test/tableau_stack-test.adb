@@ -290,6 +290,96 @@ package body Tableau_Stack.Test is
    end Bottom_Ten_Accepts_Two_Nines;
 
    --------------------------------------------------------------------
+   --  Collect tests
+   procedure Collect_Empty_Stack (T : in out Test) is
+      pragma Unreferenced (T);
+      stack         : constant Tableau_Stack.Stack_Type
+        := Tableau_Stack.Construct;
+
+      SIF           : Short_Image_FIFO.Short_Image_FIFO_Type;
+
+      Expected_Size : constant Natural := 1;
+      Actual_Size   : Natural;
+
+      Expected_SI   : constant Card.Short_Image_Type := Card.Empty_Short_Image;
+      Actual_SI     : Card.Short_Image_Type;
+   begin
+      SIF := stack.Short_Images;
+      Actual_Size := SIF.Size;
+      AUnit.Assertions.Assert (Expected_Size = Actual_Size,
+                               "Expected_Size=" & Expected_Size'Image &
+                              "/= Actual_Size=" & Actual_Size'Image);
+      Actual_SI := SIF.Get;
+      AUnit.Assertions.Assert (Expected_SI = Actual_SI,
+                               "Expected_SI=" & Expected_SI &
+                                 "/= Actual_SI=" & Actual_SI);
+   end Collect_Empty_Stack;
+
+   procedure Collect_1_Card (T : in out Test) is
+      pragma Unreferenced (T);
+      stack         : constant Tableau_Stack.Stack_Type
+        := Tableau_Stack.Construct;
+
+      SIF           : Short_Image_FIFO.Short_Image_FIFO_Type;
+
+      Expected_Size : constant Natural := 1;
+      Actual_Size   : Natural;
+
+      C1            : constant Card.Card_Type := Card.Construct (Deck.Ace,
+                                                                 Deck.Diamond);
+      Expected_SI1  : constant Card.Short_Image_Type := C1.Short_Image;
+      Actual_SI1    : Card.Short_Image_Type;
+   begin
+      stack.Push_Unchecked (C1);
+      SIF := stack.Short_Images;
+      Actual_Size := SIF.Size;
+      AUnit.Assertions.Assert (Expected_Size = Actual_Size,
+                               "Expected_Size=" & Expected_Size'Image &
+                                 "/= Actual_Size=" & Actual_Size'Image);
+      Actual_SI1 := SIF.Get;
+      AUnit.Assertions.Assert (Expected_SI1 = Actual_SI1,
+                               "Expected_SI1=" & Expected_SI1 &
+                                 "/= Actual_SI1=" & Actual_SI1);
+   end Collect_1_Card;
+
+   procedure Collect_2_Cards (T : in out Test) is
+      pragma Unreferenced (T);
+      stack         : constant Tableau_Stack.Stack_Type
+        := Tableau_Stack.Construct;
+
+      SIF           : Short_Image_FIFO.Short_Image_FIFO_Type;
+
+      Expected_Size : constant Natural := 2;
+      Actual_Size   : Natural;
+
+      C1            : constant Card.Card_Type := Card.Construct (Deck.Ace,
+                                                                 Deck.Diamond);
+      Expected_SI1  : constant Card.Short_Image_Type := C1.Short_Image;
+      Actual_SI1    : Card.Short_Image_Type;
+
+      C2            : constant Card.Card_Type := Card.Construct (Deck.King,
+                                                                 Deck.Spade);
+      Expected_SI2  : constant Card.Short_Image_Type := C2.Short_Image;
+      Actual_SI2    : Card.Short_Image_Type;
+   begin
+      stack.Push_Unchecked (C1);
+      stack.Push_Unchecked (C2);
+      SIF := stack.Short_Images;
+      Actual_Size := SIF.Size;
+      AUnit.Assertions.Assert (Expected_Size = Actual_Size,
+                               "Expected_Size=" & Expected_Size'Image &
+                                 "/= Actual_Size=" & Actual_Size'Image);
+      Actual_SI1 := SIF.Get;
+      AUnit.Assertions.Assert (Expected_SI1 = Actual_SI1,
+                               "Expected_SI1=" & Expected_SI1 &
+                                 "/= Actual_SI1=" & Actual_SI1);
+      Actual_SI2 := SIF.Get;
+      AUnit.Assertions.Assert (Expected_SI2 = Actual_SI2,
+                               "Expected_SI2=" & Expected_SI2 &
+                                 " /= Actual_SI2=" & Actual_SI2);
+   end Collect_2_Cards;
+
+   --------------------------------------------------------------------
    --  the test suit construction
    package Caller is new AUnit.Test_Caller (Tableau_Stack.Test.Test);
 
@@ -354,6 +444,17 @@ package body Tableau_Stack.Test is
       Ret.Add_Test (Caller.
                       Create (N & "Bottom_Ten_Accepts_Two_Nines",
                         Bottom_Ten_Accepts_Two_Nines'Access));
+
+      --  Collect tests
+      Ret.Add_Test (Caller.
+                      Create (N & "Collect_Empty_Stack",
+                        Collect_Empty_Stack'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "Collect_1_Card",
+                        Collect_1_Card'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "Collect_2_Cards",
+                        Collect_2_Cards'Access));
 
       return Ret;
    end Suite;

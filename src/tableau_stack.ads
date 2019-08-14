@@ -1,5 +1,7 @@
 with Card;
 
+with Short_Image_FIFO;
+
 with Pile_Of_Cards.FIFO;
 with Pile_Of_Cards.LIFO;
 
@@ -26,6 +28,9 @@ package Tableau_Stack is
    function Pop (T : Stack_Type) return Card.Card_Type;
 
    function Accepts (T : Stack_Type) return Acceptable_Type;
+
+   function Short_Images (T : Stack_Type)
+                          return Short_Image_FIFO.Short_Image_FIFO_Type;
 
 private
    type Stack_Type is tagged record

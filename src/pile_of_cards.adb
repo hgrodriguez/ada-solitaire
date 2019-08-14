@@ -5,9 +5,9 @@ package body Pile_Of_Cards is
       return pile.Cards.Is_Empty;
    end Is_Empty;
 
-   function Size (pile : Pile_Type) return Ada.Containers.Count_Type is
+   function Size (pile : Pile_Type) return Natural is
    begin
-      return pile.Cards.Length;
+      return Natural (pile.Cards.Length);
    end Size;
 
 --  with Ada.Unchecked_Deallocation;

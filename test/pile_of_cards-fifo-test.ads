@@ -25,5 +25,4 @@ private
    procedure Has_1_Card (T : in out Test);
    procedure Has_2_Cards_1st_Put (T : in out Test);
    procedure Has_2_Cards_2nd_Put (T : in out Test);
-
 end Pile_Of_Cards.FIFO.Test;

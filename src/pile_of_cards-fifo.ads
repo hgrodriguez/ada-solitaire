@@ -11,8 +11,6 @@ package Pile_Of_Cards.FIFO is
 
    function Construct return Pile_Type_FIFO;
 
-   --  Put:Semantics
-   --  put c in front of any other card in the pile
    function Get (Pile : in out Pile_Type_FIFO) return Card.Card_Type;
    procedure Put (Pile : in out Pile_Type_FIFO; C : Card.Card_Type);
 

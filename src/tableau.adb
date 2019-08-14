@@ -7,8 +7,8 @@ package body Tableau is
       S : Tableau_Stack.Stack_Type_Access;
    begin
       for J in Valid_Stacks_Range loop
-         S := new Tableau_Stack.Stack_Type;
-         S.all := Tableau_Stack.Construct;
+         S            := new Tableau_Stack.Stack_Type;
+         S.all        := Tableau_Stack.Construct;
          T.Stacks (J) := S;
       end loop;
       return T;
@@ -23,8 +23,9 @@ package body Tableau is
       return S;
    end Size;
 
-   procedure Push (T    : Tableau_Type;
-                   Pile : in out Pile_Of_Cards.FIFO.Pile_Type_FIFO) is
+   procedure Push
+     (T : Tableau_Type; Pile : in out Pile_Of_Cards.FIFO.Pile_Type_FIFO)
+   is
       J : Valid_Stacks_Range := Valid_Stacks_Range'First;
       C : Card.Card_Type;
    begin
@@ -40,18 +41,17 @@ package body Tableau is
    end Push;
 
    procedure Move_To
-     (T               : Tableau_Type;
-      Src_Index       : Valid_Stacks_Range;
-      Dst_Index       : Valid_Stacks_Range;
-      Card_To_Include : Card.Card_Type) is
-      Src_Stack  : constant Tableau_Stack.Stack_Type_Access
-        := T.Stacks (Src_Index);
-      Dst_Stack  : constant Tableau_Stack.Stack_Type_Access
-        := T.Stacks (Dst_Index);
-      Acceptable : constant Tableau_Stack.Acceptable_Type
-        := Dst_Stack.all.Accepts;
-      Transfer   : Pile_Of_Cards.LIFO.Pile_Type_LIFO
-        := Pile_Of_Cards.LIFO.Construct;
+     (T         : Tableau_Type; Src_Index : Valid_Stacks_Range;
+      Dst_Index : Valid_Stacks_Range; Card_To_Include : Card.Card_Type)
+   is
+      Src_Stack    : constant Tableau_Stack.Stack_Type_Access :=
+        T.Stacks (Src_Index);
+      Dst_Stack    : constant Tableau_Stack.Stack_Type_Access :=
+        T.Stacks (Dst_Index);
+      Acceptable   : constant Tableau_Stack.Acceptable_Type :=
+        Dst_Stack.all.Accepts;
+      Transfer     : Pile_Of_Cards.LIFO.Pile_Type_LIFO :=
+        Pile_Of_Cards.LIFO.Construct;
       Card_To_Xfer : Card.Card_Type;
    begin
       if not Src_Stack.all.Has (Card_To_Include) then
@@ -72,14 +72,14 @@ package body Tableau is
    end Move_To;
 
    function Remove_Mandatory_Cards
-     (T          : Tableau_Type;
-      Candidates : Pile_Of_Cards.FIFO.Pile_Type_FIFO)
-      return Pile_Of_Cards.FIFO.Pile_Type_FIFO is
+     (T : Tableau_Type; Candidates : Pile_Of_Cards.FIFO.Pile_Type_FIFO)
+      return Pile_Of_Cards.FIFO.Pile_Type_FIFO
+   is
       Stack           : Tableau_Stack.Stack_Type_Access;
       Peek_Card       : Card.Card_Type;
       Move_Card       : Card.Card_Type;
-      Mandatory_Cards : Pile_Of_Cards.FIFO.Pile_Type_FIFO
-        := Pile_Of_Cards.FIFO.Construct;
+      Mandatory_Cards : Pile_Of_Cards.FIFO.Pile_Type_FIFO :=
+        Pile_Of_Cards.FIFO.Construct;
    begin
       for J in Valid_Stacks_Range loop
          Stack := T.Get_Stack (J);
@@ -97,9 +97,8 @@ package body Tableau is
    --------------------------------------------------------------------
    --
    function Pop_From_Stack
-     (T : Tableau_Type;
-      J : Valid_Stacks_Range)
-      return Card.Card_Type is
+     (T : Tableau_Type; J : Valid_Stacks_Range) return Card.Card_Type
+   is
    begin
       return T.Stacks (J).all.Pop;
    exception
@@ -107,8 +106,10 @@ package body Tableau is
          raise Tableau_Stack_Empty_Exception;
    end Pop_From_Stack;
 
-   function Get_Stack (T : Tableau_Type; J : Valid_Stacks_Range)
-                       return Tableau_Stack.Stack_Type_Access is
+   function Get_Stack
+     (T : Tableau_Type; J : Valid_Stacks_Range) return Tableau_Stack
+     .Stack_Type_Access
+   is
    begin
       return T.Stacks (J);
    end Get_Stack;

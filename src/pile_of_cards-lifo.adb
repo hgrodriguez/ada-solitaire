@@ -41,4 +41,20 @@ package body Pile_Of_Cards.LIFO is
       return Pile.Cards.Find (Item => C) /= Card_Type_DLL.No_Element;
    end Has;
 
+   procedure Collect (Pile : Pile_Type_LIFO;
+                      SIF  : in out Short_Image_FIFO.Short_Image_FIFO_Type) is
+      Crsr : Card_Type_DLL.Cursor := Pile.Cards.Last;
+      C    : Card.Card_Type;
+      CSI  : Card.Short_Image_Type;
+      use Card_Type_DLL;
+   begin
+      loop
+         exit when Crsr = Card_Type_DLL.No_Element;
+         C := Element (Crsr);
+         CSI := C.Short_Image;
+         SIF.Put (CSI);
+         Crsr := Previous (Crsr);
+      end loop;
+   end Collect;
+
 end Pile_Of_Cards.LIFO;

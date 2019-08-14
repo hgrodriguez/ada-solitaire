@@ -1,4 +1,3 @@
-with Ada.Containers; use Ada.Containers;
 with Ada.Exceptions;
 
 with Card;
@@ -305,6 +304,83 @@ package body Pile_Of_Cards.LIFO.Test is
    end Has_2_Cards_2nd_Push;
 
    --------------------------------------------------------------------
+   --  Collect tests
+   procedure Collect_Is_Empty (T : in out Test) is
+      pragma Unreferenced (T);
+      pile     : constant Pile_Of_Cards.LIFO.Pile_Type_LIFO
+        := Pile_Of_Cards.LIFO.Construct;
+      sif      : Short_Image_FIFO.Short_Image_FIFO_Type;
+      Expected : constant Natural := 0;
+      Actual   : Natural;
+   begin
+      pile.Collect (sif);
+      Actual := sif.Size;
+      AUnit.Assertions.Assert (Expected = Actual,
+                               "expected=" & Expected'Image &
+                                 " /= actual:" & Actual'Image);
+   end Collect_Is_Empty;
+
+   procedure Collect_1_Card (T : in out Test) is
+      pragma Unreferenced (T);
+      pile           : Pile_Of_Cards.LIFO.Pile_Type_LIFO
+        := Pile_Of_Cards.LIFO.Construct;
+      C1             : constant Card.Card_Type := Card.Construct (Deck.Ace,
+                                                                  Deck.Diamond);
+      SI1            : constant Card.Short_Image_Type := C1.Short_Image;
+      sif            : Short_Image_FIFO.Short_Image_FIFO_Type;
+      Expected_Size  : constant Natural := 1;
+      Actual_Size    : Natural;
+      Expected_SI1   : constant Card.Short_Image_Type := SI1;
+      Actual_SI1     : Card.Short_Image_Type;
+   begin
+      pile.Push (C1);
+      pile.Collect (sif);
+      Actual_Size := sif.Size;
+      AUnit.Assertions.Assert (Expected_Size = Actual_Size,
+                               "expected_size=" & Expected_Size'Image &
+                                 " /= actual_size:" & Actual_Size'Image);
+      Actual_SI1 := sif.Get;
+      AUnit.Assertions.Assert (Expected_SI1 = Actual_SI1,
+                               "Expected_SI1=" & Expected_SI1 &
+                                 " /= Actual_SI1:" & Actual_SI1);
+   end Collect_1_Card;
+
+   procedure Collect_2_Cards (T : in out Test) is
+      pragma Unreferenced (T);
+      pile           : Pile_Of_Cards.LIFO.Pile_Type_LIFO
+        := Pile_Of_Cards.LIFO.Construct;
+      C1             : constant Card.Card_Type := Card.Construct (Deck.Ace,
+                                                                  Deck.Diamond);
+      SI1            : constant Card.Short_Image_Type := C1.Short_Image;
+      C2             : constant Card.Card_Type := Card.Construct (Deck.King,
+                                                                  Deck.Club);
+      SI2            : constant Card.Short_Image_Type := C2.Short_Image;
+      sif            : Short_Image_FIFO.Short_Image_FIFO_Type;
+      Expected_Size  : constant Natural := 2;
+      Actual_Size    : Natural;
+      Expected_SI1   : constant Card.Short_Image_Type := SI1;
+      Actual_SI1     : Card.Short_Image_Type;
+      Expected_SI2   : constant Card.Short_Image_Type := SI2;
+      Actual_SI2     : Card.Short_Image_Type;
+   begin
+      pile.Push (C1);
+      pile.Push (C2);
+      pile.Collect (sif);
+      Actual_Size := sif.Size;
+      AUnit.Assertions.Assert (Expected_Size = Actual_Size,
+                               "expected_size=" & Expected_Size'Image &
+                                 " /= actual_size:" & Actual_Size'Image);
+      Actual_SI1 := sif.Get;
+      AUnit.Assertions.Assert (Expected_SI1 = Actual_SI1,
+                               "Expected_SI1=" & Expected_SI1 &
+                                 " /= Actual_SI1:" & Actual_SI1);
+      Actual_SI2 := sif.Get;
+      AUnit.Assertions.Assert (Expected_SI2 = Actual_SI2,
+                               "Expected_SI2=" & Expected_SI2 &
+                                 " /= Actual_SI2:" & Actual_SI2);
+   end Collect_2_Cards;
+
+   --------------------------------------------------------------------
    --  the test suit construction
    package Caller is new AUnit.Test_Caller (Pile_Of_Cards.LIFO.Test.Test);
 
@@ -369,6 +445,17 @@ package body Pile_Of_Cards.LIFO.Test is
       Ret.Add_Test (Caller.
                       Create (N & "Has_2_Cards_2nd_Push",
                         Has_2_Cards_2nd_Push'Access));
+
+      --  Collect tests
+      Ret.Add_Test (Caller.
+                      Create (N & "Collect_Is_Empty",
+                        Collect_Is_Empty'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "Collect_1_Card",
+                        Collect_1_Card'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "Collect_2_Cards",
+                        Collect_2_Cards'Access));
 
       return Ret;
    end Suite;

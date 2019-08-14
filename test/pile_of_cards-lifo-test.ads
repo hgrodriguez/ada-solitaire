@@ -28,4 +28,7 @@ private
    procedure Has_2_Cards_1st_Push (T : in out Test);
    procedure Has_2_Cards_2nd_Push (T : in out Test);
 
+   procedure Collect_Is_Empty (T : in out Test);
+   procedure Collect_1_Card (T : in out Test);
+   procedure Collect_2_Cards (T : in out Test);
 end Pile_Of_Cards.LIFO.Test;

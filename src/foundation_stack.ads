@@ -19,7 +19,8 @@ package Foundation_Stack is
    function Is_Empty (cs : Foundation_Stack.Stack_Type) return Boolean;
    function Is_Full (cs : Foundation_Stack.Stack_Type) return Boolean;
 
-   function Size (cs :  Foundation_Stack.Stack_Type) return Integer;
+   function Size (cs :  Foundation_Stack.Stack_Type)
+                  return Natural;
 
    function Accepts (cs :  Foundation_Stack.Stack_Type)
                      return Card.Card_Type;

@@ -83,7 +83,7 @@ package body Foundation_Stack.Test is
       pragma Unreferenced (T);
       suit    : constant Deck.Suit_Type := Deck.Spade;
       stack   : constant Foundation_Stack.Stack_Type :=
-                  Foundation_Stack.Construct (suit);
+        Foundation_Stack.Construct (suit);
    begin
       AUnit.Assertions.Assert (stack.Size = 0,
                                "size should = 0, but is: " & stack.Size'Image);
@@ -124,7 +124,7 @@ package body Foundation_Stack.Test is
       suit   : constant Deck.Suit_Type := Deck.Spade;
       stack  : Foundation_Stack.Stack_Type := Foundation_Stack.Construct (suit);
       a_card : Card.Card_Type;
-      size   : Integer;
+      size   : Natural;
    begin
       size := 0;
       for rank in Deck.Ace .. Deck.King loop

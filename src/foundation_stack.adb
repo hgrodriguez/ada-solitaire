@@ -27,7 +27,8 @@ package body Foundation_Stack is
       return cs.Cards.Size = 13;
    end Is_Full;
 
-   function Size (cs :  Foundation_Stack.Stack_Type) return Integer is
+   function Size (cs :  Foundation_Stack.Stack_Type)
+                  return Natural is
    begin
       return cs.Cards.Size;
    end Size;

@@ -10,6 +10,7 @@ with Foundation_Stack.Test;
 with Pile_Of_Cards.FIFO.Test;
 with Pile_Of_Cards.LIFO.Test;
 with Pile_Of_Cards.Test;
+with Short_Image_FIFO.Test;
 with Stock.Test;
 with Tableau.Test;
 with Tableau.Tests4_Remove_Mandatory_Cards;
@@ -30,6 +31,7 @@ procedure All_Tests is
       Ret.Add_Test (Pile_Of_Cards.FIFO.Test.Suite);
       Ret.Add_Test (Pile_Of_Cards.LIFO.Test.Suite);
       Ret.Add_Test (Pile_Of_Cards.Test.Suite);
+      Ret.Add_Test (Short_Image_FIFO.Test.Suite);
       Ret.Add_Test (Stock.Test.Suite);
       Ret.Add_Test (Tableau.Test.Suite);
       Ret.Add_Test (Tableau.Tests4_Remove_Mandatory_Cards.Suite);

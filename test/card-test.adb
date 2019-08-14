@@ -404,7 +404,8 @@ package body Card.Test is
    begin
       for Rank in Deck.Rank_Type_Valid_Range loop
          for Suit in Deck.Suit_Type_Valid_Range loop
-            Expected := Deck.Short_Ranks (Rank) & Deck.Short_Suits (Suit);
+            Expected (1) := Deck.Short_Image (Rank) (1);
+            Expected (2) := Deck.Short_Image (Suit) (1);
             C := Card.Construct (Rank, Suit);
             Actual := C.Short_Image;
             AUnit.Assertions.Assert (Expected = Actual,

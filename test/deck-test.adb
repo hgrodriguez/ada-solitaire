@@ -36,31 +36,31 @@ package body Deck.Test is
 
    begin
       R := Deck.Short_Image (Ace);
-      AUnit.Assertions.Assert (R = "A", "A /= " & R);
+      AUnit.Assertions.Assert (String (R) = "A", "A /= " & String (R));
       R := Deck.Short_Image (Two);
-      AUnit.Assertions.Assert (R = "2", "2 /= " & R);
+      AUnit.Assertions.Assert (String (R) = "2", "2 /= " & String (R));
       R := Deck.Short_Image (Three);
-      AUnit.Assertions.Assert (R = "3", "3 /= " & R);
+      AUnit.Assertions.Assert (String (R) = "3", "3 /= " & String (R));
       R := Deck.Short_Image (Four);
-      AUnit.Assertions.Assert (R = "4", "4 /= " & R);
+      AUnit.Assertions.Assert (String (R) = "4", "4 /= " & String (R));
       R := Deck.Short_Image (Five);
-      AUnit.Assertions.Assert (R = "5", "5 /= " & R);
+      AUnit.Assertions.Assert (String (R) = "5", "5 /= " & String (R));
       R := Deck.Short_Image (Six);
-      AUnit.Assertions.Assert (R = "6", "6 /= " & R);
+      AUnit.Assertions.Assert (String (R) = "6", "6 /= " & String (R));
       R := Deck.Short_Image (Seven);
-      AUnit.Assertions.Assert (R = "7", "7 /= " & R);
+      AUnit.Assertions.Assert (String (R) = "7", "7 /= " & String (R));
       R := Deck.Short_Image (Eight);
-      AUnit.Assertions.Assert (R = "8", "8 /= " & R);
+      AUnit.Assertions.Assert (String (R) = "8", "8 /= " & String (R));
       R := Deck.Short_Image (Nine);
-      AUnit.Assertions.Assert (R = "9", "9 /= " & R);
+      AUnit.Assertions.Assert (String (R) = "9", "9 /= " & String (R));
       R := Deck.Short_Image (Ten);
-      AUnit.Assertions.Assert (R = "T", "T /= " & R);
+      AUnit.Assertions.Assert (String (R) = "T", "T /= " & String (R));
       R := Deck.Short_Image (Jack);
-      AUnit.Assertions.Assert (R = "J", "J /= " & R);
+      AUnit.Assertions.Assert (String (R) = "J", "J /= " & String (R));
       R := Deck.Short_Image (Queen);
-      AUnit.Assertions.Assert (R = "Q", "Q /= " & R);
+      AUnit.Assertions.Assert (String (R) = "Q", "Q /= " & String (R));
       R := Deck.Short_Image (King);
-      AUnit.Assertions.Assert (R = "K", "K /= " & R);
+      AUnit.Assertions.Assert (String (R) = "K", "K /= " & String (R));
    end Test_Short_Image_Ranks;
 
    procedure Test_Short_Image_Suits (T : in out Test) is
@@ -68,13 +68,13 @@ package body Deck.Test is
       S : Deck.Short_Image_Suit_Type;
    begin
       S := Deck.Short_Image (Diamond);
-      AUnit.Assertions.Assert (S = "D", "D /= " & S);
+      AUnit.Assertions.Assert (String (S) = "D", "D /= " & String (S));
       S := Deck.Short_Image (Heart);
-      AUnit.Assertions.Assert (S = "H", "H /= " & S);
+      AUnit.Assertions.Assert (String (S) = "H", "H /= " & String (S));
       S := Deck.Short_Image (Club);
-      AUnit.Assertions.Assert (S = "C", "C /= " & S);
+      AUnit.Assertions.Assert (String (S) = "C", "C /= " & String (S));
       S := Deck.Short_Image (Spade);
-      AUnit.Assertions.Assert (S = "S", "S /= " & S);
+      AUnit.Assertions.Assert (String (S) = "S", "S /= " & String (S));
    end Test_Short_Image_Suits;
 
    package Caller is new AUnit.Test_Caller (Deck.Test.Test);

@@ -238,6 +238,34 @@ package body Tableau.Test is
 
    --------------------------------------------------------------------
    --  Move_To tests
+   procedure Move_To_Src_Stack_Equals_Trgt_Stack_Exc;
+   procedure Move_To_Src_Stack_Equals_Trgt_Stack_Exc is
+      Tab       : constant Tableau.Tableau_Type := Tableau.Construct;
+      Not_Exist : constant Card.Card_Type
+        := Card.Construct (Deck.Queen, Deck.Club);
+   begin
+      Tab.Move_To (1, 1, Not_Exist);
+   exception
+      when Tableau_Target_Stack_Equals_Source_Stack_Exception => raise;
+      when Exc : others =>
+         AUnit.
+           Assertions.
+             Assert (False,
+                     "Move_To_Src_Stack_Equals_Trgt_Stack_Exc: " &
+                       "wrong exception raised:" &
+                       Ada.Exceptions.Exception_Name (Exc));
+   end Move_To_Src_Stack_Equals_Trgt_Stack_Exc;
+
+   procedure Move_To_Src_Stack_Equals_Trgt_Stack (T : in out Test) is
+      pragma Unreferenced (T);
+   begin
+      AUnit.
+        Assertions.
+          Assert_Exception (Move_To_Src_Stack_Equals_Trgt_Stack_Exc'Access,
+                            "Move_To_Src_Stack_Equals_Trgt_Stack_Exc: " &
+                              "no exception raised");
+   end Move_To_Src_Stack_Equals_Trgt_Stack;
+
    procedure Move_To_Source_Selection_Does_Not_Exist_Exc;
    procedure Move_To_Source_Selection_Does_Not_Exist_Exc is
       Tab       : constant Tableau.Tableau_Type := Tableau.Construct;
@@ -787,6 +815,9 @@ package body Tableau.Test is
                       Create (N & "Add_7_Cards_Check_Pop",
                         Add_7_Cards_Check_Pop'Access));
 
+      Ret.Add_Test (Caller.
+                     Create (N & "Move_To_Src_Stack_Equals_Trgt_Stack",
+                       Move_To_Src_Stack_Equals_Trgt_Stack'Access));
       Ret.Add_Test (Caller.
                       Create (N & "Move_To_Source_Selection_Does_Not_Exist",
                         Move_To_Source_Selection_Does_Not_Exist'Access));

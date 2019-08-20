@@ -9,6 +9,7 @@ package Tableau is
    type Valid_Stacks_Range is new Integer range 1 .. 7;
 
    Tableau_Stack_Empty_Exception                       : exception;
+   Tableau_Target_Stack_Equals_Source_Stack_Exception  : exception;
    Tableau_Source_Card_Does_Not_Exist_Exception        : exception;
    Tableau_Destination_Stack_Does_Not_Accept_Exception : exception;
 

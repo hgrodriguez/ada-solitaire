@@ -54,6 +54,9 @@ package body Tableau is
         Pile_Of_Cards.LIFO.Construct;
       Card_To_Xfer : Card.Card_Type;
    begin
+      if Dst_Index = Src_Index then
+         raise Tableau_Target_Stack_Equals_Source_Stack_Exception;
+      end if;
       if not Src_Stack.all.Has (Card_To_Include) then
          raise Tableau_Source_Card_Does_Not_Exist_Exception;
       end if;

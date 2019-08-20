@@ -23,6 +23,7 @@ private
    procedure Add_3_Cards_Check_Pop (T : in out Test);
    procedure Add_7_Cards_Check_Pop (T : in out Test);
 
+   procedure Move_To_Src_Stack_Equals_Trgt_Stack (T : in out Test);
    procedure Move_To_Source_Selection_Does_Not_Exist (T : in out Test);
    procedure Move_To_1_Trgt_Does_Not_Accept (T : in out Test);
    procedure Move_To_1_Src_Not_E_Trgt_E (T : in out Test);

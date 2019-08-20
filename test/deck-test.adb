@@ -78,24 +78,25 @@ package body Deck.Test is
       AUnit.Assertions.Assert (String (S) = "S", "S /= " & String (S));
    end Test_Short_Image_Suits;
 
+   type Ranks_Mapping_Type is array (Deck.Rank_Type_Valid_Range)
+     of Deck.Rank_Type_Valid_Range;
+
    procedure Get_Rank_From_Short_Image (T : in out Test) is
       pragma Unreferenced (T);
-      SI                            : Deck.Short_Image_Rank_Type;
-      Expected_Ranks                : constant
-        array (Deck.Rank_Type_Valid_Range)
-        of Deck.Rank_Type_Valid_Range := (Ace,
-                                          Two,
-                                          Three,
-                                          Four,
-                                          Five,
-                                          Six,
-                                          Seven,
-                                          Eight,
-                                          Nine,
-                                          Ten,
-                                          Jack,
-                                          Queen,
-                                          King);
+      SI             : Deck.Short_Image_Rank_Type;
+      Expected_Ranks : constant Ranks_Mapping_Type := (Ace,
+                                                       Two,
+                                                       Three,
+                                                       Four,
+                                                       Five,
+                                                       Six,
+                                                       Seven,
+                                                       Eight,
+                                                       Nine,
+                                                       Ten,
+                                                       Jack,
+                                                       Queen,
+                                                       King);
       Actual_Rank                   : Deck.Rank_Type_Valid_Range;
    begin
       for R in Deck.Rank_Type_Valid_Range loop
@@ -126,7 +127,6 @@ package body Deck.Test is
 
    procedure Get_Rank_From_Wrong_Short_Image (T : in out Test) is
       pragma Unreferenced (T);
-
    begin
       AUnit.
         Assertions.
@@ -135,15 +135,31 @@ package body Deck.Test is
                               "no exception raised");
    end Get_Rank_From_Wrong_Short_Image;
 
+   procedure Is_Valid_Rank_Short_Image (T : in out Test) is
+      pragma Unreferenced (T);
+      Valid_SI   : constant Deck.Short_Image_Rank_Type := "A";
+      Invalid_SI : constant Deck.Short_Image_Rank_Type := "X";
+   begin
+      AUnit.
+        Assertions.
+          Assert (True = Deck.Is_Valid_Rank_Short_Image (Valid_SI),
+                  "False!");
+      AUnit.
+        Assertions.
+          Assert (False = Deck.Is_Valid_Rank_Short_Image (Invalid_SI),
+                  "True!");
+   end Is_Valid_Rank_Short_Image;
+
+   type Suits_Mapping_Type is array (Deck.Suit_Type_Valid_Range)
+     of Deck.Suit_Type_Valid_Range;
+
    procedure Get_Suit_From_Short_Image (T : in out Test) is
       pragma Unreferenced (T);
       SI             : Deck.Short_Image_Suit_Type;
-      Expected_Suits : constant
-        array (Deck.Suit_Type_Valid_Range)
-        of Deck.Suit_Type_Valid_Range := (Deck.Diamond,
-                                          Deck.Heart,
-                                          Deck.Club,
-                                          Deck.Spade);
+      Expected_Suits : constant Suits_Mapping_Type := (Deck.Diamond,
+                                                       Deck.Heart,
+                                                       Deck.Club,
+                                                       Deck.Spade);
       Actual_Suit    : Deck.Suit_Type_Valid_Range;
    begin
       for S in Deck.Suit_Type_Valid_Range loop
@@ -174,7 +190,6 @@ package body Deck.Test is
 
    procedure Get_Suit_From_Wrong_Short_Image (T : in out Test) is
       pragma Unreferenced (T);
-
    begin
       AUnit.
         Assertions.
@@ -182,6 +197,21 @@ package body Deck.Test is
                             "Pop_One_Pushed_None: " &
                               "no exception raised");
    end Get_Suit_From_Wrong_Short_Image;
+
+   procedure Is_Valid_Suit_Short_Image (T : in out Test) is
+      pragma Unreferenced (T);
+      Valid_SI   : constant Deck.Short_Image_Suit_Type := "D";
+      Invalid_SI : constant Deck.Short_Image_Suit_Type := "X";
+   begin
+      AUnit.
+        Assertions.
+          Assert (True = Deck.Is_Valid_Suit_Short_Image (Valid_SI),
+                  "False!");
+      AUnit.
+        Assertions.
+          Assert (False = Deck.Is_Valid_Suit_Short_Image (Invalid_SI),
+                  "True!");
+   end Is_Valid_Suit_Short_Image;
 
    --------------------------------------------------------------------
    --  test suite construction
@@ -210,11 +240,15 @@ package body Deck.Test is
                     Get_Rank_From_Short_Image'Access));
       Ret.Add_Test (Caller.Create (N & "Get_Rank_From_Wrong_Short_Image",
                     Get_Rank_From_Wrong_Short_Image'Access));
+      Ret.Add_Test (Caller.Create (N & "Is_Valid_Rank_Short_Image",
+                    Is_Valid_Rank_Short_Image'Access));
 
       Ret.Add_Test (Caller.Create (N & "Get_Suit_From_Short_Image",
                     Get_Suit_From_Short_Image'Access));
       Ret.Add_Test (Caller.Create (N & "Get_Suit_From_Wrong_Short_Image",
                     Get_Suit_From_Wrong_Short_Image'Access));
+      Ret.Add_Test (Caller.Create (N & "Is_Valid_Suit_Short_Image",
+                    Is_Valid_Suit_Short_Image'Access));
 
       return Ret;
    end Suite;

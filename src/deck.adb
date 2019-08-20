@@ -12,36 +12,49 @@ package body Deck is
 
    function Short_Image (R : Rank_Type_Valid_Range)
                          return Short_Image_Rank_Type is
-      Short_Ranks : constant array (Rank_Type_Valid_Range)
-        of Short_Image_Rank_Type
-          := (Ace => "A",
-              Two  => "2",
-              Three => "3",
-              Four => "4",
-              Five => "5",
-              Six => "6",
-              Seven => "7",
-              Eight => "8",
-              Nine => "9",
-              Ten => "T",
-              Jack => "J",
-              Queen => "Q",
-              King => "K");
    begin
       return Short_Ranks (R);
    end Short_Image;
 
    function Short_Image (S : Suit_Type_Valid_Range)
                          return Short_Image_Suit_Type is
-      Short_Suits : constant array (Suit_Type_Valid_Range)
-        of Short_Image_Suit_Type
-          := (Diamond => "D",
-              Heart => "H",
-              Club => "C",
-              Spade => "S");
    begin
       return Short_Suits (S);
    end Short_Image;
+
+   function Is_Valid_Rank_Short_Image (SI : Short_Image_Rank_Type)
+                                       return Boolean is
+   begin
+      if SI = "A" then
+         return True;
+      elsif SI = "2" then
+         return True;
+      elsif SI = "3" then
+         return True;
+      elsif SI = "4" then
+         return True;
+      elsif SI = "5" then
+         return True;
+      elsif SI = "6" then
+         return True;
+      elsif SI = "7" then
+         return True;
+      elsif SI = "8" then
+         return True;
+      elsif SI = "9" then
+         return True;
+      elsif SI = "T" then
+         return True;
+      elsif SI = "J" then
+         return True;
+      elsif SI = "Q" then
+         return True;
+      elsif SI = "K" then
+         return True;
+      else
+         return False;
+      end if;
+   end Is_Valid_Rank_Short_Image;
 
    function Get_Rank_For_Short_Image (SI : Short_Image_Rank_Type)
                                       return Rank_Type_Valid_Range is
@@ -78,6 +91,22 @@ package body Deck is
       end if;
       return R;
    end Get_Rank_For_Short_Image;
+
+   function Is_Valid_Suit_Short_Image (SI : Short_Image_Suit_Type)
+                                       return Boolean is
+   begin
+      if SI = "D" then
+         return True;
+      elsif SI = "H" then
+         return True;
+      elsif SI = "C" then
+         return True;
+      elsif SI = "S" then
+         return True;
+      else
+         return False;
+      end if;
+   end Is_Valid_Suit_Short_Image;
 
    function Get_Suit_For_Short_Image (SI : Short_Image_Suit_Type)
                                       return Suit_Type_Valid_Range is

@@ -17,8 +17,10 @@ private
 
    procedure Get_Rank_From_Short_Image (T : in out Test);
    procedure Get_Rank_From_Wrong_Short_Image (T : in out Test);
+   procedure Is_Valid_Rank_Short_Image (T : in out Test);
 
    procedure Get_Suit_From_Short_Image (T : in out Test);
    procedure Get_Suit_From_Wrong_Short_Image (T : in out Test);
+   procedure Is_Valid_Suit_Short_Image (T : in out Test);
 
 end Deck.Test;

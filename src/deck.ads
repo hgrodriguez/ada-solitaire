@@ -37,6 +37,9 @@ package Deck is
    subtype Suit_Type_Red is Suit_Type range Diamond .. Heart;
    subtype Suit_Type_Black is Suit_Type range Club .. Spade;
 
+   Deck_Invalid_Short_Image_Rank_Type : exception;
+   Deck_Invalid_Short_Image_Suit_Type : exception;
+
    --  some functions to check attributes
    function Is_Red (a_suit : Suit_Type) return Boolean;
    function Is_Black (a_suit : Suit_Type) return Boolean;
@@ -47,4 +50,8 @@ package Deck is
    function Short_Image (S : Suit_Type_Valid_Range)
                          return Short_Image_Suit_Type;
 
+   function Get_Rank_For_Short_Image (SI : Short_Image_Rank_Type)
+                                      return Rank_Type_Valid_Range;
+   function Get_Suit_For_Short_Image (SI : Short_Image_Suit_Type)
+                                      return Suit_Type_Valid_Range;
 end Deck;

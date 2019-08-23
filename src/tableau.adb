@@ -97,6 +97,43 @@ package body Tableau is
       return Mandatory_Cards;
    end Remove_Mandatory_Cards;
 
+   function To_String_One_Line (SIs : Stack_Images) return One_Line_String is
+      One_Stack       : Short_Image_FIFO.Short_Image_FIFO_Type_Access;
+      One_Short_Image : Card.Short_Image_Type;
+      Ret_Val         : One_Line_String;
+      Separator       : constant Character := ' ';
+      Dst_Index       : Integer := 1;
+   begin
+      for J in Valid_Stacks_Range loop
+         One_Stack := SIs (J);
+         if One_Stack.all.Is_Empty then
+            One_Short_Image := Card.Empty_Short_Image;
+         else
+            One_Short_Image := One_Stack.Get;
+         end if;
+         Ret_Val (Dst_Index) := One_Short_Image (1);
+         Dst_Index := Dst_Index + 1;
+         Ret_Val (Dst_Index) := One_Short_Image (2);
+         Dst_Index := Dst_Index + 1;
+         Ret_Val (Dst_Index) := Separator;
+         Dst_Index := Dst_Index + 1;
+      end loop;
+      return Ret_Val;
+   end To_String_One_Line;
+
+--     function To_String (T : Tableau_Type) return String is
+--        S : Ada.Strings.Unbounded.Unbounded_String
+--          := Ada.Strings.Unbounded.Null_Unbounded_String;
+--        Stacks    : constant Stack_Array := T.Stacks;
+--        SIs       : Stack_Images;
+--     begin
+--        for J in Valid_Stacks_Range loop
+--           SIs (J) := Stacks (J).Short_Images;
+--        end loop;
+--
+--        return Ada.Strings.Unbounded.To_String (Source => S);
+--     end To_String;
+
    --------------------------------------------------------------------
    --
    function Pop_From_Stack

@@ -1,5 +1,6 @@
 with Card;
 with Pile_Of_Cards.FIFO;
+with Short_Image_FIFO;
 with Tableau_Stack;
 
 package Tableau is
@@ -32,6 +33,8 @@ package Tableau is
       Candidates : Pile_Of_Cards.FIFO.Pile_Type_FIFO)
       return Pile_Of_Cards.FIFO.Pile_Type_FIFO;
 
+--   function To_String (T : Tableau_Type) return String;
+
 private
    type Stack_Array is array (Valid_Stacks_Range)
      of Tableau_Stack.Stack_Type_Access;
@@ -49,5 +52,14 @@ private
      (T : Tableau_Type;
       J : Valid_Stacks_Range)
       return Tableau_Stack.Stack_Type_Access;
+
+   type Stack_Images is array (Valid_Stacks_Range)
+     of Short_Image_FIFO.Short_Image_FIFO_Type_Access;
+
+   type One_Line_String is new String (1 .. 7 * 3);
+
+   EMPTY_ONE_LINE : constant One_Line_String := "                     ";
+
+   function To_String_One_Line (SIs : Stack_Images) return One_Line_String;
 
 end Tableau;

@@ -6,6 +6,7 @@ with Card;
 package Short_Image_FIFO is
 
    type Short_Image_FIFO_Type is tagged private;
+   type Short_Image_FIFO_Type_Access is access all Short_Image_FIFO_Type;
 
    Short_Image_FIFO_Empty_Exception : exception;
 

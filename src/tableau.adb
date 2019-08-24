@@ -1,3 +1,6 @@
+with Ada.Strings.Unbounded;
+with Ada.Characters.Latin_1;
+
 with Pile_Of_Cards.LIFO;
 
 package body Tableau is
@@ -121,18 +124,25 @@ package body Tableau is
       return Ret_Val;
    end To_String_One_Line;
 
---     function To_String (T : Tableau_Type) return String is
---        Ret_Val : Ada.Strings.Unbounded.Unbounded_String
---          := Ada.Strings.Unbounded.Null_Unbounded_String;
---        Stacks    : constant Stack_Array := T.Stacks;
---        SIs       : Stack_Images;
---     begin
---        for J in Valid_Stacks_Range loop
---           SIs (J) := Stacks (J).Short_Images;
---        end loop;
---
---        return Ada.Strings.Unbounded.To_String (Source => S);
---     end To_String;
+   function To_String (T : Tableau_Type) return String is
+      Ret_Val  : Ada.Strings.Unbounded.Unbounded_String
+        := Ada.Strings.Unbounded.Null_Unbounded_String;
+      Stacks   : constant Stack_Array := T.Stacks;
+      SIs      : constant Stack_Images := Create_Stack_Images;
+      One_Line : One_Line_String;
+   begin
+      for J in Valid_Stacks_Range loop
+         SIs (J).all := Stacks (J).Short_Images;
+      end loop;
+      loop
+         One_Line := To_String_One_Line (SIs);
+         Ada.Strings.Unbounded.Append (Ret_Val, String (One_Line));
+         exit when One_Line = EMPTY_ONE_LINE;
+         Ada.Strings.Unbounded.Append (Ret_Val, Ada.Characters.Latin_1.CR);
+      end loop;
+      Ada.Strings.Unbounded.Append (Ret_Val, Ada.Characters.Latin_1.CR);
+      return Ada.Strings.Unbounded.To_String (Ret_Val);
+   end To_String;
 
    --------------------------------------------------------------------
    --

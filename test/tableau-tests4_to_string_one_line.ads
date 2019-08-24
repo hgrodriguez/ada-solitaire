@@ -14,12 +14,6 @@ private
 
    --------------------------------------------------------------------
    --  Test for the To_String_One_Line: only first line tests
-   procedure To_String_1_Line_1st_Line_Only_1st_Has_Contents (T : in out Test);
-   procedure To_String_1_Line_1st_Line_Only_2nd_Has_Contents (T : in out Test);
-   procedure To_String_1_Line_1st_Line_Only_3rd_Has_Contents (T : in out Test);
-   procedure To_String_1_Line_1st_Line_Only_4th_Has_Contents (T : in out Test);
-   procedure To_String_1_Line_1st_Line_Only_5th_Has_Contents (T : in out Test);
-   procedure To_String_1_Line_1st_Line_Only_6th_Has_Contents (T : in out Test);
-   procedure To_String_1_Line_1st_Line_Only_7th_Has_Contents (T : in out Test);
+   procedure To_String_1_Line_1st_Line_Only_One_Has_Contents (T : in out Test);
 
 end Tableau.Tests4_To_String_One_Line;

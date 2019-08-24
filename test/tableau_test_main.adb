@@ -3,10 +3,7 @@ with AUnit.Reporter;
 with AUnit.Reporter.Text;
 with AUnit.Run;
 
-with Tableau.Test;
-with Tableau.Tests4_Remove_Mandatory_Cards;
-with Tableau.Tests4_To_String;
-with Tableau.Tests4_To_String_One_Line;
+with Tableau.All_Tests;
 
 procedure Tableau_Test_Main is
    function Suite return AUnit.Test_Suites.Access_Test_Suite;
@@ -15,10 +12,7 @@ procedure Tableau_Test_Main is
       Ret : constant AUnit.Test_Suites.Access_Test_Suite
         := new AUnit.Test_Suites.Test_Suite;
    begin
-      Ret.Add_Test (Tableau.Test.Suite);
-      Ret.Add_Test (Tableau.Tests4_Remove_Mandatory_Cards.Suite);
-      Ret.Add_Test (Tableau.Tests4_To_String.Suite);
-      Ret.Add_Test (Tableau.Tests4_To_String_One_Line.Suite);
+      Ret.Add_Test (Tableau.All_Tests.Suite);
       return Ret;
    end Suite;
 

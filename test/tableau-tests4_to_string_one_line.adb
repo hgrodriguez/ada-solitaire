@@ -70,54 +70,18 @@ package body Tableau.Tests4_To_String_One_Line is
                                  " /= Actual=" & String (Actual));
    end To_String_1_Line_1st_Line_Only_X_Has_Contents;
 
-   procedure To_String_1_Line_1st_Line_Only_1st_Has_Contents
+   procedure To_String_1_Line_1st_Line_Only_One_Has_Contents
      (T : in out Test) is
       pragma Unreferenced (T);
    begin
       To_String_1_Line_1st_Line_Only_X_Has_Contents (1);
-   end To_String_1_Line_1st_Line_Only_1st_Has_Contents;
-
-   procedure To_String_1_Line_1st_Line_Only_2nd_Has_Contents
-     (T : in out Test) is
-      pragma Unreferenced (T);
-   begin
       To_String_1_Line_1st_Line_Only_X_Has_Contents (2);
-   end To_String_1_Line_1st_Line_Only_2nd_Has_Contents;
-
-   procedure To_String_1_Line_1st_Line_Only_3rd_Has_Contents
-     (T : in out Test) is
-      pragma Unreferenced (T);
-   begin
       To_String_1_Line_1st_Line_Only_X_Has_Contents (3);
-   end To_String_1_Line_1st_Line_Only_3rd_Has_Contents;
-
-   procedure To_String_1_Line_1st_Line_Only_4th_Has_Contents
-     (T : in out Test) is
-      pragma Unreferenced (T);
-   begin
       To_String_1_Line_1st_Line_Only_X_Has_Contents (4);
-   end To_String_1_Line_1st_Line_Only_4th_Has_Contents;
-
-   procedure To_String_1_Line_1st_Line_Only_5th_Has_Contents
-     (T : in out Test) is
-      pragma Unreferenced (T);
-   begin
       To_String_1_Line_1st_Line_Only_X_Has_Contents (5);
-   end To_String_1_Line_1st_Line_Only_5th_Has_Contents;
-
-   procedure To_String_1_Line_1st_Line_Only_6th_Has_Contents
-     (T : in out Test) is
-      pragma Unreferenced (T);
-   begin
       To_String_1_Line_1st_Line_Only_X_Has_Contents (6);
-   end To_String_1_Line_1st_Line_Only_6th_Has_Contents;
-
-   procedure To_String_1_Line_1st_Line_Only_7th_Has_Contents
-     (T : in out Test) is
-      pragma Unreferenced (T);
-   begin
       To_String_1_Line_1st_Line_Only_X_Has_Contents (7);
-   end To_String_1_Line_1st_Line_Only_7th_Has_Contents;
+   end To_String_1_Line_1st_Line_Only_One_Has_Contents;
 
    --------------------------------------------------------------------
    --  the test suit construction
@@ -139,38 +103,8 @@ package body Tableau.Tests4_To_String_One_Line is
       Ret.
         Add_Test (Caller.
                     Create (N &
-                        "To_String_1_Line_1st_Line_Only_1st_Has_Contents",
-                      To_String_1_Line_1st_Line_Only_1st_Has_Contents'Access));
-      Ret.
-        Add_Test (Caller.
-                    Create (N &
-                        "To_String_1_Line_1st_Line_Only_2nd_Has_Contents",
-                      To_String_1_Line_1st_Line_Only_2nd_Has_Contents'Access));
-      Ret.
-        Add_Test (Caller.
-                    Create (N &
-                        "To_String_1_Line_1st_Line_Only_3rd_Has_Contents",
-                      To_String_1_Line_1st_Line_Only_3rd_Has_Contents'Access));
-      Ret.
-        Add_Test (Caller.
-                    Create (N &
-                        "To_String_1_Line_1st_Line_Only_4th_Has_Contents",
-                      To_String_1_Line_1st_Line_Only_4th_Has_Contents'Access));
-      Ret.
-        Add_Test (Caller.
-                    Create (N &
-                        "To_String_1_Line_1st_Line_Only_5th_Has_Contents",
-                      To_String_1_Line_1st_Line_Only_5th_Has_Contents'Access));
-      Ret.
-        Add_Test (Caller.
-                    Create (N &
-                        "To_String_1_Line_1st_Line_Only_6th_Has_Contents",
-                      To_String_1_Line_1st_Line_Only_6th_Has_Contents'Access));
-      Ret.
-        Add_Test (Caller.
-                    Create (N &
-                        "To_String_1_Line_1st_Line_Only_7th_Has_Contents",
-                      To_String_1_Line_1st_Line_Only_7th_Has_Contents'Access));
+                        "To_String_1_Line_1st_Line_Only_One_Has_Contents",
+                      To_String_1_Line_1st_Line_Only_One_Has_Contents'Access));
       return Ret;
    end Suite;
 

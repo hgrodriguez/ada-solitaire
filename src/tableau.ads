@@ -9,6 +9,12 @@ package Tableau is
 
    type Valid_Stacks_Range is new Integer range 1 .. 7;
 
+   type Check_Move_To_Result is (OK,
+                             Stack_Empty,
+                         Destination_Stack_Equals_Source_Stack,
+                         Source_Card_Does_Not_Exist,
+                         Destination_Stack_Does_Not_Accept);
+
    Tableau_Stack_Empty_Exception                       : exception;
    Tableau_Target_Stack_Equals_Source_Stack_Exception  : exception;
    Tableau_Source_Card_Does_Not_Exist_Exception        : exception;
@@ -21,6 +27,12 @@ package Tableau is
    procedure Push
      (T    : Tableau_Type;
       Pile : in out Pile_Of_Cards.FIFO.Pile_Type_FIFO);
+
+   function Check_Move_To (T               : Tableau_Type;
+                           Src_Index       : Valid_Stacks_Range;
+                           Dst_Index       : Valid_Stacks_Range;
+                           Card_To_Include : Card.Card_Type)
+                           return Check_Move_To_Result;
 
    procedure Move_To
      (T               : Tableau_Type;
@@ -52,6 +64,8 @@ private
      (T : Tableau_Type;
       J : Valid_Stacks_Range)
       return Tableau_Stack.Stack_Type_Access;
+
+   type Some_Cards is array (Positive range <>) of Card.Card_Type;
 
    type Stack_Images is array (Valid_Stacks_Range)
      of Short_Image_FIFO.Short_Image_FIFO_Type_Access;

@@ -43,6 +43,33 @@ package body Tableau is
       end loop;
    end Push;
 
+   function Check_Move_To (T               : Tableau_Type;
+                           Src_Index       : Valid_Stacks_Range;
+                           Dst_Index       : Valid_Stacks_Range;
+                           Card_To_Include : Card.Card_Type)
+                           return Check_Move_To_Result is
+      Src_Stack    : constant Tableau_Stack.Stack_Type_Access :=
+        T.Stacks (Src_Index);
+      Dst_Stack    : constant Tableau_Stack.Stack_Type_Access :=
+        T.Stacks (Dst_Index);
+      Acceptable   : constant Tableau_Stack.Acceptable_Type :=
+        Dst_Stack.all.Accepts;
+   begin
+      if Src_Stack.all.Is_Empty then
+         return Stack_Empty;
+      end if;
+      if Dst_Index = Src_Index then
+         return Destination_Stack_Equals_Source_Stack;
+      end if;
+      if not Src_Stack.all.Has (Card_To_Include) then
+         return Source_Card_Does_Not_Exist;
+      end if;
+      if not Acceptable.Has (Card_To_Include) then
+         return Destination_Stack_Does_Not_Accept;
+      end if;
+      return OK;
+   end Check_Move_To;
+
    procedure Move_To
      (T         : Tableau_Type; Src_Index : Valid_Stacks_Range;
       Dst_Index : Valid_Stacks_Range; Card_To_Include : Card.Card_Type)

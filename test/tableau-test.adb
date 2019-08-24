@@ -54,8 +54,6 @@ package body Tableau.Test is
                               "no exception raised");
    end Construct_Check_Pop_Fails;
 
-   type Some_Cards is array (Positive range <>) of Card.Card_Type;
-
    procedure Add_Cards_And_Check_Size (Cards : Some_Cards);
    procedure Add_Cards_And_Check_Size (Cards : Some_Cards) is
       Expected_Size : constant Natural := Cards'Last;
@@ -494,59 +492,41 @@ package body Tableau.Test is
                               "no exception raised");
    end Move_To_1_Src_E_Trgt_E;
 
-   procedure Move_To_1_Src_E_Trgt_Not_E (T : in out Test) is
-      pragma Unreferenced (T);
-      Tab        : constant Tableau.Tableau_Type := Tableau.Construct;
-      --
-      Diff       : constant Integer := 1;
-      --
-      Src_Stack  : constant Tableau_Stack.Stack_Type_Access
-        := Tab.Get_Stack (1);
-      Src_Cards  : constant Some_Cards
-        := (1 => Card.Construct (Deck.Ten,  Deck.Heart));
-      Src_Exist  : constant Card.Card_Type := Src_Cards (Src_Cards'Last);
-      Src_O_Size : Natural;
-      Src_N_Size : Natural;
-      --
+   --  EXCEPTION HERE!!!!!, src empty does not work
+   procedure Move_To_1_Src_E_Trgt_Not_E_Exc;
+   procedure Move_To_1_Src_E_Trgt_Not_E_Exc is
+      Tab       : constant Tableau.Tableau_Type := Tableau.Construct;
+      Not_Exist : constant Card.Card_Type
+        := Card.Construct (Deck.Queen, Deck.Club);
       Dst_Stack  : constant Tableau_Stack.Stack_Type_Access
         := Tab.Get_Stack (2);
       Dst_Cards  : constant Some_Cards
         := (Card.Construct (Deck.Four, Deck.Heart),
             Card.Construct (Deck.Jack, Deck.Club));
-      Dst_O_Size : Natural;
-      Dst_N_Size : Natural;
-      --
-      Aux_Diff   : Integer;
    begin
-      for J in Natural range Src_Cards'First .. Src_Cards'Last loop
-         Src_Stack.all.Push_Unchecked (Src_Cards (J));
-      end loop;
-      Src_O_Size := Src_Stack.all.Size;
-      --
       for J in Natural range Dst_Cards'First .. Dst_Cards'Last loop
          Dst_Stack.all.Push_Unchecked (Dst_Cards (J));
       end loop;
-      Dst_O_Size := Dst_Stack.all.Size;
-      --
-      Tab.Move_To (1, 2, Src_Exist);
-      --
-      Src_N_Size := Src_Stack.all.Size;
-      Dst_N_Size := Dst_Stack.all.Size;
-      --
-      Aux_Diff := Src_O_Size - Diff;
-      --
-      AUnit.Assertions.Assert (Src_N_Size = Src_O_Size - Diff,
-                               "Src_N_Size=" & Aux_Diff'Image &
-                                 " /= " & Src_N_Size'Image);
-      AUnit.Assertions.Assert (not Src_Stack.all.Has (Src_Exist),
-                               "Src_Stack still has " & Src_Exist.Image);
-      --
-      Aux_Diff := Src_O_Size + Diff;
-      AUnit.Assertions.Assert (Dst_N_Size = Dst_O_Size + Diff,
-                               "Dst_N_Size=" & Aux_Diff'Image &
-                                 " /= " & Dst_N_Size'Image);
-      AUnit.Assertions.Assert (Dst_Stack.all.Has (Src_Exist),
-                               "Dst_Stack has NOT " & Src_Exist.Image);
+      Tab.Move_To (1, 1, Not_Exist);
+   exception
+      when Tableau_Stack_Empty_Exception => raise;
+      when Exc : others =>
+         AUnit.
+           Assertions.
+             Assert (False,
+                     "Move_To_1_Src_E_Trgt_E_Exc: " &
+                       "wrong exception raised:" &
+                       Ada.Exceptions.Exception_Name (Exc));
+   end Move_To_1_Src_E_Trgt_Not_E_Exc;
+
+   procedure Move_To_1_Src_E_Trgt_Not_E (T : in out Test) is
+      pragma Unreferenced (T);
+   begin
+      AUnit.
+        Assertions.
+          Assert_Exception (Move_To_1_Src_E_Trgt_Not_E_Exc'Access,
+                            "Move_To_1_Src_E_Trgt_Not_E_Exc: " &
+                              "no exception raised");
    end Move_To_1_Src_E_Trgt_Not_E;
 
    procedure Move_To_X_Trgt_Does_Not_Accept_Exc;

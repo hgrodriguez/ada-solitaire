@@ -60,6 +60,8 @@ private
 
    EMPTY_ONE_LINE : constant One_Line_String := "                     ";
 
+   function Create_Stack_Images return Stack_Images;
+
    function To_String_One_Line (SIs : Stack_Images) return One_Line_String;
 
 end Tableau;

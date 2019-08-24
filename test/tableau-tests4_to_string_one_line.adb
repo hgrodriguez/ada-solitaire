@@ -103,8 +103,6 @@ package body Tableau.Tests4_To_String_One_Line is
       end loop;
    end To_String_1_Line_1st2nd_Line_Only_One_Has_Contents;
 
-   function Create_Stack_Images return Stack_Images;
-
    procedure
    To_String_1_Line_1st2nd_Line_Arbitrary_Contents (T : in out Test) is
       pragma Unreferenced (T);
@@ -211,15 +209,5 @@ package body Tableau.Tests4_To_String_One_Line is
       Ret_Val (Sel).all.Put (First_Line_Card_Image);
       return Ret_Val;
    end Create_Stack_Images_1stLine_For;
-
-   function Create_Stack_Images return Stack_Images is
-      Ret_Val : Stack_Images;
-   begin
-      for J in Valid_Stacks_Range loop
-         Ret_Val (J) := new Short_Image_FIFO.Short_Image_FIFO_Type;
-         Ret_Val (J).all := Short_Image_FIFO.Construct;
-      end loop;
-      return Ret_Val;
-   end Create_Stack_Images;
 
 end Tableau.Tests4_To_String_One_Line;

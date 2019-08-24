@@ -122,7 +122,7 @@ package body Tableau is
    end To_String_One_Line;
 
 --     function To_String (T : Tableau_Type) return String is
---        S : Ada.Strings.Unbounded.Unbounded_String
+--        Ret_Val : Ada.Strings.Unbounded.Unbounded_String
 --          := Ada.Strings.Unbounded.Null_Unbounded_String;
 --        Stacks    : constant Stack_Array := T.Stacks;
 --        SIs       : Stack_Images;
@@ -153,5 +153,15 @@ package body Tableau is
    begin
       return T.Stacks (J);
    end Get_Stack;
+
+   function Create_Stack_Images return Stack_Images is
+      Ret_Val : Stack_Images;
+   begin
+      for J in Valid_Stacks_Range loop
+         Ret_Val (J) := new Short_Image_FIFO.Short_Image_FIFO_Type;
+         Ret_Val (J).all := Short_Image_FIFO.Construct;
+      end loop;
+      return Ret_Val;
+   end Create_Stack_Images;
 
 end Tableau;

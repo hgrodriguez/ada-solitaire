@@ -57,6 +57,9 @@ package body Tableau is
         Pile_Of_Cards.LIFO.Construct;
       Card_To_Xfer : Card.Card_Type;
    begin
+      if Src_Stack.all.Is_Empty then
+         raise Tableau_Stack_Empty_Exception;
+      end if;
       if Dst_Index = Src_Index then
          raise Tableau_Target_Stack_Equals_Source_Stack_Exception;
       end if;

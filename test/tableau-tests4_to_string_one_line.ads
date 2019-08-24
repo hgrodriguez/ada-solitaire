@@ -10,10 +10,19 @@ private
 
    --------------------------------------------------------------------
    --  Test for the To_String_One_Line
-   procedure To_String_1_Line_Empty (T : in out Test);
+   procedure
+   To_String_1_Line_Empty (T : in out Test);
 
    --------------------------------------------------------------------
    --  Test for the To_String_One_Line: only first line tests
-   procedure To_String_1_Line_1st_Line_Only_One_Has_Contents (T : in out Test);
+   procedure
+   To_String_1_Line_1st_Line_Only_One_Has_Contents (T : in out Test);
+
+   --------------------------------------------------------------------
+   --  Test for the To_String_One_Line: only first/second line tests
+   procedure
+   To_String_1_Line_1st2nd_Line_Only_One_Has_Contents (T : in out Test);
+   procedure
+   To_String_1_Line_1st2nd_Line_Arbitrary_Contents (T : in out Test);
 
 end Tableau.Tests4_To_String_One_Line;

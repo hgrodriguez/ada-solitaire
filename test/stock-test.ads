@@ -20,5 +20,10 @@ private
    procedure Fetch_8_Times (T : in out Test);
    procedure Fetch_9_Times (T : in out Test);
 
-   procedure To_String (T : in out Test);
+   procedure Peek_Non_Empty_Stack (T : in out Test);
+   procedure Peek_Empty_Stack (T : in out Test);
+
+   procedure To_String_Non_Empty_And_No_Peek (T : in out Test);
+   procedure To_String_Non_Empty_And_Peek (T : in out Test);
+   procedure To_String_Empty (T : in out Test);
 end Stock.Test;

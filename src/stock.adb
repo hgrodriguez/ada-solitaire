@@ -80,6 +80,14 @@ package body Stock is
       return S.Pile.Size;
    end Size;
 
+   function Peek (S : Stock_Type) return Card.Card_Type is
+   begin
+      if S.Size = 0 then
+         raise Stock_Empty_Exception;
+      end if;
+      return S.Pile.Peek;
+   end Peek;
+
    function Fetch (S : Stock_Type) return Pile_Of_Cards.FIFO.Pile_Type_FIFO is
       Size : Natural := S.Size;
       Pile : Pile_Of_Cards.FIFO.Pile_Type_FIFO := Pile_Of_Cards.FIFO.Construct;
@@ -96,10 +104,18 @@ package body Stock is
       return Pile;
    end Fetch;
 
-   function To_String (S : Stock_Type) return Card.Short_Image_Type is
-      pragma Unreferenced (S);
+   function To_String (S : Stock_Type; Peek : Boolean := False)
+                       return Card.Short_Image_Type is
    begin
-      return Card.Obscure_Short_Image;
+      if S.Size = 0 then
+         return Card.Empty_Short_Image;
+      else
+         if Peek then
+            return S.Peek.Short_Image;
+         else
+            return Card.Obscure_Short_Image;
+         end if;
+      end if;
    end To_String;
 
 end Stock;

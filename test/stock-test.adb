@@ -1,3 +1,5 @@
+with Ada.Exceptions;
+
 with AUnit.Assertions;
 with AUnit.Test_Caller;
 
@@ -191,7 +193,53 @@ package body Stock.Test is
                                & S.Size'Image);
    end Fetch_9_Times;
 
-   procedure To_String (T : in out Test) is
+   --  Peek
+   procedure Peek_Non_Empty_Stack (T : in out Test) is
+      pragma Unreferenced (T);
+      S        : constant Stock.Stock_Type := Stock.Construct;
+      C        : Card.Card_Type;
+      pragma Warnings (Off, C);
+   begin
+      C := S.Peek;
+      AUnit.Assertions.Assert (True,
+                               "No exception thrown");
+   end Peek_Non_Empty_Stack;
+
+   procedure Peek_Empty_Stack_Exception;
+   procedure Peek_Empty_Stack_Exception is
+      S        : constant Stock.Stock_Type := Stock.Construct;
+      POC      : Pile_Of_Cards.FIFO.Pile_Type_FIFO;
+      pragma Warnings (Off, POC);
+      C        : Card.Card_Type;
+      pragma Warnings (Off, C);
+   begin
+      while S.Size > 0 loop
+         POC := S.Fetch;
+      end loop;
+      C := S.Peek;
+   exception
+      when Stock_Empty_Exception => raise;
+      when Exc : others =>
+         AUnit.
+           Assertions.
+             Assert (False,
+                     "Peek_Empty_Stack_Exception: " &
+                       "wrong exception raised:" &
+                       Ada.Exceptions.Exception_Name (Exc));
+   end Peek_Empty_Stack_Exception;
+
+   procedure Peek_Empty_Stack (T : in out Test) is
+      pragma Unreferenced (T);
+
+   begin
+      AUnit.
+        Assertions.
+          Assert_Exception (Peek_Empty_Stack_Exception'Access,
+                            "Peek_Empty_Stack_Exception: " &
+                              "no exception raised");
+   end Peek_Empty_Stack;
+
+   procedure To_String_Non_Empty_And_No_Peek (T : in out Test) is
       pragma Unreferenced (T);
       Expected : constant Card.Short_Image_Type := Card.Obscure_Short_Image;
       Actual   : Card.Short_Image_Type;
@@ -201,7 +249,36 @@ package body Stock.Test is
       AUnit.Assertions.Assert (Expected = Actual,
                                "Expected=" & Expected &
                                  " /= " & Actual);
-   end To_String;
+   end To_String_Non_Empty_And_No_Peek;
+
+   procedure To_String_Non_Empty_And_Peek (T : in out Test) is
+      pragma Unreferenced (T);
+      S        : constant Stock.Stock_Type := Stock.Construct;
+      Expected : constant Card.Short_Image_Type := S.Peek.Short_Image;
+      Actual   : Card.Short_Image_Type;
+   begin
+      Actual := S.To_String (Peek => True);
+      AUnit.Assertions.Assert (Expected = Actual,
+                               "Expected=" & Expected &
+                                 " /= " & Actual);
+   end To_String_Non_Empty_And_Peek;
+
+   procedure To_String_Empty (T : in out Test) is
+      pragma Unreferenced (T);
+      S        : constant Stock.Stock_Type := Stock.Construct;
+      Expected : constant Card.Short_Image_Type := Card.Empty_Short_Image;
+      Actual   : Card.Short_Image_Type;
+      POC      : Pile_Of_Cards.FIFO.Pile_Type_FIFO;
+      pragma Warnings (Off, POC);
+   begin
+      while S.Size > 0 loop
+         POC := S.Fetch;
+      end loop;
+      Actual := S.To_String;
+      AUnit.Assertions.Assert (Expected = Actual,
+                               "Expected=" & Expected &
+                                 " /= " & Actual);
+   end To_String_Empty;
 
    --------------------------------------------------------------------
    package Caller is new AUnit.Test_Caller (Stock.Test.Test);
@@ -243,8 +320,21 @@ package body Stock.Test is
                         Fetch_9_Times'Access));
 
       Ret.Add_Test (Caller.
-                      Create (N & "To_String",
-                        To_String'Access));
+                      Create (N & "Peek_Non_Empty_Stack",
+                        Peek_Non_Empty_Stack'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "Peek_Empty_Stack",
+                        Peek_Empty_Stack'Access));
+
+      Ret.Add_Test (Caller.
+                      Create (N & "To_String_Non_Empty_And_No_Peek",
+                        To_String_Non_Empty_And_No_Peek'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "To_String_Non_Empty_And_Peek",
+                        To_String_Non_Empty_And_Peek'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "To_String_Empty",
+                        To_String_Empty'Access));
 
       return Ret;
    end Suite;

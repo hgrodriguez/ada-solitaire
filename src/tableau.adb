@@ -164,11 +164,13 @@ package body Tableau is
       for J in Valid_Stacks_Range loop
          SIs (J).all := Stacks (J).Short_Images;
       end loop;
+      One_Line := HEADER_LINE;
+      Ada.Strings.Unbounded.Append (Ret_Val, String (One_Line));
       loop
          One_Line := To_String_One_Line (SIs);
-         Ada.Strings.Unbounded.Append (Ret_Val, String (One_Line));
          exit when One_Line = EMPTY_ONE_LINE;
          Ada.Strings.Unbounded.Append (Ret_Val, Ada.Characters.Latin_1.CR);
+         Ada.Strings.Unbounded.Append (Ret_Val, String (One_Line));
       end loop;
       Ada.Strings.Unbounded.Append (Ret_Val, Ada.Characters.Latin_1.CR);
       return Ada.Strings.Unbounded.To_String (Ret_Val);

@@ -11,8 +11,8 @@ package body Tableau.Tests4_To_String is
       pragma Unreferenced (T);
       Tab      : constant Tableau.Tableau_Type := Tableau.Construct;
       Expected : constant String
-        := String (Tableau.EMPTY_ONE_LINE) & Ada.Characters.Latin_1.CR;
-      Actual   : String (1 .. Tableau.EMPTY_ONE_LINE'Length + 1);
+        := String (Tableau.HEADER_LINE) & Ada.Characters.Latin_1.CR;
+      Actual   : String (1 .. Tableau.HEADER_LINE'Length + 1);
    begin
       Actual := Tab.To_String;
       AUnit.Assertions.Assert (Expected'Length = Actual'Length,
@@ -30,13 +30,13 @@ package body Tableau.Tests4_To_String is
       C        : Card.Card_Type;
       Expected : constant String
         :=
+        String (Tableau.HEADER_LINE) & Ada.Characters.Latin_1.CR &
         "KD    AH JC    TH    " & Ada.Characters.Latin_1.CR &
         "QS       2C          " & Ada.Characters.Latin_1.CR &
-        "         9D          " & Ada.Characters.Latin_1.CR &
-        "                     " & Ada.Characters.Latin_1.CR;
+        "         9D          " & Ada.Characters.Latin_1.CR;
       Actual   : String
         :=
-        "                     " & Ada.Characters.Latin_1.CR &
+        String (Tableau.HEADER_LINE) & Ada.Characters.Latin_1.CR &
         "                     " & Ada.Characters.Latin_1.CR &
         "                     " & Ada.Characters.Latin_1.CR &
         "                     " & Ada.Characters.Latin_1.CR;
@@ -90,16 +90,16 @@ package body Tableau.Tests4_To_String is
       C        : Card.Card_Type;
       Expected : constant String
         :=
+        String (Tableau.HEADER_LINE) & Ada.Characters.Latin_1.CR &
         "   7C AS    KD    TD " & Ada.Characters.Latin_1.CR &
         "      KC    QS    9C " & Ada.Characters.Latin_1.CR &
         "      2H    JH    8H " & Ada.Characters.Latin_1.CR &
         "      5S             " & Ada.Characters.Latin_1.CR &
-        "      KH             " & Ada.Characters.Latin_1.CR &
-        "                     " & Ada.Characters.Latin_1.CR;
+        "      KH             " & Ada.Characters.Latin_1.CR;
       Actual   : String
         :=
-          "                     " & Ada.Characters.Latin_1.CR &
-          "                     " & Ada.Characters.Latin_1.CR &
+        String (Tableau.HEADER_LINE) & Ada.Characters.Latin_1.CR &
+        "                     " & Ada.Characters.Latin_1.CR &
         "                     " & Ada.Characters.Latin_1.CR &
         "                     " & Ada.Characters.Latin_1.CR &
         "                     " & Ada.Characters.Latin_1.CR &

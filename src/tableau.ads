@@ -72,6 +72,8 @@ private
 
    type One_Line_String is new String (1 .. 7 * 3);
 
+   HEADER_LINE : constant One_Line_String    := " 1  2  3  4  5  6  7 ";
+
    EMPTY_ONE_LINE : constant One_Line_String := "                     ";
 
    function Create_Stack_Images return Stack_Images;

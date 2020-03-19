@@ -1,16 +1,20 @@
 package body Pile_Of_Cards.LIFO is
 
+   --------------------------------------------------------------------
+   --
    function Construct return Pile_Type_LIFO is
       pile : Pile_Type_LIFO;
    begin
       return pile;
    end Construct;
 
+   --------------------------------------------------------------------
+   --
    function Pop (pile : in out Pile_Type_LIFO) return Card.Card_Type is
       r       : Card.Card_Type;
    begin
       if pile.Is_Empty then
-         raise Pile_Empty_Exception with "Pile is empty, no Get possible";
+         raise Pile_Empty_Exception with "Pile is empty, no Pop possible";
       end if;
 
       r := pile.Cards.First_Element;
@@ -18,6 +22,8 @@ package body Pile_Of_Cards.LIFO is
       return r;
    end Pop;
 
+   --------------------------------------------------------------------
+   --
    procedure Push (pile : in out Pile_Type_LIFO; c : Card.Card_Type) is
    begin
       pile.Cards.Prepend (c);
@@ -34,6 +40,8 @@ package body Pile_Of_Cards.LIFO is
       return r;
    end Peek;
 
+   --------------------------------------------------------------------
+   --
    function Has (Pile : Pile_Type_LIFO;
                  C    : Card.Card_Type) return Boolean is
       use Card_Type_DLL;
@@ -41,6 +49,8 @@ package body Pile_Of_Cards.LIFO is
       return Pile.Cards.Find (Item => C) /= Card_Type_DLL.No_Element;
    end Has;
 
+   --------------------------------------------------------------------
+   --
    procedure Collect (Pile : Pile_Type_LIFO;
                       SIF  : in out Short_Image_FIFO.Short_Image_FIFO_Type) is
       Crsr : Card_Type_DLL.Cursor := Pile.Cards.Last;

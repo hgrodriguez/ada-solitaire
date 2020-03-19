@@ -4,24 +4,42 @@ with Pile_Of_Cards;
 
 package Pile_Of_Cards.LIFO is
    --------------------------------------------------------------------
-   --  LIFO operations, simulating a queue
+   --  LIFO operations, simulating a stack
    --------------------------------------------------------------------
 
+   --------------------------------------------------------------------
+   --  the derived type behaving like a LIFO
    type Pile_Type_LIFO is new Pile_Of_Cards.Pile_Type with private;
    type Pile_Type_LIFO_Access is access Pile_Type_LIFO;
 
+   --------------------------------------------------------------------
+   --  construct a LIFO pile
+   overriding
    function Construct return Pile_Type_LIFO;
 
+   --------------------------------------------------------------------
+   --  pops the top of the LIFO
+   --  exception, if LIFO is empty
    function Pop (pile : in out Pile_Type_LIFO) return Card.Card_Type;
+
+   --------------------------------------------------------------------
+   --  pushes one card onto the LIFO
    procedure Push (pile : in out Pile_Type_LIFO; c : Card.Card_Type);
 
+   --------------------------------------------------------------------
+   --  peeks the top LIFO element
+   --  exception, if LIFO is empty
    overriding
    function Peek  (pile : Pile_Type_LIFO) return Card.Card_Type;
 
+   --------------------------------------------------------------------
+   --  check if pile contains card
    overriding
    function Has (Pile : Pile_Type_LIFO;
                  C    : Card.Card_Type) return Boolean;
 
+   --------------------------------------------------------------------
+   --  collects all short images of all card in the LIFO
    procedure Collect (Pile : Pile_Type_LIFO;
                       SIF  : in out Short_Image_FIFO.Short_Image_FIFO_Type);
 

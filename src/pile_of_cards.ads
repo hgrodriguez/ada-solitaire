@@ -10,13 +10,29 @@ package Pile_Of_Cards is
 
    type Pile_Type is abstract tagged private;
 
-   Pile_Empty_Exception : exception;
+   --------------------------------------------------------------------
+   --  construct a pile
+   function Construct return Pile_Type is abstract;
 
+   --------------------------------------------------------------------
+   --  check if pile is empty
    function Is_Empty (pile : Pile_Type) return Boolean;
+
+   --------------------------------------------------------------------
+   --  returns size of pile
    function Size (pile : Pile_Type) return Natural;
-   function Peek (pile : Pile_Type) return Card.Card_Type is abstract;
+
+   --------------------------------------------------------------------
+   --  check if pile contains card
    function Has (pile : Pile_Type;
                  C    : Card.Card_Type) return Boolean is abstract;
+
+   --------------------------------------------------------------------
+   --  Peek into pile
+   --  exception if pile is empty
+   Pile_Empty_Exception : exception;
+   function Peek (pile : Pile_Type) return Card.Card_Type is abstract;
+
 private
    package Card_Type_DLL is new Ada.Containers.
      Doubly_Linked_Lists (Element_Type => Card.Card_Type, "=" => Card."=");

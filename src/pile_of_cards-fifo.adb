@@ -1,5 +1,7 @@
 package body Pile_Of_Cards.FIFO is
 
+   --------------------------------------------------------------------
+   --
    function Construct return Pile_Type_FIFO is
       pile : Pile_Type_FIFO;
    begin
@@ -7,7 +9,7 @@ package body Pile_Of_Cards.FIFO is
    end Construct;
 
    --------------------------------------------------------------------
-   --  FIFO operations
+   --
    function Get (Pile : in out Pile_Type_FIFO) return Card.Card_Type is
       r : Card.Card_Type;
    begin
@@ -19,6 +21,8 @@ package body Pile_Of_Cards.FIFO is
       return r;
    end Get;
 
+   --------------------------------------------------------------------
+   --
    procedure Put (Pile : in out Pile_Type_FIFO; C : Card.Card_Type) is
    begin
       Pile.Cards.Append (C);
@@ -32,6 +36,8 @@ package body Pile_Of_Cards.FIFO is
       return Pile.Cards.First_Element;
    end Peek;
 
+   --------------------------------------------------------------------
+   --
    function Has (Pile : Pile_Type_FIFO;
                  C    : Card.Card_Type) return Boolean is
       use Card_Type_DLL;

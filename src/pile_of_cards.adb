@@ -1,10 +1,14 @@
 package body Pile_Of_Cards is
 
+   --------------------------------------------------------------------
+   --
    function Is_Empty (pile : Pile_Type) return Boolean is
    begin
       return pile.Cards.Is_Empty;
    end Is_Empty;
 
+   --------------------------------------------------------------------
+   --
    function Size (pile : Pile_Type) return Natural is
    begin
       return Natural (pile.Cards.Length);

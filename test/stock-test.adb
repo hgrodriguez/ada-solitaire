@@ -14,6 +14,51 @@ package body Stock.Test is
                                "Stock.Construct failed");
    end Construct;
 
+   procedure Fetch_One_Stock_Not_Empty (T : in out Test) is
+      pragma Unreferenced (T);
+      S             : constant Stock.Stock_Type := Stock.Construct;
+      C             : Card.Card_Type;
+      pragma Warnings (Off, C);
+      Expected_Size : constant Natural := 52 - 1 * 1;
+   begin
+      C := S.Fetch_One;
+      AUnit.Assertions.Assert (S.Size = Expected_Size,
+                               "S.Size=" & Expected_Size'Image & "! /= "
+                               & S.Size'Image);
+   end Fetch_One_Stock_Not_Empty;
+
+   procedure Fetch_One_Stock_Is_Empty_Exception;
+   procedure Fetch_One_Stock_Is_Empty_Exception is
+      S        : constant Stock.Stock_Type := Stock.Construct;
+      C        : Card.Card_Type;
+      pragma Warnings (Off, C);
+   begin
+      while S.Size > 0 loop
+         C := S.Fetch_One;
+      end loop;
+      C := S.Fetch_One;
+   exception
+      when Stock_Empty_Exception => raise;
+      when Exc : others =>
+         AUnit.
+           Assertions.
+             Assert (False,
+                     "Peek_Empty_Stack_Exception: " &
+                       "wrong exception raised:" &
+                       Ada.Exceptions.Exception_Name (Exc));
+   end Fetch_One_Stock_Is_Empty_Exception;
+
+   procedure Fetch_One_Stock_Is_Empty (T : in out Test) is
+      pragma Unreferenced (T);
+
+   begin
+      AUnit.
+        Assertions.
+          Assert_Exception (Fetch_One_Stock_Is_Empty_Exception'Access,
+                            "Fetch_One_Stock_Is_Empty_Exception: " &
+                              "no exception raised");
+   end Fetch_One_Stock_Is_Empty;
+
    procedure Fetch_Once (T : in out Test) is
       pragma Unreferenced (T);
       S             : constant Stock.Stock_Type := Stock.Construct;
@@ -290,6 +335,13 @@ package body Stock.Test is
    begin
       Ret.Add_Test (Caller.
                       Create (N & "Construct", Construct'Access));
+
+      Ret.Add_Test (Caller.
+                      Create (N & "Fetch_One_Stock_Not_Empty",
+                        Fetch_One_Stock_Not_Empty'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "Fetch_One_Stock_Is_Empty",
+                        Fetch_One_Stock_Is_Empty'Access));
 
       Ret.Add_Test (Caller.
                       Create (N & "Fetch_Once",

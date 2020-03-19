@@ -10,6 +10,9 @@ private
 
    procedure Construct (T : in out Test);
 
+   procedure Fetch_One_Stock_Not_Empty (T : in out Test);
+   procedure Fetch_One_Stock_Is_Empty (T : in out Test);
+
    procedure Fetch_Once (T : in out Test);
    procedure Fetch_Twice (T : in out Test);
    procedure Fetch_Thrice (T : in out Test);

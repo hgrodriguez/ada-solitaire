@@ -32,6 +32,9 @@ private
    procedure Suit_Is_Red_Diamond (T : in out Test);
    procedure Suit_Is_Red_Heart (T : in out Test);
 
+   procedure Suit_Is_Black_Club (T : in out Test);
+   procedure Suit_Is_Black_Spade (T : in out Test);
+
    procedure Is_Equal_To_Identical_Rank_Identical_Suit (T : in out Test);
    procedure Is_Equal_To_Equal_Rank_Identical_Suit (T : in out Test);
    procedure Is_Equal_To_Identical_Rank_Equal_Suit (T : in out Test);

@@ -233,6 +233,8 @@ package body Card.Test is
                                  "c2.Suit:" & c2.Get_Suit'Image);
    end Suit_IsEqualTo_Using_Equal_Suit;
 
+   --------------------------------------------------------------------
+   --  red suits
    procedure Suit_Is_Red_Diamond (T : in out Test) is
       pragma Unreferenced (T);
       rank : constant Deck.Rank_Type := Deck.Ace;
@@ -256,6 +258,31 @@ package body Card.Test is
                                  "c.Suit:" & c.Get_Suit'Image &
                                  " should be red");
    end Suit_Is_Red_Heart;
+
+   --  black suits
+   procedure Suit_Is_Black_Club (T : in out Test) is
+      pragma Unreferenced (T);
+      rank : constant Deck.Rank_Type := Deck.Ace;
+      suit : constant Deck.Suit_Type := Deck.Club;
+      c    : constant Card.Card_Type := Card.Construct (rank, suit);
+
+   begin
+      AUnit.Assertions.Assert (c.Suit_Is_Black,
+                               "c.Suit:" & c.Get_Suit'Image &
+                                 " should be black");
+   end Suit_Is_Black_Club;
+
+   procedure Suit_Is_Black_Spade (T : in out Test) is
+      pragma Unreferenced (T);
+      rank : constant Deck.Rank_Type := Deck.Ace;
+      suit : constant Deck.Suit_Type := Deck.Spade;
+      c    : constant Card.Card_Type := Card.Construct (rank, suit);
+
+   begin
+      AUnit.Assertions.Assert (c.Suit_Is_Black,
+                               "c.Suit:" & c.Get_Suit'Image &
+                                 " should be black");
+   end Suit_Is_Black_Spade;
 
    --------------------------------------------------------------------
    --  rank and suit
@@ -520,6 +547,13 @@ package body Card.Test is
       Ret.Add_Test (Caller.
                       Create (N & "Suit_Is_Red_Heart",
                         Suit_Is_Red_Heart'Access));
+
+      Ret.Add_Test (Caller.
+                      Create (N & "Suit_Is_Black_Club",
+                        Suit_Is_Black_Club'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "Suit_Is_Black_Spade",
+                        Suit_Is_Black_Spade'Access));
 
       --  image tests
       Ret.Add_Test (Caller.

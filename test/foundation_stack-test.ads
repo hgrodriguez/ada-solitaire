@@ -14,6 +14,7 @@ private
    procedure Newly_Constructed_Is_Empty (T : in out Test);
    procedure Newly_Constructed_Accepts_Ace (T : in out Test);
    procedure Newly_Constructed_Is_Size_0 (T : in out Test);
+
    procedure Push_Newly_Constructed_OK_Size (T : in out Test);
    procedure Push_Newly_Constructed_OK_Accept (T : in out Test);
    procedure Push_All_OK_Size (T : in out Test);
@@ -28,4 +29,5 @@ private
 
    procedure To_String_Empty (T : in out Test);
    procedure To_String_Not_Empty  (T : in out Test);
+
 end Foundation_Stack.Test;

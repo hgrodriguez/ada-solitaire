@@ -89,6 +89,7 @@ package body Foundation_Stack.Test is
                                "size should = 0, but is: " & stack.Size'Image);
    end Newly_Constructed_Is_Size_0;
 
+   --------------------------------------------------------------------
    --  check for push operations
    procedure Push_Newly_Constructed_OK_Size (T : in out Test) is
       pragma Unreferenced (T);
@@ -118,6 +119,7 @@ package body Foundation_Stack.Test is
                                  "but accepts: " & stack.Accepts.Image);
    end Push_Newly_Constructed_OK_Accept;
 
+   --------------------------------------------------------------------
    --  push operation
    procedure Push_All_OK_Size (T : in out Test) is
       pragma Unreferenced (T);

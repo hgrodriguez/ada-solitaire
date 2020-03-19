@@ -2,6 +2,8 @@ with Deck; use Deck;
 
 package body Foundation_Stack is
 
+   --------------------------------------------------------------------
+   --
    function Construct (Suit : Deck.Suit_Type)
                        return Foundation_Stack.Stack_Type is
       ret  : Foundation_Stack.Stack_Type;
@@ -11,28 +13,38 @@ package body Foundation_Stack is
       return ret;
    end Construct;
 
+   --------------------------------------------------------------------
+   --
    function Get_Suit (cs : Foundation_Stack.Stack_Type)
                       return Deck.Suit_Type is
    begin
       return cs.Suit;
    end Get_Suit;
 
+   --------------------------------------------------------------------
+   --
    function Is_Empty (cs : Foundation_Stack.Stack_Type) return Boolean is
    begin
       return cs.Cards.Is_Empty;
    end Is_Empty;
 
+   --------------------------------------------------------------------
+   --
    function Is_Full (cs : Foundation_Stack.Stack_Type) return Boolean is
    begin
       return cs.Cards.Size = 13;
    end Is_Full;
 
+   --------------------------------------------------------------------
+   --
    function Size (cs :  Foundation_Stack.Stack_Type)
                   return Natural is
    begin
       return cs.Cards.Size;
    end Size;
 
+   --------------------------------------------------------------------
+   --
    function Accepts (cs : Foundation_Stack.Stack_Type)
                      return Card.Card_Type is
       tos : Card.Card_Type;
@@ -49,6 +61,8 @@ package body Foundation_Stack is
       return ret;
    end Accepts;
 
+   --------------------------------------------------------------------
+   --
    procedure Push (cs : in out Foundation_Stack.Stack_Type;
                    c  : Card.Card_Type) is
       acceptable_card : constant Card.Card_Type := cs.Accepts;
@@ -65,6 +79,8 @@ package body Foundation_Stack is
       end if;
    end Push;
 
+   --------------------------------------------------------------------
+   --
    function To_String (cs : Foundation_Stack.Stack_Type)
                        return Card.Short_Image_Type is
       C : Card.Card_Type;

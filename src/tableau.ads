@@ -34,11 +34,10 @@ package Tableau is
                            Card_To_Include : Card.Card_Type)
                            return Check_Move_To_Result;
 
-   procedure Move_To
-     (T               : Tableau_Type;
-      Src_Index       : Valid_Stacks_Range;
-      Dst_Index       : Valid_Stacks_Range;
-      Card_To_Include : Card.Card_Type);
+   procedure Move_To (T               : Tableau_Type;
+                      Src_Index       : Valid_Stacks_Range;
+                      Dst_Index       : Valid_Stacks_Range;
+                      Card_To_Include : Card.Card_Type);
 
    function Remove_Mandatory_Cards
      (T          : Tableau_Type;

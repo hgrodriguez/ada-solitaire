@@ -70,10 +70,10 @@ package body Tableau is
       return OK;
    end Check_Move_To;
 
-   procedure Move_To
-     (T         : Tableau_Type; Src_Index : Valid_Stacks_Range;
-      Dst_Index : Valid_Stacks_Range; Card_To_Include : Card.Card_Type)
-   is
+   procedure Move_To (T         : Tableau_Type;
+                      Src_Index : Valid_Stacks_Range;
+                      Dst_Index       : Valid_Stacks_Range;
+                      Card_To_Include : Card.Card_Type) is
       Src_Stack    : constant Tableau_Stack.Stack_Type_Access :=
         T.Stacks (Src_Index);
       Dst_Stack    : constant Tableau_Stack.Stack_Type_Access :=

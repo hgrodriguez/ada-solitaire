@@ -70,41 +70,41 @@ package body Tableau is
       return OK;
    end Check_Move_To;
 
-   procedure Move_To (T         : Tableau_Type;
-                      Src_Index : Valid_Stacks_Range;
+   procedure Move_To (T               : Tableau_Type;
+                      Src_Index       : Valid_Stacks_Range;
                       Dst_Index       : Valid_Stacks_Range;
                       Card_To_Include : Card.Card_Type) is
       Src_Stack    : constant Tableau_Stack.Stack_Type_Access :=
         T.Stacks (Src_Index);
       Dst_Stack    : constant Tableau_Stack.Stack_Type_Access :=
         T.Stacks (Dst_Index);
-      Acceptable   : constant Tableau_Stack.Acceptable_Type :=
-        Dst_Stack.all.Accepts;
       Transfer     : Pile_Of_Cards.LIFO.Pile_Type_LIFO :=
         Pile_Of_Cards.LIFO.Construct;
       Card_To_Xfer : Card.Card_Type;
    begin
-      if Src_Stack.all.Is_Empty then
+      case Check_Move_To (T               => T,
+                          Src_Index       => Src_Index,
+                          Dst_Index       => Dst_Index,
+                          Card_To_Include => Card_To_Include) is
+      when Stack_Empty =>
          raise Tableau_Stack_Empty_Exception;
-      end if;
-      if Dst_Index = Src_Index then
+      when Destination_Stack_Equals_Source_Stack =>
          raise Tableau_Target_Stack_Equals_Source_Stack_Exception;
-      end if;
-      if not Src_Stack.all.Has (Card_To_Include) then
+      when Source_Card_Does_Not_Exist =>
          raise Tableau_Source_Card_Does_Not_Exist_Exception;
-      end if;
-      if not Acceptable.Has (Card_To_Include) then
+      when Destination_Stack_Does_Not_Accept =>
          raise Tableau_Destination_Stack_Does_Not_Accept_Exception;
-      end if;
-      loop
-         Card_To_Xfer := Src_Stack.all.Pop;
-         Transfer.Push (Card_To_Xfer);
-         exit when Card_To_Xfer.Is_Equal_To (Card_To_Include);
-      end loop;
-      while not Transfer.Is_Empty loop
-         Card_To_Xfer := Transfer.Pop;
-         Dst_Stack.Push_Unchecked (Card_To_Xfer);
-      end loop;
+      when OK =>
+         loop
+            Card_To_Xfer := Src_Stack.all.Pop;
+            Transfer.Push (Card_To_Xfer);
+            exit when Card_To_Xfer.Is_Equal_To (Card_To_Include);
+         end loop;
+         while not Transfer.Is_Empty loop
+            Card_To_Xfer := Transfer.Pop;
+            Dst_Stack.Push_Unchecked (Card_To_Xfer);
+         end loop;
+      end case;
    end Move_To;
 
    function Remove_Mandatory_Cards

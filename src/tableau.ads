@@ -10,10 +10,10 @@ package Tableau is
    type Valid_Stacks_Range is new Integer range 1 .. 7;
 
    type Check_Move_To_Result is (OK,
-                             Stack_Empty,
-                         Destination_Stack_Equals_Source_Stack,
-                         Source_Card_Does_Not_Exist,
-                         Destination_Stack_Does_Not_Accept);
+                                 Stack_Empty,
+                                 Destination_Stack_Equals_Source_Stack,
+                                 Source_Card_Does_Not_Exist,
+                                 Destination_Stack_Does_Not_Accept);
 
    Tableau_Stack_Empty_Exception                       : exception;
    Tableau_Target_Stack_Equals_Source_Stack_Exception  : exception;

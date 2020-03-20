@@ -13,7 +13,11 @@ package Tableau_Stack is
 
    --------------------------------------------------------------------
    --  construct a Stack
-   function Construct return Stack_Type;
+   function Construct (Number : Integer) return Stack_Type;
+
+   --------------------------------------------------------------------
+   --  returns number of Stack
+   function Number (T : Stack_Type) return Integer;
 
    --------------------------------------------------------------------
    --  returns count of Cards in Stack
@@ -62,7 +66,8 @@ package Tableau_Stack is
 
 private
    type Stack_Type is tagged record
-      Cards : Pile_Of_Cards.LIFO.Pile_Type_LIFO_Access;
+      Number : Integer;
+      Cards  : Pile_Of_Cards.LIFO.Pile_Type_LIFO_Access;
    end record;
 
 end Tableau_Stack;

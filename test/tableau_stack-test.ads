@@ -10,6 +10,7 @@ private
    procedure Construct (T : in out Test);
    procedure Construct_Check_Size (T : in out Test);
    procedure Construct_Check_Is_Empty (T : in out Test);
+   procedure Construct_Check_Number (T : in out Test);
    procedure Construct_Check_Peek_Fails (T : in out Test);
    procedure Construct_Check_Pop_Fails (T : in out Test);
 

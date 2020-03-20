@@ -8,11 +8,14 @@ with Deck; use Deck;
 
 package body Tableau_Stack.Test is
 
+   NUMBER_FOR_STACK : constant Integer := 1;
+
    --------------------------------------------------------------------
    --  constructors
    procedure Construct (T : in out Test) is
       pragma Unreferenced (T);
-      stack : Tableau_Stack.Stack_Type := Tableau_Stack.Construct;
+      stack : constant Tableau_Stack.Stack_Type
+        := Tableau_Stack.Construct (NUMBER_FOR_STACK);
       pragma Warnings (Off, stack);
    begin
       null;
@@ -20,7 +23,8 @@ package body Tableau_Stack.Test is
 
    procedure Construct_Check_Size (T : in out Test) is
       pragma Unreferenced (T);
-      stack : constant Tableau_Stack.Stack_Type := Tableau_Stack.Construct;
+      stack : constant Tableau_Stack.Stack_Type
+        := Tableau_Stack.Construct (NUMBER_FOR_STACK);
    begin
       AUnit.Assertions.Assert (stack.Size = 0,
                                "size=0" &
@@ -29,14 +33,29 @@ package body Tableau_Stack.Test is
 
    procedure Construct_Check_Is_Empty (T : in out Test) is
       pragma Unreferenced (T);
-      stack : constant Tableau_Stack.Stack_Type := Tableau_Stack.Construct;
+      stack : constant Tableau_Stack.Stack_Type
+        := Tableau_Stack.Construct (NUMBER_FOR_STACK);
    begin
       AUnit.Assertions.Assert (stack.Is_Empty, "not stack.Is_Empty");
    end Construct_Check_Is_Empty;
 
+   --------------------------------------------------------------------
+   --
+   procedure Construct_Check_Number (T : in out Test) is
+      pragma Unreferenced (T);
+      stack : constant Tableau_Stack.Stack_Type
+        := Tableau_Stack.Construct (NUMBER_FOR_STACK);
+   begin
+      AUnit.Assertions.
+        Assert (stack.Number = NUMBER_FOR_STACK,
+                "stack.Number=" & stack.Number'Image &
+                  " /=" & NUMBER_FOR_STACK'Image);
+   end Construct_Check_Number;
+
    procedure Construct_Check_Peek_Fails_Exception;
    procedure Construct_Check_Peek_Fails_Exception is
-      Stack : constant Tableau_Stack.Stack_Type := Tableau_Stack.Construct;
+      Stack : constant Tableau_Stack.Stack_Type
+        := Tableau_Stack.Construct (NUMBER_FOR_STACK);
       C     : Card.Card_Type;
       pragma Warnings (Off, C);
    begin
@@ -64,7 +83,8 @@ package body Tableau_Stack.Test is
 
    procedure Construct_Check_Pop_Fails_Exception;
    procedure Construct_Check_Pop_Fails_Exception is
-      Stack : constant Tableau_Stack.Stack_Type := Tableau_Stack.Construct;
+      Stack : constant Tableau_Stack.Stack_Type
+        := Tableau_Stack.Construct (NUMBER_FOR_STACK);
       C     : Card.Card_Type;
       pragma Warnings (Off, C);
    begin
@@ -94,7 +114,8 @@ package body Tableau_Stack.Test is
    --  Has
    procedure Does_Not_Have_Empty_Stack (T : in out Test)  is
       pragma Unreferenced (T);
-      stack : constant Tableau_Stack.Stack_Type := Tableau_Stack.Construct;
+      stack : constant Tableau_Stack.Stack_Type
+        := Tableau_Stack.Construct (NUMBER_FOR_STACK);
       C_N   : constant Card.Card_Type := Card.Construct (Deck.Two,
                                                          Deck.Diamond);
    begin
@@ -103,7 +124,8 @@ package body Tableau_Stack.Test is
 
    procedure Does_Not_Have_Not_Empty_Stack (T : in out Test) is
       pragma Unreferenced (T);
-      stack : constant Tableau_Stack.Stack_Type := Tableau_Stack.Construct;
+      stack : constant Tableau_Stack.Stack_Type
+        := Tableau_Stack.Construct (NUMBER_FOR_STACK);
       C_N   : constant Card.Card_Type := Card.Construct (Deck.Two,
                                                          Deck.Diamond);
    begin
@@ -113,7 +135,8 @@ package body Tableau_Stack.Test is
 
    procedure Does_Have_Not_Empty_Stack (T : in out Test) is
       pragma Unreferenced (T);
-      stack : constant Tableau_Stack.Stack_Type := Tableau_Stack.Construct;
+      stack : constant Tableau_Stack.Stack_Type
+        := Tableau_Stack.Construct (NUMBER_FOR_STACK);
       C_N   : constant Card.Card_Type := Card.Construct (Deck.Two,
                                                          Deck.Diamond);
    begin
@@ -125,7 +148,8 @@ package body Tableau_Stack.Test is
    --  Push
    procedure Empty_Stack_Push_King_Check_Size (T : in out Test) is
       pragma Unreferenced (T);
-      stack : constant Tableau_Stack.Stack_Type := Tableau_Stack.Construct;
+      stack : constant Tableau_Stack.Stack_Type
+        := Tableau_Stack.Construct (NUMBER_FOR_STACK);
    begin
       stack.Push_Checked (Card.Construct (Deck.King, Deck.Diamond));
       AUnit.Assertions.Assert (stack.Size = 1,
@@ -135,7 +159,8 @@ package body Tableau_Stack.Test is
 
    procedure Empty_Stack_Push_King_Check_Peek (T : in out Test) is
       pragma Unreferenced (T);
-      stack : constant Tableau_Stack.Stack_Type := Tableau_Stack.Construct;
+      stack : constant Tableau_Stack.Stack_Type
+        := Tableau_Stack.Construct (NUMBER_FOR_STACK);
       C_E   : constant Card.Card_Type := Card.Construct (Rank => Deck.King,
                                                          Suit => Deck.Diamond);
       C     : Card.Card_Type;
@@ -149,7 +174,8 @@ package body Tableau_Stack.Test is
 
    procedure Empty_Stack_Push_King_Check_Pop (T : in out Test) is
       pragma Unreferenced (T);
-      stack : constant Tableau_Stack.Stack_Type := Tableau_Stack.Construct;
+      stack : constant Tableau_Stack.Stack_Type
+        := Tableau_Stack.Construct (NUMBER_FOR_STACK);
       C_E   : constant Card.Card_Type := Card.Construct (Rank => Deck.King,
                                                          Suit => Deck.Diamond);
       C     : Card.Card_Type;
@@ -163,7 +189,8 @@ package body Tableau_Stack.Test is
 
    procedure Empty_Stack_Push_Other_Than_King_Exception;
    procedure Empty_Stack_Push_Other_Than_King_Exception is
-      Stack : constant Tableau_Stack.Stack_Type := Tableau_Stack.Construct;
+      Stack : constant Tableau_Stack.Stack_Type
+        := Tableau_Stack.Construct (NUMBER_FOR_STACK);
       C     : constant Card.Card_Type
         := Card.Construct (Deck.Ace, Deck.Diamond);
    begin
@@ -191,8 +218,8 @@ package body Tableau_Stack.Test is
 
    procedure Push_Multiple_Cards_Check_Size (T : in out Test) is
       pragma Unreferenced (T);
-      stack       : constant Tableau_Stack.Stack_Type
-        := Tableau_Stack.Construct;
+      stack : constant Tableau_Stack.Stack_Type
+        := Tableau_Stack.Construct (NUMBER_FOR_STACK);
    begin
       stack.Push_Unchecked (Card.Construct (Rank => Deck.Three,
                                             Suit => Deck.Diamond));
@@ -210,7 +237,7 @@ package body Tableau_Stack.Test is
    procedure Empty_Stack_Accepts_All_Kings (T : in out Test) is
       pragma Unreferenced (T);
       stack       : constant Tableau_Stack.Stack_Type
-        := Tableau_Stack.Construct;
+        := Tableau_Stack.Construct (NUMBER_FOR_STACK);
       Acceptables : Tableau_Stack.Acceptable_Type := stack.Accepts;
       Seen        : array (Deck.Suit_Type_Valid_Range) of Boolean;
       C           : Card.Card_Type;
@@ -241,7 +268,7 @@ package body Tableau_Stack.Test is
    procedure Bottom_Ace_Does_Not_Accept_AnyCard (T : in out Test) is
       pragma Unreferenced (T);
       stack         : constant Tableau_Stack.Stack_Type
-        := Tableau_Stack.Construct;
+        := Tableau_Stack.Construct (NUMBER_FOR_STACK);
       Card_King     : constant Card.Card_Type
         := Card.Construct (Deck.King, Deck.Diamond);
       Card_Ace      : constant Card.Card_Type
@@ -262,7 +289,7 @@ package body Tableau_Stack.Test is
    procedure Bottom_Ten_Accepts_Two_Nines (T : in out Test) is
       pragma Unreferenced (T);
       stack           : constant Tableau_Stack.Stack_Type
-        := Tableau_Stack.Construct;
+        := Tableau_Stack.Construct (NUMBER_FOR_STACK);
       Card_King       : constant Card.Card_Type
         := Card.Construct (Deck.King, Deck.Diamond);
       Card_Ten        : constant Card.Card_Type
@@ -293,8 +320,8 @@ package body Tableau_Stack.Test is
    --  Collect tests
    procedure Collect_Empty_Stack (T : in out Test) is
       pragma Unreferenced (T);
-      stack         : constant Tableau_Stack.Stack_Type
-        := Tableau_Stack.Construct;
+      stack : constant Tableau_Stack.Stack_Type
+        := Tableau_Stack.Construct (NUMBER_FOR_STACK);
 
       SIF           : Short_Image_FIFO.Short_Image_FIFO_Type;
 
@@ -317,8 +344,8 @@ package body Tableau_Stack.Test is
 
    procedure Collect_1_Card (T : in out Test) is
       pragma Unreferenced (T);
-      stack         : constant Tableau_Stack.Stack_Type
-        := Tableau_Stack.Construct;
+      stack : constant Tableau_Stack.Stack_Type
+        := Tableau_Stack.Construct (NUMBER_FOR_STACK);
 
       SIF           : Short_Image_FIFO.Short_Image_FIFO_Type;
 
@@ -344,8 +371,8 @@ package body Tableau_Stack.Test is
 
    procedure Collect_2_Cards (T : in out Test) is
       pragma Unreferenced (T);
-      stack         : constant Tableau_Stack.Stack_Type
-        := Tableau_Stack.Construct;
+      stack : constant Tableau_Stack.Stack_Type
+        := Tableau_Stack.Construct (NUMBER_FOR_STACK);
 
       SIF           : Short_Image_FIFO.Short_Image_FIFO_Type;
 
@@ -398,6 +425,9 @@ package body Tableau_Stack.Test is
       Ret.Add_Test (Caller.
                       Create (N & "Construct_Check_Is_Empty",
                         Construct_Check_Is_Empty'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "Construct_Check_Number",
+                        Construct_Check_Number'Access));
       Ret.Add_Test (Caller.
                       Create (N & "Construct_Check_Peek_Fails",
                         Construct_Check_Peek_Fails'Access));

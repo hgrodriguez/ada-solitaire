@@ -4,15 +4,23 @@ package body Tableau_Stack is
 
    --------------------------------------------------------------------
    --
-   function Construct return Tableau_Stack.Stack_Type is
+   function Construct (Number : Integer) return Tableau_Stack.Stack_Type is
       Tab : Stack_Type;
       Pile : Pile_Of_Cards.LIFO.Pile_Type_LIFO_Access;
    begin
       Pile := new Pile_Of_Cards.LIFO.Pile_Type_LIFO;
       Pile.all := Pile_Of_Cards.LIFO.Construct;
       Tab.Cards := Pile;
+      Tab.Number := Number;
       return Tab;
    end Construct;
+
+   --------------------------------------------------------------------
+   --
+   function Number (T : Stack_Type) return Integer is
+   begin
+      return T.Number;
+   end Number;
 
    --------------------------------------------------------------------
    --

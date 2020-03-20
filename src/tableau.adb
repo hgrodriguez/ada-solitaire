@@ -11,7 +11,7 @@ package body Tableau is
    begin
       for J in Valid_Stacks_Range loop
          S            := new Tableau_Stack.Stack_Type;
-         S.all        := Tableau_Stack.Construct;
+         S.all        := Tableau_Stack.Construct (Integer (J));
          T.Stacks (J) := S;
       end loop;
       return T;

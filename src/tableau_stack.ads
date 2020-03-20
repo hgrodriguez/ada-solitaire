@@ -40,7 +40,7 @@ package Tableau_Stack is
 
    --------------------------------------------------------------------
    --  shared Exception for Peek/Pop
-   Tableau_Stack_Empty_Exception      : exception;
+   Tableau_Stack_Empty_Exception : exception;
    --------------------------------------------------------------------
    --  returns the bottom most Card of Stack without removing
    --  raises exception, if Stack is empty

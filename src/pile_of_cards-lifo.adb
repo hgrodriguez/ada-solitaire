@@ -10,44 +10,19 @@ package body Pile_Of_Cards.LIFO is
 
    --------------------------------------------------------------------
    --
-   function Pop (pile : in out Pile_Type_LIFO) return Card.Card_Type is
-      r       : Card.Card_Type;
+   function Pop (Pile : in out Pile_Type_LIFO) return Card.Card_Type is
    begin
-      if pile.Is_Empty then
-         raise Pile_Empty_Exception with "Pile is empty, no Pop possible";
-      end if;
-
-      r := pile.Cards.First_Element;
-      pile.Cards.Delete_First;
-      return r;
+      --  re-use base class implementation
+      return Pile_Of_Cards.Pile_Type (Pile).Pop;
    end Pop;
 
    --------------------------------------------------------------------
    --
-   procedure Push (pile : in out Pile_Type_LIFO; c : Card.Card_Type) is
+   procedure Push (Pile : in out Pile_Type_LIFO; C : Card.Card_Type) is
    begin
-      pile.Cards.Prepend (c);
+      --  re-use base class implementation
+      Pile_Of_Cards.Pile_Type (Pile).Push (C);
    end Push;
-
-   function Peek (pile : Pile_Type_LIFO) return Card.Card_Type is
-      r       : Card.Card_Type;
-   begin
-      if pile.Is_Empty then
-         raise Pile_Empty_Exception with "Pile is empty, no Peek possible";
-      end if;
-
-      r := pile.Cards.First_Element;
-      return r;
-   end Peek;
-
-   --------------------------------------------------------------------
-   --
-   function Has (Pile : Pile_Type_LIFO;
-                 C    : Card.Card_Type) return Boolean is
-      use Card_Type_DLL;
-   begin
-      return Pile.Cards.Find (Item => C) /= Card_Type_DLL.No_Element;
-   end Has;
 
    --------------------------------------------------------------------
    --

@@ -2,19 +2,99 @@ package body Pile_Of_Cards is
 
    --------------------------------------------------------------------
    --
-   function Is_Empty (pile : Pile_Type) return Boolean is
+   function Construct return Pile_Type is
+      Pile : Pile_Type;
    begin
-      return pile.Cards.Is_Empty;
+      return Pile;
+   end Construct;
+
+   --------------------------------------------------------------------
+   --
+   function Is_Empty (Pile : Pile_Type) return Boolean is
+   begin
+      return Pile.Cards.Is_Empty;
    end Is_Empty;
 
    --------------------------------------------------------------------
    --
-   function Size (pile : Pile_Type) return Natural is
+   function Size (Pile : Pile_Type) return Natural is
    begin
-      return Natural (pile.Cards.Length);
+      return Natural (Pile.Cards.Length);
    end Size;
 
---  with Ada.Unchecked_Deallocation;
+   --------------------------------------------------------------------
+   --
+   function Has (Pile : Pile_Type;
+                 C    : Card.Card_Type) return Boolean is
+      use Card_Type_DLL;
+   begin
+      return Pile.Cards.Find (Item => C) /= Card_Type_DLL.No_Element;
+   end Has;
+
+   --------------------------------------------------------------------
+   --
+   function Peek (Pile : Pile_Type) return Card.Card_Type is
+   begin
+      if Pile.Is_Empty then
+         raise Pile_Empty_Exception with "Pile is empty, no Peek possible";
+      end if;
+      return Pile.Cards.First_Element;
+   end Peek;
+
+   --------------------------------------------------------------------
+   --
+--     function Duplicate (pile : Pile_Type) return Pile_Type is
+--        pile :
+--     begin
+--
+--     end Duplicate;
+
+   --------------------------------------------------------------------
+   --  PRIVATE PROCEDURES/FUNCTIONS
+   --------------------------------------------------------------------
+
+   --------------------------------------------------------------------
+   --
+   function Get (Pile : in out Pile_Type) return Card.Card_Type is
+      r : Card.Card_Type;
+   begin
+      if Pile.Is_Empty then
+         raise Pile_Empty_Exception with "Pile is empty, no Get possible";
+      end if;
+      r := Pile.Cards.First_Element;
+      Pile.Cards.Delete_First;
+      return r;
+   end Get;
+
+   --------------------------------------------------------------------
+   --
+   procedure Put (Pile : in out Pile_Type; C : Card.Card_Type) is
+   begin
+      Pile.Cards.Append (C);
+   end Put;
+
+   --------------------------------------------------------------------
+   --
+   procedure Push (pile : in out Pile_Type; c : Card.Card_Type) is
+   begin
+      pile.Cards.Prepend (c);
+   end Push;
+
+   --------------------------------------------------------------------
+   --
+   function Pop (pile : in out Pile_Type) return Card.Card_Type is
+      r       : Card.Card_Type;
+   begin
+      if pile.Is_Empty then
+         raise Pile_Empty_Exception with "Pile is empty, no Pop possible";
+      end if;
+
+      r := pile.Cards.First_Element;
+      pile.Cards.Delete_First;
+      return r;
+   end Pop;
+
+   --  with Ada.Unchecked_Deallocation;
 --
 --  procedure Deallocation_Sample is
 --

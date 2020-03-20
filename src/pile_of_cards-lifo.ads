@@ -20,23 +20,11 @@ package Pile_Of_Cards.LIFO is
    --------------------------------------------------------------------
    --  pops the top of the LIFO
    --  exception, if LIFO is empty
-   function Pop (pile : in out Pile_Type_LIFO) return Card.Card_Type;
+   function Pop (Pile : in out Pile_Type_LIFO) return Card.Card_Type;
 
    --------------------------------------------------------------------
    --  pushes one card onto the LIFO
-   procedure Push (pile : in out Pile_Type_LIFO; c : Card.Card_Type);
-
-   --------------------------------------------------------------------
-   --  peeks the top LIFO element
-   --  exception, if LIFO is empty
-   overriding
-   function Peek  (pile : Pile_Type_LIFO) return Card.Card_Type;
-
-   --------------------------------------------------------------------
-   --  check if pile contains card
-   overriding
-   function Has (Pile : Pile_Type_LIFO;
-                 C    : Card.Card_Type) return Boolean;
+   procedure Push (Pile : in out Pile_Type_LIFO; C : Card.Card_Type);
 
    --------------------------------------------------------------------
    --  collects all short images of all card in the LIFO

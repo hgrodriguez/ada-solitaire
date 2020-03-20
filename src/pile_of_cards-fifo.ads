@@ -23,18 +23,6 @@ package Pile_Of_Cards.FIFO is
    --  puts one card into the FIFO
    procedure Put (Pile : in out Pile_Type_FIFO; C : Card.Card_Type);
 
-   --------------------------------------------------------------------
-   --  peeks the first FIFO element
-   --  exception, if FIFO is empty
-   overriding
-   function Peek (Pile : Pile_Type_FIFO) return Card.Card_Type;
-
-   --------------------------------------------------------------------
-   --  check if pile contains card
-   overriding
-   function Has (Pile : Pile_Type_FIFO;
-                 C    : Card.Card_Type) return Boolean;
-
 private
    type Pile_Type_FIFO is new Pile_Of_Cards.Pile_Type with null record;
 

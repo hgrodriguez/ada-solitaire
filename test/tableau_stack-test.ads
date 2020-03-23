@@ -32,4 +32,13 @@ private
    procedure Collect_1_Card (T : in out Test);
    procedure Collect_2_Cards (T : in out Test);
 
+   procedure HasKingAsBottomCard_EmptyStack (T : in out Test);
+   procedure HasKingAsBottomCard_NoKing_At_All (T : in out Test);
+   procedure HasKingAsBottomCard_1KingNotAtBottom (T : in out Test);
+   procedure HasKingAsBottomCard_KingAtBottomOnlyCard (T : in out Test);
+   procedure HasKingAsBottomCard_KingAtBottomMultipleCardsNoOtherKings
+     (T : in out Test);
+   procedure HasKingAsBottomCard_KingAtBottomMultipleCardsWithOtherKings
+     (T : in out Test);
+
 end Tableau_Stack.Test;

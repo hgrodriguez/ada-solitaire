@@ -128,4 +128,15 @@ package body Tableau_Stack is
       return SIF;
    end Short_Images;
 
+   --------------------------------------------------------------------
+   --
+   function Has_King_As_Bottom_Card (T : Stack_Type) return Boolean is
+   begin
+      if T.Size = 0 then
+         return False;
+      else
+         return T.Cards.all.Peek_Bottom.Get_Rank = Deck.King;
+      end if;
+   end Has_King_As_Bottom_Card;
+
 end Tableau_Stack;

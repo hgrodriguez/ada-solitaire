@@ -407,6 +407,125 @@ package body Tableau_Stack.Test is
    end Collect_2_Cards;
 
    --------------------------------------------------------------------
+   --  Has_King_As_Bottom_Card
+   --------------------------------------------------------------------
+   --
+   procedure HasKingAsBottomCard_EmptyStack (T : in out Test) is
+      pragma Unreferenced (T);
+      Stack    : constant Tableau_Stack.Stack_Type
+        := Tableau_Stack.Construct (NUMBER_FOR_STACK);
+      Expected : constant Boolean := False;
+      Actual   : constant Boolean := Stack.Has_King_As_Bottom_Card;
+   begin
+      AUnit.Assertions.Assert (Expected = Actual,
+                               "Expected=" & Expected'Image &
+                                 "/= Actual=" & Actual'Image);
+   end HasKingAsBottomCard_EmptyStack;
+
+   --------------------------------------------------------------------
+   --
+   procedure HasKingAsBottomCard_NoKing_At_All (T : in out Test) is
+      pragma Unreferenced (T);
+      stack : constant Tableau_Stack.Stack_Type
+        := Tableau_Stack.Construct (NUMBER_FOR_STACK);
+      Expected : constant Boolean := False;
+      Actual   : Boolean;
+   begin
+      stack.Push_Unchecked (Card.Construct (Rank => Deck.Three,
+                                            Suit => Deck.Diamond));
+      stack.Push_Unchecked (Card.Construct (Rank => Deck.Three,
+                                            Suit => Deck.Club));
+      stack.Push_Unchecked (Card.Construct (Rank => Deck.Ten,
+                                            Suit => Deck.Spade));
+      Actual := stack.Has_King_As_Bottom_Card;
+      AUnit.Assertions.Assert (Expected = Actual,
+                               "Expected=" & Expected'Image &
+                                 "/= Actual=" & Actual'Image);
+   end HasKingAsBottomCard_NoKing_At_All;
+
+   --------------------------------------------------------------------
+   --
+   procedure HasKingAsBottomCard_1KingNotAtBottom (T : in out Test) is
+      pragma Unreferenced (T);
+      stack    : constant Tableau_Stack.Stack_Type
+        := Tableau_Stack.Construct (NUMBER_FOR_STACK);
+      Expected : constant Boolean := False;
+      Actual   : Boolean;
+   begin
+      stack.Push_Unchecked (Card.Construct (Rank => Deck.Three,
+                                            Suit => Deck.Diamond));
+      stack.Push_Unchecked (Card.Construct (Rank => Deck.King,
+                                            Suit => Deck.Club));
+      stack.Push_Unchecked (Card.Construct (Rank => Deck.Ten,
+                                            Suit => Deck.Spade));
+      Actual := stack.Has_King_As_Bottom_Card;
+      AUnit.Assertions.Assert (Expected = Actual,
+                               "Expected=" & Expected'Image &
+                                 "/= Actual=" & Actual'Image);
+   end HasKingAsBottomCard_1KingNotAtBottom;
+
+   --------------------------------------------------------------------
+   --
+   procedure HasKingAsBottomCard_KingAtBottomOnlyCard (T : in out Test) is
+      pragma Unreferenced (T);
+      stack    : constant Tableau_Stack.Stack_Type
+        := Tableau_Stack.Construct (NUMBER_FOR_STACK);
+      Expected : constant Boolean := True;
+      Actual   : Boolean;
+   begin
+      stack.Push_Unchecked (Card.Construct (Rank => Deck.King,
+                                            Suit => Deck.Club));
+      Actual := stack.Has_King_As_Bottom_Card;
+      AUnit.Assertions.Assert (Expected = Actual,
+                               "Expected=" & Expected'Image &
+                                 "/= Actual=" & Actual'Image);
+   end HasKingAsBottomCard_KingAtBottomOnlyCard;
+
+   procedure HasKingAsBottomCard_KingAtBottomMultipleCardsNoOtherKings
+     (T : in out Test) is
+      pragma Unreferenced (T);
+      stack    : constant Tableau_Stack.Stack_Type
+        := Tableau_Stack.Construct (NUMBER_FOR_STACK);
+      Expected : constant Boolean := True;
+      Actual   : Boolean;
+   begin
+      stack.Push_Unchecked (Card.Construct (Rank => Deck.King,
+                                            Suit => Deck.Club));
+      stack.Push_Unchecked (Card.Construct (Rank => Deck.Three,
+                                            Suit => Deck.Diamond));
+      stack.Push_Unchecked (Card.Construct (Rank => Deck.Ten,
+                                            Suit => Deck.Spade));
+      Actual := stack.Has_King_As_Bottom_Card;
+      AUnit.Assertions.Assert (Expected = Actual,
+                               "Expected=" & Expected'Image &
+                                 "/= Actual=" & Actual'Image);
+   end HasKingAsBottomCard_KingAtBottomMultipleCardsNoOtherKings;
+
+   procedure HasKingAsBottomCard_KingAtBottomMultipleCardsWithOtherKings
+     (T : in out Test) is
+      pragma Unreferenced (T);
+      stack    : constant Tableau_Stack.Stack_Type
+        := Tableau_Stack.Construct (NUMBER_FOR_STACK);
+      Expected : constant Boolean := True;
+      Actual   : Boolean;
+   begin
+      stack.Push_Unchecked (Card.Construct (Rank => Deck.King,
+                                            Suit => Deck.Club));
+      stack.Push_Unchecked (Card.Construct (Rank => Deck.Three,
+                                            Suit => Deck.Diamond));
+      stack.Push_Unchecked (Card.Construct (Rank => Deck.King,
+                                            Suit => Deck.Spade));
+      stack.Push_Unchecked (Card.Construct (Rank => Deck.King,
+                                            Suit => Deck.Heart));
+      stack.Push_Unchecked (Card.Construct (Rank => Deck.Four,
+                                            Suit => Deck.Diamond));
+      Actual := stack.Has_King_As_Bottom_Card;
+      AUnit.Assertions.Assert (Expected = Actual,
+                               "Expected=" & Expected'Image &
+                                 "/= Actual=" & Actual'Image);
+   end HasKingAsBottomCard_KingAtBottomMultipleCardsWithOtherKings;
+
+   --------------------------------------------------------------------
    --  the test suit construction
    package Caller is new AUnit.Test_Caller (Tableau_Stack.Test.Test);
 
@@ -486,6 +605,32 @@ package body Tableau_Stack.Test is
                       Create (N & "Collect_2_Cards",
                         Collect_2_Cards'Access));
 
+      --  HasKingAsBottomCard tests
+      Ret.Add_Test (Caller.
+                      Create (N & "HasKingAsBottomCard_EmptyStack",
+                        HasKingAsBottomCard_EmptyStack'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "HasKingAsBottomCard_NoKing_At_All",
+                        HasKingAsBottomCard_NoKing_At_All'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "HasKingAsBottomCard_1KingNotAtBottom",
+                        HasKingAsBottomCard_1KingNotAtBottom'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "HasKingAsBottomCard_KingAtBottomOnlyCard",
+                        HasKingAsBottomCard_KingAtBottomOnlyCard'Access));
+      Ret.
+        Add_Test (Caller.
+                    Create (
+                      N &
+                "HasKingAsBottomCard_KingAtBottomMultipleCardsNoOtherKings",
+            HasKingAsBottomCard_KingAtBottomMultipleCardsNoOtherKings'Access));
+      Ret.
+        Add_Test (Caller.
+                    Create (
+                      N &
+                "HasKingAsBottomCard_KingAtBottomMultipleCardsWithOtherKings",
+          HasKingAsBottomCard_KingAtBottomMultipleCardsWithOtherKings'Access));
+      --
       return Ret;
    end Suite;
 

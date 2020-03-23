@@ -64,6 +64,10 @@ package Tableau_Stack is
    function Short_Images (T : Stack_Type)
                           return Short_Image_FIFO.Short_Image_FIFO_Type;
 
+   --------------------------------------------------------------------
+   --  returns True, if stack has King as the bottom cord, else False
+   function Has_King_As_Bottom_Card (T : Stack_Type) return Boolean;
+
 private
    type Stack_Type is tagged record
       Number : Integer;

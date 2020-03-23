@@ -42,4 +42,18 @@ package body Pile_Of_Cards.LIFO is
       end loop;
    end Collect;
 
+   --------------------------------------------------------------------
+   --
+   function Peek_Bottom (Pile : Pile_Type_LIFO) return Card.Card_Type is
+      r : Card.Card_Type;
+   begin
+      if Pile.Is_Empty then
+         raise Pile_Empty_Exception
+           with "Pile is empty, no Peek_Bottom possible";
+      end if;
+
+      r := Pile.Cards.Last_Element;
+      return r;
+   end Peek_Bottom;
+
 end Pile_Of_Cards.LIFO;

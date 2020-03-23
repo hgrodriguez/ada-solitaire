@@ -381,6 +381,75 @@ package body Pile_Of_Cards.LIFO.Test is
    end Collect_2_Cards;
 
    --------------------------------------------------------------------
+   --  Peek_Bottom operations
+   --------------------------------------------------------------------
+   procedure Peek_Bottom_No_Cards_Exception;
+   --------------------------------------------------------------------
+   --
+   procedure Peek_Bottom_No_Cards_Exception is
+      pile : constant Pile_Of_Cards.LIFO.Pile_Type_LIFO
+        := Pile_Of_Cards.LIFO.Construct;
+      r    : Card.Card_Type;
+      pragma Warnings (Off, r);
+   begin
+      r := pile.Peek_Bottom;
+   exception
+      when Pile_Empty_Exception => raise;
+      when Exc : others =>
+         AUnit.Assertions.Assert (False,
+                                  "Peek_Bottom_No_Cards_Exception: " &
+                                    "wrong exception raised:" &
+                                    Ada.Exceptions.Exception_Name (Exc));
+   end Peek_Bottom_No_Cards_Exception;
+
+   --------------------------------------------------------------------
+   --
+   procedure Peek_Bottom_No_Cards (T : in out Test) is
+      pragma Unreferenced (T);
+   begin
+      AUnit.Assertions.Assert_Exception (Peek_Bottom_No_Cards_Exception'Access,
+                                         "Peek_No_Cards: " &
+                                           "no exception raised");
+   end Peek_Bottom_No_Cards;
+
+   --------------------------------------------------------------------
+   --
+   procedure Peek_Bottom_One_Card (T : in out Test) is
+      pragma Unreferenced (T);
+      pile    : Pile_Of_Cards.LIFO.Pile_Type_LIFO
+        := Pile_Of_Cards.LIFO.Construct;
+      c       : constant Card.Card_Type := Card.Construct (Deck.Ace,
+                                                           Deck.Diamond);
+      Actual  : Card.Card_Type;
+   begin
+      pile.Push (c);
+      Actual := pile.Peek_Bottom;
+      AUnit.Assertions.Assert (Actual.Is_Equal_To (c),
+                               "Actual=" & Actual.Short_Image &
+                                 " /= Expected=" & c.Short_Image);
+   end Peek_Bottom_One_Card;
+
+   --------------------------------------------------------------------
+   --
+   procedure Peek_Bottom_Two_Cards (T : in out Test) is
+      pragma Unreferenced (T);
+      pile    : Pile_Of_Cards.LIFO.Pile_Type_LIFO
+        := Pile_Of_Cards.LIFO.Construct;
+      c1      : constant Card.Card_Type := Card.Construct (Deck.Ace,
+                                                        Deck.Diamond);
+      c2   : constant Card.Card_Type := Card.Construct (Deck.Two,
+                                                        Deck.Diamond);
+      Actual  : Card.Card_Type;
+   begin
+      pile.Push (c1);
+      pile.Push (c2);
+      Actual := pile.Peek_Bottom;
+      AUnit.Assertions.Assert (Actual.Is_Equal_To (c1),
+                               "Actual=" & Actual.Short_Image &
+                                 " /= Expected=" & c1.Short_Image);
+   end Peek_Bottom_Two_Cards;
+
+   --------------------------------------------------------------------
    --  the test suit construction
    package Caller is new AUnit.Test_Caller (Pile_Of_Cards.LIFO.Test.Test);
 
@@ -457,6 +526,17 @@ package body Pile_Of_Cards.LIFO.Test is
                       Create (N & "Collect_2_Cards",
                         Collect_2_Cards'Access));
 
+      --  Peek_Bottom tests
+      Ret.Add_Test (Caller.
+                      Create (N & "Peek_Bottom_No_Cards",
+                        Peek_Bottom_No_Cards'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "Peek_Bottom_One_Card",
+                        Peek_Bottom_One_Card'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "Peek_Bottom_Two_Cards",
+                        Peek_Bottom_Two_Cards'Access));
+      --
       return Ret;
    end Suite;
 

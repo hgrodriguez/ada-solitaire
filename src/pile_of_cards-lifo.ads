@@ -31,6 +31,11 @@ package Pile_Of_Cards.LIFO is
    procedure Collect (Pile : Pile_Type_LIFO;
                       SIF  : in out Short_Image_FIFO.Short_Image_FIFO_Type);
 
+   --------------------------------------------------------------------
+   --  Peek into pile
+   --  exception if pile is empty
+   function Peek_Bottom (Pile : Pile_Type_LIFO) return Card.Card_Type;
+
 private
    type Pile_Type_LIFO is new Pile_Of_Cards.Pile_Type with null record;
 

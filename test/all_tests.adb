@@ -7,6 +7,7 @@ with Card.Test;
 with Deck.Test;
 with Foundation.Test;
 with Foundation_Stack.Test;
+with Move_Candidate.Test;
 with Pile_Of_Cards.FIFO.Test;
 with Pile_Of_Cards.LIFO.Test;
 with Pile_Of_Cards.Test;
@@ -27,6 +28,7 @@ procedure All_Tests is
       Ret.Add_Test (Deck.Test.Suite);
       Ret.Add_Test (Foundation.Test.Suite);
       Ret.Add_Test (Foundation_Stack.Test.Suite);
+      Ret.Add_Test (Move_Candidate.Test.Suite);
       Ret.Add_Test (Pile_Of_Cards.FIFO.Test.Suite);
       Ret.Add_Test (Pile_Of_Cards.LIFO.Test.Suite);
       Ret.Add_Test (Pile_Of_Cards.Test.Suite);

@@ -13,4 +13,27 @@ package body Move_Candidate is
       return MC;
    end Construct;
 
+   --------------------------------------------------------------------
+   --
+   function Get_Card_To_Include (MC : Move_Candidate_Type)
+                                 return Card.Card_Type is
+   begin
+      return MC.Card_To_Include;
+   end Get_Card_To_Include;
+
+   --------------------------------------------------------------------
+   --
+   function Get_Stack_Number (MC : Move_Candidate_Type)
+                              return Tableau.Valid_Stacks_Range is
+   begin
+      return MC.Stack_Number;
+   end Get_Stack_Number;
+
+   --------------------------------------------------------------------
+   --
+   function Get_Rank_Delta (MC : Move_Candidate_Type) return Integer is
+   begin
+      return MC.Rank_Delta;
+   end Get_Rank_Delta;
+
 end Move_Candidate;

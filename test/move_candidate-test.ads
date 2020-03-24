@@ -10,4 +10,8 @@ private
 
    procedure Construct (T : in out Test);
 
+   procedure Construct_Check_Card_To_Include (T : in out Test);
+   procedure Construct_Check_Stack_Number (T : in out Test);
+   procedure Construct_Check_Rank_Delta (T : in out Test);
+
 end Move_Candidate.Test;

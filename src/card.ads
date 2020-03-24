@@ -11,8 +11,8 @@ package Card is
    --  2 = Suit
    subtype Short_Image_Type is String (1 .. 2);
 
-   Empty_Short_Image   : Short_Image_Type := "  ";
-   Obscure_Short_Image : Short_Image_Type := "XX";
+   Empty_Short_Image   : constant Short_Image_Type := "  ";
+   Obscure_Short_Image : constant Short_Image_Type := "XX";
 
    --------------------------------------------------------------------
    --  Create one card

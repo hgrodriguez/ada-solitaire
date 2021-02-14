@@ -1,6 +1,6 @@
 with Ada.Numerics.Discrete_Random;
 
-with Deck;
+with Definitions;
 
 package body Stock is
 
@@ -9,25 +9,25 @@ package body Stock is
    function Construct return Stock_Type is
 
       package Random_Rank is
-        new Ada.Numerics.Discrete_Random (Deck.Rank_Type_Valid_Range);
+        new Ada.Numerics.Discrete_Random (Definitions.Ranks_Valid_Range);
       package Random_Suit is
-        new Ada.Numerics.Discrete_Random (Deck.Suit_Type_Valid_Range);
+        new Ada.Numerics.Discrete_Random (Definitions.Suits_Valid_Range);
 
-      Card_Is_Available : array (Deck.Rank_Type,
-                                 Deck.Suit_Type) of Boolean;
+      Card_Is_Available : array (Definitions.Rank,
+                                 Definitions.Suit) of Boolean;
       S                 : Stock.Stock_Type;
       G_Suit            : Random_Suit.Generator;
       G_Rank            : Random_Rank.Generator;
-      R_Suit            : Deck.Suit_Type; --  random suit
-      R_Rank            : Deck.Rank_Type; --  random rank
+      R_Suit            : Definitions.Suit; --  random suit
+      R_Rank            : Definitions.Rank; --  random rank
 
       -----------------------------------------------------------------
       --  resets the availability matrix
       procedure Reset_Is_Available;
       procedure Reset_Is_Available is
       begin
-         for rank in Deck.Rank_Type_Valid_Range loop
-            for suit in Deck.Suit_Type_Valid_Range loop
+         for rank in Definitions.Ranks_Valid_Range loop
+            for suit in Definitions.Suits_Valid_Range loop
                Card_Is_Available (rank, suit) := True;
             end loop;
          end loop;
@@ -40,8 +40,8 @@ package body Stock is
          Result : Integer;
       begin
          Result := 0;
-         for rank in Deck.Rank_Type_Valid_Range loop
-            for suit in Deck.Suit_Type_Valid_Range loop
+         for rank in Definitions.Ranks_Valid_Range loop
+            for suit in Definitions.Suits_Valid_Range loop
                if Card_Is_Available (rank, suit) then
                   Result := Result + 1;
                end if;

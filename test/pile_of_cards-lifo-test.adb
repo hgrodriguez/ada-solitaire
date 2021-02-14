@@ -1,7 +1,7 @@
 with Ada.Exceptions;
 
+with Definitions;
 with Card;
-with Deck;
 with Pile_Of_Cards.LIFO;
 
 with AUnit.Assertions;
@@ -27,8 +27,9 @@ package body Pile_Of_Cards.LIFO.Test is
    --  Push operations
    procedure Push_One_Card (T : in out Test) is
       pragma Unreferenced (T);
-      c    : constant Card.Card_Type := Card.Construct (Rank => Deck.Ace,
-                                                        Suit => Deck.Diamond);
+      c    : constant Card.Card_Type
+        := Card.Construct (Rank => Definitions.Ace,
+                           Suit => Definitions.Diamond);
       pile : Pile_Of_Cards.LIFO.Pile_Type_LIFO := Pile_Of_Cards.LIFO.Construct;
 
    begin
@@ -41,10 +42,12 @@ package body Pile_Of_Cards.LIFO.Test is
 
    procedure Push_Two_Cards (T : in out Test) is
       pragma Unreferenced (T);
-      c1   : constant Card.Card_Type := Card.Construct (Rank => Deck.Ace,
-                                                        Suit => Deck.Diamond);
-      c2   : constant Card.Card_Type := Card.Construct (Rank => Deck.Two,
-                                                        Suit => Deck.Diamond);
+      c1   : constant Card.Card_Type
+        := Card.Construct (Rank => Definitions.Ace,
+                           Suit => Definitions.Diamond);
+      c2   : constant Card.Card_Type
+        := Card.Construct (Rank => Definitions.Two,
+                           Suit => Definitions.Diamond);
       pile : Pile_Of_Cards.LIFO.Pile_Type_LIFO := Pile_Of_Cards.LIFO.Construct;
 
    begin
@@ -60,8 +63,9 @@ package body Pile_Of_Cards.LIFO.Test is
    --  Pop operations
    procedure Pop_One_Pushed_One (T : in out Test) is
       pragma Unreferenced (T);
-      c    : constant Card.Card_Type := Card.Construct (Rank => Deck.Ace,
-                                                        Suit => Deck.Diamond);
+      c    : constant Card.Card_Type
+        := Card.Construct (Rank => Definitions.Ace,
+                           Suit => Definitions.Diamond);
       pile : Pile_Of_Cards.LIFO.Pile_Type_LIFO := Pile_Of_Cards.LIFO.Construct;
       r    : Card.Card_Type;
    begin
@@ -73,10 +77,12 @@ package body Pile_Of_Cards.LIFO.Test is
 
    procedure Pop_One_Pushed_Two (T : in out Test) is
       pragma Unreferenced (T);
-      c1   : constant Card.Card_Type := Card.Construct (Rank => Deck.Ace,
-                                                        Suit => Deck.Diamond);
-      c2   : constant Card.Card_Type := Card.Construct (Rank => Deck.Two,
-                                                        Suit => Deck.Diamond);
+      c1   : constant Card.Card_Type
+        := Card.Construct (Rank => Definitions.Ace,
+                           Suit => Definitions.Diamond);
+      c2   : constant Card.Card_Type
+        := Card.Construct (Rank => Definitions.Two,
+                           Suit => Definitions.Diamond);
       pile : Pile_Of_Cards.LIFO.Pile_Type_LIFO := Pile_Of_Cards.LIFO.Construct;
       r    : Card.Card_Type;
    begin
@@ -89,10 +95,12 @@ package body Pile_Of_Cards.LIFO.Test is
 
    procedure Pop_Two_Pushed_Two (T : in out Test) is
       pragma Unreferenced (T);
-      c1   : constant Card.Card_Type := Card.Construct (Rank => Deck.Ace,
-                                                        Suit => Deck.Diamond);
-      c2   : constant Card.Card_Type := Card.Construct (Rank => Deck.Two,
-                                                        Suit => Deck.Diamond);
+      c1   : constant Card.Card_Type
+        := Card.Construct (Rank => Definitions.Ace,
+                           Suit => Definitions.Diamond);
+      c2   : constant Card.Card_Type
+        := Card.Construct (Rank => Definitions.Two,
+                           Suit => Definitions.Diamond);
       pile : Pile_Of_Cards.LIFO.Pile_Type_LIFO := Pile_Of_Cards.LIFO.Construct;
       r1   : Card.Card_Type;
       r2   : Card.Card_Type;
@@ -151,8 +159,9 @@ package body Pile_Of_Cards.LIFO.Test is
 
    procedure Pop_Two_Pushed_One (T : in out Test) is
       pragma Unreferenced (T);
-      c    : constant Card.Card_Type := Card.Construct (Rank => Deck.Ace,
-                                                        Suit => Deck.Diamond);
+      c    : constant Card.Card_Type
+        := Card.Construct (Rank => Definitions.Ace,
+                           Suit => Definitions.Diamond);
       pile : Pile_Of_Cards.LIFO.Pile_Type_LIFO := Pile_Of_Cards.LIFO.Construct;
    begin
       pile.Push (c);
@@ -191,8 +200,9 @@ package body Pile_Of_Cards.LIFO.Test is
    procedure Peek_One_Card (T : in out Test) is
       pragma Unreferenced (T);
       pile : Pile_Of_Cards.LIFO.Pile_Type_LIFO := Pile_Of_Cards.LIFO.Construct;
-      c    : constant Card.Card_Type := Card.Construct (Rank => Deck.Ace,
-                                                        Suit => Deck.Diamond);
+      c    : constant Card.Card_Type
+        := Card.Construct (Rank => Definitions.Ace,
+                           Suit => Definitions.Diamond);
       r    : Card.Card_Type;
    begin
       pile.Push (c);
@@ -205,10 +215,12 @@ package body Pile_Of_Cards.LIFO.Test is
    procedure Peek_Two_Cards (T : in out Test) is
       pragma Unreferenced (T);
       pile : Pile_Of_Cards.LIFO.Pile_Type_LIFO := Pile_Of_Cards.LIFO.Construct;
-      c1   : constant Card.Card_Type := Card.Construct (Rank => Deck.Ace,
-                                                        Suit => Deck.Diamond);
-      c2   : constant Card.Card_Type := Card.Construct (Rank => Deck.Two,
-                                                        Suit => Deck.Diamond);
+      c1   : constant Card.Card_Type
+        := Card.Construct (Rank => Definitions.Ace,
+                           Suit => Definitions.Diamond);
+      c2   : constant Card.Card_Type
+        := Card.Construct (Rank => Definitions.Two,
+                           Suit => Definitions.Diamond);
       r    : Card.Card_Type;
    begin
       pile.Push (c1);
@@ -226,8 +238,9 @@ package body Pile_Of_Cards.LIFO.Test is
       pragma Unreferenced (T);
       pile  : constant Pile_Of_Cards.LIFO.Pile_Type_LIFO
         := Pile_Of_Cards.LIFO.Construct;
-      c_has : constant Card.Card_Type := Card.Construct (Rank => Deck.King,
-                                                         Suit => Deck.Diamond);
+      c_has : constant Card.Card_Type
+        := Card.Construct (Rank => Definitions.King,
+                           Suit => Definitions.Diamond);
    begin
       AUnit.Assertions.Assert (not pile.Has (c_has), "Has=True");
    end Has_Not_No_Cards;
@@ -236,10 +249,12 @@ package body Pile_Of_Cards.LIFO.Test is
       pragma Unreferenced (T);
       pile  : Pile_Of_Cards.LIFO.Pile_Type_LIFO
         := Pile_Of_Cards.LIFO.Construct;
-      c1    : constant Card.Card_Type := Card.Construct (Rank => Deck.Ace,
-                                                         Suit => Deck.Diamond);
-      c_has : constant Card.Card_Type := Card.Construct (Rank => Deck.King,
-                                                         Suit => Deck.Diamond);
+      c1    : constant Card.Card_Type
+        := Card.Construct (Rank => Definitions.Ace,
+                           Suit => Definitions.Diamond);
+      c_has : constant Card.Card_Type
+        := Card.Construct (Rank => Definitions.King,
+                           Suit => Definitions.Diamond);
    begin
       pile.Push (c1);
       AUnit.Assertions.Assert (not pile.Has (c_has), "Has=True");
@@ -249,12 +264,15 @@ package body Pile_Of_Cards.LIFO.Test is
       pragma Unreferenced (T);
       pile  : Pile_Of_Cards.LIFO.Pile_Type_LIFO
         := Pile_Of_Cards.LIFO.Construct;
-      c1    : constant Card.Card_Type := Card.Construct (Rank => Deck.Ace,
-                                                         Suit => Deck.Diamond);
-      c2    : constant Card.Card_Type := Card.Construct (Rank => Deck.Two,
-                                                         Suit => Deck.Diamond);
-      c_has : constant Card.Card_Type := Card.Construct (Rank => Deck.King,
-                                                         Suit => Deck.Diamond);
+      c1    : constant Card.Card_Type
+        := Card.Construct (Rank => Definitions.Ace,
+                           Suit => Definitions.Diamond);
+      c2    : constant Card.Card_Type
+        := Card.Construct (Rank => Definitions.Two,
+                           Suit => Definitions.Diamond);
+      c_has : constant Card.Card_Type
+        := Card.Construct (Rank => Definitions.King,
+                           Suit => Definitions.Diamond);
    begin
       pile.Push (c1);
       pile.Push (c2);
@@ -265,8 +283,9 @@ package body Pile_Of_Cards.LIFO.Test is
       pragma Unreferenced (T);
       pile  : Pile_Of_Cards.LIFO.Pile_Type_LIFO
         := Pile_Of_Cards.LIFO.Construct;
-      c1    : constant Card.Card_Type := Card.Construct (Rank => Deck.Ace,
-                                                         Suit => Deck.Diamond);
+      c1    : constant Card.Card_Type
+        := Card.Construct (Rank => Definitions.Ace,
+                           Suit => Definitions.Diamond);
       c_has : constant Card.Card_Type := c1;
    begin
       pile.Push (c1);
@@ -277,10 +296,12 @@ package body Pile_Of_Cards.LIFO.Test is
       pragma Unreferenced (T);
       pile  : Pile_Of_Cards.LIFO.Pile_Type_LIFO
         := Pile_Of_Cards.LIFO.Construct;
-      c1    : constant Card.Card_Type := Card.Construct (Rank => Deck.Ace,
-                                                         Suit => Deck.Diamond);
-      c2    : constant Card.Card_Type := Card.Construct (Rank => Deck.Two,
-                                                         Suit => Deck.Diamond);
+      c1    : constant Card.Card_Type
+        := Card.Construct (Rank => Definitions.Ace,
+                           Suit => Definitions.Diamond);
+      c2    : constant Card.Card_Type
+        := Card.Construct (Rank => Definitions.Two,
+                           Suit => Definitions.Diamond);
       c_has : constant Card.Card_Type := c1;
    begin
       pile.Push (c1);
@@ -292,10 +313,12 @@ package body Pile_Of_Cards.LIFO.Test is
       pragma Unreferenced (T);
       pile  : Pile_Of_Cards.LIFO.Pile_Type_LIFO
         := Pile_Of_Cards.LIFO.Construct;
-      c1    : constant Card.Card_Type := Card.Construct (Rank => Deck.Ace,
-                                                         Suit => Deck.Diamond);
-      c2    : constant Card.Card_Type := Card.Construct (Rank => Deck.Two,
-                                                         Suit => Deck.Diamond);
+      c1    : constant Card.Card_Type
+        := Card.Construct (Rank => Definitions.Ace,
+                           Suit => Definitions.Diamond);
+      c2    : constant Card.Card_Type
+        := Card.Construct (Rank => Definitions.Two,
+                           Suit => Definitions.Diamond);
       c_has : constant Card.Card_Type := c2;
    begin
       pile.Push (c1);
@@ -324,8 +347,9 @@ package body Pile_Of_Cards.LIFO.Test is
       pragma Unreferenced (T);
       pile           : Pile_Of_Cards.LIFO.Pile_Type_LIFO
         := Pile_Of_Cards.LIFO.Construct;
-      C1             : constant Card.Card_Type := Card.Construct (Deck.Ace,
-                                                                  Deck.Diamond);
+      C1             : constant Card.Card_Type
+        := Card.Construct (Definitions.Ace,
+                           Definitions.Diamond);
       SI1            : constant Card.Short_Image_Type := C1.Short_Image;
       sif            : Short_Image_FIFO.Short_Image_FIFO_Type;
       Expected_Size  : constant Natural := 1;
@@ -349,11 +373,13 @@ package body Pile_Of_Cards.LIFO.Test is
       pragma Unreferenced (T);
       pile           : Pile_Of_Cards.LIFO.Pile_Type_LIFO
         := Pile_Of_Cards.LIFO.Construct;
-      C1             : constant Card.Card_Type := Card.Construct (Deck.Ace,
-                                                                  Deck.Diamond);
+      C1             : constant Card.Card_Type
+        := Card.Construct (Definitions.Ace,
+                           Definitions.Diamond);
       SI1            : constant Card.Short_Image_Type := C1.Short_Image;
-      C2             : constant Card.Card_Type := Card.Construct (Deck.King,
-                                                                  Deck.Club);
+      C2             : constant Card.Card_Type
+        := Card.Construct (Definitions.King,
+                           Definitions.Club);
       SI2            : constant Card.Short_Image_Type := C2.Short_Image;
       sif            : Short_Image_FIFO.Short_Image_FIFO_Type;
       Expected_Size  : constant Natural := 2;
@@ -418,8 +444,8 @@ package body Pile_Of_Cards.LIFO.Test is
       pragma Unreferenced (T);
       pile    : Pile_Of_Cards.LIFO.Pile_Type_LIFO
         := Pile_Of_Cards.LIFO.Construct;
-      c       : constant Card.Card_Type := Card.Construct (Deck.Ace,
-                                                           Deck.Diamond);
+      c       : constant Card.Card_Type := Card.Construct (Definitions.Ace,
+                                                           Definitions.Diamond);
       Actual  : Card.Card_Type;
    begin
       pile.Push (c);
@@ -435,10 +461,10 @@ package body Pile_Of_Cards.LIFO.Test is
       pragma Unreferenced (T);
       pile    : Pile_Of_Cards.LIFO.Pile_Type_LIFO
         := Pile_Of_Cards.LIFO.Construct;
-      c1      : constant Card.Card_Type := Card.Construct (Deck.Ace,
-                                                        Deck.Diamond);
-      c2   : constant Card.Card_Type := Card.Construct (Deck.Two,
-                                                        Deck.Diamond);
+      c1      : constant Card.Card_Type := Card.Construct (Definitions.Ace,
+                                                           Definitions.Diamond);
+      c2      : constant Card.Card_Type := Card.Construct (Definitions.Two,
+                                                           Definitions.Diamond);
       Actual  : Card.Card_Type;
    begin
       pile.Push (c1);

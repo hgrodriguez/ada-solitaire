@@ -1,7 +1,7 @@
 with Ada.Exceptions;
 
+with Definitions;
 with Card;
-with Deck;
 with Pile_Of_Cards.FIFO;
 
 with AUnit.Assertions;
@@ -27,8 +27,9 @@ package body Pile_Of_Cards.FIFO.Test is
    --  Puts
    procedure Put_One_Card (T : in out Test) is
       pragma Unreferenced (T);
-      c    : constant Card.Card_Type := Card.Construct (Rank => Deck.Ace,
-                                                        Suit => Deck.Diamond);
+      c    : constant Card.Card_Type
+        := Card.Construct (Rank => Definitions.Ace,
+                           Suit => Definitions.Diamond);
       pile : Pile_Of_Cards.FIFO.Pile_Type_FIFO := Pile_Of_Cards.FIFO.Construct;
 
    begin
@@ -41,10 +42,12 @@ package body Pile_Of_Cards.FIFO.Test is
 
    procedure Put_Two_Cards (T : in out Test) is
       pragma Unreferenced (T);
-      c1   : constant Card.Card_Type := Card.Construct (Rank => Deck.Ace,
-                                                        Suit => Deck.Diamond);
-      c2   : constant Card.Card_Type := Card.Construct (Rank => Deck.Two,
-                                                        Suit => Deck.Diamond);
+      c1   : constant Card.Card_Type
+        := Card.Construct (Rank => Definitions.Ace,
+                           Suit => Definitions.Diamond);
+      c2   : constant Card.Card_Type
+        := Card.Construct (Rank => Definitions.Two,
+                           Suit => Definitions.Diamond);
       pile : Pile_Of_Cards.FIFO.Pile_Type_FIFO := Pile_Of_Cards.FIFO.Construct;
 
    begin
@@ -60,8 +63,9 @@ package body Pile_Of_Cards.FIFO.Test is
    --  Gets
    procedure Get_One_Card (T : in out Test) is
       pragma Unreferenced (T);
-      c    : constant Card.Card_Type := Card.Construct (Rank => Deck.Ace,
-                                                        Suit => Deck.Diamond);
+      c    : constant Card.Card_Type
+        := Card.Construct (Rank => Definitions.Ace,
+                           Suit => Definitions.Diamond);
       pile : Pile_Of_Cards.FIFO.Pile_Type_FIFO := Pile_Of_Cards.FIFO.Construct;
       r    : Card.Card_Type;
 
@@ -80,10 +84,12 @@ package body Pile_Of_Cards.FIFO.Test is
    procedure Get_One_Card_Put_Two (T : in out Test) is
       pragma Unreferenced (T);
       pile : Pile_Of_Cards.FIFO.Pile_Type_FIFO := Pile_Of_Cards.FIFO.Construct;
-      c1   : constant Card.Card_Type := Card.Construct (Rank => Deck.Ace,
-                                                        Suit => Deck.Diamond);
-      c2   : constant Card.Card_Type := Card.Construct (Rank => Deck.Two,
-                                                        Suit => Deck.Diamond);
+      c1   : constant Card.Card_Type
+        := Card.Construct (Rank => Definitions.Ace,
+                           Suit => Definitions.Diamond);
+      c2   : constant Card.Card_Type
+        := Card.Construct (Rank => Definitions.Two,
+                           Suit => Definitions.Diamond);
       r    : Card.Card_Type;
    begin
       pile.Put (c1);
@@ -100,10 +106,12 @@ package body Pile_Of_Cards.FIFO.Test is
    procedure Get_Two_Cards_Put_Two (T : in out Test) is
       pragma Unreferenced (T);
       pile : Pile_Of_Cards.FIFO.Pile_Type_FIFO := Pile_Of_Cards.FIFO.Construct;
-      c1   : constant Card.Card_Type := Card.Construct (Rank => Deck.Ace,
-                                                        Suit => Deck.Diamond);
-      c2   : constant Card.Card_Type := Card.Construct (Rank => Deck.Two,
-                                                        Suit => Deck.Diamond);
+      c1   : constant Card.Card_Type
+        := Card.Construct (Rank => Definitions.Ace,
+                           Suit => Definitions.Diamond);
+      c2   : constant Card.Card_Type
+        := Card.Construct (Rank => Definitions.Two,
+                           Suit => Definitions.Diamond);
       r1   : Card.Card_Type;
       r2   : Card.Card_Type;
    begin
@@ -135,7 +143,7 @@ package body Pile_Of_Cards.FIFO.Test is
          AUnit.Assertions.Assert (False,
                                   "Get_One_Card_No_Put_Exception: " &
                                     "wrong exception raised:" &
-                                 Ada.Exceptions.Exception_Name (Exc));
+                                    Ada.Exceptions.Exception_Name (Exc));
    end Get_One_Card_No_Put_Exception;
 
    procedure Get_One_Card_No_Put (T : in out Test) is
@@ -152,7 +160,7 @@ package body Pile_Of_Cards.FIFO.Test is
    procedure Peek_No_Cards_Exception;
    procedure Peek_No_Cards_Exception is
       pile : constant Pile_Of_Cards.FIFO.Pile_Type_FIFO
-               := Pile_Of_Cards.FIFO.Construct;
+        := Pile_Of_Cards.FIFO.Construct;
       r    : Card.Card_Type;
       pragma Warnings (Off, r);
    begin
@@ -177,8 +185,9 @@ package body Pile_Of_Cards.FIFO.Test is
    procedure Peek_One_Card (T : in out Test) is
       pragma Unreferenced (T);
       pile : Pile_Of_Cards.FIFO.Pile_Type_FIFO := Pile_Of_Cards.FIFO.Construct;
-      c    : constant Card.Card_Type := Card.Construct (Rank => Deck.Ace,
-                                                        Suit => Deck.Diamond);
+      c    : constant Card.Card_Type
+        := Card.Construct (Rank => Definitions.Ace,
+                           Suit => Definitions.Diamond);
       r    : Card.Card_Type;
    begin
       pile.Put (c);
@@ -191,10 +200,12 @@ package body Pile_Of_Cards.FIFO.Test is
    procedure Peek_Two_Cards (T : in out Test) is
       pragma Unreferenced (T);
       pile : Pile_Of_Cards.FIFO.Pile_Type_FIFO := Pile_Of_Cards.FIFO.Construct;
-      c1   : constant Card.Card_Type := Card.Construct (Rank => Deck.Ace,
-                                                        Suit => Deck.Diamond);
-      c2   : constant Card.Card_Type := Card.Construct (Rank => Deck.Two,
-                                                        Suit => Deck.Diamond);
+      c1   : constant Card.Card_Type
+        := Card.Construct (Rank => Definitions.Ace,
+                           Suit => Definitions.Diamond);
+      c2   : constant Card.Card_Type
+        := Card.Construct (Rank => Definitions.Two,
+                           Suit => Definitions.Diamond);
       r    : Card.Card_Type;
    begin
       pile.Put (c1);
@@ -211,8 +222,9 @@ package body Pile_Of_Cards.FIFO.Test is
       pragma Unreferenced (T);
       pile : constant Pile_Of_Cards.FIFO.Pile_Type_FIFO
         := Pile_Of_Cards.FIFO.Construct;
-      c    : constant Card.Card_Type := Card.Construct (Rank => Deck.Ace,
-                                                        Suit => Deck.Diamond);
+      c    : constant Card.Card_Type
+        := Card.Construct (Rank => Definitions.Ace,
+                           Suit => Definitions.Diamond);
    begin
       AUnit.Assertions.Assert (not pile.Has (c), "Has=True");
    end Has_Not_No_Cards;
@@ -220,10 +232,10 @@ package body Pile_Of_Cards.FIFO.Test is
    procedure Has_Not_1_Card (T : in out Test) is
       pragma Unreferenced (T);
       pile  : Pile_Of_Cards.FIFO.Pile_Type_FIFO := Pile_Of_Cards.FIFO.Construct;
-      c_put : constant Card.Card_Type := Card.Construct (Deck.Ace,
-                                                         Deck.Diamond);
-      c_has : constant Card.Card_Type := Card.Construct (Deck.Two,
-                                                         Deck.Diamond);
+      c_put : constant Card.Card_Type := Card.Construct (Definitions.Ace,
+                                                         Definitions.Diamond);
+      c_has : constant Card.Card_Type := Card.Construct (Definitions.Two,
+                                                         Definitions.Diamond);
    begin
       pile.Put (c_put);
       AUnit.Assertions.Assert (not pile.Has (c_has), "Has=True");
@@ -233,12 +245,12 @@ package body Pile_Of_Cards.FIFO.Test is
       pragma Unreferenced (T);
       pile   : Pile_Of_Cards.FIFO.Pile_Type_FIFO
         := Pile_Of_Cards.FIFO.Construct;
-      c_put1 : constant Card.Card_Type := Card.Construct (Deck.Ace,
-                                                         Deck.Diamond);
-      c_put2 : constant Card.Card_Type := Card.Construct (Deck.King,
-                                                          Deck.Diamond);
-      c_has  : constant Card.Card_Type := Card.Construct (Deck.Two,
-                                                         Deck.Diamond);
+      c_put1 : constant Card.Card_Type := Card.Construct (Definitions.Ace,
+                                                          Definitions.Diamond);
+      c_put2 : constant Card.Card_Type := Card.Construct (Definitions.King,
+                                                          Definitions.Diamond);
+      c_has  : constant Card.Card_Type := Card.Construct (Definitions.Two,
+                                                          Definitions.Diamond);
    begin
       pile.Put (c_put1);
       pile.Put (c_put2);
@@ -248,8 +260,8 @@ package body Pile_Of_Cards.FIFO.Test is
    procedure Has_1_Card (T : in out Test) is
       pragma Unreferenced (T);
       pile  : Pile_Of_Cards.FIFO.Pile_Type_FIFO := Pile_Of_Cards.FIFO.Construct;
-      c_put : constant Card.Card_Type := Card.Construct (Deck.Ace,
-                                                         Deck.Diamond);
+      c_put : constant Card.Card_Type := Card.Construct (Definitions.Ace,
+                                                         Definitions.Diamond);
       c_has : constant Card.Card_Type := c_put;
    begin
       pile.Put (c_put);
@@ -260,10 +272,10 @@ package body Pile_Of_Cards.FIFO.Test is
       pragma Unreferenced (T);
       pile   : Pile_Of_Cards.FIFO.Pile_Type_FIFO
         := Pile_Of_Cards.FIFO.Construct;
-      c_put1 : constant Card.Card_Type := Card.Construct (Deck.Ace,
-                                                          Deck.Diamond);
-      c_put2 : constant Card.Card_Type := Card.Construct (Deck.King,
-                                                          Deck.Diamond);
+      c_put1 : constant Card.Card_Type := Card.Construct (Definitions.Ace,
+                                                          Definitions.Diamond);
+      c_put2 : constant Card.Card_Type := Card.Construct (Definitions.King,
+                                                          Definitions.Diamond);
       c_has  : constant Card.Card_Type := c_put1;
    begin
       pile.Put (c_put1);
@@ -275,10 +287,10 @@ package body Pile_Of_Cards.FIFO.Test is
       pragma Unreferenced (T);
       pile   : Pile_Of_Cards.FIFO.Pile_Type_FIFO
         := Pile_Of_Cards.FIFO.Construct;
-      c_put1 : constant Card.Card_Type := Card.Construct (Deck.Ace,
-                                                          Deck.Diamond);
-      c_put2 : constant Card.Card_Type := Card.Construct (Deck.King,
-                                                          Deck.Diamond);
+      c_put1 : constant Card.Card_Type := Card.Construct (Definitions.Ace,
+                                                          Definitions.Diamond);
+      c_put2 : constant Card.Card_Type := Card.Construct (Definitions.King,
+                                                          Definitions.Diamond);
       c_has  : constant Card.Card_Type := c_put2;
    begin
       pile.Put (c_put1);

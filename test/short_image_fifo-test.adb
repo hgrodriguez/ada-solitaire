@@ -3,7 +3,8 @@ with Ada.Exceptions;
 with AUnit.Assertions;
 with AUnit.Test_Caller;
 
-with Deck;
+with Definitions;
+
 with Short_Image_FIFO;
 
 package body Short_Image_FIFO.Test is
@@ -32,7 +33,7 @@ package body Short_Image_FIFO.Test is
 
    procedure Construct_Size (T : in out Test) is
       pragma Unreferenced (T);
-      SIF : constant Short_Image_FIFO.Short_Image_FIFO_Type
+      SIF      : constant Short_Image_FIFO.Short_Image_FIFO_Type
         := Short_Image_FIFO.Construct;
       Expected : constant Natural := 0;
       Actual   : Natural;
@@ -76,8 +77,9 @@ package body Short_Image_FIFO.Test is
       pragma Unreferenced (T);
       SIF      : Short_Image_FIFO.Short_Image_FIFO_Type
         := Short_Image_FIFO.Construct;
-      C        : constant Card.Card_Type := Card.Construct (Deck.Ace,
-                                                            Deck.Diamond);
+      C        : constant Card.Card_Type
+        := Card.Construct (Definitions.Ace,
+                           Definitions.Diamond);
       SI       : constant Card.Short_Image_Type := C.Short_Image;
       Expected : constant Boolean := False;
       Actual   : Boolean;
@@ -93,8 +95,9 @@ package body Short_Image_FIFO.Test is
       pragma Unreferenced (T);
       SIF      : Short_Image_FIFO.Short_Image_FIFO_Type
         := Short_Image_FIFO.Construct;
-      C        : constant Card.Card_Type := Card.Construct (Deck.Ace,
-                                                            Deck.Diamond);
+      C        : constant Card.Card_Type
+        := Card.Construct (Definitions.Ace,
+                           Definitions.Diamond);
       SI       : constant Card.Short_Image_Type := C.Short_Image;
       Expected : constant Natural := 1;
       Actual   : Natural;
@@ -110,8 +113,9 @@ package body Short_Image_FIFO.Test is
       pragma Unreferenced (T);
       SIF      : Short_Image_FIFO.Short_Image_FIFO_Type
         := Short_Image_FIFO.Construct;
-      C        : constant Card.Card_Type := Card.Construct (Deck.Ace,
-                                                            Deck.Diamond);
+      C        : constant Card.Card_Type
+        := Card.Construct (Definitions.Ace,
+                           Definitions.Diamond);
       SI       : constant Card.Short_Image_Type := C.Short_Image;
       Expected : constant Boolean := False;
       Actual   : Boolean;
@@ -128,8 +132,9 @@ package body Short_Image_FIFO.Test is
       pragma Unreferenced (T);
       SIF      : Short_Image_FIFO.Short_Image_FIFO_Type
         := Short_Image_FIFO.Construct;
-      C        : constant Card.Card_Type := Card.Construct (Deck.Ace,
-                                                            Deck.Diamond);
+      C        : constant Card.Card_Type
+        := Card.Construct (Definitions.Ace,
+                           Definitions.Diamond);
       SI       : constant Card.Short_Image_Type := C.Short_Image;
       Expected : constant Natural := 2;
       Actual   : Natural;
@@ -175,8 +180,9 @@ package body Short_Image_FIFO.Test is
       pragma Unreferenced (T);
       SIF      : Short_Image_FIFO.Short_Image_FIFO_Type
         := Short_Image_FIFO.Construct;
-      C        : constant Card.Card_Type := Card.Construct (Deck.Ace,
-                                                            Deck.Diamond);
+      C        : constant Card.Card_Type
+        := Card.Construct (Definitions.Ace,
+                           Definitions.Diamond);
       SI       : constant Card.Short_Image_Type := C.Short_Image;
       Expected : constant Card.Short_Image_Type := SI;
       Actual   : Card.Short_Image_Type;
@@ -192,11 +198,13 @@ package body Short_Image_FIFO.Test is
       pragma Unreferenced (T);
       SIF      : Short_Image_FIFO.Short_Image_FIFO_Type
         := Short_Image_FIFO.Construct;
-      C1       : constant Card.Card_Type := Card.Construct (Deck.Ace,
-                                                            Deck.Diamond);
+      C1       : constant Card.Card_Type
+        := Card.Construct (Definitions.Ace,
+                           Definitions.Diamond);
       SI1      : constant Card.Short_Image_Type := C1.Short_Image;
-      C2       : constant Card.Card_Type := Card.Construct (Deck.King,
-                                                            Deck.Spade);
+      C2       : constant Card.Card_Type
+        := Card.Construct (Definitions.King,
+                           Definitions.Spade);
       SI2      : constant Card.Short_Image_Type := C2.Short_Image;
       Expected : constant Card.Short_Image_Type := SI1;
       Actual   : Card.Short_Image_Type;
@@ -213,11 +221,13 @@ package body Short_Image_FIFO.Test is
       pragma Unreferenced (T);
       SIF       : Short_Image_FIFO.Short_Image_FIFO_Type
         := Short_Image_FIFO.Construct;
-      C1        : constant Card.Card_Type := Card.Construct (Deck.Ace,
-                                                             Deck.Diamond);
+      C1        : constant Card.Card_Type
+        := Card.Construct (Definitions.Ace,
+                           Definitions.Diamond);
       SI1       : constant Card.Short_Image_Type := C1.Short_Image;
-      C2        : constant Card.Card_Type := Card.Construct (Deck.King,
-                                                             Deck.Spade);
+      C2        : constant Card.Card_Type
+        := Card.Construct (Definitions.King,
+                           Definitions.Spade);
       SI2       : constant Card.Short_Image_Type := C2.Short_Image;
       Expected1 : constant Card.Short_Image_Type := SI1;
       Actual1   : Card.Short_Image_Type;

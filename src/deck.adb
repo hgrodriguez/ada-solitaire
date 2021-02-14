@@ -1,25 +1,27 @@
 
+with Definitions; use Definitions;
+
 package body Deck is
 
    --------------------------------------------------------------------
    --
-   function Is_Red (Suit : Suit_Type) return Boolean is
+   function Is_Red (Suit : Definitions.Suit) return Boolean is
    begin
-      return Suit = Diamond or else Suit = Heart;
+      return Suit = Definitions.Diamond or else Suit = Definitions.Heart;
    end Is_Red;
 
    --------------------------------------------------------------------
    --
-   function Is_Black (Suit : Suit_Type) return Boolean is
+   function Is_Black (Suit : Definitions.Suit) return Boolean is
    begin
-      return Suit = Club or else Suit = Spade;
+      return Suit = Definitions.Club or else Suit = Definitions.Spade;
    end Is_Black;
 
    --------------------------------------------------------------------
    --
-   function Short_Image (Rank : Rank_Type_Valid_Range)
+   function Short_Image (Rank : Definitions.Ranks_Valid_Range)
                          return Short_Image_Rank_Type is
-      type Short_Ranks_Type is array (Rank_Type_Valid_Range)
+      type Short_Ranks_Type is array (Definitions.Ranks_Valid_Range)
         of Short_Image_Rank_Type;
       Short_Ranks : constant Short_Ranks_Type
         := (Ace => "A",
@@ -42,9 +44,9 @@ package body Deck is
 
    --------------------------------------------------------------------
    --
-   function Short_Image (Suit : Suit_Type_Valid_Range)
+   function Short_Image (Suit : Definitions.Suits_Valid_Range)
                          return Short_Image_Suit_Type is
-      type Short_Suits_Type is array (Suit_Type_Valid_Range)
+      type Short_Suits_Type is array (Definitions.Suits_Valid_Range)
         of Short_Image_Suit_Type;
       Short_Suits : constant Short_Suits_Type
         := (Diamond => "D",
@@ -95,8 +97,8 @@ package body Deck is
    --------------------------------------------------------------------
    --
    function Get_Rank_For_Short_Image (SIRT : Short_Image_Rank_Type)
-                                      return Rank_Type_Valid_Range is
-      R : Rank_Type_Valid_Range;
+                                      return Definitions.Ranks_Valid_Range is
+      R : Definitions.Ranks_Valid_Range;
    begin
       if SIRT = "A" then
          R := Ace;
@@ -151,8 +153,8 @@ package body Deck is
    --------------------------------------------------------------------
    --
    function Get_Suit_For_Short_Image (SIST : Short_Image_Suit_Type)
-                                      return Suit_Type_Valid_Range is
-      R : Suit_Type_Valid_Range;
+                                      return Definitions.Suits_Valid_Range is
+      R : Definitions.Suits_Valid_Range;
    begin
       if SIST = "D" then
          R := Diamond;

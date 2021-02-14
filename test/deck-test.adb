@@ -1,34 +1,39 @@
-with Deck;
+with Ada.Exceptions;
 
 with AUnit.Assertions;
-with Ada.Exceptions;
 with AUnit.Test_Caller;
+
+with Definitions;
+with Deck;
 
 package body Deck.Test is
 
    procedure Test_Is_Red_Diamond (T : in out Test) is
       pragma Unreferenced (T);
    begin
-      AUnit.Assertions.Assert (Deck.Is_Red (Diamond),
+      AUnit.Assertions.Assert (Deck.Is_Red (Definitions.Diamond),
                                "Diamond should be red!");
    end Test_Is_Red_Diamond;
 
    procedure Test_Is_Red_Heart (T : in out Test) is
       pragma Unreferenced (T);
    begin
-      AUnit.Assertions.Assert (Deck.Is_Red (Heart), "Heart should be red!");
+      AUnit.Assertions.Assert (Deck.Is_Red (Definitions.Heart),
+                               "Heart should be red!");
    end Test_Is_Red_Heart;
 
    procedure Test_Is_Black_Clubs (T : in out Test) is
       pragma Unreferenced (T);
    begin
-      AUnit.Assertions.Assert (Deck.Is_Black (Club), "Club should be black!");
+      AUnit.Assertions.Assert (Deck.Is_Black (Definitions.Club),
+                               "Club should be black!");
    end Test_Is_Black_Clubs;
 
    procedure Test_Is_Black_Spade (T : in out Test) is
       pragma Unreferenced (T);
    begin
-      AUnit.Assertions.Assert (Deck.Is_Black (Spade), "Spade should be red!");
+      AUnit.Assertions.Assert (Deck.Is_Black (Definitions.Spade),
+                               "Spade should be red!");
    end Test_Is_Black_Spade;
 
    procedure Test_Short_Image_Ranks (T : in out Test) is
@@ -36,31 +41,31 @@ package body Deck.Test is
       R : Deck.Short_Image_Rank_Type;
 
    begin
-      R := Deck.Short_Image (Ace);
+      R := Deck.Short_Image (Definitions.Ace);
       AUnit.Assertions.Assert (String (R) = "A", "A /= " & String (R));
-      R := Deck.Short_Image (Two);
+      R := Deck.Short_Image (Definitions.Two);
       AUnit.Assertions.Assert (String (R) = "2", "2 /= " & String (R));
-      R := Deck.Short_Image (Three);
+      R := Deck.Short_Image (Definitions.Three);
       AUnit.Assertions.Assert (String (R) = "3", "3 /= " & String (R));
-      R := Deck.Short_Image (Four);
+      R := Deck.Short_Image (Definitions.Four);
       AUnit.Assertions.Assert (String (R) = "4", "4 /= " & String (R));
-      R := Deck.Short_Image (Five);
+      R := Deck.Short_Image (Definitions.Five);
       AUnit.Assertions.Assert (String (R) = "5", "5 /= " & String (R));
-      R := Deck.Short_Image (Six);
+      R := Deck.Short_Image (Definitions.Six);
       AUnit.Assertions.Assert (String (R) = "6", "6 /= " & String (R));
-      R := Deck.Short_Image (Seven);
+      R := Deck.Short_Image (Definitions.Seven);
       AUnit.Assertions.Assert (String (R) = "7", "7 /= " & String (R));
-      R := Deck.Short_Image (Eight);
+      R := Deck.Short_Image (Definitions.Eight);
       AUnit.Assertions.Assert (String (R) = "8", "8 /= " & String (R));
-      R := Deck.Short_Image (Nine);
+      R := Deck.Short_Image (Definitions.Nine);
       AUnit.Assertions.Assert (String (R) = "9", "9 /= " & String (R));
-      R := Deck.Short_Image (Ten);
+      R := Deck.Short_Image (Definitions.Ten);
       AUnit.Assertions.Assert (String (R) = "T", "T /= " & String (R));
-      R := Deck.Short_Image (Jack);
+      R := Deck.Short_Image (Definitions.Jack);
       AUnit.Assertions.Assert (String (R) = "J", "J /= " & String (R));
-      R := Deck.Short_Image (Queen);
+      R := Deck.Short_Image (Definitions.Queen);
       AUnit.Assertions.Assert (String (R) = "Q", "Q /= " & String (R));
-      R := Deck.Short_Image (King);
+      R := Deck.Short_Image (Definitions.King);
       AUnit.Assertions.Assert (String (R) = "K", "K /= " & String (R));
    end Test_Short_Image_Ranks;
 
@@ -68,38 +73,39 @@ package body Deck.Test is
       pragma Unreferenced (T);
       S : Deck.Short_Image_Suit_Type;
    begin
-      S := Deck.Short_Image (Diamond);
+      S := Deck.Short_Image (Definitions.Diamond);
       AUnit.Assertions.Assert (String (S) = "D", "D /= " & String (S));
-      S := Deck.Short_Image (Heart);
+      S := Deck.Short_Image (Definitions.Heart);
       AUnit.Assertions.Assert (String (S) = "H", "H /= " & String (S));
-      S := Deck.Short_Image (Club);
+      S := Deck.Short_Image (Definitions.Club);
       AUnit.Assertions.Assert (String (S) = "C", "C /= " & String (S));
-      S := Deck.Short_Image (Spade);
+      S := Deck.Short_Image (Definitions.Spade);
       AUnit.Assertions.Assert (String (S) = "S", "S /= " & String (S));
    end Test_Short_Image_Suits;
 
-   type Ranks_Mapping_Type is array (Deck.Rank_Type_Valid_Range)
-     of Deck.Rank_Type_Valid_Range;
+   type Ranks_Mapping_Type is array (Definitions.Ranks_Valid_Range)
+     of Definitions.Ranks_Valid_Range;
 
    procedure Get_Rank_From_Short_Image (T : in out Test) is
       pragma Unreferenced (T);
       SI             : Deck.Short_Image_Rank_Type;
-      Expected_Ranks : constant Ranks_Mapping_Type := (Ace,
-                                                       Two,
-                                                       Three,
-                                                       Four,
-                                                       Five,
-                                                       Six,
-                                                       Seven,
-                                                       Eight,
-                                                       Nine,
-                                                       Ten,
-                                                       Jack,
-                                                       Queen,
-                                                       King);
-      Actual_Rank                   : Deck.Rank_Type_Valid_Range;
+      Expected_Ranks : constant Ranks_Mapping_Type := (Definitions.Ace,
+                                                       Definitions.Two,
+                                                       Definitions.Three,
+                                                       Definitions.Four,
+                                                       Definitions.Five,
+                                                       Definitions.Six,
+                                                       Definitions.Seven,
+                                                       Definitions.Eight,
+                                                       Definitions.Nine,
+                                                       Definitions.Ten,
+                                                       Definitions.Jack,
+                                                       Definitions.Queen,
+                                                       Definitions.King);
+      Actual_Rank                   : Definitions.Ranks_Valid_Range;
+      use Definitions;
    begin
-      for R in Deck.Rank_Type_Valid_Range loop
+      for R in Definitions.Ranks_Valid_Range loop
          SI := Deck.Short_Image (R);
          Actual_Rank := Deck.Get_Rank_For_Short_Image (SI);
          AUnit.Assertions.Assert (Expected_Ranks (R) = Actual_Rank,
@@ -110,7 +116,7 @@ package body Deck.Test is
 
    procedure Get_Rank_From_Wrong_Short_Image_Exception;
    procedure Get_Rank_From_Wrong_Short_Image_Exception is
-      Actual_Rank    : Deck.Rank_Type_Valid_Range;
+      Actual_Rank    : Definitions.Ranks_Valid_Range;
       pragma Warnings (Off, Actual_Rank);
    begin
       Actual_Rank := Deck.Get_Rank_For_Short_Image ("X");
@@ -150,19 +156,20 @@ package body Deck.Test is
                   "True!");
    end Is_Valid_Rank_Short_Image;
 
-   type Suits_Mapping_Type is array (Deck.Suit_Type_Valid_Range)
-     of Deck.Suit_Type_Valid_Range;
+   type Suits_Mapping_Type is array (Definitions.Suits_Valid_Range)
+     of Definitions.Suits_Valid_Range;
 
    procedure Get_Suit_From_Short_Image (T : in out Test) is
       pragma Unreferenced (T);
       SI             : Deck.Short_Image_Suit_Type;
-      Expected_Suits : constant Suits_Mapping_Type := (Deck.Diamond,
-                                                       Deck.Heart,
-                                                       Deck.Club,
-                                                       Deck.Spade);
-      Actual_Suit    : Deck.Suit_Type_Valid_Range;
+      Expected_Suits : constant Suits_Mapping_Type := (Definitions.Diamond,
+                                                       Definitions.Heart,
+                                                       Definitions.Club,
+                                                       Definitions.Spade);
+      Actual_Suit    : Definitions.Suits_Valid_Range;
+      use Definitions;
    begin
-      for S in Deck.Suit_Type_Valid_Range loop
+      for S in Definitions.Suits_Valid_Range loop
          SI := Deck.Short_Image (S);
          Actual_Suit := Deck.Get_Suit_For_Short_Image (SI);
          AUnit.Assertions.Assert (Expected_Suits (S) = Actual_Suit,
@@ -173,7 +180,7 @@ package body Deck.Test is
 
    procedure Get_Suit_From_Wrong_Short_Image_Exception;
    procedure Get_Suit_From_Wrong_Short_Image_Exception is
-      Actual_Suit    : Deck.Suit_Type_Valid_Range;
+      Actual_Suit    : Definitions.Suits_Valid_Range;
       pragma Warnings (Off, Actual_Suit);
    begin
       Actual_Suit := Deck.Get_Suit_For_Short_Image ("X");

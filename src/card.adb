@@ -1,31 +1,32 @@
-with Deck; use Deck;
+with Deck;
 
 package body Card is
 
-   function Construct (Rank : Deck.Rank_Type;
-                       Suit : Deck.Suit_Type)
+   function Construct (Rank : Definitions.Rank;
+                       Suit : Definitions.Suit)
                        return Card_Type is
    begin
       return (Rank, Suit);
    end Construct;
 
-   function Construct_Top_Rank (Suit : Deck.Suit_Type)
+   function Construct_Top_Rank (Suit : Definitions.Suit)
                                 return Card_Type is
    begin
-      return Construct (Deck.Top, Suit);
+      return Construct (Definitions.Top, Suit);
    end Construct_Top_Rank;
 
-   function Get_Rank (A_Card : Card_Type) return Deck.Rank_Type is
+   function Get_Rank (A_Card : Card_Type) return Definitions.Rank is
    begin
       return A_Card.Rank;
    end Get_Rank;
 
-   function Get_Suit (A_Card : Card_Type) return Deck.Suit_Type is
+   function Get_Suit (A_Card : Card_Type) return Definitions.Suit is
    begin
       return A_Card.Suit;
    end Get_Suit;
 
    function Rank_Is_Equal_To (c1 : Card_Type; c2 : Card_Type) return Boolean is
+      use Definitions;
    begin
       return c1.Get_Rank = c2.Get_Rank;
    end Rank_Is_Equal_To;
@@ -33,6 +34,7 @@ package body Card is
    function Rank_Is_Higher_Than (c1 : Card_Type;
                                  c2 : Card_Type)
                                  return Boolean is
+      use Definitions;
    begin
       return c1.Get_Rank > c2.Get_Rank;
    end Rank_Is_Higher_Than;
@@ -40,6 +42,7 @@ package body Card is
    function Rank_Is_Lower_Than (c1 : Card_Type;
                                 c2 : Card_Type)
                                 return Boolean is
+      use Definitions;
    begin
       return c1.Rank < c2.Rank;
    end Rank_Is_Lower_Than;
@@ -47,6 +50,7 @@ package body Card is
    function Suit_Is_Equal_To (c1 : Card_Type;
                               c2 : Card_Type)
                               return Boolean is
+      use Definitions;
    begin
       return c1.Get_Suit = c2.Get_Suit;
    end Suit_Is_Equal_To;

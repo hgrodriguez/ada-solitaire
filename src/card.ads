@@ -1,6 +1,6 @@
 --  Represents one card in a deck of (poker) cards
 
-with Deck;
+with Definitions;
 
 package Card is
    type Card_Type is tagged private;
@@ -16,16 +16,16 @@ package Card is
 
    --------------------------------------------------------------------
    --  Create one card
-   function Construct (Rank : Deck.Rank_Type;
-                       Suit : Deck.Suit_Type)
+   function Construct (Rank : Definitions.Rank;
+                       Suit : Definitions.Suit)
                        return Card_Type;
-   function Construct_Top_Rank (Suit : Deck.Suit_Type)
+   function Construct_Top_Rank (Suit : Definitions.Suit)
                                 return Card_Type;
 
    --------------------------------------------------------------------
    --  Getters for attributes of a card
-   function Get_Rank (A_Card : Card_Type) return Deck.Rank_Type;
-   function Get_Suit (A_Card : Card_Type) return Deck.Suit_Type;
+   function Get_Rank (A_Card : Card_Type) return Definitions.Rank;
+   function Get_Suit (A_Card : Card_Type) return Definitions.Suit;
 
    --------------------------------------------------------------------
    --  rank comparison functions
@@ -70,8 +70,8 @@ package Card is
 private
    type Card_Type is tagged
       record
-         Rank : Deck.Rank_Type;
-         Suit : Deck.Suit_Type;
+         Rank : Definitions.Rank;
+         Suit : Definitions.Suit;
       end record;
 
 end Card;

@@ -1,3 +1,4 @@
+with Definitions;
 with Card;
 with Deck; use Deck;
 
@@ -12,10 +13,10 @@ package body Card.Test is
    --  test constructing a card
    procedure Ctor_Rank (T : in out Test) is
       pragma Unreferenced (T);
-      rank : constant Deck.Rank_Type := Deck.Ace;
-      suit : constant Deck.Suit_Type := Deck.Diamond;
+      rank : constant Definitions.Rank := Definitions.Ace;
+      suit : constant Definitions.Suit := Definitions.Diamond;
       c    : Card.Card_Type;
-
+      use Definitions;
    begin
       c := Card.Construct (rank, suit);
       AUnit.Assertions.Assert (c.Get_Rank = rank,
@@ -25,10 +26,10 @@ package body Card.Test is
 
    procedure Ctor_Top_Rank (T : in out Test) is
       pragma Unreferenced (T);
-      rank : constant Deck.Rank_Type := Deck.Top;
-      suit : constant Deck.Suit_Type := Deck.Diamond;
+      rank : constant Definitions.Rank := Definitions.Top;
+      suit : constant Definitions.Suit := Definitions.Diamond;
       c    : Card.Card_Type;
-
+      use Definitions;
    begin
       c := Card.Construct_Top_Rank (suit);
       AUnit.Assertions.Assert (c.Get_Rank = rank,
@@ -38,10 +39,10 @@ package body Card.Test is
 
    procedure Ctor_Suit (T : in out Test) is
       pragma Unreferenced (T);
-      rank : constant Deck.Rank_Type := Deck.Ace;
-      suit : constant Deck.Suit_Type := Deck.Diamond;
+      rank : constant Definitions.Rank := Definitions.Ace;
+      suit : constant Definitions.Suit := Definitions.Diamond;
       c    : Card.Card_Type;
-
+      use Definitions;
    begin
       c := Card.Construct (rank, suit);
       AUnit.Assertions.Assert (c.Get_Suit = suit,
@@ -57,8 +58,8 @@ package body Card.Test is
    --  rank
    procedure Rank_Is_Equal_To_Using_Identical_Rank (T : in out Test) is
       pragma Unreferenced (T);
-      rank : constant Deck.Rank_Type := Deck.Ace;
-      suit : constant Deck.Suit_Type := Deck.Diamond;
+      rank : constant Definitions.Rank := Definitions.Ace;
+      suit : constant Definitions.Suit := Definitions.Diamond;
       c1   : constant Card.Card_Type := Card.Construct (rank, suit);
       c2   : constant Card.Card_Type := Card.Construct (rank, suit);
 
@@ -71,9 +72,9 @@ package body Card.Test is
 
    procedure Rank_Is_Equal_To_Using_Equal_Rank (T : in out Test) is
       pragma Unreferenced (T);
-      rank1 : constant Deck.Rank_Type := Deck.Ace;
-      rank2 : constant Deck.Rank_Type := Deck.Ace;
-      suit  : constant Deck.Suit_Type := Deck.Diamond;
+      rank1 : constant Definitions.Rank := Definitions.Ace;
+      rank2 : constant Definitions.Rank := Definitions.Ace;
+      suit  : constant Definitions.Suit := Definitions.Diamond;
       c1    : constant Card.Card_Type := Card.Construct (rank1, suit);
       c2    : constant Card.Card_Type := Card.Construct (rank2, suit);
 
@@ -86,8 +87,8 @@ package body Card.Test is
 
    procedure Rank_IsEqualTo_Using_Identical_Rank (T : in out Test) is
       pragma Unreferenced (T);
-      rank : constant Deck.Rank_Type := Deck.Ace;
-      suit : constant Deck.Suit_Type := Deck.Diamond;
+      rank : constant Definitions.Rank := Definitions.Ace;
+      suit : constant Definitions.Suit := Definitions.Diamond;
       c1   : constant Card.Card_Type := Card.Construct (rank, suit);
       c2   : constant Card.Card_Type := Card.Construct (rank, suit);
 
@@ -100,9 +101,9 @@ package body Card.Test is
 
    procedure Rank_IsEqualTo_Using_Equal_Rank (T : in out Test) is
       pragma Unreferenced (T);
-      rank1 : constant Deck.Rank_Type := Deck.Ace;
-      rank2 : constant Deck.Rank_Type := Deck.Ace;
-      suit  : constant Deck.Suit_Type := Deck.Diamond;
+      rank1 : constant Definitions.Rank := Definitions.Ace;
+      rank2 : constant Definitions.Rank := Definitions.Ace;
+      suit  : constant Definitions.Suit := Definitions.Diamond;
       c1    : constant Card.Card_Type := Card.Construct (rank1, suit);
       c2    : constant Card.Card_Type := Card.Construct (rank2, suit);
 
@@ -115,9 +116,9 @@ package body Card.Test is
 
    procedure Rank_Is_Higher_Than_True (T : in out Test) is
       pragma Unreferenced (T);
-      rank_low  : constant Deck.Rank_Type := Deck.Ace;
-      rank_high : constant Deck.Rank_Type := Deck.King;
-      suit      : constant Deck.Suit_Type := Deck.Diamond;
+      rank_low  : constant Definitions.Rank := Definitions.Ace;
+      rank_high : constant Definitions.Rank := Definitions.King;
+      suit      : constant Definitions.Suit := Definitions.Diamond;
       c1        : constant Card.Card_Type := Card.Construct (rank_high, suit);
       c2        : constant Card.Card_Type := Card.Construct (rank_low, suit);
 
@@ -130,9 +131,9 @@ package body Card.Test is
 
    procedure Rank_Is_Higher_Than_False (T : in out Test) is
       pragma Unreferenced (T);
-      rank_low  : constant Deck.Rank_Type := Deck.Ace;
-      rank_high : constant Deck.Rank_Type := Deck.King;
-      suit      : constant Deck.Suit_Type := Deck.Diamond;
+      rank_low  : constant Definitions.Rank := Definitions.Ace;
+      rank_high : constant Definitions.Rank := Definitions.King;
+      suit      : constant Definitions.Suit := Definitions.Diamond;
       c1        : constant Card.Card_Type := Card.Construct (rank_low, suit);
       c2        : constant Card.Card_Type := Card.Construct (rank_high, suit);
 
@@ -145,9 +146,9 @@ package body Card.Test is
 
    procedure Rank_Is_Lower_Than_True (T : in out Test) is
       pragma Unreferenced (T);
-      rank_low  : constant Deck.Rank_Type := Deck.Ace;
-      rank_high : constant Deck.Rank_Type := Deck.King;
-      suit      : constant Deck.Suit_Type := Deck.Diamond;
+      rank_low  : constant Definitions.Rank := Definitions.Ace;
+      rank_high : constant Definitions.Rank := Definitions.King;
+      suit      : constant Definitions.Suit := Definitions.Diamond;
       c1        : constant Card.Card_Type := Card.Construct (rank_low, suit);
       c2        : constant Card.Card_Type := Card.Construct (rank_high, suit);
 
@@ -160,9 +161,9 @@ package body Card.Test is
 
    procedure Rank_Is_Lower_Than_False (T : in out Test) is
       pragma Unreferenced (T);
-      rank_low  : constant Deck.Rank_Type := Deck.Ace;
-      rank_high : constant Deck.Rank_Type := Deck.King;
-      suit      : constant Deck.Suit_Type := Deck.Diamond;
+      rank_low  : constant Definitions.Rank := Definitions.Ace;
+      rank_high : constant Definitions.Rank := Definitions.King;
+      suit      : constant Definitions.Suit := Definitions.Diamond;
       c1        : constant Card.Card_Type := Card.Construct (rank_high, suit);
       c2        : constant Card.Card_Type := Card.Construct (rank_low, suit);
 
@@ -177,8 +178,8 @@ package body Card.Test is
    --  suit
    procedure Suit_Is_Equal_To_Using_Identical_Suit (T : in out Test) is
       pragma Unreferenced (T);
-      rank : constant Deck.Rank_Type := Deck.Ace;
-      suit : constant Deck.Suit_Type := Deck.Diamond;
+      rank : constant Definitions.Rank := Definitions.Ace;
+      suit : constant Definitions.Suit := Definitions.Diamond;
       c1   : constant Card.Card_Type := Card.Construct (rank, suit);
       c2   : constant Card.Card_Type := Card.Construct (rank, suit);
 
@@ -191,9 +192,9 @@ package body Card.Test is
 
    procedure Suit_Is_Equal_To_Using_Equal_Suit (T : in out Test) is
       pragma Unreferenced (T);
-      rank  : constant Deck.Rank_Type := Deck.Ace;
-      suit1 : constant Deck.Suit_Type := Deck.Diamond;
-      suit2 : constant Deck.Suit_Type := Deck.Diamond;
+      rank  : constant Definitions.Rank := Definitions.Ace;
+      suit1 : constant Definitions.Suit := Definitions.Diamond;
+      suit2 : constant Definitions.Suit := Definitions.Diamond;
       c1    : constant Card.Card_Type := Card.Construct (rank, suit1);
       c2    : constant Card.Card_Type := Card.Construct (rank, suit2);
 
@@ -206,8 +207,8 @@ package body Card.Test is
 
    procedure Suit_IsEqualTo_Using_Identical_Suit (T : in out Test) is
       pragma Unreferenced (T);
-      rank : constant Deck.Rank_Type := Deck.Ace;
-      suit : constant Deck.Suit_Type := Deck.Diamond;
+      rank : constant Definitions.Rank := Definitions.Ace;
+      suit : constant Definitions.Suit := Definitions.Diamond;
       c1   : constant Card.Card_Type := Card.Construct (rank, suit);
       c2   : constant Card.Card_Type := Card.Construct (rank, suit);
 
@@ -220,9 +221,9 @@ package body Card.Test is
 
    procedure Suit_IsEqualTo_Using_Equal_Suit (T : in out Test) is
       pragma Unreferenced (T);
-      rank  : constant Deck.Rank_Type := Deck.Ace;
-      suit1 : constant Deck.Suit_Type := Deck.Diamond;
-      suit2 : constant Deck.Suit_Type := Deck.Diamond;
+      rank  : constant Definitions.Rank := Definitions.Ace;
+      suit1 : constant Definitions.Suit := Definitions.Diamond;
+      suit2 : constant Definitions.Suit := Definitions.Diamond;
       c1    : constant Card.Card_Type := Card.Construct (rank, suit1);
       c2    : constant Card.Card_Type := Card.Construct (rank, suit2);
 
@@ -237,8 +238,8 @@ package body Card.Test is
    --  red suits
    procedure Suit_Is_Red_Diamond (T : in out Test) is
       pragma Unreferenced (T);
-      rank : constant Deck.Rank_Type := Deck.Ace;
-      suit : constant Deck.Suit_Type := Deck.Diamond;
+      rank : constant Definitions.Rank := Definitions.Ace;
+      suit : constant Definitions.Suit := Definitions.Diamond;
       c    : constant Card.Card_Type := Card.Construct (rank, suit);
 
    begin
@@ -249,8 +250,8 @@ package body Card.Test is
 
    procedure Suit_Is_Red_Heart (T : in out Test) is
       pragma Unreferenced (T);
-      rank : constant Deck.Rank_Type := Deck.Ace;
-      suit : constant Deck.Suit_Type := Deck.Heart;
+      rank : constant Definitions.Rank := Definitions.Ace;
+      suit : constant Definitions.Suit := Definitions.Heart;
       c    : constant Card.Card_Type := Card.Construct (rank, suit);
 
    begin
@@ -262,8 +263,8 @@ package body Card.Test is
    --  black suits
    procedure Suit_Is_Black_Club (T : in out Test) is
       pragma Unreferenced (T);
-      rank : constant Deck.Rank_Type := Deck.Ace;
-      suit : constant Deck.Suit_Type := Deck.Club;
+      rank : constant Definitions.Rank := Definitions.Ace;
+      suit : constant Definitions.Suit := Definitions.Club;
       c    : constant Card.Card_Type := Card.Construct (rank, suit);
 
    begin
@@ -274,8 +275,8 @@ package body Card.Test is
 
    procedure Suit_Is_Black_Spade (T : in out Test) is
       pragma Unreferenced (T);
-      rank : constant Deck.Rank_Type := Deck.Ace;
-      suit : constant Deck.Suit_Type := Deck.Spade;
+      rank : constant Definitions.Rank := Definitions.Ace;
+      suit : constant Definitions.Suit := Definitions.Spade;
       c    : constant Card.Card_Type := Card.Construct (rank, suit);
 
    begin
@@ -288,8 +289,8 @@ package body Card.Test is
    --  rank and suit
    procedure Is_Equal_To_Identical_Rank_Identical_Suit (T : in out Test) is
       pragma Unreferenced (T);
-      rank : constant Deck.Rank_Type := Deck.Ace;
-      suit : constant Deck.Suit_Type := Deck.Diamond;
+      rank : constant Definitions.Rank := Definitions.Ace;
+      suit : constant Definitions.Suit := Definitions.Diamond;
       c1   : constant Card.Card_Type := Card.Construct (rank, suit);
       c2   : constant Card.Card_Type := Card.Construct (rank, suit);
 
@@ -302,9 +303,9 @@ package body Card.Test is
 
    procedure Is_Equal_To_Equal_Rank_Identical_Suit (T : in out Test) is
       pragma Unreferenced (T);
-      rank1 : constant Deck.Rank_Type := Deck.Ace;
-      rank2 : constant Deck.Rank_Type := Deck.Ace;
-      suit  : constant Deck.Suit_Type := Deck.Diamond;
+      rank1 : constant Definitions.Rank := Definitions.Ace;
+      rank2 : constant Definitions.Rank := Definitions.Ace;
+      suit  : constant Definitions.Suit := Definitions.Diamond;
       c1    : constant Card.Card_Type := Card.Construct (rank1, suit);
       c2    : constant Card.Card_Type := Card.Construct (rank2, suit);
 
@@ -317,9 +318,9 @@ package body Card.Test is
 
    procedure Is_Equal_To_Identical_Rank_Equal_Suit (T : in out Test) is
       pragma Unreferenced (T);
-      rank  : constant Deck.Rank_Type := Deck.Ace;
-      suit1 : constant Deck.Suit_Type := Deck.Diamond;
-      suit2 : constant Deck.Suit_Type := Deck.Diamond;
+      rank  : constant Definitions.Rank := Definitions.Ace;
+      suit1 : constant Definitions.Suit := Definitions.Diamond;
+      suit2 : constant Definitions.Suit := Definitions.Diamond;
       c1    : constant Card.Card_Type := Card.Construct (rank, suit1);
       c2    : constant Card.Card_Type := Card.Construct (rank, suit2);
 
@@ -332,10 +333,10 @@ package body Card.Test is
 
    procedure Is_Equal_To_Equal_Rank_Equal_Suit (T : in out Test) is
       pragma Unreferenced (T);
-      rank1 : constant Deck.Rank_Type := Deck.Ace;
-      rank2 : constant Deck.Rank_Type := Deck.Ace;
-      suit1 : constant Deck.Suit_Type := Deck.Diamond;
-      suit2 : constant Deck.Suit_Type := Deck.Diamond;
+      rank1 : constant Definitions.Rank := Definitions.Ace;
+      rank2 : constant Definitions.Rank := Definitions.Ace;
+      suit1 : constant Definitions.Suit := Definitions.Diamond;
+      suit2 : constant Definitions.Suit := Definitions.Diamond;
       c1    : constant Card.Card_Type := Card.Construct (rank1, suit1);
       c2    : constant Card.Card_Type := Card.Construct (rank2, suit2);
 
@@ -348,8 +349,8 @@ package body Card.Test is
 
    procedure IsEqualTo_Identical_Rank_Identical_Suit (T : in out Test) is
       pragma Unreferenced (T);
-      rank : constant Deck.Rank_Type := Deck.Ace;
-      suit : constant Deck.Suit_Type := Deck.Diamond;
+      rank : constant Definitions.Rank := Definitions.Ace;
+      suit : constant Definitions.Suit := Definitions.Diamond;
       c1   : constant Card.Card_Type := Card.Construct (rank, suit);
       c2   : constant Card.Card_Type := Card.Construct (rank, suit);
 
@@ -362,9 +363,9 @@ package body Card.Test is
 
    procedure IsEqualTo_Equal_Rank_Identical_Suit (T : in out Test) is
       pragma Unreferenced (T);
-      rank1 : constant Deck.Rank_Type := Deck.Ace;
-      rank2 : constant Deck.Rank_Type := Deck.Ace;
-      suit  : constant Deck.Suit_Type := Deck.Diamond;
+      rank1 : constant Definitions.Rank := Definitions.Ace;
+      rank2 : constant Definitions.Rank := Definitions.Ace;
+      suit  : constant Definitions.Suit := Definitions.Diamond;
       c1    : constant Card.Card_Type := Card.Construct (rank1, suit);
       c2    : constant Card.Card_Type := Card.Construct (rank2, suit);
 
@@ -377,9 +378,9 @@ package body Card.Test is
 
    procedure IsEqualTo_Identical_Rank_Equal_Suit (T : in out Test) is
       pragma Unreferenced (T);
-      rank  : constant Deck.Rank_Type := Deck.Ace;
-      suit1 : constant Deck.Suit_Type := Deck.Diamond;
-      suit2 : constant Deck.Suit_Type := Deck.Diamond;
+      rank  : constant Definitions.Rank := Definitions.Ace;
+      suit1 : constant Definitions.Suit := Definitions.Diamond;
+      suit2 : constant Definitions.Suit := Definitions.Diamond;
       c1    : constant Card.Card_Type := Card.Construct (rank, suit1);
       c2    : constant Card.Card_Type := Card.Construct (rank, suit2);
 
@@ -392,10 +393,10 @@ package body Card.Test is
 
    procedure IsEqualTo_Equal_Rank_Equal_Suit (T : in out Test) is
       pragma Unreferenced (T);
-      rank1 : constant Deck.Rank_Type := Deck.Ace;
-      rank2 : constant Deck.Rank_Type := Deck.Ace;
-      suit1 : constant Deck.Suit_Type := Deck.Diamond;
-      suit2 : constant Deck.Suit_Type := Deck.Diamond;
+      rank1 : constant Definitions.Rank := Definitions.Ace;
+      rank2 : constant Definitions.Rank := Definitions.Ace;
+      suit1 : constant Definitions.Suit := Definitions.Diamond;
+      suit2 : constant Definitions.Suit := Definitions.Diamond;
       c1    : constant Card.Card_Type := Card.Construct (rank1, suit1);
       c2    : constant Card.Card_Type := Card.Construct (rank2, suit2);
 
@@ -410,8 +411,8 @@ package body Card.Test is
    --  image tests
    procedure Image_1 (T : in out Test) is
       pragma Unreferenced (T);
-      rank      : constant Deck.Rank_Type := Deck.Ace;
-      suit      : constant Deck.Suit_Type := Deck.Diamond;
+      rank      : constant Definitions.Rank := Definitions.Ace;
+      suit      : constant Definitions.Suit := Definitions.Diamond;
       c          : constant Card.Card_Type := Card.Construct (rank, suit);
       s_expected : constant String := "(" & rank'Image & "," & suit'Image & ")";
       s_result   : String (1 .. s_expected'Length);
@@ -429,8 +430,8 @@ package body Card.Test is
       Expected : Card.Short_Image_Type;
       Actual   : Card.Short_Image_Type;
    begin
-      for Rank in Deck.Rank_Type_Valid_Range loop
-         for Suit in Deck.Suit_Type_Valid_Range loop
+      for Rank in Definitions.Ranks_Valid_Range loop
+         for Suit in Definitions.Suits_Valid_Range loop
             Expected (1) := Deck.Short_Image (Rank) (1);
             Expected (2) := Deck.Short_Image (Suit) (1);
             C := Card.Construct (Rank, Suit);

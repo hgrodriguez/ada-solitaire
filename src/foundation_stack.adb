@@ -1,10 +1,8 @@
-with Deck; use Deck;
-
 package body Foundation_Stack is
 
    --------------------------------------------------------------------
    --
-   function Construct (Suit : Deck.Suit_Type)
+   function Construct (Suit : Definitions.Suit)
                        return Foundation_Stack.Stack_Type is
       ret  : Foundation_Stack.Stack_Type;
    begin
@@ -16,7 +14,7 @@ package body Foundation_Stack is
    --------------------------------------------------------------------
    --
    function Get_Suit (cs : Foundation_Stack.Stack_Type)
-                      return Deck.Suit_Type is
+                      return Definitions.Suit is
    begin
       return cs.Suit;
    end Get_Suit;
@@ -51,11 +49,11 @@ package body Foundation_Stack is
       ret : Card.Card_Type;
    begin
       if cs.Cards.Is_Empty then
-         ret := Card.Construct (Rank => Deck.Ace,
+         ret := Card.Construct (Rank => Definitions.Ace,
                                 Suit => cs.Suit);
       else
          tos := cs.Cards.Peek;
-         ret := Card.Construct (Rank => Deck.Rank_Type'Succ (tos.Get_Rank),
+         ret := Card.Construct (Rank => Definitions.Rank'Succ (tos.Get_Rank),
                                 Suit => cs.Suit);
       end if;
       return ret;
@@ -66,6 +64,7 @@ package body Foundation_Stack is
    procedure Push (cs : in out Foundation_Stack.Stack_Type;
                    c  : Card.Card_Type) is
       acceptable_card : constant Card.Card_Type := cs.Accepts;
+      use Definitions;
    begin
       if acceptable_card.Is_Equal_To (c) then
          cs.Cards.Push (c);

@@ -3,7 +3,7 @@ with Ada.Exceptions;
 with AUnit.Assertions;
 with AUnit.Test_Caller;
 
-with Deck; use Deck;
+with Definitions;
 with Card;
 
 package body Foundation_Stack.Test is
@@ -12,52 +12,56 @@ package body Foundation_Stack.Test is
    --  constructors
    procedure Test_Construct_Diamond (T : in out Test) is
       pragma Unreferenced (T);
-      suit  : constant Deck.Suit_Type := Deck.Diamond;
+      suit  : constant Definitions.Suit := Definitions.Diamond;
       stack : Foundation_Stack.Stack_Type;
+      use Definitions;
    begin
       stack := Foundation_Stack.Construct (suit);
       AUnit.Assertions.Assert (stack.Get_Suit = suit,
                                "suit=" & suit'Image &
-                               " /= " & stack.Get_Suit'Image);
+                                 " /= " & stack.Get_Suit'Image);
    end Test_Construct_Diamond;
 
    procedure Test_Construct_Club (T : in out Test) is
       pragma Unreferenced (T);
-      suit  : constant Deck.Suit_Type := Deck.Club;
+      suit  : constant Definitions.Suit := Definitions.Club;
       stack : Foundation_Stack.Stack_Type;
+      use Definitions;
    begin
       stack := Foundation_Stack.Construct (suit);
       AUnit.Assertions.Assert (stack.Get_Suit = suit,
                                "suit=" & suit'Image &
-                               " /= " & stack.Get_Suit'Image);
+                                 " /= " & stack.Get_Suit'Image);
    end Test_Construct_Club;
 
    procedure Test_Construct_Heart (T : in out Test) is
       pragma Unreferenced (T);
-      suit  : constant Deck.Suit_Type := Deck.Heart;
+      suit  : constant Definitions.Suit := Definitions.Heart;
       stack : Foundation_Stack.Stack_Type;
+      use Definitions;
    begin
       stack := Foundation_Stack.Construct (suit);
       AUnit.Assertions.Assert (stack.Get_Suit = suit,
                                "suit=" & suit'Image &
-                               " /= " & stack.Get_Suit'Image);
+                                 " /= " & stack.Get_Suit'Image);
    end Test_Construct_Heart;
 
    procedure Test_Construct_Spade (T : in out Test) is
       pragma Unreferenced (T);
-      suit  : constant Deck.Suit_Type := Deck.Spade;
+      suit  : constant Definitions.Suit := Definitions.Spade;
       stack : Foundation_Stack.Stack_Type;
+      use Definitions;
    begin
       stack := Foundation_Stack.Construct (suit);
       AUnit.Assertions.Assert (stack.Get_Suit = suit,
                                "suit=" & suit'Image &
-                               " /= " & stack.Get_Suit'Image);
+                                 " /= " & stack.Get_Suit'Image);
    end Test_Construct_Spade;
 
    --  check newly constructed attributes
    procedure Newly_Constructed_Is_Empty (T : in out Test) is
       pragma Unreferenced (T);
-      suit  : constant Deck.Suit_Type := Deck.Spade;
+      suit  : constant Definitions.Suit := Definitions.Spade;
       stack : Foundation_Stack.Stack_Type;
    begin
       stack := Foundation_Stack.Construct (suit);
@@ -68,12 +72,12 @@ package body Foundation_Stack.Test is
 
    procedure Newly_Constructed_Accepts_Ace (T : in out Test) is
       pragma Unreferenced (T);
-      suit   : constant Deck.Suit_Type := Deck.Spade;
-      stack  : constant Foundation_Stack.Stack_Type :=
-                 Foundation_Stack.Construct (suit);
+      suit    : constant Definitions.Suit := Definitions.Spade;
+      stack   : constant Foundation_Stack.Stack_Type :=
+        Foundation_Stack.Construct (suit);
       a_card  : Card.Card_Type;
    begin
-      a_card := Card.Construct (Deck.Ace, suit);
+      a_card := Card.Construct (Definitions.Ace, suit);
       AUnit.Assertions.Assert (stack.Accepts.Is_Equal_To (a_card),
                                "should accept: " & a_card.Image &
                                  "but accepts: " & stack.Accepts.Image);
@@ -81,7 +85,7 @@ package body Foundation_Stack.Test is
 
    procedure Newly_Constructed_Is_Size_0 (T : in out Test) is
       pragma Unreferenced (T);
-      suit    : constant Deck.Suit_Type := Deck.Spade;
+      suit    : constant Definitions.Suit := Definitions.Spade;
       stack   : constant Foundation_Stack.Stack_Type :=
         Foundation_Stack.Construct (suit);
    begin
@@ -93,11 +97,12 @@ package body Foundation_Stack.Test is
    --  check for push operations
    procedure Push_Newly_Constructed_OK_Size (T : in out Test) is
       pragma Unreferenced (T);
-      suit   : constant Deck.Suit_Type := Deck.Spade;
-      stack  : Foundation_Stack.Stack_Type := Foundation_Stack.Construct (suit);
+      suit    : constant Definitions.Suit := Definitions.Spade;
+      stack   : Foundation_Stack.Stack_Type
+        := Foundation_Stack.Construct (suit);
       a_card  : Card.Card_Type;
    begin
-      a_card := Card.Construct (Deck.Ace, suit);
+      a_card := Card.Construct (Definitions.Ace, suit);
       stack.Push (a_card);
       AUnit.Assertions.Assert (stack.Size = 1,
                                "size should = 1, but is: " & stack.Size'Image);
@@ -105,13 +110,13 @@ package body Foundation_Stack.Test is
 
    procedure Push_Newly_Constructed_OK_Accept (T : in out Test) is
       pragma Unreferenced (T);
-      suit            : constant Deck.Suit_Type := Deck.Spade;
+      suit            : constant Definitions.Suit := Definitions.Spade;
       stack           : Foundation_Stack.Stack_Type :=
-                          Foundation_Stack.Construct (suit);
+        Foundation_Stack.Construct (suit);
       a_card          : constant Card.Card_Type :=
-                          Card.Construct (Deck.Ace, suit);
+        Card.Construct (Definitions.Ace, suit);
       acceptable_card : constant Card.Card_Type
-                          := Card.Construct (Deck.Two, suit);
+        := Card.Construct (Definitions.Two, suit);
    begin
       stack.Push (a_card);
       AUnit.Assertions.Assert (stack.Accepts.Is_Equal_To (acceptable_card),
@@ -123,13 +128,13 @@ package body Foundation_Stack.Test is
    --  push operation
    procedure Push_All_OK_Size (T : in out Test) is
       pragma Unreferenced (T);
-      suit   : constant Deck.Suit_Type := Deck.Spade;
+      suit   : constant Definitions.Suit := Definitions.Spade;
       stack  : Foundation_Stack.Stack_Type := Foundation_Stack.Construct (suit);
       a_card : Card.Card_Type;
       size   : Natural;
    begin
       size := 0;
-      for rank in Deck.Ace .. Deck.King loop
+      for rank in Definitions.Ace .. Definitions.King loop
          a_card := Card.Construct (rank, suit);
          stack.Push (a_card);
          size := size + 1;
@@ -141,16 +146,17 @@ package body Foundation_Stack.Test is
 
    procedure Push_All_OK_Accept (T : in out Test) is
       pragma Unreferenced (T);
-      suit   : constant Deck.Suit_Type := Deck.Spade;
-      stack  : Foundation_Stack.Stack_Type := Foundation_Stack.Construct (suit);
-      a_card : Card.Card_Type;
+      suit            : constant Definitions.Suit := Definitions.Spade;
+      stack           : Foundation_Stack.Stack_Type
+        := Foundation_Stack.Construct (suit);
+      a_card          : Card.Card_Type;
       acceptable_card : Card.Card_Type;
    begin
-      for rank in Deck.Ace .. Deck.Queen loop
+      for rank in Definitions.Ace .. Definitions.Queen loop
          a_card := Card.Construct (rank, suit);
          stack.Push (a_card);
          acceptable_card :=
-           Card.Construct (Deck.Rank_Type'Succ (a_card.Get_Rank), suit);
+           Card.Construct (Definitions.Rank'Succ (a_card.Get_Rank), suit);
          AUnit.Assertions.Assert (stack.Accepts.Is_Equal_To (acceptable_card),
                                   "should accept: " & acceptable_card.Image &
                                     "but accepts: " & stack.Accepts.Image);
@@ -159,12 +165,12 @@ package body Foundation_Stack.Test is
 
    procedure Stack_Is_Full  (T : in out Test) is
       pragma Unreferenced (T);
-      suit            : constant Deck.Suit_Type := Deck.Spade;
+      suit            : constant Definitions.Suit := Definitions.Spade;
       stack           : Foundation_Stack.Stack_Type
-                          := Foundation_Stack.Construct (suit);
+        := Foundation_Stack.Construct (suit);
       a_card          : Card.Card_Type;
    begin
-      for rank in Deck.Rank_Type_Valid_Range loop
+      for rank in Definitions.Ranks_Valid_Range loop
          a_card := Card.Construct (rank, suit);
          stack.Push (a_card);
       end loop;
@@ -173,14 +179,14 @@ package body Foundation_Stack.Test is
 
    procedure Full_Stack_Does_Not_Accept_Anything (T : in out Test) is
       pragma Unreferenced (T);
-      suit            : constant Deck.Suit_Type := Deck.Spade;
+      suit            : constant Definitions.Suit := Definitions.Spade;
       stack           : Foundation_Stack.Stack_Type
-                          := Foundation_Stack.Construct (suit);
+        := Foundation_Stack.Construct (suit);
       a_card          : Card.Card_Type;
       acceptable_card : constant Card.Card_Type
-                          := Card.Construct_Top_Rank (suit);
+        := Card.Construct_Top_Rank (suit);
    begin
-      for rank in Rank_Type_Valid_Range loop
+      for rank in Definitions.Ranks_Valid_Range loop
          a_card := Card.Construct (rank, suit);
          stack.Push (a_card);
       end loop;
@@ -193,11 +199,12 @@ package body Foundation_Stack.Test is
    --  Push wrong
    procedure Push_Wrong_Card_Wrong_Suit_Exception;
    procedure Push_Wrong_Card_Wrong_Suit_Exception is
-      suit       : constant Deck.Suit_Type := Deck.Spade;
+      suit       : constant Definitions.Suit := Definitions.Spade;
       stack      : Foundation_Stack.Stack_Type
         := Foundation_Stack.Construct (suit);
-      push_card  : constant Card.Card_Type := Card.Construct (Deck.Ace,
-                                                              Deck.Diamond);
+      push_card  : constant Card.Card_Type
+        := Card.Construct (Definitions.Ace,
+                           Definitions.Diamond);
    begin
       stack.Push (push_card);
    exception
@@ -215,16 +222,16 @@ package body Foundation_Stack.Test is
       AUnit.
         Assertions.
           Assert_Exception (Push_Wrong_Card_Wrong_Suit_Exception'Access,
-                                         "Push_Wrong_Card_Wrong_Suit: " &
-                                           "no exception raised");
+                            "Push_Wrong_Card_Wrong_Suit: " &
+                              "no exception raised");
    end Push_Wrong_Card_Wrong_Suit;
 
    procedure Push_Wrong_Card_Wrong_Rank_Exception;
    procedure Push_Wrong_Card_Wrong_Rank_Exception is
-      suit       : constant Deck.Suit_Type := Deck.Spade;
+      suit       : constant Definitions.Suit := Definitions.Spade;
       stack      : Foundation_Stack.Stack_Type
         := Foundation_Stack.Construct (suit);
-      push_card  : constant Card.Card_Type := Card.Construct (Deck.King,
+      push_card  : constant Card.Card_Type := Card.Construct (Definitions.King,
                                                               suit);
    begin
       stack.Push (push_card);
@@ -249,7 +256,7 @@ package body Foundation_Stack.Test is
 
    procedure To_String_Empty (T : in out Test) is
       pragma Unreferenced (T);
-      suit     : constant Deck.Suit_Type := Deck.Spade;
+      suit     : constant Definitions.Suit := Definitions.Spade;
       stack    : constant Foundation_Stack.Stack_Type
         := Foundation_Stack.Construct (suit);
       Expected : constant Card.Short_Image_Type := Card.Empty_Short_Image;
@@ -263,14 +270,14 @@ package body Foundation_Stack.Test is
 
    procedure To_String_Not_Empty  (T : in out Test) is
       pragma Unreferenced (T);
-      suit     : constant Deck.Suit_Type := Deck.Spade;
+      suit     : constant Definitions.Suit := Definitions.Spade;
       stack    : Foundation_Stack.Stack_Type
         := Foundation_Stack.Construct (suit);
-      a_card   : Card.Card_Type := Card.Construct (Deck.Ace, suit);
+      a_card   : Card.Card_Type := Card.Construct (Definitions.Ace, suit);
       Expected : constant Card.Short_Image_Type := a_card.Short_Image;
       Actual   : Card.Short_Image_Type;
    begin
-      a_card := Card.Construct (Deck.Ace, suit);
+      a_card := Card.Construct (Definitions.Ace, suit);
       stack.Push (a_card);
       Actual := stack.To_String;
       AUnit.Assertions.Assert (Expected = Actual,
@@ -289,41 +296,41 @@ package body Foundation_Stack.Test is
    begin
       --  ctor tests
       Ret.Add_Test (Caller.
-                    Create (N & "Test_Construct_Diamond",
-                           Test_Construct_Diamond'Access));
+                      Create (N & "Test_Construct_Diamond",
+                        Test_Construct_Diamond'Access));
       Ret.Add_Test (Caller.
-                    Create (N & "Test_Construct_Club",
-                           Test_Construct_Club'Access));
+                      Create (N & "Test_Construct_Club",
+                        Test_Construct_Club'Access));
       Ret.Add_Test (Caller.
-                    Create (N & "Test_Construct_Heart",
-                           Test_Construct_Heart'Access));
+                      Create (N & "Test_Construct_Heart",
+                        Test_Construct_Heart'Access));
       Ret.Add_Test (Caller.
-                    Create (N & "Test_Construct_Spade",
-                           Test_Construct_Spade'Access));
+                      Create (N & "Test_Construct_Spade",
+                        Test_Construct_Spade'Access));
 
       --  check states of stack
       Ret.Add_Test (Caller.
-                    Create (N & "Newly_Constucted_Is_Empty",
-                           Newly_Constructed_Is_Empty'Access));
+                      Create (N & "Newly_Constucted_Is_Empty",
+                        Newly_Constructed_Is_Empty'Access));
       Ret.Add_Test (Caller.
-                    Create (N & "Newly_Constucted_Accepts_Ace",
-                           Newly_Constructed_Accepts_Ace'Access));
+                      Create (N & "Newly_Constucted_Accepts_Ace",
+                        Newly_Constructed_Accepts_Ace'Access));
       Ret.Add_Test (Caller.
-                    Create (N & "Newly_Constucted_Is_Size_0",
+                      Create (N & "Newly_Constucted_Is_Size_0",
                         Newly_Constructed_Is_Size_0'Access));
       --  various operations for the stack
       Ret.Add_Test (Caller.
-                    Create (N & "Push_Newly_Constructed_OK_Size",
-                           Push_Newly_Constructed_OK_Size'Access));
+                      Create (N & "Push_Newly_Constructed_OK_Size",
+                        Push_Newly_Constructed_OK_Size'Access));
       Ret.Add_Test (Caller.
-                    Create (N & "Push_Newly_Constructed_OK_Accept",
-                           Push_Newly_Constructed_OK_Accept'Access));
+                      Create (N & "Push_Newly_Constructed_OK_Accept",
+                        Push_Newly_Constructed_OK_Accept'Access));
       Ret.Add_Test (Caller.
-                    Create (N & "Push_All_OK_Size",
-                           Push_All_OK_Size'Access));
+                      Create (N & "Push_All_OK_Size",
+                        Push_All_OK_Size'Access));
       Ret.Add_Test (Caller.
-                    Create (N & "Push_All_OK_Accept",
-                           Push_All_OK_Accept'Access));
+                      Create (N & "Push_All_OK_Accept",
+                        Push_All_OK_Accept'Access));
 
       Ret.Add_Test (Caller.
                       Create (N & "Stack_Is_Full",

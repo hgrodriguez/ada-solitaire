@@ -1,4 +1,4 @@
-with Deck;
+with Definitions;
 with Card;
 with Pile_Of_Cards.LIFO;
 
@@ -9,13 +9,13 @@ package Foundation_Stack is
 
    --------------------------------------------------------------------
    --  constructs a Foundation_Stack with a suit
-   function Construct (Suit : Deck.Suit_Type)
+   function Construct (Suit : Definitions.Suit)
                        return Foundation_Stack.Stack_Type;
 
    --------------------------------------------------------------------
    --  returns the Suit of the Foundation_Stack
    function Get_Suit (cs : Foundation_Stack.Stack_Type)
-                      return Deck.Suit_Type;
+                      return Definitions.Suit;
 
    --------------------------------------------------------------------
    --  checks, if Foundation_Stack is empty
@@ -50,7 +50,7 @@ package Foundation_Stack is
 
 private
    type Stack_Type is tagged record
-      Suit  : Deck.Suit_Type;
+      Suit  : Definitions.Suit;
       Cards : Pile_Of_Cards.LIFO.Pile_Type_LIFO;
    end record;
 

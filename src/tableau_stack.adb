@@ -1,4 +1,5 @@
-with Deck; use Deck;
+with Definitions;
+with Deck;
 
 package body Tableau_Stack is
 
@@ -87,25 +88,26 @@ package body Tableau_Stack is
    function Accepts (T : Stack_Type) return Acceptable_Type is
       Result   : Acceptable_Type;
       C        : Card.Card_Type;
-      New_Rank : Deck.Rank_Type;
+      New_Rank : Definitions.Rank;
+      use Definitions;
    begin
       if T.Is_Empty then
-         for suit in Deck.Suit_Type_Valid_Range loop
-            Result.Put (Card.Construct (Deck.King, suit));
+         for suit in Definitions.Suits_Valid_Range loop
+            Result.Put (Card.Construct (Definitions.King, suit));
          end loop;
       else
          --  investigate
          C := T.Cards.Peek;
-         if C.Get_Rank = Deck.Ace then
+         if C.Get_Rank = Definitions.Ace then
             return Result;
          end if;
-         New_Rank := Deck.Rank_Type'Pred (C.Get_Rank);
+         New_Rank := Definitions.Rank'Pred (C.Get_Rank);
          if Deck.Is_Red (C.Get_Suit) then
-            for suit in Deck.Suit_Type_Black loop
+            for suit in Definitions.Suits_Black loop
                Result.Put (Card.Construct (New_Rank, suit));
             end loop;
          else
-            for suit in Deck.Suit_Type_Red loop
+            for suit in Definitions.Suits_Red loop
                Result.Put (Card.Construct (New_Rank, suit));
             end loop;
          end if;
@@ -131,11 +133,12 @@ package body Tableau_Stack is
    --------------------------------------------------------------------
    --
    function Has_King_As_Bottom_Card (T : Stack_Type) return Boolean is
+      use Definitions;
    begin
       if T.Size = 0 then
          return False;
       else
-         return T.Cards.all.Peek_Bottom.Get_Rank = Deck.King;
+         return T.Cards.all.Peek_Bottom.Get_Rank = Definitions.King;
       end if;
    end Has_King_As_Bottom_Card;
 

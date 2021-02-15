@@ -3,8 +3,8 @@ with Ada.Exceptions;
 with AUnit.Assertions;
 with AUnit.Test_Caller;
 
+with Definitions;
 with Card;
-with Deck; use Deck;
 
 package body Tableau_Stack.Test is
 
@@ -116,8 +116,8 @@ package body Tableau_Stack.Test is
       pragma Unreferenced (T);
       stack : constant Tableau_Stack.Stack_Type
         := Tableau_Stack.Construct (NUMBER_FOR_STACK);
-      C_N   : constant Card.Card_Type := Card.Construct (Deck.Two,
-                                                         Deck.Diamond);
+      C_N   : constant Card.Card_Type := Card.Construct (Definitions.Two,
+                                                         Definitions.Diamond);
    begin
       AUnit.Assertions.Assert (not stack.Has (C_N), "Has=False /= True");
    end Does_Not_Have_Empty_Stack;
@@ -126,10 +126,11 @@ package body Tableau_Stack.Test is
       pragma Unreferenced (T);
       stack : constant Tableau_Stack.Stack_Type
         := Tableau_Stack.Construct (NUMBER_FOR_STACK);
-      C_N   : constant Card.Card_Type := Card.Construct (Deck.Two,
-                                                         Deck.Diamond);
+      C_N   : constant Card.Card_Type := Card.Construct (Definitions.Two,
+                                                         Definitions.Diamond);
    begin
-      stack.Push_Unchecked (Card.Construct (Deck.Ten, Deck.Heart));
+      stack.Push_Unchecked (Card.Construct
+                            (Definitions.Ten, Definitions.Heart));
       AUnit.Assertions.Assert (not stack.Has (C_N), "Has=False /= True");
    end Does_Not_Have_Not_Empty_Stack;
 
@@ -137,8 +138,8 @@ package body Tableau_Stack.Test is
       pragma Unreferenced (T);
       stack : constant Tableau_Stack.Stack_Type
         := Tableau_Stack.Construct (NUMBER_FOR_STACK);
-      C_N   : constant Card.Card_Type := Card.Construct (Deck.Two,
-                                                         Deck.Diamond);
+      C_N   : constant Card.Card_Type := Card.Construct (Definitions.Two,
+                                                         Definitions.Diamond);
    begin
       stack.Push_Unchecked (C_N);
       AUnit.Assertions.Assert (stack.Has (C_N), "Has=True /= False");
@@ -151,7 +152,8 @@ package body Tableau_Stack.Test is
       stack : constant Tableau_Stack.Stack_Type
         := Tableau_Stack.Construct (NUMBER_FOR_STACK);
    begin
-      stack.Push_Checked (Card.Construct (Deck.King, Deck.Diamond));
+      stack.Push_Checked (Card.Construct
+                          (Definitions.King, Definitions.Diamond));
       AUnit.Assertions.Assert (stack.Size = 1,
                                "size=1" &
                                  " /= " & stack.Size'Image);
@@ -161,8 +163,9 @@ package body Tableau_Stack.Test is
       pragma Unreferenced (T);
       stack : constant Tableau_Stack.Stack_Type
         := Tableau_Stack.Construct (NUMBER_FOR_STACK);
-      C_E   : constant Card.Card_Type := Card.Construct (Rank => Deck.King,
-                                                         Suit => Deck.Diamond);
+      C_E   : constant Card.Card_Type
+        := Card.Construct (Rank => Definitions.King,
+                           Suit => Definitions.Diamond);
       C     : Card.Card_Type;
    begin
       stack.Push_Checked (C_E);
@@ -176,8 +179,9 @@ package body Tableau_Stack.Test is
       pragma Unreferenced (T);
       stack : constant Tableau_Stack.Stack_Type
         := Tableau_Stack.Construct (NUMBER_FOR_STACK);
-      C_E   : constant Card.Card_Type := Card.Construct (Rank => Deck.King,
-                                                         Suit => Deck.Diamond);
+      C_E   : constant Card.Card_Type
+        := Card.Construct (Rank => Definitions.King,
+                           Suit => Definitions.Diamond);
       C     : Card.Card_Type;
    begin
       stack.Push_Checked (C_E);
@@ -192,7 +196,7 @@ package body Tableau_Stack.Test is
       Stack : constant Tableau_Stack.Stack_Type
         := Tableau_Stack.Construct (NUMBER_FOR_STACK);
       C     : constant Card.Card_Type
-        := Card.Construct (Deck.Ace, Deck.Diamond);
+        := Card.Construct (Definitions.Ace, Definitions.Diamond);
    begin
       Stack.Push_Checked (C);
    exception
@@ -221,12 +225,12 @@ package body Tableau_Stack.Test is
       stack : constant Tableau_Stack.Stack_Type
         := Tableau_Stack.Construct (NUMBER_FOR_STACK);
    begin
-      stack.Push_Unchecked (Card.Construct (Rank => Deck.Three,
-                                            Suit => Deck.Diamond));
-      stack.Push_Unchecked (Card.Construct (Rank => Deck.Three,
-                                            Suit => Deck.Club));
-      stack.Push_Unchecked (Card.Construct (Rank => Deck.Ten,
-                                            Suit => Deck.Spade));
+      stack.Push_Unchecked (Card.Construct (Rank => Definitions.Three,
+                                            Suit => Definitions.Diamond));
+      stack.Push_Unchecked (Card.Construct (Rank => Definitions.Three,
+                                            Suit => Definitions.Club));
+      stack.Push_Unchecked (Card.Construct (Rank => Definitions.Ten,
+                                            Suit => Definitions.Spade));
       AUnit.Assertions.Assert (stack.Size = 3,
                                "size=1" &
                                  " /= " & stack.Size'Image);
@@ -239,19 +243,20 @@ package body Tableau_Stack.Test is
       stack       : constant Tableau_Stack.Stack_Type
         := Tableau_Stack.Construct (NUMBER_FOR_STACK);
       Acceptables : Tableau_Stack.Acceptable_Type := stack.Accepts;
-      Seen        : array (Deck.Suit_Type_Valid_Range) of Boolean;
+      Seen        : array (Definitions.Suits_Valid_Range) of Boolean;
       C           : Card.Card_Type;
+      use Definitions;
    begin
       AUnit.Assertions.Assert (Acceptables.Size = 4,
                                "size=4" &
                                  " /= " & Acceptables.Size'Image);
-      for suit in Deck.Suit_Type_Valid_Range loop
+      for suit in Definitions.Suits_Valid_Range loop
          Seen (suit) := False;
       end loop;
 
       while Acceptables.Size > 0 loop
          C := Acceptables.Get;
-         AUnit.Assertions.Assert (C.Get_Rank = Deck.King,
+         AUnit.Assertions.Assert (C.Get_Rank = Definitions.King,
                                   "rank=King" &
                                     " /= " & C.Get_Rank'Image);
          if Seen (C.Get_Suit) then
@@ -270,9 +275,9 @@ package body Tableau_Stack.Test is
       stack         : constant Tableau_Stack.Stack_Type
         := Tableau_Stack.Construct (NUMBER_FOR_STACK);
       Card_King     : constant Card.Card_Type
-        := Card.Construct (Deck.King, Deck.Diamond);
+        := Card.Construct (Definitions.King, Definitions.Diamond);
       Card_Ace      : constant Card.Card_Type
-        := Card.Construct (Deck.Ace, Deck.Diamond);
+        := Card.Construct (Definitions.Ace, Definitions.Diamond);
       Acceptables   : Tableau_Stack.Acceptable_Type;
    begin
       stack.Push_Checked (Card_King);
@@ -291,13 +296,13 @@ package body Tableau_Stack.Test is
       stack           : constant Tableau_Stack.Stack_Type
         := Tableau_Stack.Construct (NUMBER_FOR_STACK);
       Card_King       : constant Card.Card_Type
-        := Card.Construct (Deck.King, Deck.Diamond);
+        := Card.Construct (Definitions.King, Definitions.Diamond);
       Card_Ten        : constant Card.Card_Type
-        := Card.Construct (Deck.Ten, Deck.Diamond);
+        := Card.Construct (Definitions.Ten, Definitions.Diamond);
       Card_Nine_Club  : constant Card.Card_Type
-        := Card.Construct (Deck.Nine, Deck.Club);
+        := Card.Construct (Definitions.Nine, Definitions.Club);
       Card_Nine_Spade : constant Card.Card_Type
-        := Card.Construct (Deck.Nine, Deck.Spade);
+        := Card.Construct (Definitions.Nine, Definitions.Spade);
       Acceptables     : Tableau_Stack.Acceptable_Type;
 
    begin
@@ -335,7 +340,7 @@ package body Tableau_Stack.Test is
       Actual_Size := SIF.Size;
       AUnit.Assertions.Assert (Expected_Size = Actual_Size,
                                "Expected_Size=" & Expected_Size'Image &
-                              "/= Actual_Size=" & Actual_Size'Image);
+                                 "/= Actual_Size=" & Actual_Size'Image);
       Actual_SI := SIF.Get;
       AUnit.Assertions.Assert (Expected_SI = Actual_SI,
                                "Expected_SI=" & Expected_SI &
@@ -352,8 +357,9 @@ package body Tableau_Stack.Test is
       Expected_Size : constant Natural := 1;
       Actual_Size   : Natural;
 
-      C1            : constant Card.Card_Type := Card.Construct (Deck.Ace,
-                                                                 Deck.Diamond);
+      C1            : constant Card.Card_Type
+        := Card.Construct (Definitions.Ace,
+                           Definitions.Diamond);
       Expected_SI1  : constant Card.Short_Image_Type := C1.Short_Image;
       Actual_SI1    : Card.Short_Image_Type;
    begin
@@ -379,13 +385,15 @@ package body Tableau_Stack.Test is
       Expected_Size : constant Natural := 2;
       Actual_Size   : Natural;
 
-      C1            : constant Card.Card_Type := Card.Construct (Deck.Ace,
-                                                                 Deck.Diamond);
+      C1            : constant Card.Card_Type
+        := Card.Construct (Definitions.Ace,
+                           Definitions.Diamond);
       Expected_SI1  : constant Card.Short_Image_Type := C1.Short_Image;
       Actual_SI1    : Card.Short_Image_Type;
 
-      C2            : constant Card.Card_Type := Card.Construct (Deck.King,
-                                                                 Deck.Spade);
+      C2            : constant Card.Card_Type
+        := Card.Construct (Definitions.King,
+                           Definitions.Spade);
       Expected_SI2  : constant Card.Short_Image_Type := C2.Short_Image;
       Actual_SI2    : Card.Short_Image_Type;
    begin
@@ -426,17 +434,17 @@ package body Tableau_Stack.Test is
    --
    procedure HasKingAsBottomCard_NoKing_At_All (T : in out Test) is
       pragma Unreferenced (T);
-      stack : constant Tableau_Stack.Stack_Type
+      stack    : constant Tableau_Stack.Stack_Type
         := Tableau_Stack.Construct (NUMBER_FOR_STACK);
       Expected : constant Boolean := False;
       Actual   : Boolean;
    begin
-      stack.Push_Unchecked (Card.Construct (Rank => Deck.Three,
-                                            Suit => Deck.Diamond));
-      stack.Push_Unchecked (Card.Construct (Rank => Deck.Three,
-                                            Suit => Deck.Club));
-      stack.Push_Unchecked (Card.Construct (Rank => Deck.Ten,
-                                            Suit => Deck.Spade));
+      stack.Push_Unchecked (Card.Construct (Rank => Definitions.Three,
+                                            Suit => Definitions.Diamond));
+      stack.Push_Unchecked (Card.Construct (Rank => Definitions.Three,
+                                            Suit => Definitions.Club));
+      stack.Push_Unchecked (Card.Construct (Rank => Definitions.Ten,
+                                            Suit => Definitions.Spade));
       Actual := stack.Has_King_As_Bottom_Card;
       AUnit.Assertions.Assert (Expected = Actual,
                                "Expected=" & Expected'Image &
@@ -452,12 +460,12 @@ package body Tableau_Stack.Test is
       Expected : constant Boolean := False;
       Actual   : Boolean;
    begin
-      stack.Push_Unchecked (Card.Construct (Rank => Deck.Three,
-                                            Suit => Deck.Diamond));
-      stack.Push_Unchecked (Card.Construct (Rank => Deck.King,
-                                            Suit => Deck.Club));
-      stack.Push_Unchecked (Card.Construct (Rank => Deck.Ten,
-                                            Suit => Deck.Spade));
+      stack.Push_Unchecked (Card.Construct (Rank => Definitions.Three,
+                                            Suit => Definitions.Diamond));
+      stack.Push_Unchecked (Card.Construct (Rank => Definitions.King,
+                                            Suit => Definitions.Club));
+      stack.Push_Unchecked (Card.Construct (Rank => Definitions.Ten,
+                                            Suit => Definitions.Spade));
       Actual := stack.Has_King_As_Bottom_Card;
       AUnit.Assertions.Assert (Expected = Actual,
                                "Expected=" & Expected'Image &
@@ -473,8 +481,8 @@ package body Tableau_Stack.Test is
       Expected : constant Boolean := True;
       Actual   : Boolean;
    begin
-      stack.Push_Unchecked (Card.Construct (Rank => Deck.King,
-                                            Suit => Deck.Club));
+      stack.Push_Unchecked (Card.Construct (Rank => Definitions.King,
+                                            Suit => Definitions.Club));
       Actual := stack.Has_King_As_Bottom_Card;
       AUnit.Assertions.Assert (Expected = Actual,
                                "Expected=" & Expected'Image &
@@ -489,19 +497,19 @@ package body Tableau_Stack.Test is
       Expected : constant Boolean := True;
       Actual   : Boolean;
    begin
-      stack.Push_Unchecked (Card.Construct (Rank => Deck.King,
-                                            Suit => Deck.Club));
-      stack.Push_Unchecked (Card.Construct (Rank => Deck.Three,
-                                            Suit => Deck.Diamond));
-      stack.Push_Unchecked (Card.Construct (Rank => Deck.Ten,
-                                            Suit => Deck.Spade));
+      stack.Push_Unchecked (Card.Construct (Rank => Definitions.King,
+                                            Suit => Definitions.Club));
+      stack.Push_Unchecked (Card.Construct (Rank => Definitions.Three,
+                                            Suit => Definitions.Diamond));
+      stack.Push_Unchecked (Card.Construct (Rank => Definitions.Ten,
+                                            Suit => Definitions.Spade));
       Actual := stack.Has_King_As_Bottom_Card;
       AUnit.Assertions.Assert (Expected = Actual,
                                "Expected=" & Expected'Image &
                                  "/= Actual=" & Actual'Image);
    end HasKingAsBottomCard_KingAtBottomMultipleCardsNoOtherKings;
 
-   procedure HasKingAsBottomCard_KingAtBottomMultipleCardsWithOtherKings
+   procedure HasKingAsBottomCard_KingAtBottomMultipleCardsW_OtherKings
      (T : in out Test) is
       pragma Unreferenced (T);
       stack    : constant Tableau_Stack.Stack_Type
@@ -509,21 +517,21 @@ package body Tableau_Stack.Test is
       Expected : constant Boolean := True;
       Actual   : Boolean;
    begin
-      stack.Push_Unchecked (Card.Construct (Rank => Deck.King,
-                                            Suit => Deck.Club));
-      stack.Push_Unchecked (Card.Construct (Rank => Deck.Three,
-                                            Suit => Deck.Diamond));
-      stack.Push_Unchecked (Card.Construct (Rank => Deck.King,
-                                            Suit => Deck.Spade));
-      stack.Push_Unchecked (Card.Construct (Rank => Deck.King,
-                                            Suit => Deck.Heart));
-      stack.Push_Unchecked (Card.Construct (Rank => Deck.Four,
-                                            Suit => Deck.Diamond));
+      stack.Push_Unchecked (Card.Construct (Rank => Definitions.King,
+                                            Suit => Definitions.Club));
+      stack.Push_Unchecked (Card.Construct (Rank => Definitions.Three,
+                                            Suit => Definitions.Diamond));
+      stack.Push_Unchecked (Card.Construct (Rank => Definitions.King,
+                                            Suit => Definitions.Spade));
+      stack.Push_Unchecked (Card.Construct (Rank => Definitions.King,
+                                            Suit => Definitions.Heart));
+      stack.Push_Unchecked (Card.Construct (Rank => Definitions.Four,
+                                            Suit => Definitions.Diamond));
       Actual := stack.Has_King_As_Bottom_Card;
       AUnit.Assertions.Assert (Expected = Actual,
                                "Expected=" & Expected'Image &
                                  "/= Actual=" & Actual'Image);
-   end HasKingAsBottomCard_KingAtBottomMultipleCardsWithOtherKings;
+   end HasKingAsBottomCard_KingAtBottomMultipleCardsW_OtherKings;
 
    --------------------------------------------------------------------
    --  the test suit construction
@@ -622,14 +630,18 @@ package body Tableau_Stack.Test is
         Add_Test (Caller.
                     Create (
                       N &
-                "HasKingAsBottomCard_KingAtBottomMultipleCardsNoOtherKings",
-            HasKingAsBottomCard_KingAtBottomMultipleCardsNoOtherKings'Access));
+                        "HasKingAsBottomCard" &
+                        "_KingAtBottomMultipleCardsNoOtherKings",
+                      HasKingAsBottomCard_KingAtBottomMultipleCardsNoOtherKings
+                      'Access));
       Ret.
         Add_Test (Caller.
                     Create (
                       N &
-                "HasKingAsBottomCard_KingAtBottomMultipleCardsWithOtherKings",
-          HasKingAsBottomCard_KingAtBottomMultipleCardsWithOtherKings'Access));
+                        "HasKingAsBottomCard" &
+                        "_KingAtBottomMultipleCardsWithOtherKings",
+                      HasKingAsBottomCard_KingAtBottomMultipleCardsW_OtherKings
+                      'Access));
       --
       return Ret;
    end Suite;

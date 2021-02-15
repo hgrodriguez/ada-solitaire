@@ -38,7 +38,7 @@ private
    procedure HasKingAsBottomCard_KingAtBottomOnlyCard (T : in out Test);
    procedure HasKingAsBottomCard_KingAtBottomMultipleCardsNoOtherKings
      (T : in out Test);
-   procedure HasKingAsBottomCard_KingAtBottomMultipleCardsWithOtherKings
+   procedure HasKingAsBottomCard_KingAtBottomMultipleCardsW_OtherKings
      (T : in out Test);
 
 end Tableau_Stack.Test;

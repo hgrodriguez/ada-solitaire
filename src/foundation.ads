@@ -1,5 +1,5 @@
+with Definitions;
 with Card;
-with Deck;
 with Foundation_Stack;
 with Pile_Of_Cards.FIFO;
 
@@ -40,7 +40,7 @@ package Foundation is
 
 private
 
-   type Stack_Array is array (Deck.Suit_Type)
+   type Stack_Array is array (Definitions.Suit)
      of Foundation_Stack.Stack_Type_Access;
 
    type Foundation_Type is tagged record

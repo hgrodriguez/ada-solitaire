@@ -4,7 +4,6 @@ with AUnit.Assertions;
 with AUnit.Test_Caller;
 
 with Card;
-with Deck; use Deck;
 
 package body Foundation.Test is
 
@@ -40,14 +39,18 @@ package body Foundation.Test is
    procedure Check_Accepted_Empty_Foundation (T : in out Test) is
       pragma Unreferenced (T);
       F           : constant Foundation.Foundation_Type := Foundation.Construct;
-      Acc_Diamond : constant Card.Card_Type := Card.Construct (Deck.Ace,
-                                                               Deck.Diamond);
-      Acc_Club    : constant Card.Card_Type := Card.Construct (Deck.Ace,
-                                                               Deck.Club);
-      Acc_Heart   : constant Card.Card_Type := Card.Construct (Deck.Ace,
-                                                               Deck.Heart);
-      Acc_Spade   : constant Card.Card_Type := Card.Construct (Deck.Ace,
-                                                               Deck.Spade);
+      Acc_Diamond : constant Card.Card_Type
+        := Card.Construct (Definitions.Ace,
+                           Definitions.Diamond);
+      Acc_Club    : constant Card.Card_Type
+        := Card.Construct (Definitions.Ace,
+                           Definitions.Club);
+      Acc_Heart   : constant Card.Card_Type
+        := Card.Construct (Definitions.Ace,
+                           Definitions.Heart);
+      Acc_Spade   : constant Card.Card_Type
+        := Card.Construct (Definitions.Ace,
+                           Definitions.Spade);
       Acceptable  : Foundation.Acceptable_Type := F.Accepts;
       Acc_Card    : Card.Card_Type;
    begin
@@ -73,27 +76,28 @@ package body Foundation.Test is
                                  " /= " & Acc_Spade.Image);
    end Check_Accepted_Empty_Foundation;
 
-   procedure Accepts_Suit_All_Cards (Suit : Deck.Suit_Type);
-   procedure Accepts_Suit_All_Cards (Suit : Deck.Suit_Type) is
+   procedure Accepts_Suit_All_Cards (Suit : Definitions.Suit);
+   procedure Accepts_Suit_All_Cards (Suit : Definitions.Suit) is
       F            : constant Foundation.Foundation_Type
         := Foundation.Construct;
       Acceptable   : Foundation.Acceptable_Type;
       Card_To_Put  : Card.Card_Type;
       Card_Accepts : Card.Card_Type;
+      use Definitions;
    begin
-      for rank in Deck.Rank_Type_Valid_Range loop
+      for rank in Definitions.Ranks_Valid_Range loop
          Card_To_Put := Card.Construct (rank, Suit);
          Acceptable := F.Accepts;
-         if Suit = Deck.Diamond then
+         if Suit = Definitions.Diamond then
             Card_Accepts := Acceptable.Get;
-         elsif Suit = Deck.Heart then
-            Card_Accepts := Acceptable.Get;
-            Card_Accepts := Acceptable.Get;
-         elsif Suit = Deck.Club then
+         elsif Suit = Definitions.Heart then
             Card_Accepts := Acceptable.Get;
             Card_Accepts := Acceptable.Get;
+         elsif Suit = Definitions.Club then
             Card_Accepts := Acceptable.Get;
-         elsif Suit = Deck.Spade then
+            Card_Accepts := Acceptable.Get;
+            Card_Accepts := Acceptable.Get;
+         elsif Suit = Definitions.Spade then
             Card_Accepts := Acceptable.Get;
             Card_Accepts := Acceptable.Get;
             Card_Accepts := Acceptable.Get;
@@ -109,37 +113,38 @@ package body Foundation.Test is
    procedure Accepts_Suit_Diamond_All_Cards (T : in out Test) is
       pragma Unreferenced (T);
    begin
-      Accepts_Suit_All_Cards (Deck.Diamond);
+      Accepts_Suit_All_Cards (Definitions.Diamond);
    end Accepts_Suit_Diamond_All_Cards;
 
    procedure Accepts_Suit_Club_All_Cards (T : in out Test) is
       pragma Unreferenced (T);
    begin
-      Accepts_Suit_All_Cards (Deck.Club);
+      Accepts_Suit_All_Cards (Definitions.Club);
    end Accepts_Suit_Club_All_Cards;
 
    procedure Accepts_Suit_Heart_All_Cards (T : in out Test) is
       pragma Unreferenced (T);
    begin
-      Accepts_Suit_All_Cards (Deck.Heart);
+      Accepts_Suit_All_Cards (Definitions.Heart);
    end Accepts_Suit_Heart_All_Cards;
 
    procedure Accepts_Suit_Spade_All_Cards (T : in out Test) is
       pragma Unreferenced (T);
    begin
-      Accepts_Suit_All_Cards (Deck.Spade);
+      Accepts_Suit_All_Cards (Definitions.Spade);
    end Accepts_Suit_Spade_All_Cards;
 
-   procedure Accepts_Only_Other_Suits_Ace_For (Suit : Deck.Suit_Type);
-   procedure Accepts_Only_Other_Suits_Ace_For (Suit : Deck.Suit_Type) is
+   procedure Accepts_Only_Other_Suits_Ace_For (Suit : Definitions.Suit);
+   procedure Accepts_Only_Other_Suits_Ace_For (Suit : Definitions.Suit) is
       F             : constant Foundation.Foundation_Type
         := Foundation.Construct;
       C             : Card.Card_Type;
       Expected_Card : Card.Card_Type;
       Acceptable    : Foundation.Acceptable_Type;
+      use Definitions;
    begin
-      for r in Deck.Rank_Type_Valid_Range loop
-         for s in Deck.Suit_Type_Valid_Range loop
+      for r in Definitions.Ranks_Valid_Range loop
+         for s in Definitions.Suits_Valid_Range loop
             if s = Suit then
                C := Card.Construct (r, s);
                F.Put (C);
@@ -148,11 +153,11 @@ package body Foundation.Test is
       end loop;
       Acceptable := F.Accepts;
 
-      for s in Deck.Suit_Type_Valid_Range loop
+      for s in Definitions.Suits_Valid_Range loop
          if s = Suit then
             Expected_Card := Card.Construct_Top_Rank (Suit);
          else
-            Expected_Card := Card.Construct (Deck.Ace, s);
+            Expected_Card := Card.Construct (Definitions.Ace, s);
          end if;
          C := Acceptable.Get;
          AUnit.Assertions.Assert (C.Is_Equal_To (Expected_Card),
@@ -164,25 +169,25 @@ package body Foundation.Test is
    procedure Accepts_Only_Other_Suits_Ace_Diamond (T : in out Test) is
       pragma Unreferenced (T);
    begin
-      Accepts_Only_Other_Suits_Ace_For (Deck.Diamond);
+      Accepts_Only_Other_Suits_Ace_For (Definitions.Diamond);
    end Accepts_Only_Other_Suits_Ace_Diamond;
 
    procedure Accepts_Only_Other_Suits_Ace_Club (T : in out Test) is
       pragma Unreferenced (T);
    begin
-      Accepts_Only_Other_Suits_Ace_For (Deck.Club);
+      Accepts_Only_Other_Suits_Ace_For (Definitions.Club);
    end Accepts_Only_Other_Suits_Ace_Club;
 
    procedure Accepts_Only_Other_Suits_Ace_Heart (T : in out Test) is
       pragma Unreferenced (T);
    begin
-      Accepts_Only_Other_Suits_Ace_For (Deck.Heart);
+      Accepts_Only_Other_Suits_Ace_For (Definitions.Heart);
    end Accepts_Only_Other_Suits_Ace_Heart;
 
    procedure Accepts_Only_Other_Suits_Ace_Spade (T : in out Test) is
       pragma Unreferenced (T);
    begin
-      Accepts_Only_Other_Suits_Ace_For (Deck.Spade);
+      Accepts_Only_Other_Suits_Ace_For (Definitions.Spade);
    end Accepts_Only_Other_Suits_Ace_Spade;
 
    procedure Full_Foundation_Accepts_Is_Empty (T : in out Test) is
@@ -191,11 +196,12 @@ package body Foundation.Test is
         := Foundation.Construct;
       C             : Card.Card_Type;
       Acceptable    : Foundation.Acceptable_Type;
-      Expected_Rank : constant Deck.Rank_Type := Deck.Top;
-      Actual_Rank   : Deck.Rank_Type;
+      Expected_Rank : constant Definitions.Rank := Definitions.Top;
+      Actual_Rank   : Definitions.Rank;
+      use Definitions;
    begin
-      for rank in Deck.Rank_Type_Valid_Range loop
-         for suit in Deck.Suit_Type_Valid_Range loop
+      for rank in Definitions.Ranks_Valid_Range loop
+         for suit in Definitions.Suits_Valid_Range loop
             C := Card.Construct (rank, suit);
             F.Put (C);
          end loop;
@@ -222,7 +228,8 @@ package body Foundation.Test is
    procedure Does_Not_Accept_Card_Out_Of_Order_Exception;
    procedure Does_Not_Accept_Card_Out_Of_Order_Exception is
       F : constant Foundation.Foundation_Type := Foundation.Construct;
-      C : constant Card.Card_Type := Card.Construct (Deck.Three, Deck.Diamond);
+      C : constant Card.Card_Type
+        := Card.Construct (Definitions.Three, Definitions.Diamond);
    begin
       F.Put (C);
    exception
@@ -262,8 +269,9 @@ package body Foundation.Test is
    procedure To_String_1_Non_Empty_Stack (T : in out Test) is
       pragma Unreferenced (T);
       F        : constant Foundation.Foundation_Type := Foundation.Construct;
-      Card_1   : constant Card.Card_Type := Card.Construct (Deck.Ace,
-                                                               Deck.Diamond);
+      Card_1   : constant Card.Card_Type
+        := Card.Construct (Definitions.Ace,
+                           Definitions.Diamond);
       Expected : Foundation.To_String_Type := "           ";
       Actual   : Foundation.To_String_Type;
    begin
@@ -278,10 +286,11 @@ package body Foundation.Test is
    procedure To_String_2_Non_Empty_Stack (T : in out Test) is
       pragma Unreferenced (T);
       F        : constant Foundation.Foundation_Type := Foundation.Construct;
-      Card_1   : constant Card.Card_Type := Card.Construct (Deck.Ace,
-                                                            Deck.Diamond);
-      Card_2   : constant Card.Card_Type := Card.Construct (Deck.Ace,
-                                                            Deck.Heart);
+      Card_1   : constant Card.Card_Type
+        := Card.Construct (Definitions.Ace,
+                           Definitions.Diamond);
+      Card_2   : constant Card.Card_Type := Card.Construct (Definitions.Ace,
+                                                            Definitions.Heart);
       Expected : Foundation.To_String_Type := "           ";
       Actual   : Foundation.To_String_Type;
    begin
@@ -298,12 +307,13 @@ package body Foundation.Test is
    procedure To_String_3_Non_Empty_Stack (T : in out Test) is
       pragma Unreferenced (T);
       F        : constant Foundation.Foundation_Type := Foundation.Construct;
-      Card_1   : constant Card.Card_Type := Card.Construct (Deck.Ace,
-                                                            Deck.Diamond);
-      Card_2   : constant Card.Card_Type := Card.Construct (Deck.Ace,
-                                                            Deck.Heart);
-      Card_3   : constant Card.Card_Type := Card.Construct (Deck.Ace,
-                                                            Deck.Club);
+      Card_1   : constant Card.Card_Type
+        := Card.Construct (Definitions.Ace,
+                           Definitions.Diamond);
+      Card_2   : constant Card.Card_Type := Card.Construct (Definitions.Ace,
+                                                            Definitions.Heart);
+      Card_3   : constant Card.Card_Type := Card.Construct (Definitions.Ace,
+                                                            Definitions.Club);
       Expected : Foundation.To_String_Type := "           ";
       Actual   : Foundation.To_String_Type;
    begin
@@ -322,14 +332,15 @@ package body Foundation.Test is
    procedure To_String_4_Non_Empty_Stack (T : in out Test) is
       pragma Unreferenced (T);
       F        : constant Foundation.Foundation_Type := Foundation.Construct;
-      Card_1   : constant Card.Card_Type := Card.Construct (Deck.Ace,
-                                                            Deck.Diamond);
-      Card_2   : constant Card.Card_Type := Card.Construct (Deck.Ace,
-                                                            Deck.Heart);
-      Card_3   : constant Card.Card_Type := Card.Construct (Deck.Ace,
-                                                            Deck.Club);
-      Card_4   : constant Card.Card_Type := Card.Construct (Deck.Ace,
-                                                            Deck.Spade);
+      Card_1   : constant Card.Card_Type
+        := Card.Construct (Definitions.Ace,
+                           Definitions.Diamond);
+      Card_2   : constant Card.Card_Type := Card.Construct (Definitions.Ace,
+                                                            Definitions.Heart);
+      Card_3   : constant Card.Card_Type := Card.Construct (Definitions.Ace,
+                                                            Definitions.Club);
+      Card_4   : constant Card.Card_Type := Card.Construct (Definitions.Ace,
+                                                            Definitions.Spade);
       Expected : Foundation.To_String_Type := "           ";
       Actual   : Foundation.To_String_Type;
    begin

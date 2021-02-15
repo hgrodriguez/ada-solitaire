@@ -1,7 +1,7 @@
 with AUnit.Assertions;
 with AUnit.Test_Caller;
 
-with Deck;
+with Definitions;
 
 package body Tableau.Tests4_To_String_One_Line is
 
@@ -20,10 +20,11 @@ package body Tableau.Tests4_To_String_One_Line is
    end To_String_1_Line_Empty;
 
    function Create_Stack_Images_1stLine_For (Sel : Valid_Stacks_Range)
-                                                return Stack_Images;
+                                             return Stack_Images;
 
-   First_Line_Card : constant Card.Card_Type := Card.Construct (Deck.Ace,
-                                                                Deck.Diamond);
+   First_Line_Card       : constant Card.Card_Type
+     := Card.Construct (Definitions.Ace,
+                        Definitions.Diamond);
    First_Line_Card_Image : constant Card.Short_Image_Type
      := Card.Short_Image (First_Line_Card);
 
@@ -55,14 +56,14 @@ package body Tableau.Tests4_To_String_One_Line is
    end To_String_1_Line_1st_Line_Only_One_Has_Contents;
 
    Second_Line_Card       : constant Card.Card_Type
-     := Card.Construct (Deck.King, Deck.Spade);
+     := Card.Construct (Definitions.King, Definitions.Spade);
    Second_Line_Card_Image : constant Card.Short_Image_Type
      := Card.Short_Image (Second_Line_Card);
 
    function Create_Stack_Images_1st2nd_Line_For (Sel : Valid_Stacks_Range)
-                                             return Stack_Images;
+                                                 return Stack_Images;
    function Create_Stack_Images_1st2nd_Line_For (Sel : Valid_Stacks_Range)
-                                             return Stack_Images is
+                                                 return Stack_Images is
       Ret_Val : Stack_Images;
    begin
       for J in Valid_Stacks_Range loop

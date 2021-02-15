@@ -1,20 +1,21 @@
 with AUnit.Assertions;
 with AUnit.Test_Caller;
 
+with Definitions;
 with Card;
-with Deck;
 with Pile_Of_Cards.FIFO;
 
 package body Tableau.Tests4_Remove_Mandatory_Cards is
 
-   Candidate_1 : constant Card.Card_Type := Card.Construct (Deck.Ace,
-                                                            Deck.Diamond);
-   Candidate_2 : constant Card.Card_Type := Card.Construct (Deck.Seven,
-                                                            Deck.Heart);
-   Candidate_3 : constant Card.Card_Type := Card.Construct (Deck.Ten,
-                                                            Deck.Club);
-   Candidate_4 : constant Card.Card_Type := Card.Construct (Deck.Queen,
-                                                            Deck.Spade);
+   Candidate_1 : constant Card.Card_Type
+     := Card.Construct (Definitions.Ace,
+                        Definitions.Diamond);
+   Candidate_2 : constant Card.Card_Type := Card.Construct (Definitions.Seven,
+                                                            Definitions.Heart);
+   Candidate_3 : constant Card.Card_Type := Card.Construct (Definitions.Ten,
+                                                            Definitions.Club);
+   Candidate_4 : constant Card.Card_Type := Card.Construct (Definitions.Queen,
+                                                            Definitions.Spade);
    Candidates  : constant array (1 .. 4) of Card.Card_Type := (Candidate_1,
                                                                Candidate_2,
                                                                Candidate_3,
@@ -68,7 +69,7 @@ package body Tableau.Tests4_Remove_Mandatory_Cards is
          else
             FIFO.Put (Card.
                         Construct (
-                          Deck.Rank_Type'Succ (Candidates (J).Get_Rank),
+                          Definitions.Rank'Succ (Candidates (J).Get_Rank),
                           Candidates (J).Get_Suit));
          end if;
       end loop;

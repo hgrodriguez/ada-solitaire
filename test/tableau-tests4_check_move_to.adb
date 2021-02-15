@@ -1,7 +1,7 @@
 with AUnit.Assertions;
 with AUnit.Test_Caller;
 
-with Deck;
+with Definitions;
 
 package body Tableau.Tests4_Check_Move_To is
 
@@ -10,13 +10,13 @@ package body Tableau.Tests4_Check_Move_To is
       Tab       : constant Tableau.Tableau_Type := Tableau.Construct;
       Src_Stack : constant Tableau_Stack.Stack_Type_Access := Tab.Get_Stack (1);
       Cards     : constant Some_Cards
-        := (Card.Construct (Deck.Three, Deck.Diamond),
-            Card.Construct (Deck.Seven, Deck.Heart),
-            Card.Construct (Deck.Ace,   Deck.Spade),
-            Card.Construct (Deck.King,  Deck.Club),
-            Card.Construct (Deck.Eight, Deck.Diamond),
-            Card.Construct (Deck.Three, Deck.Spade),
-            Card.Construct (Deck.Jack,  Deck.Heart));
+        := (Card.Construct (Definitions.Three, Definitions.Diamond),
+            Card.Construct (Definitions.Seven, Definitions.Heart),
+            Card.Construct (Definitions.Ace,   Definitions.Spade),
+            Card.Construct (Definitions.King,  Definitions.Club),
+            Card.Construct (Definitions.Eight, Definitions.Diamond),
+            Card.Construct (Definitions.Three, Definitions.Spade),
+            Card.Construct (Definitions.Jack,  Definitions.Heart));
       Exists    : constant Card.Card_Type := Cards (1);
       Expected  : constant Tableau.Check_Move_To_Result
         := Tableau.Destination_Stack_Equals_Source_Stack;
@@ -39,15 +39,15 @@ package body Tableau.Tests4_Check_Move_To is
       Src_Stack : constant Tableau_Stack.Stack_Type_Access
         := Tab.Get_Stack (1);
       Cards     : constant Some_Cards
-        := (Card.Construct (Deck.Three, Deck.Diamond),
-            Card.Construct (Deck.Seven, Deck.Heart),
-            Card.Construct (Deck.Ace,   Deck.Spade),
-            Card.Construct (Deck.King,  Deck.Club),
-            Card.Construct (Deck.Eight, Deck.Diamond),
-            Card.Construct (Deck.Three, Deck.Spade),
-            Card.Construct (Deck.Jack,  Deck.Heart));
+        := (Card.Construct (Definitions.Three, Definitions.Diamond),
+            Card.Construct (Definitions.Seven, Definitions.Heart),
+            Card.Construct (Definitions.Ace,   Definitions.Spade),
+            Card.Construct (Definitions.King,  Definitions.Club),
+            Card.Construct (Definitions.Eight, Definitions.Diamond),
+            Card.Construct (Definitions.Three, Definitions.Spade),
+            Card.Construct (Definitions.Jack,  Definitions.Heart));
       Not_Exist : constant Card.Card_Type
-        := Card.Construct (Deck.Queen, Deck.Club);
+        := Card.Construct (Definitions.Queen, Definitions.Club);
       Expected  : constant Tableau.Check_Move_To_Result
         := Tableau.Source_Card_Does_Not_Exist;
       Actual    : Tableau.Check_Move_To_Result;
@@ -70,13 +70,13 @@ package body Tableau.Tests4_Check_Move_To is
       Src_Stack : constant Tableau_Stack.Stack_Type_Access
         := Tab.Get_Stack (1);
       Src_Cards : constant Some_Cards
-        := (1 => Card.Construct (Deck.Three, Deck.Diamond));
+        := (1 => Card.Construct (Definitions.Three, Definitions.Diamond));
       Src_Exist : constant Card.Card_Type := Src_Cards (1);
       --
       Dst_Stack : constant Tableau_Stack.Stack_Type_Access
         := Tab.Get_Stack (2);
       Dst_Cards : constant Some_Cards
-        := (1 => Card.Construct (Deck.Ten, Deck.Diamond));
+        := (1 => Card.Construct (Definitions.Ten, Definitions.Diamond));
       Expected  : constant Tableau.Check_Move_To_Result
         := Tableau.Destination_Stack_Does_Not_Accept;
       Actual    : Tableau.Check_Move_To_Result;
@@ -101,9 +101,9 @@ package body Tableau.Tests4_Check_Move_To is
       Src_Stack  : constant Tableau_Stack.Stack_Type_Access
         := Tab.Get_Stack (1);
       Src_Cards  : constant Some_Cards
-        := (Card.Construct (Deck.Three, Deck.Diamond),
-            Card.Construct (Deck.Seven, Deck.Heart),
-            Card.Construct (Deck.King,  Deck.Heart));
+        := (Card.Construct (Definitions.Three, Definitions.Diamond),
+            Card.Construct (Definitions.Seven, Definitions.Heart),
+            Card.Construct (Definitions.King,  Definitions.Heart));
       Src_Exist  : constant Card.Card_Type := Src_Cards (Src_Cards'Last);
       Expected   : constant Tableau.Check_Move_To_Result
         := Tableau.OK;
@@ -126,15 +126,15 @@ package body Tableau.Tests4_Check_Move_To is
       Src_Stack  : constant Tableau_Stack.Stack_Type_Access
         := Tab.Get_Stack (1);
       Src_Cards  : constant Some_Cards
-        := (Card.Construct (Deck.Three, Deck.Diamond),
-            Card.Construct (Deck.Seven, Deck.Heart),
-            Card.Construct (Deck.Ten,   Deck.Heart));
+        := (Card.Construct (Definitions.Three, Definitions.Diamond),
+            Card.Construct (Definitions.Seven, Definitions.Heart),
+            Card.Construct (Definitions.Ten,   Definitions.Heart));
       Src_Exist  : constant Card.Card_Type := Src_Cards (Src_Cards'Last);
       Dst_Stack  : constant Tableau_Stack.Stack_Type_Access
         := Tab.Get_Stack (2);
       Dst_Cards  : constant Some_Cards
-        := (Card.Construct (Deck.Four, Deck.Heart),
-            Card.Construct (Deck.Jack, Deck.Club));
+        := (Card.Construct (Definitions.Four, Definitions.Heart),
+            Card.Construct (Definitions.Jack, Definitions.Club));
       Expected   : constant Tableau.Check_Move_To_Result
         := Tableau.OK;
       Actual     : Tableau.Check_Move_To_Result;
@@ -157,7 +157,7 @@ package body Tableau.Tests4_Check_Move_To is
       pragma Unreferenced (T);
       Tab       : constant Tableau.Tableau_Type := Tableau.Construct;
       Not_Exist : constant Card.Card_Type
-        := Card.Construct (Deck.Queen, Deck.Club);
+        := Card.Construct (Definitions.Queen, Definitions.Club);
       Expected   : constant Tableau.Check_Move_To_Result
         := Tableau.Stack_Empty;
       Actual     : Tableau.Check_Move_To_Result;
@@ -174,14 +174,14 @@ package body Tableau.Tests4_Check_Move_To is
       pragma Unreferenced (T);
       Tab        : constant Tableau.Tableau_Type := Tableau.Construct;
       Src_Cards  : constant Some_Cards
-        := (1 => Card.Construct (Deck.Ten,  Deck.Heart));
+        := (1 => Card.Construct (Definitions.Ten,  Definitions.Heart));
       Src_Exist  : constant Card.Card_Type := Src_Cards (Src_Cards'Last);
       --
       Dst_Stack  : constant Tableau_Stack.Stack_Type_Access
         := Tab.Get_Stack (2);
       Dst_Cards  : constant Some_Cards
-        := (Card.Construct (Deck.Four, Deck.Heart),
-            Card.Construct (Deck.Jack, Deck.Club));
+        := (Card.Construct (Definitions.Four, Definitions.Heart),
+            Card.Construct (Definitions.Jack, Definitions.Club));
       Expected   : constant Tableau.Check_Move_To_Result
         := Tableau.Stack_Empty;
       Actual     : Tableau.Check_Move_To_Result;
@@ -204,15 +204,15 @@ package body Tableau.Tests4_Check_Move_To is
       Src_Stack : constant Tableau_Stack.Stack_Type_Access
         := Tab.Get_Stack (1);
       Src_Cards : constant Some_Cards
-        := (Card.Construct (Deck.Three, Deck.Diamond),
-            Card.Construct (Deck.Seven, Deck.Heart),
-            Card.Construct (Deck.Jack,  Deck.Heart));
+        := (Card.Construct (Definitions.Three, Definitions.Diamond),
+            Card.Construct (Definitions.Seven, Definitions.Heart),
+            Card.Construct (Definitions.Jack,  Definitions.Heart));
       Src_Exist : constant Card.Card_Type := Src_Cards (1);
       --
       Dst_Stack : constant Tableau_Stack.Stack_Type_Access
         := Tab.Get_Stack (2);
       Dst_Cards : constant Some_Cards
-        := (1 => Card.Construct (Deck.Ten, Deck.Diamond));
+        := (1 => Card.Construct (Definitions.Ten, Definitions.Diamond));
       Expected   : constant Tableau.Check_Move_To_Result
         := Tableau.Destination_Stack_Does_Not_Accept;
       Actual     : Tableau.Check_Move_To_Result;
@@ -238,9 +238,9 @@ package body Tableau.Tests4_Check_Move_To is
       Src_Stack  : constant Tableau_Stack.Stack_Type_Access
         := Tab.Get_Stack (1);
       Src_Cards  : constant Some_Cards
-        := (Card.Construct (Deck.Three, Deck.Diamond),
-            Card.Construct (Deck.King,  Deck.Heart),
-            Card.Construct (Deck.Seven, Deck.Heart));
+        := (Card.Construct (Definitions.Three, Definitions.Diamond),
+            Card.Construct (Definitions.King,  Definitions.Heart),
+            Card.Construct (Definitions.Seven, Definitions.Heart));
       Src_Exist  : constant Card.Card_Type := Src_Cards (2);
       --
       Expected   : constant Tableau.Check_Move_To_Result
@@ -266,15 +266,15 @@ package body Tableau.Tests4_Check_Move_To is
       Src_Stack  : constant Tableau_Stack.Stack_Type_Access
         := Tab.Get_Stack (1);
       Src_Cards  : constant Some_Cards
-        := (Card.Construct (Deck.Three, Deck.Diamond),
-            Card.Construct (Deck.Ten,   Deck.Heart),
-            Card.Construct (Deck.Seven, Deck.Heart));
+        := (Card.Construct (Definitions.Three, Definitions.Diamond),
+            Card.Construct (Definitions.Ten,   Definitions.Heart),
+            Card.Construct (Definitions.Seven, Definitions.Heart));
       Src_Exist  : constant Card.Card_Type := Src_Cards (2);
       Dst_Stack  : constant Tableau_Stack.Stack_Type_Access
         := Tab.Get_Stack (2);
       Dst_Cards  : constant Some_Cards
-        := (Card.Construct (Deck.Four, Deck.Heart),
-            Card.Construct (Deck.Jack, Deck.Club));
+        := (Card.Construct (Definitions.Four, Definitions.Heart),
+            Card.Construct (Definitions.Jack, Definitions.Club));
       Expected   : constant Tableau.Check_Move_To_Result
         := Tableau.OK;
       Actual     : Tableau.Check_Move_To_Result;
@@ -299,10 +299,10 @@ package body Tableau.Tests4_Check_Move_To is
       Dst_Stack  : constant Tableau_Stack.Stack_Type_Access
         := Tab.Get_Stack (2);
       Dst_Cards  : constant Some_Cards
-        := (Card.Construct (Deck.Four, Deck.Heart),
-            Card.Construct (Deck.Jack, Deck.Club));
+        := (Card.Construct (Definitions.Four, Definitions.Heart),
+            Card.Construct (Definitions.Jack, Definitions.Club));
       Not_Exist  : constant Card.Card_Type
-        := Card.Construct (Deck.Queen, Deck.Club);
+        := Card.Construct (Definitions.Queen, Definitions.Club);
       Expected   : constant Tableau.Check_Move_To_Result
         := Tableau.Stack_Empty;
       Actual     : Tableau.Check_Move_To_Result;

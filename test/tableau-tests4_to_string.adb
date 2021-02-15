@@ -3,7 +3,7 @@ with Ada.Characters.Latin_1;
 with AUnit.Assertions;
 with AUnit.Test_Caller;
 
-with Deck;
+with Definitions;
 
 package body Tableau.Tests4_To_String is
 
@@ -44,32 +44,32 @@ package body Tableau.Tests4_To_String is
       --  "                     ";
       --  Fill stack one
       S := Tab.Get_Stack (1);
-      C := Card.Construct (Deck.King, Deck.Diamond);
+      C := Card.Construct (Definitions.King, Definitions.Diamond);
       S.all.Push_Unchecked (C);
-      C := Card.Construct (Deck.Queen, Deck.Spade);
+      C := Card.Construct (Definitions.Queen, Definitions.Spade);
       S.all.Push_Unchecked (C);
 
       --  Fill stack two: EMPTY
 
       --  Fill stack three
       S := Tab.Get_Stack (3);
-      C := Card.Construct (Deck.Ace, Deck.Heart);
+      C := Card.Construct (Definitions.Ace, Definitions.Heart);
       S.all.Push_Unchecked (C);
 
       --  Fill stack four
       S := Tab.Get_Stack (4);
-      C := Card.Construct (Deck.Jack, Deck.Club);
+      C := Card.Construct (Definitions.Jack, Definitions.Club);
       S.all.Push_Unchecked (C);
-      C := Card.Construct (Deck.Two, Deck.Club);
+      C := Card.Construct (Definitions.Two, Definitions.Club);
       S.all.Push_Unchecked (C);
-      C := Card.Construct (Deck.Nine, Deck.Diamond);
+      C := Card.Construct (Definitions.Nine, Definitions.Diamond);
       S.all.Push_Unchecked (C);
 
       --  Fill stack five: EMPTY
 
       --  Fill stack six
       S := Tab.Get_Stack (6);
-      C := Card.Construct (Deck.Ten, Deck.Heart);
+      C := Card.Construct (Definitions.Ten, Definitions.Heart);
       S.all.Push_Unchecked (C);
 
       --  Fill stack seven: EMPTY
@@ -110,42 +110,42 @@ package body Tableau.Tests4_To_String is
 
       --  Fill stack two
       S := Tab.Get_Stack (2);
-      C := Card.Construct (Deck.Seven, Deck.Club);
+      C := Card.Construct (Definitions.Seven, Definitions.Club);
       S.all.Push_Unchecked (C);
 
       --  Fill stack three
       S := Tab.Get_Stack (3);
-      C := Card.Construct (Deck.Ace, Deck.Spade);
+      C := Card.Construct (Definitions.Ace, Definitions.Spade);
       S.all.Push_Unchecked (C);
-      C := Card.Construct (Deck.King, Deck.Club);
+      C := Card.Construct (Definitions.King, Definitions.Club);
       S.all.Push_Unchecked (C);
-      C := Card.Construct (Deck.Two, Deck.Heart);
+      C := Card.Construct (Definitions.Two, Definitions.Heart);
       S.all.Push_Unchecked (C);
-      C := Card.Construct (Deck.Five, Deck.Spade);
+      C := Card.Construct (Definitions.Five, Definitions.Spade);
       S.all.Push_Unchecked (C);
-      C := Card.Construct (Deck.King, Deck.Heart);
+      C := Card.Construct (Definitions.King, Definitions.Heart);
       S.all.Push_Unchecked (C);
 
       --  Fill stack four : EMPTY
 
       --  Fill stack five
       S := Tab.Get_Stack (5);
-      C := Card.Construct (Deck.King, Deck.Diamond);
+      C := Card.Construct (Definitions.King, Definitions.Diamond);
       S.all.Push_Unchecked (C);
-      C := Card.Construct (Deck.Queen, Deck.Spade);
+      C := Card.Construct (Definitions.Queen, Definitions.Spade);
       S.all.Push_Unchecked (C);
-      C := Card.Construct (Deck.Jack, Deck.Heart);
+      C := Card.Construct (Definitions.Jack, Definitions.Heart);
       S.all.Push_Unchecked (C);
 
       --  Fill stack six : EMPTY
 
       --  Fill stack seven
       S := Tab.Get_Stack (7);
-      C := Card.Construct (Deck.Ten, Deck.Diamond);
+      C := Card.Construct (Definitions.Ten, Definitions.Diamond);
       S.all.Push_Unchecked (C);
-      C := Card.Construct (Deck.Nine, Deck.Club);
+      C := Card.Construct (Definitions.Nine, Definitions.Club);
       S.all.Push_Unchecked (C);
-      C := Card.Construct (Deck.Eight, Deck.Heart);
+      C := Card.Construct (Definitions.Eight, Definitions.Heart);
       S.all.Push_Unchecked (C);
 
       Actual := Tab.To_String;

@@ -3,8 +3,8 @@ with Ada.Exceptions;
 with AUnit.Assertions;
 with AUnit.Test_Caller;
 
+with Definitions;
 with Card;
-with Deck;
 with Pile_Of_Cards.FIFO;
 
 package body Tableau.Test is
@@ -74,7 +74,7 @@ package body Tableau.Test is
    procedure Add_1_Card_Check_Size (T : in out Test) is
       pragma Unreferenced (T);
       Cards         : constant Some_Cards
-        := (1 => Card.Construct (Deck.Three, Deck.Diamond));
+        := (1 => Card.Construct (Definitions.Three, Definitions.Diamond));
    begin
       Add_Cards_And_Check_Size (Cards);
    end Add_1_Card_Check_Size;
@@ -82,9 +82,9 @@ package body Tableau.Test is
    procedure Add_3_Cards_Check_Size (T : in out Test) is
       pragma Unreferenced (T);
       Cards         : constant Some_Cards
-        := (Card.Construct (Deck.Three, Deck.Diamond),
-            Card.Construct (Deck.Three, Deck.Spade),
-            Card.Construct (Deck.Jack,  Deck.Heart));
+        := (Card.Construct (Definitions.Three, Definitions.Diamond),
+            Card.Construct (Definitions.Three, Definitions.Spade),
+            Card.Construct (Definitions.Jack,  Definitions.Heart));
    begin
       Add_Cards_And_Check_Size (Cards);
    end Add_3_Cards_Check_Size;
@@ -92,13 +92,13 @@ package body Tableau.Test is
    procedure Add_7_Cards_Check_Size (T : in out Test) is
       pragma Unreferenced (T);
       Cards : constant Some_Cards
-        := (Card.Construct (Deck.Three, Deck.Diamond),
-            Card.Construct (Deck.Seven, Deck.Heart),
-            Card.Construct (Deck.Ace,   Deck.Spade),
-            Card.Construct (Deck.King,  Deck.Club),
-            Card.Construct (Deck.Eight, Deck.Diamond),
-            Card.Construct (Deck.Three, Deck.Spade),
-            Card.Construct (Deck.Jack,  Deck.Heart));
+        := (Card.Construct (Definitions.Three, Definitions.Diamond),
+            Card.Construct (Definitions.Seven, Definitions.Heart),
+            Card.Construct (Definitions.Ace,   Definitions.Spade),
+            Card.Construct (Definitions.King,  Definitions.Club),
+            Card.Construct (Definitions.Eight, Definitions.Diamond),
+            Card.Construct (Definitions.Three, Definitions.Spade),
+            Card.Construct (Definitions.Jack,  Definitions.Heart));
    begin
       Add_Cards_And_Check_Size (Cards);
    end Add_7_Cards_Check_Size;
@@ -138,7 +138,7 @@ package body Tableau.Test is
    procedure Add_1_Card_Check_Stack (T : in out Test) is
       pragma Unreferenced (T);
       Cards          : constant Some_Cards
-        := (1 => Card.Construct (Deck.Three, Deck.Diamond));
+        := (1 => Card.Construct (Definitions.Three, Definitions.Diamond));
    begin
       Add_Cards_And_Check_Stack (Cards);
    end Add_1_Card_Check_Stack;
@@ -146,9 +146,9 @@ package body Tableau.Test is
    procedure Add_3_Cards_Check_Stack (T : in out Test) is
       pragma Unreferenced (T);
       Cards          : constant Some_Cards
-        := (Card.Construct (Deck.Three, Deck.Diamond),
-            Card.Construct (Deck.Three, Deck.Spade),
-            Card.Construct (Deck.Jack,  Deck.Heart));
+        := (Card.Construct (Definitions.Three, Definitions.Diamond),
+            Card.Construct (Definitions.Three, Definitions.Spade),
+            Card.Construct (Definitions.Jack,  Definitions.Heart));
    begin
       Add_Cards_And_Check_Stack (Cards);
    end Add_3_Cards_Check_Stack;
@@ -156,13 +156,13 @@ package body Tableau.Test is
    procedure Add_7_Cards_Check_Stack (T : in out Test) is
       pragma Unreferenced (T);
       Cards          : constant Some_Cards
-        := (Card.Construct (Deck.Three, Deck.Diamond),
-            Card.Construct (Deck.Seven, Deck.Heart),
-            Card.Construct (Deck.Ace,   Deck.Spade),
-            Card.Construct (Deck.King,  Deck.Club),
-            Card.Construct (Deck.Eight, Deck.Diamond),
-            Card.Construct (Deck.Three, Deck.Spade),
-            Card.Construct (Deck.Jack,  Deck.Heart));
+        := (Card.Construct (Definitions.Three, Definitions.Diamond),
+            Card.Construct (Definitions.Seven, Definitions.Heart),
+            Card.Construct (Definitions.Ace,   Definitions.Spade),
+            Card.Construct (Definitions.King,  Definitions.Club),
+            Card.Construct (Definitions.Eight, Definitions.Diamond),
+            Card.Construct (Definitions.Three, Definitions.Spade),
+            Card.Construct (Definitions.Jack,  Definitions.Heart));
    begin
       Add_Cards_And_Check_Stack (Cards);
    end Add_7_Cards_Check_Stack;
@@ -205,7 +205,7 @@ package body Tableau.Test is
    procedure Add_1_Card_Check_Pop (T : in out Test) is
       pragma Unreferenced (T);
       Cards          : constant Some_Cards
-        := (1 => Card.Construct (Deck.Three, Deck.Diamond));
+        := (1 => Card.Construct (Definitions.Three, Definitions.Diamond));
    begin
       Add_Cards_And_Check_Pop (Cards);
    end Add_1_Card_Check_Pop;
@@ -213,9 +213,9 @@ package body Tableau.Test is
    procedure Add_3_Cards_Check_Pop (T : in out Test) is
       pragma Unreferenced (T);
       Cards          : constant Some_Cards
-        := (Card.Construct (Deck.Three, Deck.Diamond),
-            Card.Construct (Deck.Three, Deck.Spade),
-            Card.Construct (Deck.Jack,  Deck.Heart));
+        := (Card.Construct (Definitions.Three, Definitions.Diamond),
+            Card.Construct (Definitions.Three, Definitions.Spade),
+            Card.Construct (Definitions.Jack,  Definitions.Heart));
    begin
       Add_Cards_And_Check_Pop (Cards);
    end Add_3_Cards_Check_Pop;
@@ -223,13 +223,13 @@ package body Tableau.Test is
    procedure Add_7_Cards_Check_Pop (T : in out Test) is
       pragma Unreferenced (T);
       Cards          : constant Some_Cards
-        := (Card.Construct (Deck.Three, Deck.Diamond),
-            Card.Construct (Deck.Seven, Deck.Heart),
-            Card.Construct (Deck.Ace,   Deck.Spade),
-            Card.Construct (Deck.King,  Deck.Club),
-            Card.Construct (Deck.Eight, Deck.Diamond),
-            Card.Construct (Deck.Three, Deck.Spade),
-            Card.Construct (Deck.Jack,  Deck.Heart));
+        := (Card.Construct (Definitions.Three, Definitions.Diamond),
+            Card.Construct (Definitions.Seven, Definitions.Heart),
+            Card.Construct (Definitions.Ace,   Definitions.Spade),
+            Card.Construct (Definitions.King,  Definitions.Club),
+            Card.Construct (Definitions.Eight, Definitions.Diamond),
+            Card.Construct (Definitions.Three, Definitions.Spade),
+            Card.Construct (Definitions.Jack,  Definitions.Heart));
    begin
       Add_Cards_And_Check_Pop (Cards);
    end Add_7_Cards_Check_Pop;
@@ -241,13 +241,13 @@ package body Tableau.Test is
       Tab       : constant Tableau.Tableau_Type := Tableau.Construct;
       Src_Stack : constant Tableau_Stack.Stack_Type_Access := Tab.Get_Stack (1);
       Cards     : constant Some_Cards
-        := (Card.Construct (Deck.Three, Deck.Diamond),
-            Card.Construct (Deck.Seven, Deck.Heart),
-            Card.Construct (Deck.Ace,   Deck.Spade),
-            Card.Construct (Deck.King,  Deck.Club),
-            Card.Construct (Deck.Eight, Deck.Diamond),
-            Card.Construct (Deck.Three, Deck.Spade),
-            Card.Construct (Deck.Jack,  Deck.Heart));
+        := (Card.Construct (Definitions.Three, Definitions.Diamond),
+            Card.Construct (Definitions.Seven, Definitions.Heart),
+            Card.Construct (Definitions.Ace,   Definitions.Spade),
+            Card.Construct (Definitions.King,  Definitions.Club),
+            Card.Construct (Definitions.Eight, Definitions.Diamond),
+            Card.Construct (Definitions.Three, Definitions.Spade),
+            Card.Construct (Definitions.Jack,  Definitions.Heart));
       Exists : constant Card.Card_Type := Cards (1);
    begin
       for J in Natural range Cards'First .. Cards'Last loop
@@ -280,15 +280,15 @@ package body Tableau.Test is
       Tab       : constant Tableau.Tableau_Type := Tableau.Construct;
       Src_Stack : constant Tableau_Stack.Stack_Type_Access := Tab.Get_Stack (1);
       Cards     : constant Some_Cards
-        := (Card.Construct (Deck.Three, Deck.Diamond),
-            Card.Construct (Deck.Seven, Deck.Heart),
-            Card.Construct (Deck.Ace,   Deck.Spade),
-            Card.Construct (Deck.King,  Deck.Club),
-            Card.Construct (Deck.Eight, Deck.Diamond),
-            Card.Construct (Deck.Three, Deck.Spade),
-            Card.Construct (Deck.Jack,  Deck.Heart));
+        := (Card.Construct (Definitions.Three, Definitions.Diamond),
+            Card.Construct (Definitions.Seven, Definitions.Heart),
+            Card.Construct (Definitions.Ace,   Definitions.Spade),
+            Card.Construct (Definitions.King,  Definitions.Club),
+            Card.Construct (Definitions.Eight, Definitions.Diamond),
+            Card.Construct (Definitions.Three, Definitions.Spade),
+            Card.Construct (Definitions.Jack,  Definitions.Heart));
       Not_Exist : constant Card.Card_Type
-        := Card.Construct (Deck.Queen, Deck.Club);
+        := Card.Construct (Definitions.Queen, Definitions.Club);
    begin
       for J in Natural range Cards'First .. Cards'Last loop
          Src_Stack.all.Push_Unchecked (Cards (J));
@@ -321,12 +321,12 @@ package body Tableau.Test is
       --
       Src_Stack : constant Tableau_Stack.Stack_Type_Access := Tab.Get_Stack (1);
       Src_Cards : constant Some_Cards
-        := (1 => Card.Construct (Deck.Three, Deck.Diamond));
+        := (1 => Card.Construct (Definitions.Three, Definitions.Diamond));
       Src_Exist : constant Card.Card_Type := Src_Cards (1);
       --
       Dst_Stack : constant Tableau_Stack.Stack_Type_Access := Tab.Get_Stack (2);
       Dst_Cards : constant Some_Cards
-        := (1 => Card.Construct (Deck.Ten, Deck.Diamond));
+        := (1 => Card.Construct (Definitions.Ten, Definitions.Diamond));
    begin
       for J in Natural range Src_Cards'First .. Src_Cards'Last loop
          Src_Stack.all.Push_Unchecked (Src_Cards (J));
@@ -365,9 +365,9 @@ package body Tableau.Test is
       Src_Stack  : constant Tableau_Stack.Stack_Type_Access
         := Tab.Get_Stack (1);
       Src_Cards  : constant Some_Cards
-        := (Card.Construct (Deck.Three, Deck.Diamond),
-            Card.Construct (Deck.Seven, Deck.Heart),
-            Card.Construct (Deck.King,  Deck.Heart));
+        := (Card.Construct (Definitions.Three, Definitions.Diamond),
+            Card.Construct (Definitions.Seven, Definitions.Heart),
+            Card.Construct (Definitions.King,  Definitions.Heart));
       Src_Exist  : constant Card.Card_Type := Src_Cards (Src_Cards'Last);
       Src_O_Size : Natural;
       Src_N_Size : Natural;
@@ -415,9 +415,9 @@ package body Tableau.Test is
       Src_Stack  : constant Tableau_Stack.Stack_Type_Access
         := Tab.Get_Stack (1);
       Src_Cards  : constant Some_Cards
-        := (Card.Construct (Deck.Three, Deck.Diamond),
-            Card.Construct (Deck.Seven, Deck.Heart),
-            Card.Construct (Deck.Ten,   Deck.Heart));
+        := (Card.Construct (Definitions.Three, Definitions.Diamond),
+            Card.Construct (Definitions.Seven, Definitions.Heart),
+            Card.Construct (Definitions.Ten,   Definitions.Heart));
       Src_Exist  : constant Card.Card_Type := Src_Cards (Src_Cards'Last);
       Src_O_Size : Natural;
       Src_N_Size : Natural;
@@ -425,8 +425,8 @@ package body Tableau.Test is
       Dst_Stack  : constant Tableau_Stack.Stack_Type_Access
         := Tab.Get_Stack (2);
       Dst_Cards  : constant Some_Cards
-        := (Card.Construct (Deck.Four, Deck.Heart),
-            Card.Construct (Deck.Jack, Deck.Club));
+        := (Card.Construct (Definitions.Four, Definitions.Heart),
+            Card.Construct (Definitions.Jack, Definitions.Club));
       Dst_O_Size : Natural;
       Dst_N_Size : Natural;
       --
@@ -468,7 +468,7 @@ package body Tableau.Test is
    procedure Move_To_1_Src_E_Trgt_E_Exc is
       Tab       : constant Tableau.Tableau_Type := Tableau.Construct;
       Not_Exist : constant Card.Card_Type
-        := Card.Construct (Deck.Queen, Deck.Club);
+        := Card.Construct (Definitions.Queen, Definitions.Club);
    begin
       Tab.Move_To (1, 1, Not_Exist);
    exception
@@ -497,12 +497,12 @@ package body Tableau.Test is
    procedure Move_To_1_Src_E_Trgt_Not_E_Exc is
       Tab       : constant Tableau.Tableau_Type := Tableau.Construct;
       Not_Exist : constant Card.Card_Type
-        := Card.Construct (Deck.Queen, Deck.Club);
+        := Card.Construct (Definitions.Queen, Definitions.Club);
       Dst_Stack  : constant Tableau_Stack.Stack_Type_Access
         := Tab.Get_Stack (2);
       Dst_Cards  : constant Some_Cards
-        := (Card.Construct (Deck.Four, Deck.Heart),
-            Card.Construct (Deck.Jack, Deck.Club));
+        := (Card.Construct (Definitions.Four, Definitions.Heart),
+            Card.Construct (Definitions.Jack, Definitions.Club));
    begin
       for J in Natural range Dst_Cards'First .. Dst_Cards'Last loop
          Dst_Stack.all.Push_Unchecked (Dst_Cards (J));
@@ -535,14 +535,14 @@ package body Tableau.Test is
       --
       Src_Stack : constant Tableau_Stack.Stack_Type_Access := Tab.Get_Stack (1);
       Src_Cards : constant Some_Cards
-        := (Card.Construct (Deck.Three, Deck.Diamond),
-            Card.Construct (Deck.Seven, Deck.Heart),
-            Card.Construct (Deck.Jack,  Deck.Heart));
+        := (Card.Construct (Definitions.Three, Definitions.Diamond),
+            Card.Construct (Definitions.Seven, Definitions.Heart),
+            Card.Construct (Definitions.Jack,  Definitions.Heart));
       Src_Exist : constant Card.Card_Type := Src_Cards (1);
       --
       Dst_Stack : constant Tableau_Stack.Stack_Type_Access := Tab.Get_Stack (2);
       Dst_Cards : constant Some_Cards
-        := (1 => Card.Construct (Deck.Ten, Deck.Diamond));
+        := (1 => Card.Construct (Definitions.Ten, Definitions.Diamond));
    begin
       for J in Natural range Src_Cards'First .. Src_Cards'Last loop
          Src_Stack.all.Push_Unchecked (Src_Cards (J));
@@ -581,9 +581,9 @@ package body Tableau.Test is
       Src_Stack  : constant Tableau_Stack.Stack_Type_Access
         := Tab.Get_Stack (1);
       Src_Cards  : constant Some_Cards
-        := (Card.Construct (Deck.Three, Deck.Diamond),
-            Card.Construct (Deck.King,  Deck.Heart),
-            Card.Construct (Deck.Seven, Deck.Heart));
+        := (Card.Construct (Definitions.Three, Definitions.Diamond),
+            Card.Construct (Definitions.King,  Definitions.Heart),
+            Card.Construct (Definitions.Seven, Definitions.Heart));
       Src_Exist  : constant Card.Card_Type := Src_Cards (2);
       Src_O_Size : Natural;
       Src_N_Size : Natural;
@@ -631,9 +631,9 @@ package body Tableau.Test is
       Src_Stack  : constant Tableau_Stack.Stack_Type_Access
         := Tab.Get_Stack (1);
       Src_Cards  : constant Some_Cards
-        := (Card.Construct (Deck.Three, Deck.Diamond),
-            Card.Construct (Deck.Ten,   Deck.Heart),
-            Card.Construct (Deck.Seven, Deck.Heart));
+        := (Card.Construct (Definitions.Three, Definitions.Diamond),
+            Card.Construct (Definitions.Ten,   Definitions.Heart),
+            Card.Construct (Definitions.Seven, Definitions.Heart));
       Src_Exist  : constant Card.Card_Type := Src_Cards (2);
       Src_O_Size : Natural;
       Src_N_Size : Natural;
@@ -641,8 +641,8 @@ package body Tableau.Test is
       Dst_Stack  : constant Tableau_Stack.Stack_Type_Access
         := Tab.Get_Stack (2);
       Dst_Cards  : constant Some_Cards
-        := (Card.Construct (Deck.Four, Deck.Heart),
-            Card.Construct (Deck.Jack, Deck.Club));
+        := (Card.Construct (Definitions.Four, Definitions.Heart),
+            Card.Construct (Definitions.Jack, Definitions.Club));
       Dst_O_Size : Natural;
       Dst_N_Size : Natural;
       --
@@ -684,7 +684,7 @@ package body Tableau.Test is
    procedure Move_To_X_Src_E_Trgt_Not_E_Exc is
       Tab       : constant Tableau.Tableau_Type := Tableau.Construct;
       Not_Exist : constant Card.Card_Type
-        := Card.Construct (Deck.Queen, Deck.Club);
+        := Card.Construct (Definitions.Queen, Definitions.Club);
    begin
       Tab.Move_To (1, 1, Not_Exist);
    exception

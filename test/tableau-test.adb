@@ -5,6 +5,7 @@ with AUnit.Test_Caller;
 
 with Definitions;
 with Card;
+with Cards;
 with Pile_Of_Cards.FIFO;
 
 package body Tableau.Test is
@@ -167,8 +168,8 @@ package body Tableau.Test is
       Add_Cards_And_Check_Stack (Cards);
    end Add_7_Cards_Check_Stack;
 
-   procedure Add_Cards_And_Check_Pop (Cards : Some_Cards);
-   procedure Add_Cards_And_Check_Pop (Cards : Some_Cards) is
+   procedure Add_Cards_And_Check_Pop (s_Cards : Some_Cards);
+   procedure Add_Cards_And_Check_Pop (s_Cards : Some_Cards) is
       Tab            : constant Tableau.Tableau_Type := Tableau.Construct;
       Pile           : Pile_Of_Cards.FIFO.Pile_Type_FIFO
         := Pile_Of_Cards.FIFO.Construct;
@@ -179,22 +180,22 @@ package body Tableau.Test is
    begin
       for J in Valid_Stacks_Range loop
          I := Integer (J);
-         if I > Cards'Last then
+         if I > s_Cards'Last then
             Expected_Sizes (J) := 0;
          else
             Expected_Sizes (J) := 1;
          end if;
       end loop;
-      for J in Natural range Cards'First .. Cards'Last loop
-         Pile.Put (Cards (J));
+      for J in Natural range s_Cards'First .. s_Cards'Last loop
+         Pile.Put (s_Cards (J));
       end loop;
       Tab.Push (Pile);
       for J in Valid_Stacks_Range loop
          if Expected_Sizes (J) > 0 then
             C_A := Tab.Pop_From_Stack (J);
             I := Integer (J);
-            C_E := Cards (I);
-            AUnit.Assertions.Assert (C_A.Is_Equal_To (C_E),
+            C_E := s_Cards (I);
+            AUnit.Assertions.Assert (Cards.Is_Equal_To (C_A, C_E),
                                      "Card (" & J'Image & ")=" &
                                        C_E.Image &
                                        " /= " & C_A.Image);

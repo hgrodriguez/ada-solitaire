@@ -2,6 +2,7 @@ with Ada.Exceptions;
 
 with Definitions;
 with Card;
+with Cards;
 with Pile_Of_Cards.FIFO;
 
 with AUnit.Assertions;
@@ -76,7 +77,7 @@ package body Pile_Of_Cards.FIFO.Test is
       AUnit.Assertions.Assert (pile.Size = 0,
                                "size should=0, " &
                                  "but is=" & pile.Size'Image);
-      AUnit.Assertions.Assert (r.Is_Equal_To (c),
+      AUnit.Assertions.Assert (Cards.Is_Equal_To (r, c),
                                "r:" & r.Image &
                                  " /= c:" & c.Image);
    end Get_One_Card;
@@ -98,7 +99,7 @@ package body Pile_Of_Cards.FIFO.Test is
       AUnit.Assertions.Assert (pile.Size = 1,
                                "size should=1, " &
                                  "but is=" & pile.Size'Image);
-      AUnit.Assertions.Assert (r.Is_Equal_To (c1),
+      AUnit.Assertions.Assert (Cards.Is_Equal_To (r, c1),
                                "r:" & r.Image &
                                  " /= c:" & c1.Image);
    end Get_One_Card_Put_Two;
@@ -122,10 +123,10 @@ package body Pile_Of_Cards.FIFO.Test is
       AUnit.Assertions.Assert (pile.Size = 0,
                                "size should=1, " &
                                  "but is=" & pile.Size'Image);
-      AUnit.Assertions.Assert (r1.Is_Equal_To (c1),
+      AUnit.Assertions.Assert (Cards.Is_Equal_To (r1, c1),
                                "r1:" & r1.Image &
                                  " /= c1:" & c1.Image);
-      AUnit.Assertions.Assert (r2.Is_Equal_To (c2),
+      AUnit.Assertions.Assert (Cards.Is_Equal_To (r2, c2),
                                "r2:" & r2.Image &
                                  " /= c2:" & c2.Image);
    end Get_Two_Cards_Put_Two;
@@ -192,7 +193,7 @@ package body Pile_Of_Cards.FIFO.Test is
    begin
       pile.Put (c);
       r := pile.Peek;
-      AUnit.Assertions.Assert (r.Is_Equal_To (c),
+      AUnit.Assertions.Assert (Cards.Is_Equal_To (r, c),
                                "r:" & r.Image &
                                  " /= c:" & c.Image);
    end Peek_One_Card;
@@ -211,7 +212,7 @@ package body Pile_Of_Cards.FIFO.Test is
       pile.Put (c1);
       pile.Put (c2);
       r := pile.Peek;
-      AUnit.Assertions.Assert (r.Is_Equal_To (c1),
+      AUnit.Assertions.Assert (Cards.Is_Equal_To (r, c1),
                                "r:" & r.Image &
                                  " /= c1:" & c1.Image);
    end Peek_Two_Cards;

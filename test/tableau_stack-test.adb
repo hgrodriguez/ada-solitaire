@@ -5,6 +5,7 @@ with AUnit.Test_Caller;
 
 with Definitions;
 with Card;
+with Cards;
 
 package body Tableau_Stack.Test is
 
@@ -170,7 +171,7 @@ package body Tableau_Stack.Test is
    begin
       stack.Push_Checked (C_E);
       C := stack.Peek;
-      AUnit.Assertions.Assert (C.Is_Equal_To (C_E),
+      AUnit.Assertions.Assert (Cards.Is_Equal_To (C, C_E),
                                "C_E=" & C_E.Image &
                                  " /= " & C.Image);
    end Empty_Stack_Push_King_Check_Peek;
@@ -186,7 +187,7 @@ package body Tableau_Stack.Test is
    begin
       stack.Push_Checked (C_E);
       C := stack.Pop;
-      AUnit.Assertions.Assert (C.Is_Equal_To (C_E),
+      AUnit.Assertions.Assert (Cards.Is_Equal_To (C, C_E),
                                "C_E=" & C_E.Image &
                                  " /= " & C.Image);
    end Empty_Stack_Push_King_Check_Pop;

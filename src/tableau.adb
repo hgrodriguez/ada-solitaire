@@ -1,6 +1,7 @@
 with Ada.Strings.Unbounded;
 with Ada.Characters.Latin_1;
 
+with Cards;
 with Pile_Of_Cards.LIFO;
 
 package body Tableau is
@@ -98,7 +99,7 @@ package body Tableau is
          loop
             Card_To_Xfer := Src_Stack.all.Pop;
             Transfer.Push (Card_To_Xfer);
-            exit when Card_To_Xfer.Is_Equal_To (Card_To_Include);
+            exit when Cards.Is_Equal_To (Card_To_Xfer, Card_To_Include);
          end loop;
          while not Transfer.Is_Empty loop
             Card_To_Xfer := Transfer.Pop;

@@ -1,3 +1,5 @@
+with Cards;
+
 package body Foundation_Stack is
 
    --------------------------------------------------------------------
@@ -66,7 +68,7 @@ package body Foundation_Stack is
       acceptable_card : constant Card.Card_Type := cs.Accepts;
       use Definitions;
    begin
-      if acceptable_card.Is_Equal_To (c) then
+      if Cards.Is_Equal_To (acceptable_card, c) then
          cs.Cards.Push (c);
       else
          --  separate between wrong suit and wrong rank

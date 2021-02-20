@@ -5,6 +5,7 @@ with AUnit.Test_Caller;
 
 with Definitions;
 with Card;
+with Cards;
 
 package body Foundation_Stack.Test is
 
@@ -78,7 +79,7 @@ package body Foundation_Stack.Test is
       a_card  : Card.Card_Type;
    begin
       a_card := Card.Construct (Definitions.Ace, suit);
-      AUnit.Assertions.Assert (stack.Accepts.Is_Equal_To (a_card),
+      AUnit.Assertions.Assert (Cards.Is_Equal_To (stack.Accepts, a_card),
                                "should accept: " & a_card.Image &
                                  "but accepts: " & stack.Accepts.Image);
    end Newly_Constructed_Accepts_Ace;
@@ -119,7 +120,8 @@ package body Foundation_Stack.Test is
         := Card.Construct (Definitions.Two, suit);
    begin
       stack.Push (a_card);
-      AUnit.Assertions.Assert (stack.Accepts.Is_Equal_To (acceptable_card),
+      AUnit.Assertions.Assert (Cards.Is_Equal_To (stack.Accepts,
+                               acceptable_card),
                                "should accept: " & acceptable_card.Image &
                                  "but accepts: " & stack.Accepts.Image);
    end Push_Newly_Constructed_OK_Accept;
@@ -157,7 +159,8 @@ package body Foundation_Stack.Test is
          stack.Push (a_card);
          acceptable_card :=
            Card.Construct (Definitions.Rank'Succ (a_card.Get_Rank), suit);
-         AUnit.Assertions.Assert (stack.Accepts.Is_Equal_To (acceptable_card),
+         AUnit.Assertions.Assert (Cards.Is_Equal_To (stack.Accepts,
+                                  acceptable_card),
                                   "should accept: " & acceptable_card.Image &
                                     "but accepts: " & stack.Accepts.Image);
       end loop;
@@ -190,7 +193,8 @@ package body Foundation_Stack.Test is
          a_card := Card.Construct (rank, suit);
          stack.Push (a_card);
       end loop;
-      AUnit.Assertions.Assert (stack.Accepts.Is_Equal_To (acceptable_card),
+      AUnit.Assertions.Assert (Cards.Is_Equal_To (stack.Accepts,
+                               acceptable_card),
                                "should accept: " & acceptable_card.Image &
                                  "but accepts: " & stack.Accepts.Image);
    end Full_Stack_Does_Not_Accept_Anything;

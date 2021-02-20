@@ -4,6 +4,7 @@ with AUnit.Run;
 with AUnit.Test_Suites;
 
 with Card.Test;
+with Cards.Test;
 with Deck.Test;
 with Foundation.Test;
 with Foundation_Stack.Test;
@@ -25,6 +26,7 @@ procedure All_Tests is
               := new AUnit.Test_Suites.Test_Suite;
    begin
       Ret.Add_Test (Card.Test.Suite);
+      Ret.Add_Test (Cards.Test.Suite);
       Ret.Add_Test (Deck.Test.Suite);
       Ret.Add_Test (Foundation.Test.Suite);
       Ret.Add_Test (Foundation_Stack.Test.Suite);

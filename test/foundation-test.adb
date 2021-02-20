@@ -4,6 +4,7 @@ with AUnit.Assertions;
 with AUnit.Test_Caller;
 
 with Card;
+with Cards;
 
 package body Foundation.Test is
 
@@ -59,19 +60,19 @@ package body Foundation.Test is
                                  " /= 4");
 
       Acc_Card := Acceptable.Get;
-      AUnit.Assertions.Assert (Acc_Card.Is_Equal_To (Acc_Diamond),
+      AUnit.Assertions.Assert (Cards.Is_Equal_To (Acc_Card, Acc_Diamond),
                                "card=" & Acc_Card.Image &
                                  " /= " & Acc_Diamond.Image);
       Acc_Card := Acceptable.Get;
-      AUnit.Assertions.Assert (Acc_Card.Is_Equal_To (Acc_Heart),
+      AUnit.Assertions.Assert (Cards.Is_Equal_To (Acc_Card, Acc_Heart),
                                "card=" & Acc_Card.Image &
                                  " /= " & Acc_Heart.Image);
       Acc_Card := Acceptable.Get;
-      AUnit.Assertions.Assert (Acc_Card.Is_Equal_To (Acc_Club),
+      AUnit.Assertions.Assert (Cards.Is_Equal_To (Acc_Card, Acc_Club),
                                "card=" & Acc_Card.Image &
                                  " /= " & Acc_Club.Image);
       Acc_Card := Acceptable.Get;
-      AUnit.Assertions.Assert (Acc_Card.Is_Equal_To (Acc_Spade),
+      AUnit.Assertions.Assert (Cards.Is_Equal_To (Acc_Card, Acc_Spade),
                                "card=" & Acc_Card.Image &
                                  " /= " & Acc_Spade.Image);
    end Check_Accepted_Empty_Foundation;
@@ -103,7 +104,7 @@ package body Foundation.Test is
             Card_Accepts := Acceptable.Get;
             Card_Accepts := Acceptable.Get;
          end if;
-         AUnit.Assertions.Assert (Card_Accepts.Is_Equal_To (Card_To_Put),
+         AUnit.Assertions.Assert (Cards.Is_Equal_To (Card_Accepts, Card_To_Put),
                                   "accepts:" & Card_Accepts.Image &
                                     " /= to_put:" & Card_To_Put.Image);
          F.Put (Card_To_Put);
@@ -160,7 +161,7 @@ package body Foundation.Test is
             Expected_Card := Card.Construct (Definitions.Ace, s);
          end if;
          C := Acceptable.Get;
-         AUnit.Assertions.Assert (C.Is_Equal_To (Expected_Card),
+         AUnit.Assertions.Assert (Cards.Is_Equal_To (C, Expected_Card),
                                   "exp: " & Expected_Card.Image &
                                     " /= act: " & C.Image);
       end loop;

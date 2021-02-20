@@ -4,6 +4,7 @@ with AUnit.Assertions;
 with AUnit.Test_Caller;
 
 with Definitions;
+with Cards;
 with Pile_Of_Cards;
 
 package body Pile_Of_Cards.Test is
@@ -69,7 +70,7 @@ package body Pile_Of_Cards.Test is
    begin
       pile.Put (c);
       r := pile.Peek;
-      AUnit.Assertions.Assert (r.Is_Equal_To (c),
+      AUnit.Assertions.Assert (Cards.Is_Equal_To (r, c),
                                "r:" & r.Image &
                                  " /= c:" & c.Image);
    end Peek_One_Card_FIFO;
@@ -90,7 +91,7 @@ package body Pile_Of_Cards.Test is
       pile.Put (c1);
       pile.Put (c2);
       r := pile.Peek;
-      AUnit.Assertions.Assert (r.Is_Equal_To (c1),
+      AUnit.Assertions.Assert (Cards.Is_Equal_To (r, c1),
                                "r:" & r.Image &
                                  " /= c2:" & c2.Image);
    end Peek_Two_Cards_FIFO;
@@ -107,7 +108,7 @@ package body Pile_Of_Cards.Test is
    begin
       pile.Push (c);
       r := pile.Peek;
-      AUnit.Assertions.Assert (r.Is_Equal_To (c),
+      AUnit.Assertions.Assert (Cards.Is_Equal_To (r, c),
                                "r:" & r.Image &
                                  " /= c:" & c.Image);
    end Peek_One_Card_LIFO;
@@ -128,7 +129,7 @@ package body Pile_Of_Cards.Test is
       pile.Push (c1);
       pile.Push (c2);
       r := pile.Peek;
-      AUnit.Assertions.Assert (r.Is_Equal_To (c2),
+      AUnit.Assertions.Assert (Cards.Is_Equal_To (r, c2),
                                "r:" & r.Image &
                                  " /= c2:" & c2.Image);
    end Peek_Two_Cards_LIFO;
@@ -381,7 +382,7 @@ package body Pile_Of_Cards.Test is
       AUnit.Assertions.Assert (pile.Size = 0,
                                "size should=0, " &
                                  "but is=" & pile.Size'Image);
-      AUnit.Assertions.Assert (r.Is_Equal_To (c),
+      AUnit.Assertions.Assert (Cards.Is_Equal_To (r, c),
                                "r:" & r.Image &
                                  " /= c:" & c.Image);
    end Get_One_Card_FIFO;
@@ -405,7 +406,7 @@ package body Pile_Of_Cards.Test is
       AUnit.Assertions.Assert (pile.Size = 1,
                                "size should=1, " &
                                  "but is=" & pile.Size'Image);
-      AUnit.Assertions.Assert (r.Is_Equal_To (c1),
+      AUnit.Assertions.Assert (Cards.Is_Equal_To (r, c1),
                                "r:" & r.Image &
                                  " /= c:" & c1.Image);
    end Get_One_Card_Put_Two_FIFO;
@@ -431,10 +432,10 @@ package body Pile_Of_Cards.Test is
       AUnit.Assertions.Assert (pile.Size = 0,
                                "size should=1, " &
                                  "but is=" & pile.Size'Image);
-      AUnit.Assertions.Assert (r1.Is_Equal_To (c1),
+      AUnit.Assertions.Assert (Cards.Is_Equal_To (r1, c1),
                                "r1:" & r1.Image &
                                  " /= c1:" & c1.Image);
-      AUnit.Assertions.Assert (r2.Is_Equal_To (c2),
+      AUnit.Assertions.Assert (Cards.Is_Equal_To (r2, c2),
                                "r2:" & r2.Image &
                                  " /= c2:" & c2.Image);
    end Get_Two_Cards_Put_Two_FIFO;
@@ -523,7 +524,7 @@ package body Pile_Of_Cards.Test is
    begin
       pile.Push (c);
       r := pile.Pop;
-      AUnit.Assertions.Assert (r.Is_Equal_To (c), "pushed: " & c.Image &
+      AUnit.Assertions.Assert (Cards.Is_Equal_To (r, c), "pushed: " & c.Image &
                                  " /= r:" & r.Image);
    end Pop_One_Pushed_One_LIFO;
 
@@ -543,7 +544,8 @@ package body Pile_Of_Cards.Test is
       pile.Push (c1);
       pile.Push (c2);
       r := pile.Pop;
-      AUnit.Assertions.Assert (r.Is_Equal_To (c2), "pushed: " & c2.Image &
+      AUnit.Assertions.Assert (Cards.Is_Equal_To (r, c2),
+                               "pushed: " & c2.Image &
                                  " /= r:" & r.Image);
    end Pop_One_Pushed_Two_LIFO;
 
@@ -565,9 +567,11 @@ package body Pile_Of_Cards.Test is
       pile.Push (c2);
       r2 := pile.Pop;
       r1 := pile.Pop;
-      AUnit.Assertions.Assert (r1.Is_Equal_To (c1), "pushed: " & c1.Image &
+      AUnit.Assertions.Assert (Cards.Is_Equal_To (r1, c1),
+                               "pushed: " & c1.Image &
                                  " /= r1:" & r1.Image);
-      AUnit.Assertions.Assert (r2.Is_Equal_To (c2), "pushed: " & c2.Image &
+      AUnit.Assertions.Assert (Cards.Is_Equal_To (r2, c2),
+                               "pushed: " & c2.Image &
                                  " /= r2:" & r2.Image);
    end Pop_Two_Pushed_Two_LIFO;
 

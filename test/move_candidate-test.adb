@@ -6,8 +6,9 @@ with AUnit.Test_Caller;
 
 package body Move_Candidate.Test is
 
-   TEN_HEART    : constant Card.Card_Type := Card.Construct (Definitions.Ten,
-                                                             Definitions.Heart);
+   TEN_HEART    : constant Card.Card_Type
+     := Card.Construct (Definitions.Ten,
+                        Definitions.Heart);
    STACK_NUMBER : constant Tableau.Valid_Stacks_Range := 3;
    RANK_DELTA   : constant Integer := 5;
 

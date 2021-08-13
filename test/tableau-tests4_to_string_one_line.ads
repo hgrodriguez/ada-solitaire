@@ -21,7 +21,7 @@ private
    --------------------------------------------------------------------
    --  Test for the To_String_One_Line: only first/second line tests
    procedure
-   To_String_1_Line_1st2nd_Line_Only_One_Has_Contents (T : in out Test);
+   To_String_1_Line_1st2nd_Line_Only_1_Has_Contents (T : in out Test);
    procedure
    To_String_1_Line_1st2nd_Line_Arbitrary_Contents (T : in out Test);
 

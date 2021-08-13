@@ -96,13 +96,13 @@ package body Tableau.Tests4_To_String_One_Line is
    end To_String_1_Line_1st2nd_Line_Only_X_Has_Contents;
 
    procedure
-   To_String_1_Line_1st2nd_Line_Only_One_Has_Contents (T : in out Test) is
+   To_String_1_Line_1st2nd_Line_Only_1_Has_Contents (T : in out Test) is
       pragma Unreferenced (T);
    begin
       for J in Valid_Stacks_Range loop
          To_String_1_Line_1st2nd_Line_Only_X_Has_Contents (J);
       end loop;
-   end To_String_1_Line_1st2nd_Line_Only_One_Has_Contents;
+   end To_String_1_Line_1st2nd_Line_Only_1_Has_Contents;
 
    procedure
    To_String_1_Line_1st2nd_Line_Arbitrary_Contents (T : in out Test) is
@@ -178,8 +178,8 @@ package body Tableau.Tests4_To_String_One_Line is
       Ret.
         Add_Test (Caller.
                     Create (N &
-                        "To_String_1_Line_1st2nd_Line_Only_One_Has_Contents",
-                      To_String_1_Line_1st2nd_Line_Only_One_Has_Contents'Access)
+                        "To_String_1_Line_1st2nd_Line_Only_1_Has_Contents",
+                      To_String_1_Line_1st2nd_Line_Only_1_Has_Contents'Access)
                  );
       Ret.
         Add_Test (Caller.

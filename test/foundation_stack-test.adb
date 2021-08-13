@@ -131,7 +131,8 @@ package body Foundation_Stack.Test is
    procedure Push_All_OK_Size (T : in out Test) is
       pragma Unreferenced (T);
       suit   : constant Definitions.Suit := Definitions.Spade;
-      stack  : Foundation_Stack.Stack_Type := Foundation_Stack.Construct (suit);
+      stack  : Foundation_Stack.Stack_Type
+        := Foundation_Stack.Construct (suit);
       a_card : Card.Card_Type;
       size   : Natural;
    begin

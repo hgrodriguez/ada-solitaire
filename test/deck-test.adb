@@ -102,15 +102,17 @@ package body Deck.Test is
                                                        Definitions.Jack,
                                                        Definitions.Queen,
                                                        Definitions.King);
-      Actual_Rank                   : Definitions.Ranks_Valid_Range;
+      Actual_Rank    : Definitions.Ranks_Valid_Range;
       use Definitions;
    begin
       for R in Definitions.Ranks_Valid_Range loop
          SI := Deck.Short_Image (R);
          Actual_Rank := Deck.Get_Rank_For_Short_Image (SI);
-         AUnit.Assertions.Assert (Expected_Ranks (R) = Actual_Rank,
-                                  "Expected_Rank= " & Expected_Ranks (R)'Image &
-                                    " /= Actual_Suit" & Actual_Rank'Image);
+         AUnit.
+           Assertions.
+             Assert (Expected_Ranks (R) = Actual_Rank,
+                     "Expected_Rank= " & Expected_Ranks (R)'Image &
+                         " /= Actual_Suit" & Actual_Rank'Image);
       end loop;
    end Get_Rank_From_Short_Image;
 
@@ -172,9 +174,11 @@ package body Deck.Test is
       for S in Definitions.Suits_Valid_Range loop
          SI := Deck.Short_Image (S);
          Actual_Suit := Deck.Get_Suit_For_Short_Image (SI);
-         AUnit.Assertions.Assert (Expected_Suits (S) = Actual_Suit,
-                                  "Expected_Suit= " & Expected_Suits (S)'Image &
-                                    " /= Actual_Suit" & Actual_Suit'Image);
+         AUnit.
+           Assertions.
+             Assert (Expected_Suits (S) = Actual_Suit,
+                     "Expected_Suit= " & Expected_Suits (S)'Image &
+                         " /= Actual_Suit" & Actual_Suit'Image);
       end loop;
    end Get_Suit_From_Short_Image;
 

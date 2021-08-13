@@ -2,6 +2,7 @@ package body Pile_Of_Cards.LIFO is
 
    --------------------------------------------------------------------
    --
+   overriding
    function Construct return Pile_Type_LIFO is
       pile : Pile_Type_LIFO;
    begin
@@ -10,6 +11,7 @@ package body Pile_Of_Cards.LIFO is
 
    --------------------------------------------------------------------
    --
+   overriding
    function Pop (Pile : in out Pile_Type_LIFO) return Card.Card_Type is
    begin
       --  re-use base class implementation
@@ -18,6 +20,7 @@ package body Pile_Of_Cards.LIFO is
 
    --------------------------------------------------------------------
    --
+   overriding
    procedure Push (Pile : in out Pile_Type_LIFO; C : Card.Card_Type) is
    begin
       --  re-use base class implementation

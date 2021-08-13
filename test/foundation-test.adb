@@ -39,7 +39,8 @@ package body Foundation.Test is
 
    procedure Check_Accepted_Empty_Foundation (T : in out Test) is
       pragma Unreferenced (T);
-      F           : constant Foundation.Foundation_Type := Foundation.Construct;
+      F           : constant Foundation.Foundation_Type
+        := Foundation.Construct;
       Acc_Diamond : constant Card.Card_Type
         := Card.Construct (Definitions.Ace,
                            Definitions.Diamond);
@@ -104,9 +105,11 @@ package body Foundation.Test is
             Card_Accepts := Acceptable.Get;
             Card_Accepts := Acceptable.Get;
          end if;
-         AUnit.Assertions.Assert (Cards.Is_Equal_To (Card_Accepts, Card_To_Put),
-                                  "accepts:" & Card_Accepts.Image &
-                                    " /= to_put:" & Card_To_Put.Image);
+         AUnit.
+           Assertions.
+             Assert (Cards.Is_Equal_To (Card_Accepts, Card_To_Put),
+                     "accepts:" & Card_Accepts.Image &
+                       " /= to_put:" & Card_To_Put.Image);
          F.Put (Card_To_Put);
       end loop;
    end Accepts_Suit_All_Cards;

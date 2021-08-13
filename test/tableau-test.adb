@@ -240,7 +240,8 @@ package body Tableau.Test is
    procedure Move_To_Src_Stack_Equals_Trgt_Stack_Exc;
    procedure Move_To_Src_Stack_Equals_Trgt_Stack_Exc is
       Tab       : constant Tableau.Tableau_Type := Tableau.Construct;
-      Src_Stack : constant Tableau_Stack.Stack_Type_Access := Tab.Get_Stack (1);
+      Src_Stack : constant Tableau_Stack.Stack_Type_Access
+        := Tab.Get_Stack (1);
       Cards     : constant Some_Cards
         := (Card.Construct (Definitions.Three, Definitions.Diamond),
             Card.Construct (Definitions.Seven, Definitions.Heart),
@@ -279,7 +280,8 @@ package body Tableau.Test is
    procedure Move_To_Source_Selection_Does_Not_Exist_Exc;
    procedure Move_To_Source_Selection_Does_Not_Exist_Exc is
       Tab       : constant Tableau.Tableau_Type := Tableau.Construct;
-      Src_Stack : constant Tableau_Stack.Stack_Type_Access := Tab.Get_Stack (1);
+      Src_Stack : constant Tableau_Stack.Stack_Type_Access
+        := Tab.Get_Stack (1);
       Cards     : constant Some_Cards
         := (Card.Construct (Definitions.Three, Definitions.Diamond),
             Card.Construct (Definitions.Seven, Definitions.Heart),
@@ -320,12 +322,14 @@ package body Tableau.Test is
    procedure Move_To_1_Trgt_Does_Not_Accept_Exc is
       Tab       : constant Tableau.Tableau_Type := Tableau.Construct;
       --
-      Src_Stack : constant Tableau_Stack.Stack_Type_Access := Tab.Get_Stack (1);
+      Src_Stack : constant Tableau_Stack.Stack_Type_Access
+        := Tab.Get_Stack (1);
       Src_Cards : constant Some_Cards
         := (1 => Card.Construct (Definitions.Three, Definitions.Diamond));
       Src_Exist : constant Card.Card_Type := Src_Cards (1);
       --
-      Dst_Stack : constant Tableau_Stack.Stack_Type_Access := Tab.Get_Stack (2);
+      Dst_Stack : constant Tableau_Stack.Stack_Type_Access
+        := Tab.Get_Stack (2);
       Dst_Cards : constant Some_Cards
         := (1 => Card.Construct (Definitions.Ten, Definitions.Diamond));
    begin
@@ -534,14 +538,16 @@ package body Tableau.Test is
    procedure Move_To_X_Trgt_Does_Not_Accept_Exc is
       Tab       : constant Tableau.Tableau_Type := Tableau.Construct;
       --
-      Src_Stack : constant Tableau_Stack.Stack_Type_Access := Tab.Get_Stack (1);
+      Src_Stack : constant Tableau_Stack.Stack_Type_Access
+        := Tab.Get_Stack (1);
       Src_Cards : constant Some_Cards
         := (Card.Construct (Definitions.Three, Definitions.Diamond),
             Card.Construct (Definitions.Seven, Definitions.Heart),
             Card.Construct (Definitions.Jack,  Definitions.Heart));
       Src_Exist : constant Card.Card_Type := Src_Cards (1);
       --
-      Dst_Stack : constant Tableau_Stack.Stack_Type_Access := Tab.Get_Stack (2);
+      Dst_Stack : constant Tableau_Stack.Stack_Type_Access
+        := Tab.Get_Stack (2);
       Dst_Cards : constant Some_Cards
         := (1 => Card.Construct (Definitions.Ten, Definitions.Diamond));
    begin

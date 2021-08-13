@@ -108,7 +108,8 @@ package body Card.Test is
       rank      : constant Definitions.Rank := Definitions.Ace;
       suit      : constant Definitions.Suit := Definitions.Diamond;
       c          : constant Card.Card_Type := Card.Construct (rank, suit);
-      s_expected : constant String := "(" & rank'Image & "," & suit'Image & ")";
+      s_expected : constant String
+        := "(" & rank'Image & "," & suit'Image & ")";
       s_result   : String (1 .. s_expected'Length);
 
    begin

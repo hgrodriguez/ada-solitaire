@@ -232,7 +232,8 @@ package body Pile_Of_Cards.FIFO.Test is
 
    procedure Has_Not_1_Card (T : in out Test) is
       pragma Unreferenced (T);
-      pile  : Pile_Of_Cards.FIFO.Pile_Type_FIFO := Pile_Of_Cards.FIFO.Construct;
+      pile  : Pile_Of_Cards.FIFO.Pile_Type_FIFO
+        := Pile_Of_Cards.FIFO.Construct;
       c_put : constant Card.Card_Type := Card.Construct (Definitions.Ace,
                                                          Definitions.Diamond);
       c_has : constant Card.Card_Type := Card.Construct (Definitions.Two,
@@ -260,7 +261,8 @@ package body Pile_Of_Cards.FIFO.Test is
 
    procedure Has_1_Card (T : in out Test) is
       pragma Unreferenced (T);
-      pile  : Pile_Of_Cards.FIFO.Pile_Type_FIFO := Pile_Of_Cards.FIFO.Construct;
+      pile  : Pile_Of_Cards.FIFO.Pile_Type_FIFO
+        := Pile_Of_Cards.FIFO.Construct;
       c_put : constant Card.Card_Type := Card.Construct (Definitions.Ace,
                                                          Definitions.Diamond);
       c_has : constant Card.Card_Type := c_put;

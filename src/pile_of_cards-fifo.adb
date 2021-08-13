@@ -2,6 +2,7 @@ package body Pile_Of_Cards.FIFO is
 
    --------------------------------------------------------------------
    --
+   overriding
    function Construct return Pile_Type_FIFO is
       pile : Pile_Type_FIFO;
    begin
@@ -10,6 +11,7 @@ package body Pile_Of_Cards.FIFO is
 
    --------------------------------------------------------------------
    --
+   overriding
    function Get (Pile : in out Pile_Type_FIFO) return Card.Card_Type is
    begin
       --  re-use base class implementation
@@ -18,6 +20,7 @@ package body Pile_Of_Cards.FIFO is
 
    --------------------------------------------------------------------
    --
+   overriding
    procedure Put (Pile : in out Pile_Type_FIFO; C : Card.Card_Type) is
    begin
       --  re-use base class implementation

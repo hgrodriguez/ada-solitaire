@@ -8,7 +8,8 @@ package body Tableau.Tests4_Check_Move_To is
    procedure Check_Move_To_Src_Stack_Equals_Trgt_Stack (T : in out Test) is
       pragma Unreferenced (T);
       Tab       : constant Tableau.Tableau_Type := Tableau.Construct;
-      Src_Stack : constant Tableau_Stack.Stack_Type_Access := Tab.Get_Stack (1);
+      Src_Stack : constant Tableau_Stack.Stack_Type_Access
+        := Tab.Get_Stack (1);
       Cards     : constant Some_Cards
         := (Card.Construct (Definitions.Three, Definitions.Diamond),
             Card.Construct (Definitions.Seven, Definitions.Heart),
@@ -334,7 +335,8 @@ package body Tableau.Tests4_Check_Move_To is
                       Check_Move_To_Src_Stack_Equals_Trgt_Stack'Access));
       Ret.
         Add_Test (Caller.
-                    Create (N & "Check_Move_To_Source_Selection_Does_Not_Exist",
+                    Create (N &
+                        "Check_Move_To_Source_Selection_Does_Not_Exist",
                       Check_Move_To_Source_Selection_Does_Not_Exist'Access));
       Ret.
         Add_Test (Caller.

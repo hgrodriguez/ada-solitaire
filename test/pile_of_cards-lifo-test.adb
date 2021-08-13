@@ -448,8 +448,9 @@ package body Pile_Of_Cards.LIFO.Test is
       pragma Unreferenced (T);
       pile    : Pile_Of_Cards.LIFO.Pile_Type_LIFO
         := Pile_Of_Cards.LIFO.Construct;
-      c       : constant Card.Card_Type := Card.Construct (Definitions.Ace,
-                                                           Definitions.Diamond);
+      c       : constant Card.Card_Type
+        := Card.Construct (Definitions.Ace,
+                           Definitions.Diamond);
       Actual  : Card.Card_Type;
    begin
       pile.Push (c);
@@ -465,10 +466,12 @@ package body Pile_Of_Cards.LIFO.Test is
       pragma Unreferenced (T);
       pile    : Pile_Of_Cards.LIFO.Pile_Type_LIFO
         := Pile_Of_Cards.LIFO.Construct;
-      c1      : constant Card.Card_Type := Card.Construct (Definitions.Ace,
-                                                           Definitions.Diamond);
-      c2      : constant Card.Card_Type := Card.Construct (Definitions.Two,
-                                                           Definitions.Diamond);
+      c1      : constant Card.Card_Type
+        := Card.Construct (Definitions.Ace,
+                           Definitions.Diamond);
+      c2      : constant Card.Card_Type
+        := Card.Construct (Definitions.Two,
+                           Definitions.Diamond);
       Actual  : Card.Card_Type;
    begin
       pile.Push (c1);

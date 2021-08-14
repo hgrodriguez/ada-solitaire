@@ -27,6 +27,17 @@ package body Tableau is
       return S;
    end Size;
 
+   procedure Init_With (T : Tableau_Type; S : Stock.Stock_Type) is
+      C : Card.Card_Type;
+   begin
+      for I in Valid_Stacks_Range loop
+         for J in I .. Valid_Stacks_Range'Last loop
+            C := S.Fetch_One;
+            T.Stacks (J).all.Push_Unchecked (C);
+         end loop;
+      end loop;
+   end Init_With;
+
    procedure Push
      (T : Tableau_Type; Pile : in out Pile_Of_Cards.FIFO.Pile_Type_FIFO)
    is

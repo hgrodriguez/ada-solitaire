@@ -11,6 +11,9 @@ private
    procedure Construct_Check_Size (T : in out Test);
    procedure Construct_Check_Pop_Fails (T : in out Test);
 
+   procedure Init_Check_Overall_Size (T : in out Test);
+   procedure Init_Check_Individual_Sizes (T : in out Test);
+
    procedure Add_1_Card_Check_Size (T : in out Test);
    procedure Add_3_Cards_Check_Size (T : in out Test);
    procedure Add_7_Cards_Check_Size (T : in out Test);

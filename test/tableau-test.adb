@@ -55,6 +55,46 @@ package body Tableau.Test is
                               "no exception raised");
    end Construct_Check_Pop_Fails;
 
+   procedure Init_Check_Overall_Size (T : in out Test) is
+      pragma Unreferenced (T);
+      Tab      : constant Tableau.Tableau_Type := Tableau.Construct;
+      ST       : constant Stock.Stock_Type := Stock.Construct;
+      Expected : constant Natural := 1 + 2 + 3 + 4 + 5 + 6 + 7;
+      Actual   : Natural;
+   begin
+      Tab.Init_With (ST);
+      Actual := Tab.Size;
+      AUnit.
+        Assertions.
+          Assert (Actual = Expected,
+                  "Init_Check_Overall_Size: " &
+                    "Actual=" & Actual'Image &
+                    " /= Expected=" & Expected'Image);
+   end Init_Check_Overall_Size;
+
+   procedure Init_Check_Individual_Sizes (T : in out Test) is
+      pragma Unreferenced (T);
+      Tab      : constant Tableau.Tableau_Type := Tableau.Construct;
+      ST       : constant Stock.Stock_Type := Stock.Construct;
+      TS       : Tableau_Stack.Stack_Type_Access;
+      Expected : Natural;
+      Actual   : Natural;
+   begin
+      Tab.Init_With (ST);
+      Actual := Tab.Size;
+      for I in Valid_Stacks_Range loop
+         TS := Tab.Get_Stack (I);
+         Expected := Natural (I);
+         Actual := TS.all.Size;
+         AUnit.
+           Assertions.
+             Assert (Actual = Expected,
+                     "Init_Check_Individual_Sizes: " &
+                       "Actual=" & Actual'Image &
+                       " /= Expected=" & Expected'Image);
+      end loop;
+   end Init_Check_Individual_Sizes;
+
    procedure Add_Cards_And_Check_Size (Cards : Some_Cards);
    procedure Add_Cards_And_Check_Size (Cards : Some_Cards) is
       Expected_Size : constant Natural := Cards'Last;
@@ -734,6 +774,13 @@ package body Tableau.Test is
       Ret.Add_Test (Caller.
                       Create (N & "Construct_Check_Pop_Fails",
                         Construct_Check_Pop_Fails'Access));
+
+      Ret.Add_Test (Caller.
+                      Create (N & "Init_Check_Overall_Size",
+                        Init_Check_Overall_Size'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "Init_Check_Individual_Sizes",
+                        Init_Check_Individual_Sizes'Access));
 
       Ret.Add_Test (Caller.
                       Create (N & "Add_1_Card_Check_Size",

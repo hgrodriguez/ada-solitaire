@@ -2,6 +2,7 @@ with Card;
 with Pile_Of_Cards.FIFO;
 with Short_Image_FIFO;
 with Tableau_Stack;
+with Stock;
 
 package Tableau is
 
@@ -23,6 +24,8 @@ package Tableau is
    function Construct return Tableau_Type;
 
    function Size (T : Tableau_Type) return Natural;
+
+   procedure Init_With (T : Tableau_Type; S : Stock.Stock_Type);
 
    procedure Push
      (T    : Tableau_Type;

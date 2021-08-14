@@ -55,6 +55,8 @@ package body Stock is
       procedure Initialize_Stock;
       procedure Initialize_Stock is
       begin
+         Random_Rank.Reset (G_Rank);
+         Random_Suit.Reset (G_Suit);
          while Cards_Left > 0 loop
             R_Rank := Random_Rank.Random (G_Rank);
             R_Suit := Random_Suit.Random (G_Suit);

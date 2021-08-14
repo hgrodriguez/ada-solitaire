@@ -23,6 +23,11 @@ package Stock is
    function Fetch (S : Stock_Type) return Pile_Of_Cards.FIFO.Pile_Type_FIFO;
 
    --------------------------------------------------------------------
+   --  fetch exactly one card from stock
+   --  exception raised if stock is empty
+   function Fetch_One (S : Stock_Type) return Card.Card_Type;
+
+   --------------------------------------------------------------------
    --  convert top card into an image
    --  if Peek is True -> then the card image will come up, else Obscured
    function To_String (S : Stock_Type; Peek : Boolean := False)
@@ -34,11 +39,6 @@ private
    type Stock_Type is tagged record
       Pile : Pile_Of_Cards.FIFO.Pile_Type_FIFO_Access;
    end record;
-
-   --------------------------------------------------------------------
-   --  fetch exactly one card from stock
-   --  exception raised if stock is empty
-   function Fetch_One (S : Stock_Type) return Card.Card_Type;
 
    --------------------------------------------------------------------
    --  peek into top card

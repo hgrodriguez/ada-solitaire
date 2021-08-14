@@ -7,23 +7,20 @@ project Solitaire is
    for Main use ("cards_test_main", "move_candidate_test_main", "short_image_fifo_test_main", "tableau_stack_test_main", "tableau_test_main", "solitaire.adb", "stock_test_main", "pile_of_cards_lifo_test_main", 
       "pile_of_cards_fifo_test_main", "pile_of_cards_test_main", "foundation_stack_test_main", "foundation_test_main", "deck_test_main.adb", "card_test_main", "all_tests");
 
+   for Create_Missing_Dirs use "True";
+
    package Ide is
       for Vcs_Kind use "git";
       for Vcs_Repository_Root use "https://github.com/hgrodriguez/ada-solitaire";
    end Ide;
 
    package Compiler is
-      for Switches ("ada") use ("-gnat12",
-                                "-gnatg",
-                                "-g",
-                                "-gnatVa",
-                                "-gnatwae",
-                                "-gnaty3M80");
+      for Switches ("ada") use ("-gnat12", "-gnatg", "-g", "-gnatVa", "-gnatwae", "-gnaty3M80", "-gnaty3");
       for Local_Configuration_Pragmas use "gnat.adc";
    end Compiler;
 
    package Builder is
-      for Switches ("ada") use ("-s");
+      for Switches ("ada") use ("-s", "-C");
    end Builder;
 
 end Solitaire;

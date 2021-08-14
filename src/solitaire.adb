@@ -166,10 +166,13 @@ procedure Solitaire is
       loop
          Ada.Text_IO.Put (Item => F.To_String);
          Ada.Text_IO.Put (Item => "          ");
+
          Ada.Text_IO.Put (Item => S.To_String (Peek_Stock));
          Ada.Text_IO.New_Line;
+
          Ada.Text_IO.Put_Line (Item => T.To_String);
          Ada.Text_IO.New_Line;
+
          Play_Menu_Input := Text_Menu.Play_Menu_Selection;
          case Play_Menu_Input is
             when Text_Menu.Help =>

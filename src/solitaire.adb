@@ -2,6 +2,8 @@ with Ada.Text_IO;
 
 with Text_Menu;
 
+with Definitions;
+with Deck;
 with Card;
 with Foundation;
 with Stock;
@@ -58,7 +60,47 @@ procedure Solitaire is
       --
       procedure Move;
       procedure Move is
+         Rank_Char_Input : Character;
+         Suit_Char_Input : Character;
+
+         Rank            : Definitions.Ranks_Valid_Range;
+         Suit            : Definitions.Suits_Valid_Range;
+         C               : Card.Card_Type;
+
       begin
+         Ada.
+           Text_IO.
+             Put_Line (Item => "Please enter rank [A, 2-9, T-K]: ");
+         Ada.Text_IO.Get (Item => Rank_Char_Input);
+         if not Deck.Is_Valid_Rank_Short_Image (Rank_Char_Input) then
+            Ada.Text_IO.Put_Line ("The Rank given is not an applicable rank.");
+            return;
+         end if;
+
+         Ada.
+           Text_IO.
+             Put_Line (Item => "Please enter suit [D, H, C, S]: ");
+         Ada.Text_IO.Get (Item => Suit_Char_Input);
+         Ada.Text_IO.Put_Line (Item => "I got: " &
+                                 Rank_Char_Input &
+                                 Suit_Char_Input);
+         if not Deck.Is_Valid_Suit_Short_Image (Suit_Char_Input) then
+            Ada.Text_IO.Put_Line ("The Suit given is not an applicable suit.");
+            return;
+         end if;
+
+         Rank := Deck.Get_Rank_For_Short_Image (C => Rank_Char_Input);
+         Suit := Deck.Get_Suit_For_Short_Image (C => Suit_Char_Input);
+
+         C := Card.Construct (Rank => Rank,
+                              Suit => Suit);
+         if not T.Has (C) then
+            Ada.
+              Text_IO.
+                Put_Line ("The Card selected does not exist in the tableau.");
+            return;
+         end if;
+
       end Move;
 
    begin
@@ -75,7 +117,7 @@ procedure Solitaire is
             when Text_Menu.Help =>
                Show_Help;
             when Text_Menu.Move =>
-               null;
+               Move;
             when Text_Menu.Clean =>
                Clean;
             when Text_Menu.Restart =>

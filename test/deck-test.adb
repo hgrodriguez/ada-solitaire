@@ -39,7 +39,6 @@ package body Deck.Test is
    procedure Test_Short_Image_Ranks (T : in out Test) is
       pragma Unreferenced (T);
       R : Deck.Short_Image_Rank_Type;
-
    begin
       R := Deck.Short_Image (Definitions.Ace);
       AUnit.Assertions.Assert (String (R) = "A", "A /= " & String (R));
@@ -116,6 +115,38 @@ package body Deck.Test is
       end loop;
    end Get_Rank_From_Short_Image;
 
+   procedure Get_Rank_From_Short_Image_Char (T : in out Test) is
+      pragma Unreferenced (T);
+      SI             : Deck.Short_Image_Rank_Type;
+      SC             : Character;
+      Expected_Ranks : constant Ranks_Mapping_Type := (Definitions.Ace,
+                                                       Definitions.Two,
+                                                       Definitions.Three,
+                                                       Definitions.Four,
+                                                       Definitions.Five,
+                                                       Definitions.Six,
+                                                       Definitions.Seven,
+                                                       Definitions.Eight,
+                                                       Definitions.Nine,
+                                                       Definitions.Ten,
+                                                       Definitions.Jack,
+                                                       Definitions.Queen,
+                                                       Definitions.King);
+      Actual_Rank    : Definitions.Ranks_Valid_Range;
+      use Definitions;
+   begin
+      for R in Definitions.Ranks_Valid_Range loop
+         SI := Deck.Short_Image (R);
+         SC := SI (1);
+         Actual_Rank := Deck.Get_Rank_For_Short_Image (SC);
+         AUnit.
+           Assertions.
+             Assert (Expected_Ranks (R) = Actual_Rank,
+                     "Expected_Rank= " & Expected_Ranks (R)'Image &
+                         " /= Actual_Suit" & Actual_Rank'Image);
+      end loop;
+   end Get_Rank_From_Short_Image_Char;
+
    procedure Get_Rank_From_Wrong_Short_Image_Exception;
    procedure Get_Rank_From_Wrong_Short_Image_Exception is
       Actual_Rank    : Definitions.Ranks_Valid_Range;
@@ -143,6 +174,34 @@ package body Deck.Test is
                               "no exception raised");
    end Get_Rank_From_Wrong_Short_Image;
 
+   procedure Get_Rank_From_Wrong_Short_Image_Char_Exception;
+   procedure Get_Rank_From_Wrong_Short_Image_Char_Exception is
+      Actual_Rank    : Definitions.Ranks_Valid_Range;
+      pragma Warnings (Off, Actual_Rank);
+   begin
+      Actual_Rank := Deck.Get_Rank_For_Short_Image ("X");
+   exception
+      when Deck_Invalid_Short_Image_Rank_Type => raise;
+      when Exc : others =>
+         AUnit.
+           Assertions.
+             Assert (False,
+                     "Get_Rank_From_Wrong_Short_Image_Char_Exception: " &
+                       "wrong exception raised:" &
+                       Ada.Exceptions.Exception_Name (Exc));
+   end Get_Rank_From_Wrong_Short_Image_Char_Exception;
+
+   procedure Get_Rank_From_Wrong_Short_Image_Char (T : in out Test) is
+      pragma Unreferenced (T);
+   begin
+      AUnit.
+        Assertions.
+          Assert_Exception (Get_Rank_From_Wrong_Short_Image_Char_Exception
+                            'Access,
+                            "Pop_One_Pushed_None: " &
+                              "no exception raised");
+   end Get_Rank_From_Wrong_Short_Image_Char;
+
    procedure Is_Valid_Rank_Short_Image (T : in out Test) is
       pragma Unreferenced (T);
       Valid_SI   : constant Deck.Short_Image_Rank_Type := "A";
@@ -157,6 +216,21 @@ package body Deck.Test is
           Assert (False = Deck.Is_Valid_Rank_Short_Image (Invalid_SI),
                   "True!");
    end Is_Valid_Rank_Short_Image;
+
+   procedure Is_Valid_Rank_Short_Image_Char (T : in out Test) is
+      pragma Unreferenced (T);
+      Valid_SI   : constant Character := 'A';
+      Invalid_SI : constant Character := 'X';
+   begin
+      AUnit.
+        Assertions.
+          Assert (True = Deck.Is_Valid_Rank_Short_Image (Valid_SI),
+                  "False!");
+      AUnit.
+        Assertions.
+          Assert (False = Deck.Is_Valid_Rank_Short_Image (Invalid_SI),
+                  "True!");
+   end Is_Valid_Rank_Short_Image_Char;
 
    type Suits_Mapping_Type is array (Definitions.Suits_Valid_Range)
      of Definitions.Suits_Valid_Range;
@@ -181,6 +255,29 @@ package body Deck.Test is
                          " /= Actual_Suit" & Actual_Suit'Image);
       end loop;
    end Get_Suit_From_Short_Image;
+
+   procedure Get_Suit_From_Short_Image_Char (T : in out Test) is
+      pragma Unreferenced (T);
+      SI             : Deck.Short_Image_Suit_Type;
+      SC             : Character;
+      Expected_Suits : constant Suits_Mapping_Type := (Definitions.Diamond,
+                                                       Definitions.Heart,
+                                                       Definitions.Club,
+                                                       Definitions.Spade);
+      Actual_Suit    : Definitions.Suits_Valid_Range;
+      use Definitions;
+   begin
+      for S in Definitions.Suits_Valid_Range loop
+         SI := Deck.Short_Image (S);
+         SC := SI (1);
+         Actual_Suit := Deck.Get_Suit_For_Short_Image (SC);
+         AUnit.
+           Assertions.
+             Assert (Expected_Suits (S) = Actual_Suit,
+                     "Expected_Suit= " & Expected_Suits (S)'Image &
+                         " /= Actual_Suit" & Actual_Suit'Image);
+      end loop;
+   end Get_Suit_From_Short_Image_Char;
 
    procedure Get_Suit_From_Wrong_Short_Image_Exception;
    procedure Get_Suit_From_Wrong_Short_Image_Exception is
@@ -209,6 +306,34 @@ package body Deck.Test is
                               "no exception raised");
    end Get_Suit_From_Wrong_Short_Image;
 
+   procedure Get_Suit_From_Wrong_Short_Image_Char_Exception;
+   procedure Get_Suit_From_Wrong_Short_Image_Char_Exception is
+      Actual_Suit    : Definitions.Suits_Valid_Range;
+      pragma Warnings (Off, Actual_Suit);
+   begin
+      Actual_Suit := Deck.Get_Suit_For_Short_Image ("X");
+   exception
+      when Deck_Invalid_Short_Image_Suit_Type => raise;
+      when Exc : others =>
+         AUnit.
+           Assertions.
+             Assert (False,
+                     "Get_Suit_From_Wrong_Short_Image_Exception: " &
+                       "wrong exception raised:" &
+                       Ada.Exceptions.Exception_Name (Exc));
+   end Get_Suit_From_Wrong_Short_Image_Char_Exception;
+
+   procedure Get_Suit_From_Wrong_Short_Image_Char (T : in out Test) is
+      pragma Unreferenced (T);
+   begin
+      AUnit.
+        Assertions.
+          Assert_Exception (Get_Suit_From_Wrong_Short_Image_Char_Exception
+                            'Access,
+                            "Pop_One_Pushed_None: " &
+                              "no exception raised");
+   end Get_Suit_From_Wrong_Short_Image_Char;
+
    procedure Is_Valid_Suit_Short_Image (T : in out Test) is
       pragma Unreferenced (T);
       Valid_SI   : constant Deck.Short_Image_Suit_Type := "D";
@@ -223,6 +348,21 @@ package body Deck.Test is
           Assert (False = Deck.Is_Valid_Suit_Short_Image (Invalid_SI),
                   "True!");
    end Is_Valid_Suit_Short_Image;
+
+   procedure Is_Valid_Suit_Short_Image_Char (T : in out Test) is
+      pragma Unreferenced (T);
+      Valid_SI   : constant Character := 'D';
+      Invalid_SI : constant Character := 'X';
+   begin
+      AUnit.
+        Assertions.
+          Assert (True = Deck.Is_Valid_Suit_Short_Image (Valid_SI),
+                  "False!");
+      AUnit.
+        Assertions.
+          Assert (False = Deck.Is_Valid_Suit_Short_Image (Invalid_SI),
+                  "True!");
+   end Is_Valid_Suit_Short_Image_Char;
 
    --------------------------------------------------------------------
    --  test suite construction
@@ -244,23 +384,35 @@ package body Deck.Test is
 
       Ret.Add_Test (Caller.Create (N & "Test_Short_Image_Ranks",
                     Test_Short_Image_Ranks'Access));
+
       Ret.Add_Test (Caller.Create (N & "Test_Short_Image_Suits",
                     Test_Short_Image_Suits'Access));
 
       Ret.Add_Test (Caller.Create (N & "Get_Rank_From_Short_Image",
                     Get_Rank_From_Short_Image'Access));
+      Ret.Add_Test (Caller.Create (N & "Get_Rank_From_Short_Image_Char",
+                    Get_Rank_From_Short_Image_Char'Access));
       Ret.Add_Test (Caller.Create (N & "Get_Rank_From_Wrong_Short_Image",
                     Get_Rank_From_Wrong_Short_Image'Access));
+      Ret.Add_Test (Caller.Create (N & "Get_Rank_From_Wrong_Short_Image_Char",
+                    Get_Rank_From_Wrong_Short_Image_Char'Access));
       Ret.Add_Test (Caller.Create (N & "Is_Valid_Rank_Short_Image",
                     Is_Valid_Rank_Short_Image'Access));
+      Ret.Add_Test (Caller.Create (N & "Is_Valid_Rank_Short_Image_Char",
+                    Is_Valid_Rank_Short_Image_Char'Access));
 
       Ret.Add_Test (Caller.Create (N & "Get_Suit_From_Short_Image",
                     Get_Suit_From_Short_Image'Access));
+      Ret.Add_Test (Caller.Create (N & "Get_Suit_From_Short_Image_Char",
+                    Get_Suit_From_Short_Image_Char'Access));
       Ret.Add_Test (Caller.Create (N & "Get_Suit_From_Wrong_Short_Image",
                     Get_Suit_From_Wrong_Short_Image'Access));
+      Ret.Add_Test (Caller.Create (N & "Get_Suit_From_Wrong_Short_Image_Char",
+                    Get_Suit_From_Wrong_Short_Image_Char'Access));
       Ret.Add_Test (Caller.Create (N & "Is_Valid_Suit_Short_Image",
                     Is_Valid_Suit_Short_Image'Access));
-
+      Ret.Add_Test (Caller.Create (N & "Is_Valid_Suit_Short_Image_Char",
+                    Is_Valid_Suit_Short_Image_Char'Access));
       return Ret;
    end Suite;
 

@@ -24,10 +24,14 @@ package Deck is
    --  check if Short_Image_Rank_Type is a valid Rank_Type
    function Is_Valid_Rank_Short_Image (SIRT : Short_Image_Rank_Type)
                                        return Boolean;
+   function Is_Valid_Rank_Short_Image (C : Character)
+                                       return Boolean;
 
    --------------------------------------------------------------------
    --  check if Short_Image_Suit_Type is a valid Suit_Type
    function Is_Valid_Suit_Short_Image (SIST : Short_Image_Suit_Type)
+                                       return Boolean;
+   function Is_Valid_Suit_Short_Image (C : Character)
                                        return Boolean;
 
    --------------------------------------------------------------------
@@ -35,11 +39,15 @@ package Deck is
    Deck_Invalid_Short_Image_Rank_Type : exception;
    function Get_Rank_For_Short_Image (SIRT : Short_Image_Rank_Type)
                                       return Definitions.Ranks_Valid_Range;
+   function Get_Rank_For_Short_Image (C : Character)
+                                      return Definitions.Ranks_Valid_Range;
 
    --------------------------------------------------------------------
    --  convert a Short_Image_Suit_Type into a Suit_Type
    Deck_Invalid_Short_Image_Suit_Type : exception;
    function Get_Suit_For_Short_Image (SIST : Short_Image_Suit_Type)
+                                      return Definitions.Suits_Valid_Range;
+   function Get_Suit_For_Short_Image (C : Character)
                                       return Definitions.Suits_Valid_Range;
 
 end Deck;

@@ -96,6 +96,16 @@ package body Deck is
 
    --------------------------------------------------------------------
    --
+   function Is_Valid_Rank_Short_Image (C : Character)
+                                       return Boolean is
+      SIRT : Short_Image_Rank_Type;
+   begin
+      SIRT (1) := C;
+      return Is_Valid_Rank_Short_Image (SIRT);
+   end Is_Valid_Rank_Short_Image;
+
+   --------------------------------------------------------------------
+   --
    function Get_Rank_For_Short_Image (SIRT : Short_Image_Rank_Type)
                                       return Definitions.Ranks_Valid_Range is
       R : Definitions.Ranks_Valid_Range;
@@ -134,6 +144,16 @@ package body Deck is
 
    --------------------------------------------------------------------
    --
+   function Get_Rank_For_Short_Image (C : Character)
+                                      return Definitions.Ranks_Valid_Range is
+      SIRT : Short_Image_Rank_Type;
+   begin
+      SIRT (1) := C;
+      return Get_Rank_For_Short_Image (SIRT);
+   end Get_Rank_For_Short_Image;
+
+   --------------------------------------------------------------------
+   --
    function Is_Valid_Suit_Short_Image (SIST : Short_Image_Suit_Type)
                                        return Boolean is
    begin
@@ -148,6 +168,16 @@ package body Deck is
       else
          return False;
       end if;
+   end Is_Valid_Suit_Short_Image;
+
+   --------------------------------------------------------------------
+   --
+   function Is_Valid_Suit_Short_Image (C : Character)
+                                       return Boolean is
+      SIST : Short_Image_Suit_Type;
+   begin
+      SIST (1) := C;
+      return Is_Valid_Suit_Short_Image (SIST);
    end Is_Valid_Suit_Short_Image;
 
    --------------------------------------------------------------------
@@ -168,6 +198,16 @@ package body Deck is
          raise Deck_Invalid_Short_Image_Suit_Type;
       end if;
       return R;
+   end Get_Suit_For_Short_Image;
+
+   --------------------------------------------------------------------
+   --
+   function Get_Suit_For_Short_Image (C : Character)
+                                      return Definitions.Suits_Valid_Range is
+      SIST : Short_Image_Suit_Type;
+   begin
+      SIST (1) := C;
+      return Get_Suit_For_Short_Image (SIST);
    end Get_Suit_For_Short_Image;
 
 end Deck;

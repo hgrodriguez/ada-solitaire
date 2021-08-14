@@ -13,14 +13,21 @@ private
    procedure Test_Is_Black_Spade (T : in out Test);
 
    procedure Test_Short_Image_Ranks (T : in out Test);
+
    procedure Test_Short_Image_Suits (T : in out Test);
 
    procedure Get_Rank_From_Short_Image (T : in out Test);
+   procedure Get_Rank_From_Short_Image_Char (T : in out Test);
    procedure Get_Rank_From_Wrong_Short_Image (T : in out Test);
+   procedure Get_Rank_From_Wrong_Short_Image_Char (T : in out Test);
    procedure Is_Valid_Rank_Short_Image (T : in out Test);
+   procedure Is_Valid_Rank_Short_Image_Char (T : in out Test);
 
    procedure Get_Suit_From_Short_Image (T : in out Test);
+   procedure Get_Suit_From_Short_Image_Char (T : in out Test);
    procedure Get_Suit_From_Wrong_Short_Image (T : in out Test);
+   procedure Get_Suit_From_Wrong_Short_Image_Char (T : in out Test);
    procedure Is_Valid_Suit_Short_Image (T : in out Test);
+   procedure Is_Valid_Suit_Short_Image_Char (T : in out Test);
 
 end Deck.Test;

@@ -45,5 +45,4 @@ procedure All_Tests is
    Reporter : AUnit.Reporter.Text.Text_Reporter;
 begin
    Runner (Reporter);
-
 end All_Tests;

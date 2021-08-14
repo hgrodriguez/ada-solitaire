@@ -177,6 +177,23 @@ package body Tableau is
       return Ret_Val;
    end To_String_One_Line;
 
+   function Get_Stack_Index (T : Tableau_Type;
+                             C : Card.Card_Type) return Valid_Stacks_Range is
+      Stack  : Tableau_Stack.Stack_Type_Access;
+      RetVal : Valid_Stacks_Range;
+   begin
+      if not T.Has (C) then
+         raise Tableau_Source_Card_Does_Not_Exist_Exception;
+      end if;
+      for J in Valid_Stacks_Range loop
+         Stack := T.Get_Stack (J);
+         if Stack.all.Has (C) then
+            RetVal := J;
+         end if;
+      end loop;
+      return RetVal;
+   end Get_Stack_Index;
+
    function To_String (T : Tableau_Type) return String is
       Ret_Val  : Ada.Strings.Unbounded.Unbounded_String
         := Ada.Strings.Unbounded.Null_Unbounded_String;

@@ -49,6 +49,9 @@ package Tableau is
       Candidates : Pile_Of_Cards.FIFO.Pile_Type_FIFO)
       return Pile_Of_Cards.FIFO.Pile_Type_FIFO;
 
+   function Get_Stack_Index (T : Tableau_Type;
+                             C : Card.Card_Type) return Valid_Stacks_Range;
+
    function To_String (T : Tableau_Type) return String;
 
 private

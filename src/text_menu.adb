@@ -1,4 +1,5 @@
 with Ada.Text_IO;
+with Ada.Characters.Handling;
 
 package body Text_Menu is
 
@@ -11,6 +12,7 @@ package body Text_Menu is
              Put_Line (Item => "What do you want: "
                        & "H)elp, P)lay, Q)uit:");
          Ada.Text_IO.Get (Item => User_Wants);
+         User_Wants := Ada.Characters.Handling.To_Upper (User_Wants);
          case User_Wants is
             when 'H'
                => return Help;
@@ -31,8 +33,9 @@ package body Text_Menu is
          Ada.
            Text_IO.
              Put_Line (Item => "What do you want: "
-                       & "H)elp, M)ove, C)lean, R)estart, Q)uit:");
+                       & "H)elp, M)ove, C)lean, F)etch, R)estart, Q)uit:");
          Ada.Text_IO.Get (Item => User_Wants);
+         User_Wants := Ada.Characters.Handling.To_Upper (User_Wants);
          case User_Wants is
             when 'H'
                => return Help;
@@ -42,6 +45,8 @@ package body Text_Menu is
                => return Restart;
             when 'C'
                => return Clean;
+            when 'F'
+               => return Fetch;
             when 'Q'
                => return Quit;
             when others

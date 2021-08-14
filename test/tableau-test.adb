@@ -275,6 +275,116 @@ package body Tableau.Test is
       Add_Cards_And_Check_Pop (Cards);
    end Add_7_Cards_Check_Pop;
 
+   procedure Has_Not_New_Tableau (T : in out Test) is
+      pragma Unreferenced (T);
+      Tab      : constant Tableau.Tableau_Type := Tableau.Construct;
+      C        : constant Card.Card_Type
+        := Card.Construct (Definitions.Three, Definitions.Diamond);
+      Expected : constant Boolean := False;
+      Actual   : Boolean;
+   begin
+      Actual := Tab.Has (C);
+      AUnit.
+        Assertions.
+          Assert (Expected = Actual,
+                  "Has_Not_New_Tableau: " &
+                    "Expected=" & Expected'Image &
+                    " /= Actual=" & Actual'Image);
+   end Has_Not_New_Tableau;
+
+   procedure Has_Not_Tableau (T : in out Test) is
+      pragma Unreferenced (T);
+      Tab       : constant Tableau.Tableau_Type := Tableau.Construct;
+      C1        : constant Card.Card_Type
+        := Card.Construct (Definitions.Three, Definitions.Diamond);
+      C2        : constant Card.Card_Type
+        := Card.Construct (Definitions.Three, Definitions.Heart);
+      Expected  : constant Boolean := False;
+      Actual    : Boolean;
+   begin
+      Tab.Push (S_Idx => 1,
+                C     => C1);
+      Actual := Tab.Has (C2);
+      AUnit.
+        Assertions.
+          Assert (Expected = Actual,
+                  "Has_Not_New_Tableau: " &
+                    "Expected=" & Expected'Image &
+                    " /= Actual=" & Actual'Image);
+   end Has_Not_Tableau;
+
+   procedure Has_Tableau (T : in out Test) is
+      pragma Unreferenced (T);
+      Tab       : constant Tableau.Tableau_Type := Tableau.Construct;
+      C         : constant Card.Card_Type
+        := Card.Construct (Definitions.Three, Definitions.Diamond);
+      Expected  : constant Boolean := True;
+      Actual    : Boolean;
+   begin
+      Tab.Push (S_Idx => 1,
+                C     => C);
+      Actual := Tab.Has (C);
+      AUnit.
+        Assertions.
+          Assert (Expected = Actual,
+                  "Has_Not_New_Tableau: " &
+                    "Expected=" & Expected'Image &
+                    " /= Actual=" & Actual'Image);
+   end Has_Tableau;
+
+   procedure Get_Stack_Idx_OK (T : in out Test) is
+      pragma Unreferenced (T);
+      Tab       : constant Tableau.Tableau_Type := Tableau.Construct;
+      C         : constant Card.Card_Type
+        := Card.Construct (Definitions.Three, Definitions.Diamond);
+      Expected  : constant Valid_Stacks_Range := 1;
+      Actual    : Valid_Stacks_Range;
+   begin
+      Tab.Push (S_Idx => 1,
+                C     => C);
+      Actual := Tab.Get_Stack_Index (C);
+      AUnit.
+        Assertions.
+          Assert (Expected = Actual,
+                  "Get_Stack_Idx_OK: " &
+                    "Expected=" & Expected'Image &
+                    " /= Actual=" & Actual'Image);
+   end Get_Stack_Idx_OK;
+
+   procedure Get_Stack_Idx_NOK_Exc;
+   procedure Get_Stack_Idx_NOK_Exc is
+      Tab       : constant Tableau.Tableau_Type := Tableau.Construct;
+      C1         : constant Card.Card_Type
+        := Card.Construct (Definitions.Three, Definitions.Diamond);
+      C2         : constant Card.Card_Type
+        := Card.Construct (Definitions.Ten, Definitions.Heart);
+      Actual     : Valid_Stacks_Range;
+      pragma Warnings (Off, Actual);
+   begin
+      Tab.Push (S_Idx => 1,
+                C     => C1);
+      Actual := Tab.Get_Stack_Index (C2);
+   exception
+      when Tableau_Source_Card_Does_Not_Exist_Exception => raise;
+      when Exc : others =>
+         AUnit.
+           Assertions.
+             Assert (False,
+                     "Get_Stack_Idx_NOK_Exc: " &
+                       "wrong exception raised:" &
+                       Ada.Exceptions.Exception_Name (Exc));
+   end Get_Stack_Idx_NOK_Exc;
+
+   procedure Get_Stack_Idx_NOK (T : in out Test) is
+      pragma Unreferenced (T);
+   begin
+      AUnit.
+        Assertions.
+          Assert_Exception (Get_Stack_Idx_NOK_Exc'Access,
+                            "Get_Stack_Idx_NOK_Exc: " &
+                              "no exception raised");
+   end Get_Stack_Idx_NOK;
+
    --------------------------------------------------------------------
    --  Move_To tests
    procedure Move_To_Src_Stack_Equals_Trgt_Stack_Exc;
@@ -306,63 +416,6 @@ package body Tableau.Test is
                        "wrong exception raised:" &
                        Ada.Exceptions.Exception_Name (Exc));
    end Move_To_Src_Stack_Equals_Trgt_Stack_Exc;
-
-   procedure Has_Not_New_Tableau (T : in out Test) is
-      pragma Unreferenced (T);
-      Tab      : constant Tableau.Tableau_Type := Tableau.Construct;
-      C        : constant Card.Card_Type
-        := Card.Construct (Definitions.Three, Definitions.Diamond);
-      Expected : constant Boolean := False;
-      Actual   : Boolean;
-   begin
-      Actual := Tab.Has (C);
-      AUnit.
-        Assertions.
-          Assert (Expected = Actual,
-                  "Has_Not_New_Tableau: " &
-                    "Expected=" & Expected'Image &
-                    " /= Actual=" & Actual'Image);
-   end Has_Not_New_Tableau;
-
-   procedure Has_Not_Tableau (T : in out Test) is
-      pragma Unreferenced (T);
-      Tab      : constant Tableau.Tableau_Type := Tableau.Construct;
-      C1        : constant Card.Card_Type
-        := Card.Construct (Definitions.Three, Definitions.Diamond);
-      C2        : constant Card.Card_Type
-        := Card.Construct (Definitions.Three, Definitions.Heart);
-      Expected  : constant Boolean := False;
-      Actual   : Boolean;
-   begin
-      Tab.Push (S_Idx => 1,
-                C     => C1);
-      Actual := Tab.Has (C2);
-      AUnit.
-        Assertions.
-          Assert (Expected = Actual,
-                  "Has_Not_New_Tableau: " &
-                    "Expected=" & Expected'Image &
-                    " /= Actual=" & Actual'Image);
-   end Has_Not_Tableau;
-
-   procedure Has_Tableau (T : in out Test) is
-      pragma Unreferenced (T);
-      Tab       : constant Tableau.Tableau_Type := Tableau.Construct;
-      C         : constant Card.Card_Type
-        := Card.Construct (Definitions.Three, Definitions.Diamond);
-      Expected  : constant Boolean := True;
-      Actual    : Boolean;
-   begin
-      Tab.Push (S_Idx => 1,
-                C     => C);
-      Actual := Tab.Has (C);
-      AUnit.
-        Assertions.
-          Assert (Expected = Actual,
-                  "Has_Not_New_Tableau: " &
-                    "Expected=" & Expected'Image &
-                    " /= Actual=" & Actual'Image);
-   end Has_Tableau;
 
    procedure Move_To_Src_Stack_Equals_Trgt_Stack (T : in out Test) is
       pragma Unreferenced (T);
@@ -878,6 +931,13 @@ package body Tableau.Test is
       Ret.Add_Test (Caller.
                       Create (N & "Has_Tableau",
                         Has_Tableau'Access));
+
+      Ret.Add_Test (Caller.
+                      Create (N & "Get_Stack_Idx_OK",
+                        Get_Stack_Idx_OK'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "Get_Stack_Idx_NOK",
+                        Get_Stack_Idx_NOK'Access));
 
       Ret.Add_Test (Caller.
                      Create (N & "Move_To_Src_Stack_Equals_Trgt_Stack",

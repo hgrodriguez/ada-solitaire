@@ -58,6 +58,16 @@ procedure Solitaire is
 
       --------------------------------------------------------------------
       --
+      procedure Fetch;
+      procedure Fetch is
+         Pile : Pile_Of_Cards.FIFO.Pile_Type_FIFO;
+      begin
+         Pile := S.Fetch;
+         T.Push (Pile);
+      end Fetch;
+
+      --------------------------------------------------------------------
+      --
       procedure Move;
       procedure Move is
          Rank_Char_Input : Character;
@@ -66,6 +76,16 @@ procedure Solitaire is
          Rank            : Definitions.Ranks_Valid_Range;
          Suit            : Definitions.Suits_Valid_Range;
          C               : Card.Card_Type;
+
+         SrcIndex        : Tableau.Valid_Stacks_Range;
+         DstIndex_Char   : Character;
+         DstIndexValid   : Boolean;
+         DstIndex        : Tableau.Valid_Stacks_Range;
+         DstIndex_CA     : constant String (1 .. 7) := "1234567";
+
+         CheckMoveResult : Tableau.Check_Move_To_Result;
+
+         use Tableau;
 
       begin
          Ada.
@@ -101,6 +121,43 @@ procedure Solitaire is
             return;
          end if;
 
+         SrcIndex := T.Get_Stack_Index (C);
+
+         Ada.
+           Text_IO.
+             Put_Line (Item => "Please enter destination stack# [1-7]: ");
+         Ada.Text_IO.Get (Item => DstIndex_Char);
+
+         DstIndexValid := False;
+         for DstIndex_Check in DstIndex_CA'First .. DstIndex_CA'Last loop
+            if DstIndex_Char = DstIndex_CA (DstIndex_Check) then
+               DstIndexValid := True;
+               exit;
+            end if;
+         end loop;
+         if not DstIndexValid then
+            Ada.
+              Text_IO.
+                Put_Line ("The destination stack # is wrong.");
+            return;
+         end if;
+         DstIndex := Tableau.
+              Valid_Stacks_Range (Character'Pos (DstIndex_Char) - 48);
+
+            CheckMoveResult := Tableau.Check_Move_To (T,
+                                                      SrcIndex,
+                                                      DstIndex,
+                                                      C);
+         if CheckMoveResult /= Tableau.OK then
+            Ada.
+              Text_IO.
+                Put_Line ("Card not movable.");
+            return;
+         end if;
+
+         T.Move_To (Src_Index       => SrcIndex,
+                    Dst_Index       => DstIndex,
+                    Card_To_Include => C);
       end Move;
 
    begin
@@ -120,6 +177,8 @@ procedure Solitaire is
                Move;
             when Text_Menu.Clean =>
                Clean;
+            when Text_Menu.Fetch =>
+               Fetch;
             when Text_Menu.Restart =>
                Restart;
             when Text_Menu.Quit =>

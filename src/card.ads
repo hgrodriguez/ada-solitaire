@@ -28,16 +28,44 @@ package Card is
    function Get_Suit (A_Card : Card_Type) return Definitions.Suit;
 
    --------------------------------------------------------------------
-   --  images of a Card_Type
-   --  short image of a Card_Type: RS
-   function Short_Image (c : Card_Type) return Short_Image_Type;
-   --  the representation with parantheses for debugging etc.
-   function Image (c : Card_Type) return String;
+   --  rank comparison functions
+   --  semantics: c1.Rank = c2.Rank
+   function Rank_Is_Equal_To (c1 : Card_Type;
+                              c2 : Card_Type)
+                              return Boolean;
+   --  semantics: c1.Rank > c2.Rank
+   function Rank_Is_Higher_Than (c1 : Card_Type;
+                                 c2 : Card_Type)
+                                 return Boolean;
+   --  semantics: c1.Rank < c2.Rank
+   function Rank_Is_Lower_Than (c1 : Card_Type;
+                                c2 : Card_Type)
+                                return Boolean;
+
+   --------------------------------------------------------------------
+   --  suit comparison functions
+   --  semantics: c1.Suit = c2.Suit
+   function Suit_Is_Equal_To (c1 : Card_Type;
+                              c2 : Card_Type)
+                              return Boolean;
 
    --------------------------------------------------------------------
    --  colour checks
    function Suit_Is_Red (c : Card_Type) return Boolean;
    function Suit_Is_Black (c : Card_Type) return Boolean;
+
+   --------------------------------------------------------------------
+   --  card comparison functions
+   --  semantics: c1.Rank = c2.Rank AND c1.Suit = c2.Suit
+   function Is_Equal_To (c1 : Card_Type; c2 : Card_Type) return Boolean;
+   function "=" (Left, Right : Card_Type) return Boolean;
+
+   --------------------------------------------------------------------
+   --  images of a Card_Type
+   --  short image of a Card_Type: RS
+   function Short_Image (c : Card_Type) return Short_Image_Type;
+   --  the representation with parantheses for debugging etc.
+   function Image (c : Card_Type) return String;
 
 private
    type Card_Type is tagged

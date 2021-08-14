@@ -27,6 +27,7 @@ procedure Solitaire is
       S               : Stock.Stock_Type;
       T               : Tableau.Tableau_Type;
       Play_Menu_Input : Text_Menu.Play_MIs;
+      Peek_Stock      : Boolean := False;
 
       --------------------------------------------------------------------
       --
@@ -165,7 +166,7 @@ procedure Solitaire is
       loop
          Ada.Text_IO.Put (Item => F.To_String);
          Ada.Text_IO.Put (Item => "          ");
-         Ada.Text_IO.Put (Item => S.To_String);
+         Ada.Text_IO.Put (Item => S.To_String (Peek_Stock));
          Ada.Text_IO.New_Line;
          Ada.Text_IO.Put_Line (Item => T.To_String);
          Ada.Text_IO.New_Line;
@@ -179,6 +180,8 @@ procedure Solitaire is
                Clean;
             when Text_Menu.Fetch =>
                Fetch;
+            when Text_Menu.Peek =>
+               Peek_Stock := not Peek_Stock;
             when Text_Menu.Restart =>
                Restart;
             when Text_Menu.Quit =>

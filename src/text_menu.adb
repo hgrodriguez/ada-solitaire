@@ -33,7 +33,8 @@ package body Text_Menu is
          Ada.
            Text_IO.
              Put_Line (Item => "What do you want: "
-                       & "H)elp, M)ove, C)lean, F)etch, R)estart, Q)uit:");
+                       & "H)elp, M)ove, C)lean, F)etch, P)eek, R)estart,"
+                       & " Q)uit:");
          Ada.Text_IO.Get (Item => User_Wants);
          User_Wants := Ada.Characters.Handling.To_Upper (User_Wants);
          case User_Wants is
@@ -41,12 +42,14 @@ package body Text_Menu is
                => return Help;
             when 'M'
                => return Move;
-            when 'R'
-               => return Restart;
             when 'C'
                => return Clean;
             when 'F'
                => return Fetch;
+            when 'P'
+               => return Peek;
+            when 'R'
+               => return Restart;
             when 'Q'
                => return Quit;
             when others

@@ -25,6 +25,8 @@ package Tableau is
 
    function Size (T : Tableau_Type) return Natural;
 
+   function Has (T : Tableau_Type; C : Card.Card_Type) return Boolean;
+
    procedure Init_With (T : Tableau_Type; S : Stock.Stock_Type);
 
    procedure Push
@@ -66,6 +68,10 @@ private
      (T : Tableau_Type;
       J : Valid_Stacks_Range)
       return Tableau_Stack.Stack_Type_Access;
+
+   procedure Push (T     : Tableau_Type;
+                   S_Idx : Valid_Stacks_Range;
+                   C     : Card.Card_Type);
 
    type Some_Cards is array (Positive range <>) of Card.Card_Type;
 

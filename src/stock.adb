@@ -110,6 +110,19 @@ package body Stock is
    end Fetch;
 
    --------------------------------------------------------------------
+   --  fetches exactly one card from stock
+   function Fetch_One (S : Stock_Type) return Card.Card_Type is
+      C    : Card.Card_Type;
+   begin
+      if S.Size > 0 then
+         C := S.Pile.all.Get;
+      else
+         raise Stock_Empty_Exception;
+      end if;
+      return C;
+   end Fetch_One;
+
+   --------------------------------------------------------------------
    --
    function To_String (S    : Stock_Type;
                        Peek : Boolean := False)
@@ -129,19 +142,6 @@ package body Stock is
    --------------------------------------------------------------------
    --  PRIVATE PROCEDURES/FUNCTIONS
    --------------------------------------------------------------------
-   --------------------------------------------------------------------
-   --  fetches exactly one card from stock
-   function Fetch_One (S : Stock_Type) return Card.Card_Type is
-      C    : Card.Card_Type;
-   begin
-      if S.Size > 0 then
-         C := S.Pile.all.Get;
-      else
-         raise Stock_Empty_Exception;
-      end if;
-      return C;
-   end Fetch_One;
-
    --------------------------------------------------------------------
    --
    function Peek (S : Stock_Type) return Card.Card_Type is

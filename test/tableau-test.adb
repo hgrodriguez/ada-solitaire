@@ -307,6 +307,63 @@ package body Tableau.Test is
                        Ada.Exceptions.Exception_Name (Exc));
    end Move_To_Src_Stack_Equals_Trgt_Stack_Exc;
 
+   procedure Has_Not_New_Tableau (T : in out Test) is
+      pragma Unreferenced (T);
+      Tab      : constant Tableau.Tableau_Type := Tableau.Construct;
+      C        : constant Card.Card_Type
+        := Card.Construct (Definitions.Three, Definitions.Diamond);
+      Expected : constant Boolean := False;
+      Actual   : Boolean;
+   begin
+      Actual := Tab.Has (C);
+      AUnit.
+        Assertions.
+          Assert (Expected = Actual,
+                  "Has_Not_New_Tableau: " &
+                    "Expected=" & Expected'Image &
+                    " /= Actual=" & Actual'Image);
+   end Has_Not_New_Tableau;
+
+   procedure Has_Not_Tableau (T : in out Test) is
+      pragma Unreferenced (T);
+      Tab      : constant Tableau.Tableau_Type := Tableau.Construct;
+      C1        : constant Card.Card_Type
+        := Card.Construct (Definitions.Three, Definitions.Diamond);
+      C2        : constant Card.Card_Type
+        := Card.Construct (Definitions.Three, Definitions.Heart);
+      Expected  : constant Boolean := False;
+      Actual   : Boolean;
+   begin
+      Tab.Push (S_Idx => 1,
+                C     => C1);
+      Actual := Tab.Has (C2);
+      AUnit.
+        Assertions.
+          Assert (Expected = Actual,
+                  "Has_Not_New_Tableau: " &
+                    "Expected=" & Expected'Image &
+                    " /= Actual=" & Actual'Image);
+   end Has_Not_Tableau;
+
+   procedure Has_Tableau (T : in out Test) is
+      pragma Unreferenced (T);
+      Tab       : constant Tableau.Tableau_Type := Tableau.Construct;
+      C         : constant Card.Card_Type
+        := Card.Construct (Definitions.Three, Definitions.Diamond);
+      Expected  : constant Boolean := True;
+      Actual    : Boolean;
+   begin
+      Tab.Push (S_Idx => 1,
+                C     => C);
+      Actual := Tab.Has (C);
+      AUnit.
+        Assertions.
+          Assert (Expected = Actual,
+                  "Has_Not_New_Tableau: " &
+                    "Expected=" & Expected'Image &
+                    " /= Actual=" & Actual'Image);
+   end Has_Tableau;
+
    procedure Move_To_Src_Stack_Equals_Trgt_Stack (T : in out Test) is
       pragma Unreferenced (T);
    begin
@@ -811,6 +868,16 @@ package body Tableau.Test is
       Ret.Add_Test (Caller.
                       Create (N & "Add_7_Cards_Check_Pop",
                         Add_7_Cards_Check_Pop'Access));
+
+      Ret.Add_Test (Caller.
+                      Create (N & "Has_Not_New_Tableau",
+                        Has_Not_New_Tableau'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "Has_Not_Tableau",
+                        Has_Not_Tableau'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "Has_Tableau",
+                        Has_Tableau'Access));
 
       Ret.Add_Test (Caller.
                      Create (N & "Move_To_Src_Stack_Equals_Trgt_Stack",

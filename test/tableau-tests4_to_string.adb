@@ -7,12 +7,15 @@ with Definitions;
 
 package body Tableau.Tests4_To_String is
 
+   CR_LF : constant String
+     := Ada.Characters.Latin_1.CR & Ada.Characters.Latin_1.LF;
+
    procedure To_String_Empty_Tableau (T : in out Test) is
       pragma Unreferenced (T);
       Tab      : constant Tableau.Tableau_Type := Tableau.Construct;
       Expected : constant String
-        := String (Tableau.HEADER_LINE) & Ada.Characters.Latin_1.CR;
-      Actual   : String (1 .. Tableau.HEADER_LINE'Length + 1);
+        := String (Tableau.HEADER_LINE) & CR_LF;
+      Actual   : String (1 .. Tableau.HEADER_LINE'Length + 2);
    begin
       Actual := Tab.To_String;
       AUnit.Assertions.Assert (Expected'Length = Actual'Length,
@@ -30,16 +33,16 @@ package body Tableau.Tests4_To_String is
       C        : Card.Card_Type;
       Expected : constant String
         :=
-        String (Tableau.HEADER_LINE) & Ada.Characters.Latin_1.CR &
-        "KD    AH JC    TH    " & Ada.Characters.Latin_1.CR &
-        "QS       2C          " & Ada.Characters.Latin_1.CR &
-        "         9D          " & Ada.Characters.Latin_1.CR;
+        String (Tableau.HEADER_LINE) & CR_LF &
+        "KD    AH JC    TH    " & CR_LF &
+        "QS       2C          " & CR_LF &
+        "         9D          " & CR_LF;
       Actual   : String
         :=
-        String (Tableau.HEADER_LINE) & Ada.Characters.Latin_1.CR &
-        "                     " & Ada.Characters.Latin_1.CR &
-        "                     " & Ada.Characters.Latin_1.CR &
-        "                     " & Ada.Characters.Latin_1.CR;
+        String (Tableau.HEADER_LINE) & CR_LF &
+        "                     " & CR_LF &
+        "                     " & CR_LF &
+        "                     " & CR_LF;
    begin
       --  "                     ";
       --  Fill stack one
@@ -90,20 +93,20 @@ package body Tableau.Tests4_To_String is
       C        : Card.Card_Type;
       Expected : constant String
         :=
-        String (Tableau.HEADER_LINE) & Ada.Characters.Latin_1.CR &
-        "   7C AS    KD    TD " & Ada.Characters.Latin_1.CR &
-        "      KC    QS    9C " & Ada.Characters.Latin_1.CR &
-        "      2H    JH    8H " & Ada.Characters.Latin_1.CR &
-        "      5S             " & Ada.Characters.Latin_1.CR &
-        "      KH             " & Ada.Characters.Latin_1.CR;
+        String (Tableau.HEADER_LINE) & CR_LF &
+        "   7C AS    KD    TD " & CR_LF &
+        "      KC    QS    9C " & CR_LF &
+        "      2H    JH    8H " & CR_LF &
+        "      5S             " & CR_LF &
+        "      KH             " & CR_LF;
       Actual   : String
         :=
-        String (Tableau.HEADER_LINE) & Ada.Characters.Latin_1.CR &
-        "                     " & Ada.Characters.Latin_1.CR &
-        "                     " & Ada.Characters.Latin_1.CR &
-        "                     " & Ada.Characters.Latin_1.CR &
-        "                     " & Ada.Characters.Latin_1.CR &
-        "                     " & Ada.Characters.Latin_1.CR;
+        String (Tableau.HEADER_LINE) & CR_LF &
+        "                     " & CR_LF &
+        "                     " & CR_LF &
+        "                     " & CR_LF &
+        "                     " & CR_LF &
+        "                     " & CR_LF;
    begin
       --  "                     ";
       --  Fill stack one: EMPTY

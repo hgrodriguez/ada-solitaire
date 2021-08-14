@@ -27,6 +27,16 @@ package body Tableau is
       return S;
    end Size;
 
+   function Has (T : Tableau_Type; C : Card.Card_Type) return Boolean is
+   begin
+      for I in Valid_Stacks_Range loop
+         if T.Stacks (I).all.Has (C) then
+            return True;
+         end if;
+      end loop;
+      return False;
+   end Has;
+
    procedure Init_With (T : Tableau_Type; S : Stock.Stock_Type) is
       C : Card.Card_Type;
    begin
@@ -46,7 +56,8 @@ package body Tableau is
    begin
       while not Pile.Is_Empty loop
          C := Pile.Get;
-         T.Stacks (J).all.Push_Unchecked (C);
+         T.Push (S_Idx => J,
+                 C     => C);
          if J = Valid_Stacks_Range'Last then
             J := Valid_Stacks_Range'First;
          else
@@ -182,9 +193,11 @@ package body Tableau is
          One_Line := To_String_One_Line (SIs);
          exit when One_Line = EMPTY_ONE_LINE;
          Ada.Strings.Unbounded.Append (Ret_Val, Ada.Characters.Latin_1.CR);
+         Ada.Strings.Unbounded.Append (Ret_Val, Ada.Characters.Latin_1.LF);
          Ada.Strings.Unbounded.Append (Ret_Val, String (One_Line));
       end loop;
       Ada.Strings.Unbounded.Append (Ret_Val, Ada.Characters.Latin_1.CR);
+      Ada.Strings.Unbounded.Append (Ret_Val, Ada.Characters.Latin_1.LF);
       return Ada.Strings.Unbounded.To_String (Ret_Val);
    end To_String;
 
@@ -207,6 +220,13 @@ package body Tableau is
    begin
       return T.Stacks (J);
    end Get_Stack;
+
+   procedure Push (T     : Tableau_Type;
+                   S_Idx : Valid_Stacks_Range;
+                   C     : Card.Card_Type) is
+   begin
+      T.Stacks (S_Idx).all.Push_Unchecked (C);
+   end Push;
 
    function Create_Stack_Images return Stack_Images is
       Ret_Val : Stack_Images;

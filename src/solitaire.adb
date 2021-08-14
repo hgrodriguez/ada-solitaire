@@ -1,4 +1,5 @@
 with Ada.Text_IO;
+with Ada.Characters.Handling;
 
 with Text_Menu;
 
@@ -93,6 +94,7 @@ procedure Solitaire is
            Text_IO.
              Put_Line (Item => "Please enter rank [A, 2-9, T-K]: ");
          Ada.Text_IO.Get (Item => Rank_Char_Input);
+         Rank_Char_Input := Ada.Characters.Handling.To_Upper (Rank_Char_Input);
          if not Deck.Is_Valid_Rank_Short_Image (Rank_Char_Input) then
             Ada.Text_IO.Put_Line ("The Rank given is not an applicable rank.");
             return;
@@ -102,6 +104,7 @@ procedure Solitaire is
            Text_IO.
              Put_Line (Item => "Please enter suit [D, H, C, S]: ");
          Ada.Text_IO.Get (Item => Suit_Char_Input);
+         Suit_Char_Input := Ada.Characters.Handling.To_Upper (Suit_Char_Input);
          Ada.Text_IO.Put_Line (Item => "I got: " &
                                  Rank_Char_Input &
                                  Suit_Char_Input);

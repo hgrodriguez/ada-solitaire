@@ -1,3 +1,5 @@
+with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
+
 with Card;
 with Pile_Of_Cards.FIFO;
 with Short_Image_FIFO;
@@ -53,6 +55,8 @@ package Tableau is
                              C : Card.Card_Type) return Valid_Stacks_Range;
 
    function To_String (T : Tableau_Type) return String;
+
+   function Ansi_To_String (T : Tableau_Type) return Unbounded_String;
 
 private
    type Stack_Array is array (Valid_Stacks_Range)

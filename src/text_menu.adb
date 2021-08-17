@@ -10,12 +10,14 @@ package body Text_Menu is
          Ada.
            Text_IO.
              Put_Line (Item => "What do you want: "
-                       & "H)elp, P)lay, Q)uit:");
+                       & "H)elp, O)ptions, P)lay, Q)uit:");
          Ada.Text_IO.Get (Item => User_Wants);
          User_Wants := Ada.Characters.Handling.To_Upper (User_Wants);
          case User_Wants is
             when 'H'
                => return Help;
+            when 'O'
+               => return Options;
             when 'P'
                => return Play;
             when 'Q'
@@ -26,6 +28,28 @@ package body Text_Menu is
       end loop;
    end Top_Menu_Selection;
 
+   function Options_Menu_Selection return Options_MIs is
+      User_Wants : Character;
+   begin
+      loop
+         Ada.
+           Text_IO.
+             Put_Line (Item => "What do you want: "
+                       & "H)elp," &
+                         " Q)uit:");
+         Ada.Text_IO.Get (Item => User_Wants);
+         User_Wants := Ada.Characters.Handling.To_Upper (User_Wants);
+         case User_Wants is
+            when 'H'
+               => return Help;
+            when 'Q'
+               => return Quit;
+            when others
+               => Ada.Text_IO.Put_Line (Item => "Wrong input. Try again.");
+         end case;
+      end loop;
+   end Options_Menu_Selection;
+
    function Play_Menu_Selection return Play_MIs is
       User_Wants : Character;
    begin
@@ -33,7 +57,7 @@ package body Text_Menu is
          Ada.
            Text_IO.
              Put_Line (Item => "What do you want: "
-                       & "H)elp, M)ove, C)lean, F)etch, P)eek, R)estart,"
+                       & "H)elp, M)ove, F)etch, P)eek, R)estart,"
                        & " Q)uit:");
          Ada.Text_IO.Get (Item => User_Wants);
          User_Wants := Ada.Characters.Handling.To_Upper (User_Wants);
@@ -42,8 +66,6 @@ package body Text_Menu is
                => return Help;
             when 'M'
                => return Move;
-            when 'C'
-               => return Clean;
             when 'F'
                => return Fetch;
             when 'P'

@@ -94,4 +94,22 @@ package body Foundation is
       return R;
    end To_String;
 
+   function Ansi_To_String (F : Foundation_Type) return Unbounded_String is
+      R     : Unbounded_String;
+      T     : Unbounded_String;
+      Stack : Foundation_Stack.Stack_Type_Access;
+      use Definitions;
+   begin
+      for s in Definitions.Suits_Valid_Range loop
+         Stack := F.Stacks (s);
+         T := Stack.all.Ansi_To_String;
+         R := R & T;
+         if s < Definitions.Suits_Valid_Range'Last then
+            --  add separator
+            R := R & ' ';
+         end if;
+      end loop;
+      return R;
+   end Ansi_To_String;
+
 end Foundation;

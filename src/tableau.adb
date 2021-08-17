@@ -1,4 +1,3 @@
-with Ada.Strings.Unbounded;
 with Ada.Characters.Latin_1;
 
 with Cards;
@@ -217,6 +216,57 @@ package body Tableau is
       Ada.Strings.Unbounded.Append (Ret_Val, Ada.Characters.Latin_1.LF);
       return Ada.Strings.Unbounded.To_String (Ret_Val);
    end To_String;
+
+   ANSI_HEADER_LINE    : constant Unbounded_String
+     := To_Unbounded_String (" 1  2  3  4  5  6  7 ");
+   ANSI_EMPTY_ONE_LINE : constant Unbounded_String
+     := To_Unbounded_String ("                     ");
+
+   function ANSI_To_String_One_Line (SIs : Stack_Images)
+                                     return Unbounded_String;
+   function ANSI_To_String_One_Line (SIs : Stack_Images)
+                                     return Unbounded_String is
+      One_Stack       : Short_Image_FIFO.Short_Image_FIFO_Type_Access;
+      One_Short_Image : Unbounded_String;
+      Ret_Val         : Unbounded_String;
+      Separator       : constant Character := ' ';
+   begin
+      for J in Valid_Stacks_Range loop
+         One_Stack := SIs (J);
+         if One_Stack.all.Is_Empty then
+            One_Short_Image := To_Unbounded_String (Card.Empty_Short_Image);
+         else
+            One_Short_Image := One_Stack.Ansi_Get;
+         end if;
+         Ret_Val := Ret_Val & One_Short_Image;
+         Ret_Val := Ret_Val & Separator;
+      end loop;
+      return Ret_Val;
+   end ANSI_To_String_One_Line;
+
+   function Ansi_To_String (T : Tableau_Type) return Unbounded_String is
+      Ret_Val  : Ada.Strings.Unbounded.Unbounded_String
+        := Ada.Strings.Unbounded.Null_Unbounded_String;
+      Stacks   : constant Stack_Array := T.Stacks;
+      SIs      : constant Stack_Images := Create_Stack_Images;
+      One_Line : Unbounded_String;
+   begin
+      for J in Valid_Stacks_Range loop
+         SIs (J).all := Stacks (J).Short_Images;
+      end loop;
+      One_Line := ANSI_HEADER_LINE;
+      Ret_Val := Ret_Val & One_Line;
+      loop
+         One_Line := ANSI_To_String_One_Line (SIs);
+         exit when One_Line = ANSI_EMPTY_ONE_LINE;
+         Ada.Strings.Unbounded.Append (Ret_Val, Ada.Characters.Latin_1.CR);
+         Ada.Strings.Unbounded.Append (Ret_Val, Ada.Characters.Latin_1.LF);
+         Ret_Val := Ret_Val & One_Line;
+      end loop;
+      Ada.Strings.Unbounded.Append (Ret_Val, Ada.Characters.Latin_1.CR);
+      Ada.Strings.Unbounded.Append (Ret_Val, Ada.Characters.Latin_1.LF);
+      return Ret_Val;
+   end Ansi_To_String;
 
    --------------------------------------------------------------------
    --

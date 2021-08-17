@@ -1,3 +1,5 @@
+with Ada.Text_IO;
+
 with Deck;
 
 package body Card is
@@ -87,5 +89,19 @@ package body Card is
       R (2) := Deck.Short_Image (c.Get_Suit)(1);
       return R;
    end Short_Image;
+
+   function Ansi_Image (c : Card_Type) return Unbounded_String is
+   begin
+      if c.Suit_Is_Red then
+         Ada.Text_IO.Put_Line ("RED FOUND");
+         return To_Unbounded_String (ASCII.ESC & "[31m"
+           & Deck.Short_Image (c.Get_Rank) (1)
+           & Deck.Short_Image (c.Get_Suit) (1)
+           & ASCII.ESC & "[0m");
+      else
+         return To_Unbounded_String (Deck.Short_Image (c.Get_Rank) (1)
+           & Deck.Short_Image (c.Get_Suit) (1));
+      end if;
+   end Ansi_Image;
 
 end Card;

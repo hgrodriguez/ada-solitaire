@@ -1,3 +1,5 @@
+with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
+
 with Definitions;
 with Card;
 with Foundation_Stack;
@@ -37,6 +39,10 @@ package Foundation is
    subtype To_String_Type is String (1 .. COUNT_OF_STACKS
                                      * WIDTH_ONE_STACK_IMAGE - 1);
    function To_String (F : Foundation_Type) return To_String_Type;
+
+   --------------------------------------------------------------------
+   --  has color coding in it
+   function Ansi_To_String (F : Foundation_Type) return Unbounded_String;
 
 private
 

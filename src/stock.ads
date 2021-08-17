@@ -1,3 +1,5 @@
+with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
+
 --  represents a stock of poker cards
 
 with Card;
@@ -32,6 +34,12 @@ package Stock is
    --  if Peek is True -> then the card image will come up, else Obscured
    function To_String (S : Stock_Type; Peek : Boolean := False)
                        return Card.Short_Image_Type;
+
+   --------------------------------------------------------------------
+   --  convert top card into an image
+   --  if Peek is True -> then the card image will come up, else Obscured
+   function Ansi_To_String (S : Stock_Type; Peek : Boolean := False)
+                       return Unbounded_String;
 
 private
    --------------------------------------------------------------------

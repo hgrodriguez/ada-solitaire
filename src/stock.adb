@@ -141,6 +141,20 @@ package body Stock is
       end if;
    end To_String;
 
+   function Ansi_To_String (S : Stock_Type; Peek : Boolean := False)
+                            return Unbounded_String is
+   begin
+      if S.Size = 0 then
+         return To_Unbounded_String (Card.Empty_Short_Image);
+      else
+         if Peek then
+            return S.Peek.Ansi_Image;
+         else
+            return To_Unbounded_String (Card.Obscure_Short_Image);
+         end if;
+      end if;
+   end Ansi_To_String;
+
    --------------------------------------------------------------------
    --  PRIVATE PROCEDURES/FUNCTIONS
    --------------------------------------------------------------------

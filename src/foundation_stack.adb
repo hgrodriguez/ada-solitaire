@@ -94,4 +94,16 @@ package body Foundation_Stack is
       end if;
    end To_String;
 
+   function Ansi_To_String (cs : Foundation_Stack.Stack_Type)
+                            return Unbounded_String is
+      C : Card.Card_Type;
+   begin
+      if cs.Cards.Is_Empty then
+         return To_Unbounded_String (Card.Empty_Short_Image);
+      else
+         C := cs.Cards.Peek;
+         return C.Ansi_Image;
+      end if;
+   end Ansi_To_String;
+
 end Foundation_Stack;

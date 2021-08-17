@@ -1,3 +1,5 @@
+with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
+
 with Definitions;
 with Card;
 with Pile_Of_Cards.LIFO;
@@ -47,6 +49,11 @@ package Foundation_Stack is
    --  converts the top card into readable format
    function To_String (cs : Foundation_Stack.Stack_Type)
                        return Card.Short_Image_Type;
+
+   --------------------------------------------------------------------
+   --  converts the top card into ANSI readable format
+   function Ansi_To_String (cs : Foundation_Stack.Stack_Type)
+                       return Unbounded_String;
 
 private
    type Stack_Type is tagged record

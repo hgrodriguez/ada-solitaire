@@ -1,6 +1,7 @@
 --  helper for collecting Card.Short_Image_Types for printing
 with Ada.Containers;
 with Ada.Containers.Doubly_Linked_Lists;
+with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
 
 with Card;
 
@@ -25,12 +26,19 @@ package Short_Image_FIFO is
    --  put one short image into the fifo
    procedure Put (SIF : in out Short_Image_FIFO_Type;
                   CSI : Card.Short_Image_Type);
+
    --------------------------------------------------------------------
    --  get one short image into the fifo
    --  if fifo is empty -> exception
    Short_Image_FIFO_Empty_Exception : exception;
    function Get (SIF : in out Short_Image_FIFO_Type)
                  return Card.Short_Image_Type;
+
+   --------------------------------------------------------------------
+   --  get one short image into the fifo
+   --  if fifo is empty -> exception
+   function Ansi_Get (SIF : in out Short_Image_FIFO_Type)
+                 return Unbounded_String;
 
 private
    package Short_Image_DLL is new Ada.Containers.

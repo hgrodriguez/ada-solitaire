@@ -1,3 +1,5 @@
+with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
+
 --  Represents one card in a deck of (poker) cards
 
 with Definitions;
@@ -67,6 +69,11 @@ package Card is
    function Short_Image (c : Card_Type) return Short_Image_Type;
    --  the representation with parantheses for debugging etc.
    function Image (c : Card_Type) return String;
+
+   --------------------------------------------------------------------
+   --  ANSI images of a Card_Type
+   --  has color coding in it
+   function Ansi_Image (c : Card_Type) return Unbounded_String;
 
 private
    type Card_Type is tagged

@@ -160,6 +160,24 @@ package body Tableau.Tests4_To_String is
                                  " /= Actual= " & Actual);
    end To_String_Pattern_2;
 
+   procedure Ansi_To_String_Empty_Tableau (T : in out Test) is
+      pragma Unreferenced (T);
+   begin
+      AUnit.Assertions.Assert (False, "NOT IMPLEMENTED");
+   end Ansi_To_String_Empty_Tableau;
+
+   procedure Ansi_To_String_Pattern_1 (T : in out Test) is
+      pragma Unreferenced (T);
+   begin
+      AUnit.Assertions.Assert (False, "NOT IMPLEMENTED");
+   end Ansi_To_String_Pattern_1;
+
+   procedure Ansi_To_String_Pattern_2 (T : in out Test) is
+      pragma Unreferenced (T);
+   begin
+      AUnit.Assertions.Assert (False, "NOT IMPLEMENTED");
+   end Ansi_To_String_Pattern_2;
+
    --------------------------------------------------------------------
    --  the test suit construction
    package Caller is new AUnit.Test_Caller
@@ -181,6 +199,17 @@ package body Tableau.Tests4_To_String is
       Ret.Add_Test (Caller.
                       Create (N & "To_String_Pattern_2",
                         To_String_Pattern_2'Access));
+
+      Ret.Add_Test (Caller.
+                      Create (N & "Ansi_To_String_Empty_Tableau",
+                        Ansi_To_String_Empty_Tableau'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "Ansi_To_String_Pattern_1",
+                        Ansi_To_String_Pattern_1'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "Ansi_To_String_Pattern_2",
+                        Ansi_To_String_Pattern_2'Access));
+
       return Ret;
    end Suite;
 

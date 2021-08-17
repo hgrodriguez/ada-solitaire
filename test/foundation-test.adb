@@ -362,6 +362,36 @@ package body Foundation.Test is
                                  " /= " & Actual);
    end To_String_4_Non_Empty_Stack;
 
+   procedure Ansi_To_String_Empty_Foundation (T : in out Test) is
+      pragma Unreferenced (T);
+   begin
+      AUnit.Assertions.Assert (False, "NOT IMPLEMENTED");
+   end Ansi_To_String_Empty_Foundation;
+
+   procedure Ansi_To_String_1_Non_Empty_Stack (T : in out Test) is
+      pragma Unreferenced (T);
+   begin
+      AUnit.Assertions.Assert (False, "NOT IMPLEMENTED");
+   end Ansi_To_String_1_Non_Empty_Stack;
+
+   procedure Ansi_To_String_2_Non_Empty_Stack (T : in out Test) is
+      pragma Unreferenced (T);
+   begin
+      AUnit.Assertions.Assert (False, "NOT IMPLEMENTED");
+   end Ansi_To_String_2_Non_Empty_Stack;
+
+   procedure Ansi_To_String_3_Non_Empty_Stack (T : in out Test) is
+      pragma Unreferenced (T);
+   begin
+      AUnit.Assertions.Assert (False, "NOT IMPLEMENTED");
+   end Ansi_To_String_3_Non_Empty_Stack;
+
+   procedure Ansi_To_String_4_Non_Empty_Stack (T : in out Test) is
+      pragma Unreferenced (T);
+   begin
+      AUnit.Assertions.Assert (False, "NOT IMPLEMENTED");
+   end Ansi_To_String_4_Non_Empty_Stack;
+
    --------------------------------------------------------------------
    --  the test suit construction
    package Caller is new AUnit.Test_Caller (Foundation.Test.Test);
@@ -434,6 +464,22 @@ package body Foundation.Test is
       Ret.Add_Test (Caller.
                       Create (N & "To_String_4_Non_Empty_Stack",
                         To_String_4_Non_Empty_Stack'Access));
+
+      Ret.Add_Test (Caller.
+                      Create (N & "Ansi_To_String_Empty_Foundation",
+                        Ansi_To_String_Empty_Foundation'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "Ansi_To_String_1_Non_Empty_Stack",
+                        Ansi_To_String_1_Non_Empty_Stack'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "Ansi_To_String_2_Non_Empty_Stack",
+                        Ansi_To_String_2_Non_Empty_Stack'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "Ansi_To_String_3_Non_Empty_Stack",
+                        Ansi_To_String_3_Non_Empty_Stack'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "Ansi_To_String_4_Non_Empty_Stack",
+                        Ansi_To_String_4_Non_Empty_Stack'Access));
 
       return Ret;
    end Suite;

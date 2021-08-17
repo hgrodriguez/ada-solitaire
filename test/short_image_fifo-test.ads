@@ -18,9 +18,19 @@ private
    procedure Put_1_Card_Size (T : in out Test);
    procedure Put_2_Cards_Is_Empty (T : in out Test);
    procedure Put_2_Cards_Size (T : in out Test);
+
    procedure Get_1_Card_Put_0 (T : in out Test);
    procedure Get_1_Card_Put_1 (T : in out Test);
    procedure Get_1_Card_Put_2 (T : in out Test);
    procedure Get_2_Cards_Put_2 (T : in out Test);
+
+   procedure Ansi_Get_1_Card_Put_1_Red (T : in out Test);
+   procedure Ansi_Get_1_Card_Put_1_Black (T : in out Test);
+   procedure Ansi_Get_1_Card_Put_2_Red (T : in out Test);
+   procedure Ansi_Get_1_Card_Put_2_Black (T : in out Test);
+   procedure Ansi_Get_2_Cards_Put_2_Red_Red (T : in out Test);
+   procedure Ansi_Get_2_Cards_Put_2_Red_Black (T : in out Test);
+   procedure Ansi_Get_2_Cards_Put_2_Black_Red (T : in out Test);
+   procedure Ansi_Get_2_Cards_Put_2_Black_Black (T : in out Test);
 
 end Short_Image_FIFO.Test;

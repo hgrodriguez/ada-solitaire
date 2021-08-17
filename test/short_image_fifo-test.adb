@@ -246,6 +246,54 @@ package body Short_Image_FIFO.Test is
                                  " /= actual:" & Actual2);
    end Get_2_Cards_Put_2;
 
+   procedure Ansi_Get_1_Card_Put_1_Red (T : in out Test) is
+      pragma Unreferenced (T);
+   begin
+      AUnit.Assertions.Assert (False, "NOT IMPLEMENTED");
+   end Ansi_Get_1_Card_Put_1_Red;
+
+   procedure Ansi_Get_1_Card_Put_1_Black (T : in out Test) is
+      pragma Unreferenced (T);
+   begin
+      AUnit.Assertions.Assert (False, "NOT IMPLEMENTED");
+   end Ansi_Get_1_Card_Put_1_Black;
+
+   procedure Ansi_Get_1_Card_Put_2_Red (T : in out Test) is
+      pragma Unreferenced (T);
+   begin
+      AUnit.Assertions.Assert (False, "NOT IMPLEMENTED");
+   end Ansi_Get_1_Card_Put_2_Red;
+
+   procedure Ansi_Get_1_Card_Put_2_Black (T : in out Test) is
+      pragma Unreferenced (T);
+   begin
+      AUnit.Assertions.Assert (False, "NOT IMPLEMENTED");
+   end Ansi_Get_1_Card_Put_2_Black;
+
+   procedure Ansi_Get_2_Cards_Put_2_Red_Red (T : in out Test) is
+      pragma Unreferenced (T);
+   begin
+      AUnit.Assertions.Assert (False, "NOT IMPLEMENTED");
+   end Ansi_Get_2_Cards_Put_2_Red_Red;
+
+   procedure Ansi_Get_2_Cards_Put_2_Red_Black (T : in out Test) is
+      pragma Unreferenced (T);
+   begin
+      AUnit.Assertions.Assert (False, "NOT IMPLEMENTED");
+   end Ansi_Get_2_Cards_Put_2_Red_Black;
+
+   procedure Ansi_Get_2_Cards_Put_2_Black_Red (T : in out Test) is
+      pragma Unreferenced (T);
+   begin
+      AUnit.Assertions.Assert (False, "NOT IMPLEMENTED");
+   end Ansi_Get_2_Cards_Put_2_Black_Red;
+
+   procedure Ansi_Get_2_Cards_Put_2_Black_Black (T : in out Test) is
+      pragma Unreferenced (T);
+   begin
+      AUnit.Assertions.Assert (False, "NOT IMPLEMENTED");
+   end Ansi_Get_2_Cards_Put_2_Black_Black;
+
    --------------------------------------------------------------------
    --  the test suit construction
    package Caller is new AUnit.Test_Caller
@@ -296,6 +344,32 @@ package body Short_Image_FIFO.Test is
       Ret.Add_Test (Caller.
                       Create (N & "Get_2_Cards_Put_2",
                         Get_2_Cards_Put_2'Access));
+
+      Ret.Add_Test (Caller.
+                      Create (N & "Ansi_Get_1_Card_Put_1_Red",
+                        Ansi_Get_1_Card_Put_1_Red'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "Ansi_Get_1_Card_Put_1_Black",
+                        Ansi_Get_1_Card_Put_1_Black'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "Ansi_Get_1_Card_Put_2_Red",
+                        Ansi_Get_1_Card_Put_2_Red'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "Ansi_Get_1_Card_Put_2_Black",
+                        Ansi_Get_1_Card_Put_2_Black'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "Ansi_Get_2_Cards_Put_2_Red_Red",
+                        Ansi_Get_2_Cards_Put_2_Red_Red'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "Ansi_Get_2_Cards_Put_2_Red_Black",
+                        Ansi_Get_2_Cards_Put_2_Red_Black'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "Ansi_Get_2_Cards_Put_2_Black_Red",
+                        Ansi_Get_2_Cards_Put_2_Black_Red'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "Ansi_Get_2_Cards_Put_2_Black_Black",
+                        Ansi_Get_2_Cards_Put_2_Black_Black'Access));
+
       return Ret;
    end Suite;
 

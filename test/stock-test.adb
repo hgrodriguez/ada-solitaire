@@ -325,6 +325,30 @@ package body Stock.Test is
                                  " /= " & Actual);
    end To_String_Empty;
 
+   procedure Ansi_To_String_Non_Empty_And_No_Peek (T : in out Test) is
+      pragma Unreferenced (T);
+   begin
+      AUnit.Assertions.Assert (False, "NOT IMPLEMENTED");
+   end Ansi_To_String_Non_Empty_And_No_Peek;
+
+   procedure Ansi_To_String_Non_Empty_And_Peek_Red (T : in out Test) is
+      pragma Unreferenced (T);
+   begin
+      AUnit.Assertions.Assert (False, "NOT IMPLEMENTED");
+   end Ansi_To_String_Non_Empty_And_Peek_Red;
+
+   procedure Ansi_To_String_Non_Empty_And_Peek_Black (T : in out Test) is
+      pragma Unreferenced (T);
+   begin
+      AUnit.Assertions.Assert (False, "NOT IMPLEMENTED");
+   end Ansi_To_String_Non_Empty_And_Peek_Black;
+
+   procedure Ansi_To_String_Empty (T : in out Test) is
+      pragma Unreferenced (T);
+   begin
+      AUnit.Assertions.Assert (False, "NOT IMPLEMENTED");
+   end Ansi_To_String_Empty;
+
    --------------------------------------------------------------------
    package Caller is new AUnit.Test_Caller (Stock.Test.Test);
 
@@ -387,6 +411,19 @@ package body Stock.Test is
       Ret.Add_Test (Caller.
                       Create (N & "To_String_Empty",
                         To_String_Empty'Access));
+
+      Ret.Add_Test (Caller.
+                      Create (N & "Ansi_To_String_Non_Empty_And_No_Peek",
+                        Ansi_To_String_Non_Empty_And_No_Peek'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "Ansi_To_String_Non_Empty_And_Peek_Red",
+                        Ansi_To_String_Non_Empty_And_Peek_Red'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "Ansi_To_String_Non_Empty_And_Peek_Black",
+                        Ansi_To_String_Non_Empty_And_Peek_Black'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "Ansi_To_String_Empty",
+                        Ansi_To_String_Empty'Access));
 
       return Ret;
    end Suite;

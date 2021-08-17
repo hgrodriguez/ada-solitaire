@@ -22,4 +22,7 @@ private
 
    procedure Short_Image (T : in out Test);
 
+   procedure Ansi_Image_Red (T : in out Test);
+   procedure Ansi_Image_Black (T : in out Test);
+
 end Card.Test;

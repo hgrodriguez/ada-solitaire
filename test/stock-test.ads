@@ -29,4 +29,10 @@ private
    procedure To_String_Non_Empty_And_No_Peek (T : in out Test);
    procedure To_String_Non_Empty_And_Peek (T : in out Test);
    procedure To_String_Empty (T : in out Test);
+
+   procedure Ansi_To_String_Non_Empty_And_No_Peek (T : in out Test);
+   procedure Ansi_To_String_Non_Empty_And_Peek_Red (T : in out Test);
+   procedure Ansi_To_String_Non_Empty_And_Peek_Black (T : in out Test);
+   procedure Ansi_To_String_Empty (T : in out Test);
+
 end Stock.Test;

@@ -290,6 +290,24 @@ package body Foundation_Stack.Test is
                                  " /= " & Actual);
    end To_String_Not_Empty;
 
+   procedure Ansi_To_String_Empty (T : in out Test) is
+      pragma Unreferenced (T);
+   begin
+      AUnit.Assertions.Assert (False, "NOT IMPLEMENTED");
+   end Ansi_To_String_Empty;
+
+   procedure Ansi_To_String_Not_Empty_Red  (T : in out Test) is
+      pragma Unreferenced (T);
+   begin
+      AUnit.Assertions.Assert (False, "NOT IMPLEMENTED");
+   end Ansi_To_String_Not_Empty_Red;
+
+   procedure Ansi_To_String_Not_Empty_Black  (T : in out Test) is
+      pragma Unreferenced (T);
+   begin
+      AUnit.Assertions.Assert (False, "NOT IMPLEMENTED");
+   end Ansi_To_String_Not_Empty_Black;
+
    --------------------------------------------------------------------
    --  the test suit construction
    package Caller is new AUnit.Test_Caller (Foundation_Stack.Test.Test);
@@ -355,10 +373,19 @@ package body Foundation_Stack.Test is
       Ret.Add_Test (Caller.
                       Create (N & "To_String_Empty",
                         To_String_Empty'Access));
-
       Ret.Add_Test (Caller.
                       Create (N & "To_String_Not_Empty",
                         To_String_Not_Empty'Access));
+
+      Ret.Add_Test (Caller.
+                      Create (N & "Ansi_To_String_Empty",
+                        Ansi_To_String_Empty'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "Ansi_To_String_Not_Empty_Red",
+                        Ansi_To_String_Not_Empty_Red'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "Ansi_To_String_Not_Empty_Black",
+                        Ansi_To_String_Not_Empty_Black'Access));
 
       return Ret;
    end Suite;

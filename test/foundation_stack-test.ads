@@ -30,4 +30,8 @@ private
    procedure To_String_Empty (T : in out Test);
    procedure To_String_Not_Empty  (T : in out Test);
 
+   procedure Ansi_To_String_Empty (T : in out Test);
+   procedure Ansi_To_String_Not_Empty_Red  (T : in out Test);
+   procedure Ansi_To_String_Not_Empty_Black  (T : in out Test);
+
 end Foundation_Stack.Test;

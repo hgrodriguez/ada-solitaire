@@ -33,4 +33,10 @@ private
    procedure To_String_3_Non_Empty_Stack (T : in out Test);
    procedure To_String_4_Non_Empty_Stack (T : in out Test);
 
+   procedure Ansi_To_String_Empty_Foundation (T : in out Test);
+   procedure Ansi_To_String_1_Non_Empty_Stack (T : in out Test);
+   procedure Ansi_To_String_2_Non_Empty_Stack (T : in out Test);
+   procedure Ansi_To_String_3_Non_Empty_Stack (T : in out Test);
+   procedure Ansi_To_String_4_Non_Empty_Stack (T : in out Test);
+
 end Foundation.Test;

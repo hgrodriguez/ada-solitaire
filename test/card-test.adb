@@ -138,6 +138,18 @@ package body Card.Test is
       end loop;
    end Short_Image;
 
+   procedure Ansi_Image_Red (T : in out Test) is
+      pragma Unreferenced (T);
+   begin
+      AUnit.Assertions.Assert (False, "NOT IMPLEMENTED");
+   end Ansi_Image_Red;
+
+   procedure Ansi_Image_Black (T : in out Test) is
+      pragma Unreferenced (T);
+   begin
+      AUnit.Assertions.Assert (False, "NOT IMPLEMENTED");
+   end Ansi_Image_Black;
+
    --------------------------------------------------------------------
    --  the test suit construction
    package Caller is new AUnit.Test_Caller (Card.Test.Test);
@@ -180,6 +192,12 @@ package body Card.Test is
       Ret.Add_Test (Caller.
                       Create (N & "Short_Image",
                         Short_Image'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "Ansi_Image_Red",
+                        Ansi_Image_Red'Access));
+      Ret.Add_Test (Caller.
+                      Create (N & "Ansi_Image_Black",
+                        Ansi_Image_Black'Access));
 
       return Ret;
    end Suite;

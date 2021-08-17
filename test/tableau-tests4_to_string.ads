@@ -13,4 +13,8 @@ private
    procedure To_String_Pattern_1 (T : in out Test);
    procedure To_String_Pattern_2 (T : in out Test);
 
+   procedure Ansi_To_String_Empty_Tableau (T : in out Test);
+   procedure Ansi_To_String_Pattern_1 (T : in out Test);
+   procedure Ansi_To_String_Pattern_2 (T : in out Test);
+
 end Tableau.Tests4_To_String;

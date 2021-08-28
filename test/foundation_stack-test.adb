@@ -292,20 +292,52 @@ package body Foundation_Stack.Test is
 
    procedure Ansi_To_String_Empty (T : in out Test) is
       pragma Unreferenced (T);
+      suit     : constant Definitions.Suit := Definitions.Spade;
+      stack    : constant Foundation_Stack.Stack_Type
+        := Foundation_Stack.Construct (suit);
+      Expected : constant Unbounded_String := Card.Ansi_Empty_Short_Image;
+      Actual   : Unbounded_String;
    begin
-      AUnit.Assertions.Assert (False, "NOT IMPLEMENTED");
+      Actual := stack.Ansi_To_String;
+      AUnit.Assertions.Assert (Expected = Actual,
+                               "Expected=" & To_String (Expected) &
+                                 " /= " & To_String (Actual));
    end Ansi_To_String_Empty;
 
    procedure Ansi_To_String_Not_Empty_Red  (T : in out Test) is
       pragma Unreferenced (T);
+      suit     : constant Definitions.Suit := Definitions.Heart;
+      rank     : constant Definitions.Rank := Definitions.Ace;
+      C        : constant Card.Card_Type := Card.Construct (rank, suit);
+      stack    : Foundation_Stack.Stack_Type
+        := Foundation_Stack.Construct (suit);
+      Expected : constant Unbounded_String := C.Ansi_Image;
+      Actual   : Unbounded_String;
    begin
-      AUnit.Assertions.Assert (False, "NOT IMPLEMENTED");
+      Foundation_Stack.Push (cs => stack,
+                             c  => C);
+      Actual := Foundation_Stack.Ansi_To_String (stack);
+      AUnit.Assertions.Assert (Expected = Actual,
+                               "Expected=" & To_String (Expected) &
+                                 " /= " & To_String (Actual));
    end Ansi_To_String_Not_Empty_Red;
 
    procedure Ansi_To_String_Not_Empty_Black  (T : in out Test) is
       pragma Unreferenced (T);
+      suit     : constant Definitions.Suit := Definitions.Spade;
+      rank     : constant Definitions.Rank := Definitions.Ace;
+      C        : constant Card.Card_Type := Card.Construct (rank, suit);
+      stack    : Foundation_Stack.Stack_Type
+        := Foundation_Stack.Construct (suit);
+      Expected : constant Unbounded_String := C.Ansi_Image;
+      Actual   : Unbounded_String;
    begin
-      AUnit.Assertions.Assert (False, "NOT IMPLEMENTED");
+      Foundation_Stack.Push (cs => stack,
+                             c  => C);
+      Actual := Foundation_Stack.Ansi_To_String (stack);
+      AUnit.Assertions.Assert (Expected = Actual,
+                               "Expected=" & To_String (Expected) &
+                                 " /= " & To_String (Actual));
    end Ansi_To_String_Not_Empty_Black;
 
    --------------------------------------------------------------------

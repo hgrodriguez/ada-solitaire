@@ -266,14 +266,7 @@ procedure Solitaire is
 begin
    Ada.Text_IO.Put (ASCII.ESC & "[2J");
    Ada.Text_IO.Put_Line (Item => "Welcome to the Solitaire Game");
-   --  RED
-   Ada.Text_IO.Put (ASCII.ESC & "[31m");
-   Ada.Text_IO.Put (ASCII.ESC & "[1m");
-   Ada.Text_IO.Put ("RED/BOLD");
-   Ada.Text_IO.Put (ASCII.ESC & "[0m");
    Ada.Text_IO.New_Line;
-   --  BOLD
-   --  ITALIC
    loop
       Top_Menu_Input := Text_Menu.Top_Menu_Selection;
       case Top_Menu_Input is

@@ -70,6 +70,11 @@ package Card is
    --  the representation with parantheses for debugging etc.
    function Image (c : Card_Type) return String;
 
+   Ansi_Empty_Short_Image   : constant Unbounded_String
+     := To_Unbounded_String (Empty_Short_Image);
+   Ansi_Obscure_Short_Image : constant Unbounded_String
+     := To_Unbounded_String (Obscure_Short_Image);
+
    --------------------------------------------------------------------
    --  ANSI images of a Card_Type
    --  has color coding in it

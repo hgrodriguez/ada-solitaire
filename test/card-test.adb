@@ -21,7 +21,7 @@ package body Card.Test is
       c := Card.Construct (rank, suit);
       AUnit.Assertions.Assert (c.Get_Rank = rank,
                                "Rank should be: " & rank'Image &
-                               ", but is:" & c.Get_Rank'Image);
+                                 ", but is:" & c.Get_Rank'Image);
    end Ctor_Rank;
 
    procedure Ctor_Top_Rank (T : in out Test) is
@@ -47,7 +47,7 @@ package body Card.Test is
       c := Card.Construct (rank, suit);
       AUnit.Assertions.Assert (c.Get_Suit = suit,
                                "Suit should be: " & suit'Image &
-                               ", but is:" & c.Get_Suit'Image);
+                                 ", but is:" & c.Get_Suit'Image);
    end Ctor_Suit;
 
    --------------------------------------------------------------------
@@ -60,7 +60,7 @@ package body Card.Test is
 
    begin
       AUnit.Assertions.Assert (c.Suit_Is_Red,
-                                 "c.Suit:" & c.Get_Suit'Image &
+                               "c.Suit:" & c.Get_Suit'Image &
                                  " should be red");
    end Suit_Is_Red_Diamond;
 
@@ -72,7 +72,7 @@ package body Card.Test is
 
    begin
       AUnit.Assertions.Assert (c.Suit_Is_Red,
-                                 "c.Suit:" & c.Get_Suit'Image &
+                               "c.Suit:" & c.Get_Suit'Image &
                                  " should be red");
    end Suit_Is_Red_Heart;
 
@@ -105,8 +105,8 @@ package body Card.Test is
    --  image tests
    procedure Image_1 (T : in out Test) is
       pragma Unreferenced (T);
-      rank      : constant Definitions.Rank := Definitions.Ace;
-      suit      : constant Definitions.Suit := Definitions.Diamond;
+      rank       : constant Definitions.Rank := Definitions.Ace;
+      suit       : constant Definitions.Suit := Definitions.Diamond;
       c          : constant Card.Card_Type := Card.Construct (rank, suit);
       s_expected : constant String
         := "(" & rank'Image & "," & suit'Image & ")";
@@ -115,7 +115,7 @@ package body Card.Test is
    begin
       s_result := c.Image;
       AUnit.Assertions.Assert (s_expected = s_result,
-                                 "expected: " & s_expected &
+                               "expected: " & s_expected &
                                  " /= " & s_result);
    end Image_1;
 
@@ -140,14 +140,37 @@ package body Card.Test is
 
    procedure Ansi_Image_Red (T : in out Test) is
       pragma Unreferenced (T);
+      C        : constant Card.Card_Type
+        := Card.Construct (Rank => Definitions.Five,
+                           Suit => Definitions.Heart);
+      Expected : constant Unbounded_String
+        := To_Unbounded_String (Definitions.Ansi_Red_Head &
+                                  "5H" &
+                                  Definitions.Ansi_Red_Tail);
+      Actual   : Unbounded_String;
    begin
-      AUnit.Assertions.Assert (False, "NOT IMPLEMENTED");
+      Actual := C.Ansi_Image;
+      AUnit.
+        Assertions.
+          Assert (Expected = Actual,
+                  "Expected=" & To_String (Expected) &
+                      "/=" & To_String (Actual));
    end Ansi_Image_Red;
 
    procedure Ansi_Image_Black (T : in out Test) is
       pragma Unreferenced (T);
+      C        : constant Card.Card_Type
+        := Card.Construct (Rank => Definitions.Five,
+                           Suit => Definitions.Club);
+      Expected : constant Unbounded_String := To_Unbounded_String ("5C");
+      Actual   : Unbounded_String;
    begin
-      AUnit.Assertions.Assert (False, "NOT IMPLEMENTED");
+      Actual := C.Ansi_Image;
+      AUnit.
+        Assertions.
+          Assert (Expected = Actual,
+                  "Expected=" & To_String (Expected) &
+                      "/=" & To_String (Actual));
    end Ansi_Image_Black;
 
    --------------------------------------------------------------------

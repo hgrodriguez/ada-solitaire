@@ -1,3 +1,5 @@
+--  ANSI CODES:
+--  https://en.wikipedia.org/wiki/ANSI_escape_code#3-bit_and_4-bit
 package Definitions is
 
    --------------------------------------------------------------------
@@ -30,4 +32,6 @@ package Definitions is
 
    subtype Suits_Valid_Range is Suit range Diamond .. Spade;
 
+   Ansi_Red_Head : String := ASCII.ESC & "[31m";
+   Ansi_Red_Tail : String := ASCII.ESC & "[0m";
 end Definitions;

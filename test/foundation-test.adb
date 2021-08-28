@@ -364,32 +364,128 @@ package body Foundation.Test is
 
    procedure Ansi_To_String_Empty_Foundation (T : in out Test) is
       pragma Unreferenced (T);
+      F        : constant Foundation.Foundation_Type := Foundation.Construct;
+      Expected : constant Unbounded_String
+        := To_Unbounded_String ("           ");
+      Actual   : Unbounded_String;
    begin
-      AUnit.Assertions.Assert (False, "NOT IMPLEMENTED");
+      Actual := F.Ansi_To_String;
+      AUnit.
+        Assertions.
+          Assert (Expected = Actual,
+                  "Expected=" & To_String (Expected) &
+                      " /= " & To_String (Actual));
    end Ansi_To_String_Empty_Foundation;
 
    procedure Ansi_To_String_1_Non_Empty_Stack (T : in out Test) is
       pragma Unreferenced (T);
+      F        : constant Foundation.Foundation_Type := Foundation.Construct;
+      Card_1   : constant Card.Card_Type
+        := Card.Construct (Definitions.Ace,
+                           Definitions.Diamond);
+      Expected : constant Unbounded_String := Card_1.Ansi_Image &
+        To_Unbounded_String ("         ");
+      Actual   : Unbounded_String;
    begin
-      AUnit.Assertions.Assert (False, "NOT IMPLEMENTED");
+      F.Put (Card_1);
+      Actual := F.Ansi_To_String;
+      AUnit.
+        Assertions.
+          Assert (Expected = Actual,
+                  "Expected=" & To_String (Expected) &
+                      " /= " & To_String (Actual));
    end Ansi_To_String_1_Non_Empty_Stack;
 
    procedure Ansi_To_String_2_Non_Empty_Stack (T : in out Test) is
       pragma Unreferenced (T);
+      F        : constant Foundation.Foundation_Type := Foundation.Construct;
+      Card_1   : constant Card.Card_Type
+        := Card.Construct (Definitions.Ace,
+                           Definitions.Diamond);
+      Card_2   : constant Card.Card_Type
+        := Card.Construct (Definitions.Ace,
+                           Definitions.Heart);
+      Expected : constant Unbounded_String := Card_1.Ansi_Image &
+        To_Unbounded_String (" ") &
+        Card_2.Ansi_Image &
+        To_Unbounded_String ("      ");
+      Actual   : Unbounded_String;
    begin
-      AUnit.Assertions.Assert (False, "NOT IMPLEMENTED");
+      F.Put (Card_1);
+      F.Put (Card_2);
+      Actual := F.Ansi_To_String;
+      AUnit.
+        Assertions.
+          Assert (Expected = Actual,
+                  "Expected=" & To_String (Expected) &
+                      " /= " & To_String (Actual));
    end Ansi_To_String_2_Non_Empty_Stack;
 
    procedure Ansi_To_String_3_Non_Empty_Stack (T : in out Test) is
       pragma Unreferenced (T);
+      F        : constant Foundation.Foundation_Type := Foundation.Construct;
+      Card_1   : constant Card.Card_Type
+        := Card.Construct (Definitions.Ace,
+                           Definitions.Diamond);
+      Card_2   : constant Card.Card_Type
+        := Card.Construct (Definitions.Ace,
+                           Definitions.Heart);
+      Card_3   : constant Card.Card_Type
+        := Card.Construct (Definitions.Ace,
+                           Definitions.Club);
+      Expected : constant Unbounded_String := Card_1.Ansi_Image &
+        To_Unbounded_String (" ") &
+        Card_2.Ansi_Image &
+        To_Unbounded_String (" ") &
+        Card_3.Ansi_Image &
+        To_Unbounded_String ("   ");
+      Actual   : Unbounded_String;
    begin
-      AUnit.Assertions.Assert (False, "NOT IMPLEMENTED");
+      F.Put (Card_1);
+      F.Put (Card_2);
+      F.Put (Card_3);
+      Actual := F.Ansi_To_String;
+      AUnit.
+        Assertions.
+          Assert (Expected = Actual,
+                  "Expected=" & To_String (Expected) &
+                      " /= " & To_String (Actual));
    end Ansi_To_String_3_Non_Empty_Stack;
 
    procedure Ansi_To_String_4_Non_Empty_Stack (T : in out Test) is
       pragma Unreferenced (T);
+      F        : constant Foundation.Foundation_Type := Foundation.Construct;
+      Card_1   : constant Card.Card_Type
+        := Card.Construct (Definitions.Ace,
+                           Definitions.Diamond);
+      Card_2   : constant Card.Card_Type
+        := Card.Construct (Definitions.Ace,
+                           Definitions.Heart);
+      Card_3   : constant Card.Card_Type
+        := Card.Construct (Definitions.Ace,
+                           Definitions.Club);
+      Card_4   : constant Card.Card_Type
+        := Card.Construct (Definitions.Ace,
+                           Definitions.Spade);
+      Expected : constant Unbounded_String := Card_1.Ansi_Image &
+        To_Unbounded_String (" ") &
+        Card_2.Ansi_Image &
+        To_Unbounded_String (" ") &
+        Card_3.Ansi_Image &
+        To_Unbounded_String (" ") &
+        Card_4.Ansi_Image;
+      Actual   : Unbounded_String;
    begin
-      AUnit.Assertions.Assert (False, "NOT IMPLEMENTED");
+      F.Put (Card_1);
+      F.Put (Card_2);
+      F.Put (Card_3);
+      F.Put (Card_4);
+      Actual := F.Ansi_To_String;
+      AUnit.
+        Assertions.
+          Assert (Expected = Actual,
+                  "Expected=" & To_String (Expected) &
+                      " /= " & To_String (Actual));
    end Ansi_To_String_4_Non_Empty_Stack;
 
    --------------------------------------------------------------------

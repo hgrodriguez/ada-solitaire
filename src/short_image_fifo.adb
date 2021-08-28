@@ -1,3 +1,5 @@
+with Definitions;
+
 package body Short_Image_FIFO is
 
    --------------------------------------------------------------------
@@ -54,10 +56,10 @@ package body Short_Image_FIFO is
       end if;
       med_val := SIF.SIDLL.First_Element;
       if med_val (2) = 'D' or med_val (2) = 'H' then
-         ret_val := To_Unbounded_String (ASCII.ESC & "[31m"
+         ret_val := To_Unbounded_String (Definitions.Ansi_Red_Head
                               & med_val (1)
                               & med_val (2)
-                              & ASCII.ESC & "[0m");
+                              & Definitions.Ansi_Red_Tail);
       else
          ret_val := To_Unbounded_String (med_val);
       end if;

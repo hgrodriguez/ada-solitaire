@@ -94,10 +94,10 @@ package body Card is
    begin
       if c.Suit_Is_Red then
          Ada.Text_IO.Put_Line ("RED FOUND");
-         return To_Unbounded_String (ASCII.ESC & "[31m"
+         return To_Unbounded_String (Definitions.Ansi_Red_Head
            & Deck.Short_Image (c.Get_Rank) (1)
            & Deck.Short_Image (c.Get_Suit) (1)
-           & ASCII.ESC & "[0m");
+           & Definitions.Ansi_Red_Tail);
       else
          return To_Unbounded_String (Deck.Short_Image (c.Get_Rank) (1)
            & Deck.Short_Image (c.Get_Suit) (1));

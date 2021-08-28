@@ -248,50 +248,216 @@ package body Short_Image_FIFO.Test is
 
    procedure Ansi_Get_1_Card_Put_1_Red (T : in out Test) is
       pragma Unreferenced (T);
+      SIF      : Short_Image_FIFO.Short_Image_FIFO_Type
+        := Short_Image_FIFO.Construct;
+      C        : constant Card.Card_Type
+        := Card.Construct (Definitions.Ace,
+                           Definitions.Diamond);
+      SI       : constant Card.Short_Image_Type := C.Short_Image;
+      Expected : constant Unbounded_String := C.Ansi_Image;
+      Actual   : Unbounded_String;
    begin
-      AUnit.Assertions.Assert (False, "NOT IMPLEMENTED");
+      SIF.Put (SI);
+      Actual := SIF.Ansi_Get;
+      AUnit.Assertions.Assert (Expected = Actual,
+                               "Expected=" & To_String (Expected) &
+                                 " /= " & To_String (Actual));
    end Ansi_Get_1_Card_Put_1_Red;
 
    procedure Ansi_Get_1_Card_Put_1_Black (T : in out Test) is
       pragma Unreferenced (T);
+      SIF      : Short_Image_FIFO.Short_Image_FIFO_Type
+        := Short_Image_FIFO.Construct;
+      C        : constant Card.Card_Type
+        := Card.Construct (Definitions.Ace,
+                           Definitions.Club);
+      SI       : constant Card.Short_Image_Type := C.Short_Image;
+      Expected : constant Unbounded_String := C.Ansi_Image;
+      Actual   : Unbounded_String;
    begin
-      AUnit.Assertions.Assert (False, "NOT IMPLEMENTED");
+      SIF.Put (SI);
+      Actual := SIF.Ansi_Get;
+      AUnit.Assertions.Assert (Expected = Actual,
+                               "Expected=" & To_String (Expected) &
+                                 " /= " & To_String (Actual));
    end Ansi_Get_1_Card_Put_1_Black;
 
    procedure Ansi_Get_1_Card_Put_2_Red (T : in out Test) is
       pragma Unreferenced (T);
+      SIF      : Short_Image_FIFO.Short_Image_FIFO_Type
+        := Short_Image_FIFO.Construct;
+      C1       : constant Card.Card_Type
+        := Card.Construct (Definitions.Ace,
+                           Definitions.Heart);
+      SI1      : constant Card.Short_Image_Type := C1.Short_Image;
+      C2       : constant Card.Card_Type
+        := Card.Construct (Definitions.King,
+                           Definitions.Diamond);
+      SI2      : constant Card.Short_Image_Type := C2.Short_Image;
+      Expected : constant Unbounded_String := C1.Ansi_Image;
+      Actual   : Unbounded_String;
    begin
-      AUnit.Assertions.Assert (False, "NOT IMPLEMENTED");
+      SIF.Put (SI1);
+      SIF.Put (SI2);
+      Actual := SIF.Ansi_Get;
+      AUnit.Assertions.Assert (Expected = Actual,
+                               "Expected=" & To_String (Expected) &
+                                 " /= " & To_String (Actual));
    end Ansi_Get_1_Card_Put_2_Red;
 
    procedure Ansi_Get_1_Card_Put_2_Black (T : in out Test) is
       pragma Unreferenced (T);
+      SIF      : Short_Image_FIFO.Short_Image_FIFO_Type
+        := Short_Image_FIFO.Construct;
+      C1       : constant Card.Card_Type
+        := Card.Construct (Definitions.Ace,
+                           Definitions.Club);
+      SI1      : constant Card.Short_Image_Type := C1.Short_Image;
+      C2       : constant Card.Card_Type
+        := Card.Construct (Definitions.King,
+                           Definitions.Spade);
+      SI2      : constant Card.Short_Image_Type := C2.Short_Image;
+      Expected : constant Unbounded_String := C1.Ansi_Image;
+      Actual   : Unbounded_String;
    begin
-      AUnit.Assertions.Assert (False, "NOT IMPLEMENTED");
+      SIF.Put (SI1);
+      SIF.Put (SI2);
+      Actual := SIF.Ansi_Get;
+      AUnit.Assertions.Assert (Expected = Actual,
+                               "Expected=" & To_String (Expected) &
+                                 " /= " & To_String (Actual));
    end Ansi_Get_1_Card_Put_2_Black;
 
    procedure Ansi_Get_2_Cards_Put_2_Red_Red (T : in out Test) is
       pragma Unreferenced (T);
+      SIF       : Short_Image_FIFO.Short_Image_FIFO_Type
+        := Short_Image_FIFO.Construct;
+
+      C1        : constant Card.Card_Type
+        := Card.Construct (Definitions.Ace,
+                           Definitions.Diamond);
+      SI1       : constant Card.Short_Image_Type := C1.Short_Image;
+      Expected1 : constant Unbounded_String := C1.Ansi_Image;
+      Actual1   : Unbounded_String;
+
+      C2        : constant Card.Card_Type
+        := Card.Construct (Definitions.King,
+                           Definitions.Heart);
+      SI2       : constant Card.Short_Image_Type := C2.Short_Image;
+      Expected2 : constant Unbounded_String := C2.Ansi_Image;
+      Actual2   : Unbounded_String;
    begin
-      AUnit.Assertions.Assert (False, "NOT IMPLEMENTED");
+      SIF.Put (SI1);
+      SIF.Put (SI2);
+
+      Actual1 := SIF.Ansi_Get;
+      AUnit.Assertions.Assert (Expected1 = Actual1,
+                               "Expected=" & To_String (Expected1) &
+                                 " /= " & To_String (Actual1));
+
+      Actual2 := SIF.Ansi_Get;
+      AUnit.Assertions.Assert (Expected2 = Actual2,
+                               "Expected=" & To_String (Expected2) &
+                                 " /= " & To_String (Actual2));
    end Ansi_Get_2_Cards_Put_2_Red_Red;
 
    procedure Ansi_Get_2_Cards_Put_2_Red_Black (T : in out Test) is
       pragma Unreferenced (T);
+      SIF       : Short_Image_FIFO.Short_Image_FIFO_Type
+        := Short_Image_FIFO.Construct;
+
+      C1        : constant Card.Card_Type
+        := Card.Construct (Definitions.Ace,
+                           Definitions.Heart);
+      SI1       : constant Card.Short_Image_Type := C1.Short_Image;
+      Expected1 : constant Unbounded_String := C1.Ansi_Image;
+      Actual1   : Unbounded_String;
+
+      C2        : constant Card.Card_Type
+        := Card.Construct (Definitions.King,
+                           Definitions.Spade);
+      SI2       : constant Card.Short_Image_Type := C2.Short_Image;
+      Expected2 : constant Unbounded_String := C2.Ansi_Image;
+      Actual2   : Unbounded_String;
    begin
-      AUnit.Assertions.Assert (False, "NOT IMPLEMENTED");
+      SIF.Put (SI1);
+      SIF.Put (SI2);
+
+      Actual1 := SIF.Ansi_Get;
+      AUnit.Assertions.Assert (Expected1 = Actual1,
+                               "Expected=" & To_String (Expected1) &
+                                 " /= " & To_String (Actual1));
+
+      Actual2 := SIF.Ansi_Get;
+      AUnit.Assertions.Assert (Expected2 = Actual2,
+                               "Expected=" & To_String (Expected2) &
+                                 " /= " & To_String (Actual2));
    end Ansi_Get_2_Cards_Put_2_Red_Black;
 
    procedure Ansi_Get_2_Cards_Put_2_Black_Red (T : in out Test) is
       pragma Unreferenced (T);
+      SIF       : Short_Image_FIFO.Short_Image_FIFO_Type
+        := Short_Image_FIFO.Construct;
+
+      C1        : constant Card.Card_Type
+        := Card.Construct (Definitions.Ace,
+                           Definitions.Club);
+      SI1       : constant Card.Short_Image_Type := C1.Short_Image;
+      Expected1 : constant Unbounded_String := C1.Ansi_Image;
+      Actual1   : Unbounded_String;
+
+      C2        : constant Card.Card_Type
+        := Card.Construct (Definitions.King,
+                           Definitions.Heart);
+      SI2       : constant Card.Short_Image_Type := C2.Short_Image;
+      Expected2 : constant Unbounded_String := C2.Ansi_Image;
+      Actual2   : Unbounded_String;
    begin
-      AUnit.Assertions.Assert (False, "NOT IMPLEMENTED");
+      SIF.Put (SI1);
+      SIF.Put (SI2);
+
+      Actual1 := SIF.Ansi_Get;
+      AUnit.Assertions.Assert (Expected1 = Actual1,
+                               "Expected=" & To_String (Expected1) &
+                                 " /= " & To_String (Actual1));
+
+      Actual2 := SIF.Ansi_Get;
+      AUnit.Assertions.Assert (Expected2 = Actual2,
+                               "Expected=" & To_String (Expected2) &
+                                 " /= " & To_String (Actual2));
    end Ansi_Get_2_Cards_Put_2_Black_Red;
 
    procedure Ansi_Get_2_Cards_Put_2_Black_Black (T : in out Test) is
       pragma Unreferenced (T);
+      SIF       : Short_Image_FIFO.Short_Image_FIFO_Type
+        := Short_Image_FIFO.Construct;
+
+      C1        : constant Card.Card_Type
+        := Card.Construct (Definitions.Ace,
+                           Definitions.Club);
+      SI1       : constant Card.Short_Image_Type := C1.Short_Image;
+      Expected1 : constant Unbounded_String := C1.Ansi_Image;
+      Actual1   : Unbounded_String;
+
+      C2        : constant Card.Card_Type
+        := Card.Construct (Definitions.King,
+                           Definitions.Spade);
+      SI2       : constant Card.Short_Image_Type := C2.Short_Image;
+      Expected2 : constant Unbounded_String := C2.Ansi_Image;
+      Actual2   : Unbounded_String;
    begin
-      AUnit.Assertions.Assert (False, "NOT IMPLEMENTED");
+      SIF.Put (SI1);
+      SIF.Put (SI2);
+
+      Actual1 := SIF.Ansi_Get;
+      AUnit.Assertions.Assert (Expected1 = Actual1,
+                               "Expected=" & To_String (Expected1) &
+                                 " /= " & To_String (Actual1));
+
+      Actual2 := SIF.Ansi_Get;
+      AUnit.Assertions.Assert (Expected2 = Actual2,
+                               "Expected=" & To_String (Expected2) &
+                                 " /= " & To_String (Actual2));
    end Ansi_Get_2_Cards_Put_2_Black_Black;
 
    --------------------------------------------------------------------

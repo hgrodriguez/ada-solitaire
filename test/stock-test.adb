@@ -3,6 +3,8 @@ with Ada.Exceptions;
 with AUnit.Assertions;
 with AUnit.Test_Caller;
 
+with Definitions;
+
 package body Stock.Test is
 
    procedure Construct (T : in out Test) is
@@ -327,26 +329,71 @@ package body Stock.Test is
 
    procedure Ansi_To_String_Non_Empty_And_No_Peek (T : in out Test) is
       pragma Unreferenced (T);
+      Expected : constant Unbounded_String := Card.Ansi_Obscure_Short_Image;
+      Actual   : Unbounded_String;
+      S        : constant Stock.Stock_Type := Stock.Construct;
    begin
-      AUnit.Assertions.Assert (False, "NOT IMPLEMENTED");
+      Actual := S.Ansi_To_String;
+      AUnit.Assertions.Assert (Expected = Actual,
+                               "Expected=" & To_String (Expected) &
+                                 " /= " & To_String (Actual));
    end Ansi_To_String_Non_Empty_And_No_Peek;
 
    procedure Ansi_To_String_Non_Empty_And_Peek_Red (T : in out Test) is
       pragma Unreferenced (T);
+      S        : constant Stock.Stock_Type := Stock.Construct;
+      Expected : Unbounded_String;
+      Actual   : Unbounded_String;
+      C        : Card.Card_Type;
    begin
-      AUnit.Assertions.Assert (False, "NOT IMPLEMENTED");
+      loop
+         C := S.Peek;
+         exit when C.Suit_Is_Red;
+         C := S.Fetch_One;
+      end loop;
+      Expected := To_Unbounded_String (Definitions.Ansi_Red_Head &
+                                         C.Short_Image &
+                                         Definitions.Ansi_Red_Tail);
+      Actual := S.Ansi_To_String (Peek => True);
+      AUnit.Assertions.Assert (Expected = Actual,
+                               "Expected=" & To_String (Expected) &
+                                 " /= " & To_String (Actual));
    end Ansi_To_String_Non_Empty_And_Peek_Red;
 
    procedure Ansi_To_String_Non_Empty_And_Peek_Black (T : in out Test) is
       pragma Unreferenced (T);
+      S        : constant Stock.Stock_Type := Stock.Construct;
+      Expected : Unbounded_String;
+      Actual   : Unbounded_String;
+      C        : Card.Card_Type;
    begin
-      AUnit.Assertions.Assert (False, "NOT IMPLEMENTED");
+      loop
+         C := S.Peek;
+         exit when C.Suit_Is_Black;
+         C := S.Fetch_One;
+      end loop;
+      Expected := To_Unbounded_String (C.Short_Image);
+      Actual := S.Ansi_To_String (Peek => True);
+      AUnit.Assertions.Assert (Expected = Actual,
+                               "Expected=" & To_String (Expected) &
+                                 " /= " & To_String (Actual));
    end Ansi_To_String_Non_Empty_And_Peek_Black;
 
    procedure Ansi_To_String_Empty (T : in out Test) is
       pragma Unreferenced (T);
+      S        : constant Stock.Stock_Type := Stock.Construct;
+      Expected : constant Unbounded_String := Card.Ansi_Empty_Short_Image;
+      Actual   : Unbounded_String;
+      POC      : Pile_Of_Cards.FIFO.Pile_Type_FIFO;
+      pragma Warnings (Off, POC);
    begin
-      AUnit.Assertions.Assert (False, "NOT IMPLEMENTED");
+      while S.Size > 0 loop
+         POC := S.Fetch;
+      end loop;
+      Actual := S.Ansi_To_String;
+      AUnit.Assertions.Assert (Expected = Actual,
+                               "Expected=" & To_String (Expected) &
+                                 " /= " & To_String (Actual));
    end Ansi_To_String_Empty;
 
    --------------------------------------------------------------------

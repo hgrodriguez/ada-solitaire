@@ -8,6 +8,9 @@ package Tableau.Tests4_To_String is
 private
    type Test is new AUnit.Test_Fixtures.Test_Fixture with null record;
 
+   overriding
+   procedure Set_Up (T : in out Test);
+
    procedure To_String_Empty_Tableau (T : in out Test);
 
    procedure To_String_Pattern_1 (T : in out Test);

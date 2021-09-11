@@ -10,9 +10,18 @@ package body Tableau.Tests4_To_String is
    CR_LF : constant String
      := Ada.Characters.Latin_1.CR & Ada.Characters.Latin_1.LF;
 
+   Tab : Tableau.Tableau_Type;
+
+   overriding
+   procedure Set_Up (T : in out Test) is
+      pragma Unreferenced (T);
+   begin
+      Tab  := Tableau.Construct;
+   end Set_Up;
+
    procedure To_String_Empty_Tableau (T : in out Test) is
       pragma Unreferenced (T);
-      Tab      : constant Tableau.Tableau_Type := Tableau.Construct;
+--      Tab      : constant Tableau.Tableau_Type := Tableau.Construct;
       Expected : constant String
         := String (Tableau.HEADER_LINE) & CR_LF;
       Actual   : String (1 .. Tableau.HEADER_LINE'Length + 2);
@@ -28,7 +37,6 @@ package body Tableau.Tests4_To_String is
 
    procedure To_String_Pattern_1 (T : in out Test) is
       pragma Unreferenced (T);
-      Tab      : constant Tableau.Tableau_Type := Tableau.Construct;
       S        : Tableau_Stack.Stack_Type_Access;
       C        : Card.Card_Type;
       Expected : constant String
@@ -88,7 +96,6 @@ package body Tableau.Tests4_To_String is
 
    procedure To_String_Pattern_2 (T : in out Test) is
       pragma Unreferenced (T);
-      Tab      : constant Tableau.Tableau_Type := Tableau.Construct;
       S        : Tableau_Stack.Stack_Type_Access;
       C        : Card.Card_Type;
       Expected : constant String
@@ -162,7 +169,6 @@ package body Tableau.Tests4_To_String is
 
    procedure Ansi_To_String_Empty_Tableau (T : in out Test) is
       pragma Unreferenced (T);
-      Tab      : constant Tableau.Tableau_Type := Tableau.Construct;
       Expected : constant Unbounded_String
         := To_Unbounded_String (String (Tableau.HEADER_LINE)) & CR_LF;
       Actual   : Unbounded_String;
@@ -182,7 +188,6 @@ package body Tableau.Tests4_To_String is
 
    procedure Ansi_To_String_Pattern_1 (T : in out Test) is
       pragma Unreferenced (T);
-      Tab      : constant Tableau.Tableau_Type := Tableau.Construct;
       S        : Tableau_Stack.Stack_Type_Access;
       C        : Card.Card_Type;
       KD       : constant Card.Card_Type
@@ -252,7 +257,6 @@ package body Tableau.Tests4_To_String is
 
    procedure Ansi_To_String_Pattern_2 (T : in out Test) is
       pragma Unreferenced (T);
-      Tab      : constant Tableau.Tableau_Type := Tableau.Construct;
       S        : Tableau_Stack.Stack_Type_Access;
       C        : Card.Card_Type;
       KD       : constant Card.Card_Type

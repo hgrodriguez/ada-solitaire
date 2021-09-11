@@ -1,0 +1,9 @@
+name = "solitaire"
+description = "Solitaire card game implemneted in Ada."
+version = "0.0.0"
+
+authors = ["Holger Rodriguez"]
+maintainers = ["Holger Rodriguez <github@roseng.ch>"]
+maintainers-logins = ["hgrodriguez"]
+
+executables = ["solitaire"]

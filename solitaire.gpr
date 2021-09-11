@@ -9,6 +9,8 @@ project Solitaire is
 
    for Create_Missing_Dirs use "True";
 
+   for Exec_Dir use "bin";
+
    package Ide is
       for Vcs_Kind use "git";
       for Vcs_Repository_Root use "https://github.com/hgrodriguez/ada-solitaire";

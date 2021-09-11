@@ -6,3 +6,7 @@
 
 # Object sub directory
 obj
+obj/
+lib/
+alire/
+bin/

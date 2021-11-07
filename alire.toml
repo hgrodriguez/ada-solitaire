@@ -7,3 +7,6 @@ maintainers = ["Holger Rodriguez <github@roseng.ch>"]
 maintainers-logins = ["hgrodriguez"]
 
 executables = ["solitaire"]
+
+[[depends-on]]  # This line was added by `alr with`
+sdlada = "^2.5.4-1"  # This line was added by `alr with`

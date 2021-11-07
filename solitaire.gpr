@@ -1,3 +1,4 @@
+with "sdlada.gpr";
 with "aunit.gpr";
 
 project Solitaire is
@@ -93,4 +94,3 @@ project Solitaire is
    end Builder;
 
 end Solitaire;
-

@@ -8,5 +8,9 @@
 obj
 obj/
 lib/
-alire/
 bin/
+
+# Alire
+/alire.lock
+alire/
+

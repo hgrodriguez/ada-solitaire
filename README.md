@@ -76,3 +76,6 @@ V3.0: have a GUI interface available for interactive playing
 V4.0: implement strategies, that the computer plays the game.
 
 V-FUTURE: port it to an embedded system for playing with a small touch display
+
+## Versions implemented
+
